@@ -53,35 +53,6 @@
             return $resultado=$sql->fetchAll();
         }
 
-        /*public function listar_ticket_x_usu_asig($usu_id){
-            $conectar= parent::conexion();
-            parent::set_names();
-            $sql="SELECT 
-            tm_ticket.tick_id,
-            tm_ticket.usu_id,
-            tm_ticket.cat_id,
-            tm_ticket.tick_titulo,
-            tm_ticket.tick_descrip,
-            tm_ticket.tick_estado,
-            tm_ticket.fech_crea,
-            tm_ticket.usu_asig,
-            tm_ticket.fech_asig,
-            tm_usuario.usu_nom,
-            tm_usuario.usu_ape                
-            FROM 
-            tm_ticket
-            INNER join tm_categoria on tm_ticket.cat_id = tm_categoria.cat_id
-            INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
-            WHERE
-            tm_ticket.est = 1           
-            AND  tm_ticket.usu_asig=?";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $usu_id);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
-        */
-
         public function listar_ticket_x_id($tick_id){
             $conectar= parent::conexion();
             parent::set_names();
