@@ -25,6 +25,22 @@
 	                    </ul>
 	                </li>
 
+                    <li class="blue-dirty with-sub">
+	                    <span>
+	                    <i class="glyphicon glyphicon-list-alt"></i>
+	                    <span class="lbl">Ventas</span>
+	                    </span>
+	                    <ul>
+	                        <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Cotizaciones</span></a>
+                            </li>
+	                        <li>
+                                <a href="..\NotaPedido\"><span class="lbl">Notas de Pedido</span></a>
+                            </li>                  
+	                    </ul>
+	                </li>
+
+
                 </ul>
             </nav>            
         <?php 
