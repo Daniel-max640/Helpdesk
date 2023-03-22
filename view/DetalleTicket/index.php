@@ -91,9 +91,9 @@ if (isset($_SESSION["usu_id"])) {
                   <div class="summernote-theme-1">
                     <textarea id="tickd_descripusu" name="tickd_descripusu" class="summernote" name="name"></textarea>
                   </div>
-
                 </fieldset>
               </div>
+              
           </div>
         </div>
 

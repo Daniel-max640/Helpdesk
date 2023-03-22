@@ -40,6 +40,19 @@
 	                    </ul>
 	                </li>
 
+                    <li class="blue-dirty with-sub">
+	                    <span>
+	                    <i class="font-icon font-icon-notebook"></i>
+	                    <span class="lbl">Pedidos</span>
+	                    </span>
+	                    <ul>
+	                        <li>
+                                <a href="..\SeguimientoPedidos\"><span class="lbl">Seguimiento de Pedidos</span></a>
+                            </li>	                                   
+	                    </ul>
+	                </li>
+
+
 
                 </ul>
             </nav>            
