@@ -52,6 +52,18 @@
 	                    </ul>
 	                </li>
 
+                    <li class="blue-dirty with-sub">
+	                    <span>
+	                    <i class="font-icon font-icon-user"></i>
+	                    <span class="lbl">CRM</span>
+	                    </span>
+	                    <ul>
+	                        <li>
+                                <a href="..\MntCliente\"><span class="lbl">Mantenimiento de Clientes</span></a>
+                            </li>	                                   
+	                    </ul>
+	                </li>
+
 
 
                 </ul>

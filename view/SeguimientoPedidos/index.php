@@ -94,7 +94,7 @@
 
 						<div class="col-lg-6">
 							<fieldset class="form-group">
-								<label class="form-label semibold" for="exampleInput">Categoria</label>
+								<label class="form-label semibold" for="exampleInput">Modalidad</label>
 								<select id="cat_id" name="cat_id" class="form-control" data-placeholder="Seleccionar">
                                 <option label="Seleccionar"></option>
 								</select>
