@@ -37,7 +37,7 @@ $(document).ready(function(){
                     console.log(e.responseText);	
                 }
             },
-            "ordering": false,
+            "ordering": true,
             "bDestroy": true,
             "responsive": true,
             "bInfo":true,

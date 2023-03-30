@@ -57,8 +57,20 @@ $(document).ready(function(){
             }
         }     
     }).DataTable(); 
+
+    $.post("../../controller/tipodoc.php?op=combo",function(data, status){
+        $('#tipodoc_id').html(data);
+    });
 });
 
+
+
+$(document).on("click","#btnnuevo", function(){
+    $('#id_cliente').val('');
+    $('#mdltitulo').html('Nuevo Registro');
+    $('#cliente_form')[0].reset();
+    $('#modalmantecliente').modal('show');
+});
 
 
 init();
