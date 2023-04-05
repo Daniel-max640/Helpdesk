@@ -1,9 +1,35 @@
 var tabla;
 
 function init(){
-  
+    $("#cliente_form").on("submit",function(e){
+        guardaryeditar(e);	
+    });
 }
 
+function guardaryeditar(e){
+    e.preventDefault();
+	var formData = new FormData($("#cliente_form")[0]);
+    $.ajax({
+        url: "../../controller/cliente.php?op=guardaryeditar",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos){    
+            
+            $('#cliente_form')[0].reset();
+            $("#modalmantecliente").modal('hide');
+            $('#cliente_data').DataTable().ajax.reload();
+
+            swal({
+                title: "HelpDesk!",
+                text: "Completado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    }); 
+}
 
 $(document).ready(function(){
     tabla=$('#cliente_data').dataTable({
@@ -60,6 +86,30 @@ $(document).ready(function(){
 
     $.post("../../controller/tipodoc.php?op=combo",function(data, status){
         $('#tipodoc_id').html(data);
+    });
+
+
+    $.post("../../controller/departamento.php?op=combo",function(data, status){
+        $('#id_departamento').html(data);
+    });
+
+    $("#id_departamento").change(function(){
+        id_departamento = $(this).val();
+        $.post("../../controller/provincia.php?op=combo",{id_departamento : id_departamento},function(data, status){
+            console.log(id_departamento);
+            $('#id_provincia').html(data);
+        });
+
+    });
+
+    $("#id_provincia").change(function(){
+        id_provincia = $(this).val();
+        $.post("../../controller/distrito.php?op=combo",{id_provincia : id_provincia},function(data, status){
+            console.log(id_provincia);
+            $('#id_distrito').html(data);
+            
+        });
+
     });
 });
 

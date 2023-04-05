@@ -9,7 +9,8 @@
             </div>
             <form method="post" id="cliente_form">
                 <div class="modal-body">
-                    <input type="hidden" id="usu_id" name="usu_id">
+                    
+                    <input type="hidden" id="id_cliente" name="id_cliente">
 
                     <div class="form-group">
                         <label class="form-label semibold" for="exampleInput">Tipo/Doc</label>
@@ -36,7 +37,7 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label class="form-label semibold" for="exampleInput">Departamento</label>
-						        <select id="departamento" name="departamento" class="form-control" data-placeholder="Seleccionar">
+						        <select id="id_departamento" name="id_departamento" class="form-control" data-placeholder="Seleccionar">
 						    	    <option label="Seleccionar"></option>
 						        </select>
                         </fieldset>    
@@ -45,39 +46,39 @@
                     <div class="col-lg-4">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="exampleInput">Provincia</label>
-								<select id="nom_provincia" name="nom_provincia" class="form-control" data-placeholder="Seleccionar">
+								<select id="id_provincia" name="id_provincia" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 								</select>
 							</fieldset>
 						</div>
 
-						<div class="col-lg-4">
+					<div class="col-lg-4">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="exampleInput">Distrito</label>
-								<select id="nom_distrito" name="nom_distrito" class="form-control" data-placeholder="Seleccionar">
+								<select id="id_distrito" name="id_distrito" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 								</select>
 							</fieldset>
-						</div>
+					</div>
                     
                     <div class="form-group">
                         <label class="form-label" for="tele_cli">Telefono</label>
-                        <input type="text" class="form-control" id="tele_cli" name="tele_cli" placeholder="Ingrese Telefono" required>
+                        <input type="text" class="form-control" id="tele_cli" name="tele_cli" placeholder="Ingrese Telefono" >
                     </div>
                        
                     <div class="form-group">
-                        <label class="form-label" for="usu_correo">Correo</label>
-                        <input type="email" class="form-control" id="correo_cli" name="correo_cli" placeholder="test@test.com" required>
+                        <label class="form-label" for="correo_cli">Correo</label>
+                        <input type="email" class="form-control" id="correo_cli" name="correo_cli" placeholder="test@test.com" >
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="contacto_cli">Contacto</label>
-                        <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Contacto" required>
+                        <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Contacto" >
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="contacto_telf">Telf. Contacto</label>
-                        <input type="text" class="form-control" id="contacto_telf" name="contacto_telf" placeholder="Ingrese Telf. Contacto" required>
+                        <input type="text" class="form-control" id="contacto_telf" name="contacto_telf" placeholder="Ingrese Telf. Contacto" >
                     </div>
 
                 </div>
@@ -90,3 +91,4 @@
         </div>
     </div>
 </div>
+
