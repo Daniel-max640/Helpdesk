@@ -111,8 +111,28 @@ $(document).ready(function(){
         });
 
     });
-});
 
+
+    $("#tipodoc_id").on("change", function() {
+        var tipoDocumento = $("#tipodoc_id").val();
+        var numeroDocumento = document.getElementById("nro_doc");
+
+
+        if (tipoDocumento === "1") {
+            numeroDocumento.setAttribute("maxlength", "11");
+          } else if (tipoDocumento === "2") {
+            numeroDocumento.setAttribute("maxlength", "8");
+          } else if (tipoDocumento === "3") {
+            numeroDocumento.setAttribute("maxlength", "20");
+          } else if (tipoDocumento === "4") {
+            numeroDocumento.setAttribute("maxlength", "20");  
+          }
+
+          numeroDocumento.value = "";
+        
+       
+    });
+});
 
 
 $(document).on("click","#btnnuevo", function(){
@@ -121,6 +141,36 @@ $(document).on("click","#btnnuevo", function(){
     $('#cliente_form')[0].reset();
     $('#modalmantecliente').modal('show');
 });
+
+
+
+// Validación numérica para el campo1
+$("#tele_cli").on("input", function() {
+    var valor = $(this).val();
+    if (isNaN(valor)) {
+      // Si no es un número, puedes hacer algo, como mostrar un mensaje de error
+      $("#campo1-error").text("Por favor, ingrese solo valores numéricos en el telefono del Cliente.").show();
+    } else {
+      // Si es un número, oculta el mensaje de error si estaba visible
+      $("#campo1-error").hide();
+      
+    }
+  });
+  
+  // Validación numérica para el campo2
+  $("#contacto_telf").on("input", function() {
+    var valor = $(this).val();
+    if (isNaN(valor)) {
+      // Si no es un número, puedes hacer algo, como mostrar un mensaje de error
+      $("#campo1-error2").text("Por favor, ingrese solo valores numéricos en el telefono del Cliente.").show();
+    } else {
+        // Si es un número, oculta el mensaje de error si estaba visible
+        $("#campo1-error2").hide();
+        
+      }
+    });
+
+  
 
 
 init();

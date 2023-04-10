@@ -14,14 +14,19 @@
 
                     <div class="form-group">
                         <label class="form-label semibold" for="exampleInput">Tipo/Doc</label>
-						    <select id="tipodoc_id" name="tipodoc_id" class="form-control" data-placeholder="Seleccionar">
+						    <select id="tipodoc_id" name="tipodoc_id" class="form-control" data-placeholder="Seleccionar" required>
 						    	<option label="Seleccionar"></option>
+                                <option value="1">RUC</option>
+                                <option value="2">DNI</option>
 						    </select>
+                            
+                           
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="nro_doc">Nro. Doc</label>
                         <input type="text" class="form-control" id="nro_doc" name="nro_doc" placeholder="Ingrese Nro. Doc" required>
+                        <p id="documento-error" style="display: none; color: red;"></p>
                     </div>
 
                     <div class="form-group">
@@ -37,7 +42,7 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label class="form-label semibold" for="exampleInput">Departamento</label>
-						        <select id="id_departamento" name="id_departamento" class="form-control" data-placeholder="Seleccionar">
+						        <select id="id_departamento" name="id_departamento" class="form-control" data-placeholder="Seleccionar" required>
 						    	    <option label="Seleccionar"></option>
 						        </select>
                         </fieldset>    
@@ -46,7 +51,7 @@
                     <div class="col-lg-4">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="exampleInput">Provincia</label>
-								<select id="id_provincia" name="id_provincia" class="form-control" data-placeholder="Seleccionar">
+								<select id="id_provincia" name="id_provincia" class="form-control" data-placeholder="Seleccionar" required>
 									<option label="Seleccionar"></option>
 								</select>
 							</fieldset>
@@ -55,7 +60,7 @@
 					<div class="col-lg-4">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="exampleInput">Distrito</label>
-								<select id="id_distrito" name="id_distrito" class="form-control" data-placeholder="Seleccionar">
+								<select id="id_distrito" name="id_distrito" class="form-control" data-placeholder="Seleccionar" required>
 									<option label="Seleccionar"></option>
 								</select>
 							</fieldset>
@@ -63,23 +68,27 @@
                     
                     <div class="form-group">
                         <label class="form-label" for="tele_cli">Telefono</label>
-                        <input type="text" class="form-control" id="tele_cli" name="tele_cli" placeholder="Ingrese Telefono" >
+                        <input type="text" class="form-control" id="tele_cli" name="tele_cli" placeholder="Ingrese Telefono">
+                        <p id="campo1-error" style="display: none; color: red;"></p>
                     </div>
                        
                     <div class="form-group">
                         <label class="form-label" for="correo_cli">Correo</label>
-                        <input type="email" class="form-control" id="correo_cli" name="correo_cli" placeholder="test@test.com" >
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="contacto_cli">Contacto</label>
-                        <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Contacto" >
+                        <input type="email" class="form-control" id="correo_cli" name="correo_cli" placeholder="test@test.com" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="contacto_telf">Telf. Contacto</label>
-                        <input type="text" class="form-control" id="contacto_telf" name="contacto_telf" placeholder="Ingrese Telf. Contacto" >
+                        <input type="text" class="form-control" id="contacto_telf" name="contacto_telf" placeholder="Ingrese Telf. Contacto">
+                        <p id="campo1-error2" style="display: none; color: red;"></p>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contacto_cli">Contacto</label>
+                        <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Nombre Contacto" >
+                    </div>
+
+                   
 
                 </div>
                 
@@ -91,4 +100,6 @@
         </div>
     </div>
 </div>
+
+
 
