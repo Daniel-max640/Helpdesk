@@ -25,10 +25,6 @@
                 $sub_array[] = $row["nro_doc"];
                 $sub_array[] = $row["nom_cli"];
                 $sub_array[] = $row["direc_cli"];
-                $sub_array[] = $row["departamento"];
-                $sub_array[] = $row["nom_provincia"];
-                $sub_array[] = $row["nom_distrito"];                
-                $sub_array[] = $row["tele_cli"];
                 $sub_array[] = '<button type="button" onClick="editar('.$row["id_cliente"].');"  id="'.$row["id_cliente"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["id_cliente"].');"  id="'.$row["id_cliente"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
                 $data[] = $sub_array;
@@ -40,7 +36,27 @@
                 "iTotalDisplayRecords"=>count($data),
                 "aaData"=>$data);
             echo json_encode($results);
-            break;
+        break;
+
+        case "mostrarcliente";
+        $datos=$cliente->get_cliente_x_id($_POST["id_cliente"]);  
+        if(is_array($datos)==true and count($datos)>0){
+             foreach($datos as $row)
+             {
+                  $output["id_cliente"] = $row["id_cliente"];
+                  $output["tipodoc_id"] = $row["tipodoc_id"];
+                  $output["nro_doc"] = $row["nro_doc"];
+                  $output["nom_cli"] = $row["nom_cli"];
+                  $output["direc_cli"] = $row["direc_cli"];
+                  $output["id_departamento"] = $row["id_departamento"];
+                  $output["id_provincia"] = $row["id_provincia"];
+                  $output["id_distrito"] = $row["id_distrito"];
+                  $output["contacto_telf"] = $row["contacto_telf"];
+               }
+              echo json_encode($output);
+         }   
+        break;
+
 
        
     }

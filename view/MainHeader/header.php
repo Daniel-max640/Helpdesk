@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <a href="#" class="site-logo">
-            <img class="hidden-md-down" src="../../public/img/LOGO-LIMPIO-solo.png" alt="">
+            <img class="hidden-md-down" src="../../public/img/SANIP.png" alt="">
             <img class="hidden-lg-up" src="../../public/img/MASCARA-SANIP_Mesa-de-trabajo-1.png" alt="">
         </a>
 

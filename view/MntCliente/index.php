@@ -40,14 +40,10 @@
                             <th style="width: 8%;">Id</th>
 							<th style="width: 8%;">Tipo Doc</th>
 							<th style="width: 5%;">Numero</th>
-							<th class="d-none d-sm-table-cell" style="width: 15%;">Nombre</th>
-							<th class="d-none d-sm-table-cell" style="width: 45%;">Direccion</th>
-							<th class="d-none d-sm-table-cell" style="width: 30%;">Departamento</th>
-							<th class="d-none d-sm-table-cell" style="width: 30%;">Provincia</th>
-							<th class="d-none d-sm-table-cell" style="width: 30%;">Distrito</th>
-							<th class="d-none d-sm-table-cell" style="width: 30%;">Telefono</th>
-							<th class="text-center" style="width: 3%;"></th>
-							<th class="text-center" style="width: 3%;"></th>
+							<th class="d-none d-sm-table-cell" style="width: 20%;">Nombre</th>
+							<th class="d-none d-sm-table-cell" style="width: 30%;">Direccion</th>
+							<th class="text-center" style="width: 15%;"></th>
+							<th class="text-center" style="width: 15%;"></th>
 						</tr>
 					</thead>
 					<tbody>

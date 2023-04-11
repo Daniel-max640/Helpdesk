@@ -18,13 +18,14 @@
 						    	<option label="Seleccionar"></option>
                                 <option value="1">RUC</option>
                                 <option value="2">DNI</option>
-						    </select>
-                            
+                                <option value="3">CE</option>
+                                <option value="4">PASAPORTE</option>
+						    </select>                           
                            
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="nro_doc">Nro. Doc</label>
+                        <label class="form-label" for="nro_doc">Nro. Documento</label>
                         <input type="text" class="form-control" id="nro_doc" name="nro_doc" placeholder="Ingrese Nro. Doc" required>
                         <p id="documento-error" style="display: none; color: red;"></p>
                     </div>
@@ -49,21 +50,21 @@
                     </div>
 
                     <div class="col-lg-4">
-							<fieldset class="form-group">
-								<label class="form-label semibold" for="exampleInput">Provincia</label>
-								<select id="id_provincia" name="id_provincia" class="form-control" data-placeholder="Seleccionar" required>
-									<option label="Seleccionar"></option>
-								</select>
-							</fieldset>
-						</div>
+						<fieldset class="form-group">
+							<label class="form-label semibold" for="exampleInput">Provincia</label>
+							<select id="id_provincia" name="id_provincia" class="form-control" data-placeholder="Seleccionar" required>
+								<option label="Seleccionar"></option>
+							</select>
+						</fieldset>
+					</div>
 
 					<div class="col-lg-4">
-							<fieldset class="form-group">
-								<label class="form-label semibold" for="exampleInput">Distrito</label>
-								<select id="id_distrito" name="id_distrito" class="form-control" data-placeholder="Seleccionar" required>
-									<option label="Seleccionar"></option>
-								</select>
-							</fieldset>
+						<fieldset class="form-group">
+							<label class="form-label semibold" for="exampleInput">Distrito</label>
+							<select id="id_distrito" name="id_distrito" class="form-control" data-placeholder="Seleccionar" required>
+								<option label="Seleccionar"></option>
+							</select>
+						</fieldset>
 					</div>
                     
                     <div class="form-group">

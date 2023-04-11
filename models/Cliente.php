@@ -59,5 +59,15 @@
             return $resultado=$sql->fetchAll();
         }
 
+        public function get_cliente_x_id($id_cliente){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="call sp_l_cliente_02(?)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_cliente);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
     } 
 ?>
