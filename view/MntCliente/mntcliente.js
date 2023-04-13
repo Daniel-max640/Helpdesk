@@ -161,7 +161,7 @@ function editar(id_cliente){
         $('#direc_cli').val(data.direc_cli);
         $('#id_departamento').val(data.id_departamento).trigger('change');
         $('#id_provincia').val(data.id_provincia).trigger('change');
-        $('#id_distrito').val(data.id_distrito);
+        $('#id_distrito').val(data.id_distrito).trigger('change');
         $('#tele_cli').val(data.tele_cli);
         $('#correo_cli').val(data.correo_cli);
         $('#contacto_telf').val(data.contacto_telf);
@@ -197,7 +197,7 @@ $("#contacto_telf").on("input", function() {
     var valor = $(this).val();
     if (isNaN(valor)) {
      // Si no es un número, puedes hacer algo, como mostrar un mensaje de error
-     $("#campo1-error2").text("Por favor, ingrese solo valores numéricos en el telefono del Cliente.").show();
+     $("#campo1-error2").text("Por favor, ingrese solo valores numéricos en el telefono del Contacto.").show();
     } else {
      // Si es un número, oculta el mensaje de error si estaba visible
      $("#campo1-error2").hide();
