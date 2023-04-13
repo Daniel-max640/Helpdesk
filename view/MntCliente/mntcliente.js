@@ -129,8 +129,7 @@ $(document).ready(function(){
         $.post("../../controller/distrito.php?op=combo",{id_provincia : id_provincia},function(data, status){
             console.log(id_provincia);
             $('#id_distrito').html(data);            
-        });
-
+        });            
     });
 
     $("#tipodoc_id").on("change", function() {
@@ -152,20 +151,27 @@ $(document).ready(function(){
 
 function editar(id_cliente){
     $('#mdltitulo').html('Editar Cliente');
-
+ 
     $.post("../../controller/cliente.php?op=mostrarcliente", {id_cliente : id_cliente}, function (data) {
         data = JSON.parse(data);
+        $('#id_cliente').val(data.id_cliente);
         $('#tipodoc_id').val(data.tipodoc_id);
         $('#nro_doc').val(data.nro_doc);
         $('#nom_cli').val(data.nom_cli);
         $('#direc_cli').val(data.direc_cli);
         $('#id_departamento').val(data.id_departamento).trigger('change');
         $('#id_provincia').val(data.id_provincia).trigger('change');
-        $('#id_distrito').val(data.id_distrito).trigger('change');
+        $('#id_distrito').val(data.id_distrito);
+        $('#tele_cli').val(data.tele_cli);
+        $('#correo_cli').val(data.correo_cli);
+        $('#contacto_telf').val(data.contacto_telf);
+        $('#contacto_cli').val(data.contacto_cli);
+        
     }); 
 
     $('#modalmantecliente').modal('show');
 }
+
 $(document).on("click","#btnnuevo", function(){
     $('#id_cliente').val('');
     $('#mdltitulo').html('Nuevo Registro');

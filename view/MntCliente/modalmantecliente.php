@@ -20,8 +20,7 @@
                                 <option value="2">DNI</option>
                                 <option value="3">CE</option>
                                 <option value="4">PASAPORTE</option>
-						    </select>                           
-                           
+						    </select>                  
                     </div>
 
                     <div class="form-group">
@@ -66,6 +65,15 @@
 							</select>
 						</fieldset>
 					</div>
+
+                    <!--
+                    <div class="form-group">
+                        <label class="form-label" for="id_provincia1">Provincia</label>
+                        <input type="text" class="form-control" id="id_provincia1" name="id_provincia1" placeholder="Ingrese Provincia">
+                        <p id="campo1-error" style="display: none; color: red;"></p>
+                    </div>
+                    -->
+                       
                     
                     <div class="form-group">
                         <label class="form-label" for="tele_cli">Telefono</label>
@@ -87,9 +95,7 @@
                     <div class="form-group">
                         <label class="form-label" for="contacto_cli">Contacto</label>
                         <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Nombre Contacto" >
-                    </div>
-
-                   
+                    </div>                 
 
                 </div>
                 

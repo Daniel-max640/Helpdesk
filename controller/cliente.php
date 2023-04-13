@@ -51,7 +51,10 @@
                   $output["id_departamento"] = $row["id_departamento"];
                   $output["id_provincia"] = $row["id_provincia"];
                   $output["id_distrito"] = $row["id_distrito"];
+                  $output["tele_cli"] = $row["tele_cli"];
+                  $output["correo_cli"] = $row["correo_cli"];
                   $output["contacto_telf"] = $row["contacto_telf"];
+                  $output["contacto_cli"] = $row["contacto_cli"];
                }
               echo json_encode($output);
          }   

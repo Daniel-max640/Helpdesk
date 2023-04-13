@@ -7,7 +7,7 @@
         case "combo":
             $datos = $departamento->get_Departamento();
             $html="";
-            $html.= "<option label='Seleccionar'></option>";
+            //$html.= "<option label='Seleccionar'></option>";
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
                 {
