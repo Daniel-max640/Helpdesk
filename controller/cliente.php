@@ -10,7 +10,7 @@
                 $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);     
             }
             else {
-                $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["ubigeo"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);
+                $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);
             }
             break;
          
@@ -56,11 +56,16 @@
                   $output["contacto_telf"] = $row["contacto_telf"];
                   $output["contacto_cli"] = $row["contacto_cli"];
                }
+                
               echo json_encode($output);
+             
          }   
+         break;
+
+        case "eliminar":
+            $cliente->delete_cliente($_POST["id_cliente"]);
         break;
 
-
-       
+        
     }
 ?>

@@ -1,5 +1,5 @@
 var tabla;
-
+var modo;
 function init(){
     $("#cliente_form").on("submit",function(e){
         guardaryeditar(e);	
@@ -111,26 +111,16 @@ $(document).ready(function(){
         $('#tipodoc_id').html(data);
     });
 
-    $.post("../../controller/departamento.php?op=combo",function(data, status){
-        $('#id_departamento').html(data);
+ 
+    $.post("../../controller/provincia.php?op=combo2", function(data, status) {
+        $('#id_provincia').html(data);
+     // Limpiar el combo de distrito
     });
 
-    $("#id_departamento").change(function(){
-        id_departamento = $(this).val();
-        $.post("../../controller/provincia.php?op=combo",{id_departamento : id_departamento},function(data, status){
-            console.log(id_departamento);
-            $('#id_provincia').html(data);
-        });
-
-    });
-
-    $("#id_provincia").change(function(){
-        id_provincia = $(this).val();
-        $.post("../../controller/distrito.php?op=combo",{id_provincia : id_provincia},function(data, status){
-            console.log(id_provincia);
-            $('#id_distrito').html(data);            
-        });            
-    });
+    $.post("../../controller/distrito.php?op=combo3", function(data, status) {
+        $('#id_distrito').html(data);
+     // Limpiar el combo de distrito
+    });    
 
     $("#tipodoc_id").on("change", function() {
         var tipoDocumento = $("#tipodoc_id").val();
@@ -145,38 +135,63 @@ $(document).ready(function(){
             numeroDocumento.setAttribute("maxlength", "20");  
           }
           numeroDocumento.value = "";  
-    });
+    });    
 });
 
+function cargarProvinciasYDistritos() {
 
-function editar(id_cliente){
-    $('#mdltitulo').html('Editar Cliente');
- 
-    $.post("../../controller/cliente.php?op=mostrarcliente", {id_cliente : id_cliente}, function (data) {
-        data = JSON.parse(data);
-        $('#id_cliente').val(data.id_cliente);
-        $('#tipodoc_id').val(data.tipodoc_id);
-        $('#nro_doc').val(data.nro_doc);
-        $('#nom_cli').val(data.nom_cli);
-        $('#direc_cli').val(data.direc_cli);
-        $('#id_departamento').val(data.id_departamento).trigger('change');
-        $('#id_provincia').val(data.id_provincia).trigger('change');
-        $('#id_distrito').val(data.id_distrito).trigger('change');
-        $('#tele_cli').val(data.tele_cli);
-        $('#correo_cli').val(data.correo_cli);
-        $('#contacto_telf').val(data.contacto_telf);
-        $('#contacto_cli').val(data.contacto_cli);
-        
-    }); 
+    $.post("../../controller/departamento.php?op=combo",function(data, status){
+        $('#id_departamento').html(data);
+    });
+    // Cargar provincias según el departamento seleccionado
+    $("#id_departamento").on("change", function() {
+        var id_departamento = $(this).val();
+        $.post("../../controller/provincia.php?op=combo", {id_departamento: id_departamento}, function(data, status) {
+            $('#id_provincia').html(data);
+           // Limpiar el combo de distrito
+        });
+    });
 
+    //  $('#id_distrito').html('<option value=""></option>');
+    // Cargar distritos según la provincia seleccionada
+    $("#id_provincia").on("change", function() {
+        var id_provincia = $(this).val();
+        $.post("../../controller/distrito.php?op=combo", {id_provincia: id_provincia}, function(data, status) {
+            $('#id_distrito').html(data);            
+        });
+    });
+}
+
+function editar(id_cliente){     
+    cargarProvinciasYDistritos();
+    $('#mdltitulo').html('Editar Cliente');        
     $('#modalmantecliente').modal('show');
+        $.post("../../controller/cliente.php?op=mostrarcliente", {id_cliente : id_cliente}, function (data) {
+            data = JSON.parse(data);
+            $('#id_cliente').val(data.id_cliente);
+            $('#tipodoc_id').val(data.tipodoc_id);
+            $('#nro_doc').val(data.nro_doc);
+            $('#nom_cli').val(data.nom_cli);
+            $('#direc_cli').val(data.direc_cli);
+            $('#id_departamento').val(data.id_departamento);
+            $('#id_provincia').val(data.id_provincia);
+            $('#id_distrito').val(data.id_distrito);
+            $('#tele_cli').val(data.tele_cli);
+            $('#correo_cli').val(data.correo_cli);
+            $('#contacto_telf').val(data.contacto_telf);
+            $('#contacto_cli').val(data.contacto_cli);     
+            console.log(data);         
+                
+         })         
 }
 
 $(document).on("click","#btnnuevo", function(){
+    cargarProvinciasYDistritos();
     $('#id_cliente').val('');
     $('#mdltitulo').html('Nuevo Registro');
     $('#cliente_form')[0].reset();
     $('#modalmantecliente').modal('show');
+  
 });
 
 // Validación numérica para el campo1
@@ -187,8 +202,7 @@ $("#tele_cli").on("input", function() {
       $("#campo1-error").text("Por favor, ingrese solo valores numéricos en el telefono del Cliente.").show();
     } else {
       // Si es un número, oculta el mensaje de error si estaba visible
-      $("#campo1-error").hide();
-      
+      $("#campo1-error").hide();      
     }
 });
   
@@ -200,9 +214,38 @@ $("#contacto_telf").on("input", function() {
      $("#campo1-error2").text("Por favor, ingrese solo valores numéricos en el telefono del Contacto.").show();
     } else {
      // Si es un número, oculta el mensaje de error si estaba visible
-     $("#campo1-error2").hide();
-        
+     $("#campo1-error2").hide();        
     }
 });
+
+function eliminar(id_cliente){
+    swal({
+        title: "HelpDesk",
+        text: "Esta seguro de Eliminar el registro?",
+        type: "error",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $.post("../../controller/cliente.php?op=eliminar", {id_cliente : id_cliente}, function (data) {
+
+            }); 
+
+            $('#cliente_data').DataTable().ajax.reload();	
+
+            swal({
+                title: "HelpDesk!",
+                text: "Registro Eliminado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
 
 init();

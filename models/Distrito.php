@@ -11,5 +11,19 @@
             return $resultado=$sql->fetchAll();
         }
 
+        
+        public function get_distri(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_distrito WHERE estado=1;";
+            $sql=$conectar->prepare($sql);
+            $sql->execute(); 
+            return $resultado=$sql->fetchAll();
+        }
+
+        
+       
+
+
     }
 ?>

@@ -10,5 +10,9 @@
             return $resultado=$sql->fetchAll();
         }
 
-    }
+    
+
+    
+}
+
 ?>

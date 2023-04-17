@@ -7,7 +7,7 @@
         case "combo":
             $datos = $distrito->get_distrito($_POST["id_provincia"]);
             $html="";
-            //$html.="<option label='Seleccionar'></option>";
+            $html.="<option label='Seleccionar'></option>";
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
                 {
@@ -16,5 +16,19 @@
                 echo $html;
             }
         break;
+
+        case "combo3":
+            $datos = $distrito->get_distri();
+            $html="";
+            $html.="<option label='Seleccionar'></option>";
+            if(is_array($datos)==true and count($datos)>0){
+                foreach($datos as $row)
+                {
+                    $html.= "<option value='".$row['id_distrito']."'>".$row['nom_distrito']."</option>";
+                }
+                echo $html;
+            }
+        break;
+
     }
 ?>
