@@ -6764,12 +6764,12 @@ hr.margin-4 {
   border-color: #bec6cc;
 }
 .btn.btn-primary {
-  background-color: #00a8ff;
-  border-color: #00a8ff;
+  background-color: #0bb197;
+  border-color: #0bb197;
 }
 .btn.btn-primary:hover {
-  background-color: #16b4fc;
-  border-color: #16b4fc;
+  background-color: #00f4d5;
+  border-color: #00f4d5;
 }
 .btn.btn-secondary {
   background-color: #6b7a85;
@@ -6905,6 +6905,8 @@ hr.margin-4 {
 .btn.btn-inline {
   margin-right: 8px;
   margin-bottom: 8px;
+  float: right;
+  
 }
 .btn .font-icon-left {
   margin: 0 5px 0 0;

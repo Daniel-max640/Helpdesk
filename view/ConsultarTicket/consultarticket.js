@@ -192,8 +192,5 @@ function CambiarEstado(tick_id){
             });
         }
     });
-}
- 
-
-    
+}    
 init();
