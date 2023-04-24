@@ -29,7 +29,7 @@
 							</ol>
 						</div>						
 						<div class="tbl-cell">
-						<button onclick="generarPedidos()" type="button" id="btnnuevo" class="btn btn-inline btn-primary">Generar Nota de Pedido<i class="fa fa-edit"></i></button>					
+						<button type="button" id="btnnuevo" class="btn btn-inline btn-primary">Generar Nota de Pedido<i class="fa fa-edit"></i></button>					
 					
 						</div>
 					</div>					

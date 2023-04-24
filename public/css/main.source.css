@@ -6908,6 +6908,15 @@ hr.margin-4 {
   float: right;
   
 }
+
+#btnagregar {
+    margin-right: 8px;
+  margin-bottom: 8px;
+ 
+  background-color: #00c3aa;
+  border-color: #00c3aa;
+}
+
 .btn .font-icon-left {
   margin: 0 5px 0 0;
   position: relative;

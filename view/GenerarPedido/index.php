@@ -48,23 +48,22 @@
 						    <div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">RUC/DNI</label>
-									<input type="text" class="form-control" id="tick_titulo" name="tick_titulo" placeholder="Ingrese RUC/DNI">
+									<input type="text" class="form-control" id="nro_doc" name="nro_doc" placeholder="Ingrese RUC/DNI">
 									</select>
 								</fieldset>
 							</div>                      
 
 							<div class="col-lg-4">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Razon Social</label>
-									<input type="text" class="form-control" id="tick_titulo" name="tick_titulo">
+									<label class="form-label semibold" for="exampleInput">Razon Social/Nombres</label>
+									<input type="text" class="form-control" id="nom_cli" name="nom_cli" readonly>
 								</fieldset>
-							</div>
-						
+							</div>						
 
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Direccion</label>
-									<input type="text" class="form-control" id="tick_direccion" name="tick_direccion">
+									<input type="text" class="form-control" id="direc_cli" name="direc_cli">
 								</fieldset>
 							</div>
 
@@ -80,7 +79,7 @@
 							<div class="col-lg-1">
 								<div class="form-group">
 									<label class="form-label semibold" for="exampleInput">Moneda</label>
-										<select id="moneda" name="moneda	" class="form-control" data-placeholder="Seleccionar" required>
+										<select id="moneda" name="moneda" class="form-control" data-placeholder="Seleccionar" required>
 											<option value="1">SOLES</option>
 											<option value="2">DOLARES</option>										
 										</select>                  
@@ -90,7 +89,7 @@
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto</label>
-									<input type="text" class="form-control" id="tick_titulo" name="tick_titulo" placeholder="Ingrese Nombre">
+									<input type="text" class="form-control" id="contacto" name="contacto" placeholder="Ingrese Nombre">
   								</fieldset>
 							</div>
 
@@ -104,7 +103,7 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Modalidad</label>
-									<select id="cat_id" name="cat_id" class="form-control" data-placeholder="Seleccionar">
+									<select id="modalidad" name="modalidad" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
@@ -112,7 +111,7 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Asesor</label>
-									<input type="text" id="usu_id" name="usu_id" class="form-control">
+									<input type="text" id="asesor" name="asesor" class="form-control" readonly>
 								</fieldset>
 							</div>
 							
@@ -130,31 +129,55 @@
 									<label class="form-label semibold" for="exampleInput">Correo</label>
 									<input type="text" class="form-control" id="correo" name="correo" placeholder="Ingrese Nombre">
   								</fieldset>
-							</div>
-							
-							<div class="col-lg-4">
+							</div>						
+								
+							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Fecha Entrega</label>
-									<div class="input-group date">
-									<input id="daterange3" type="text" value="" class="form-control">
-									<span class="input-group-append">
-										<span class="input-group-text"><i class="font-icon font-icon-calend"></i></span>
-									</span>
-								</div>
+									<label class="form-label semibold" for="exampleInput">Fecha Emision</label>
+									<div class="input-group icon icon-lg icon-color-primary">
+										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
+                                		<span class="input-group-append" data-toggle="">
+										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
+                                    	</span>
+									</div>
 								</fieldset>
 							</div>
-
-							
+													
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
-									<input type="file" name="fileElem" id="fileElem" class="form-control" multiple>
+									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
 								</fieldset>
 							</div>
+
+							<div class="col-lg-12">
+							<div class="box-typical box-typical-padding">				
+								<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+									<thead>
+										<tr>
+											<th style="width: 5%;">Id</th>
+											<th style="width: 28%;">Descripción</th>
+											<th style="width: 5%;">cantidad</th>
+											<th class="d-none d-sm-table-cell" style="width: 5%;">Precio Unitario</th>
+											<th class="d-none d-sm-table-cell" style="width: 5%;">Sub-Total</th>
+											<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
+											<th class="text-center" style="width: 5%;"></th>
+											<th class="text-center" style="width: 5%;"></th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							</div>
+
+							<div class="col-lg-12">								
+								<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
+							</div>	
 							
 							<div class="col-lg-12">
-								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar</button>
-							</div>
+								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Generar Pedido</button>
+							</div>							
 					</form>
 				</div>
 
@@ -165,7 +188,7 @@
 
 	<?php require_once("../MainJs/js.php");?>
 
-	<script type="text/javascript" src="pedidos.js"></script>
+	<script type="text/javascript" src="generarpedido.js"></script>
 
 </body>
 </html>

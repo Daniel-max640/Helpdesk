@@ -27,5 +27,19 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+     
+        public function buscarCliente($nro_doc) {
+            $conectar= parent::conexion(); 
+            parent::set_names();           
+            // Consulta para buscar al cliente
+            $sql = "SELECT * FROM tm_cliente WHERE nro_doc = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $nro_doc);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+     
+
     }
 ?>

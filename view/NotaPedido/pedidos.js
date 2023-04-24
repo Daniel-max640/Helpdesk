@@ -130,12 +130,31 @@ function eliminar(usu_id){
     });
 }
 
-
-
-
 $(document).on("click","#btnnuevo", function(){
  
-    window.open('http://localhost/Tutorial_Helpdesk-main/view/NotaPedido/generarPedido.php');
+    window.open('http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/');
 });
+
+
+		$(function() {
+			
+			/* ==========================================================================
+			 Datepicker
+			 ========================================================================== */
+
+			$('.flatpickr').flatpickr();
+			$("#flatpickr-disable-range").flatpickr({
+				disable: [
+					{
+						from: "2016-08-16",
+						to: "2016-08-19"
+					},
+					"2016-08-24",
+					new Date().fp_incr(30) // 30 days from now
+				]
+			});
+		});
+
+
 
 init();
