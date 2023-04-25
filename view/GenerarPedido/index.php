@@ -63,7 +63,7 @@
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Direccion</label>
-									<input type="text" class="form-control" id="direc_cli" name="direc_cli">
+									<input type="text" class="form-control" id="direc_cli" name="direc_cli" readonly>
 								</fieldset>
 							</div>
 
@@ -133,7 +133,7 @@
 								
 							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Fecha Emision</label>
+									<label class="form-label semibold" for="exampleInput">Fecha Servicio</label>
 									<div class="input-group icon icon-lg icon-color-primary">
 										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
                                 		<span class="input-group-append" data-toggle="">
@@ -185,7 +185,7 @@
 		</div>
 	</div>
 	<!-- Contenido -->
-
+	<?php require_once("modalagregarproductos.php");?>
 	<?php require_once("../MainJs/js.php");?>
 
 	<script type="text/javascript" src="generarpedido.js"></script>

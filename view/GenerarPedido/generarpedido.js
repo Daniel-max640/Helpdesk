@@ -54,4 +54,11 @@ $("#flatpickr-disable-range").flatpickr({
 		});
 	});
 
+  $(document).on("click","#btnagregar", function(){
+    $('#usu_id').val('');
+    $('#mdltitulo').html('Agregar productos/Servicios');
+    $('#usuario_form')[0].reset();
+    $('#modalagregarproductos').modal('show');
+});
+
 init();
