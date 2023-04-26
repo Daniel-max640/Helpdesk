@@ -31,6 +31,15 @@
 	                    <span class="lbl">Ventas</span>
 	                    </span>
 	                    <ul>
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Comprobante Electronico</span></a>
+                            </li>
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Listado Comprobantes</span></a>
+                            </li>
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Notas de Venta</span></a>
+                            </li>
 	                        <li>
                                 <a href="..\NuevoTicket\"><span class="lbl">Cotizaciones</span></a>
                             </li>
@@ -39,6 +48,25 @@
                             </li>                  
 	                    </ul>
 	                </li>
+
+                    <li class="blue-dirty with-sub">
+	                    <span>
+	                    <i class="glyphicon glyphicon-list-alt"></i>
+	                    <span class="lbl">Productos/Servicios</span>
+	                    </span>
+	                    <ul>
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Portatiles</span></a>
+                            </li>
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Servicios</span></a>
+                            </li>
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Modelos de Portatiles</span></a>
+                            </li>
+	                    </ul>
+	                </li>
+
 
                     <li class="blue-dirty with-sub">
 	                    <span>
@@ -55,7 +83,7 @@
                     <li class="blue-dirty with-sub">
 	                    <span>
 	                    <i class="font-icon font-icon-user"></i>
-	                    <span class="lbl">CRM</span>
+	                    <span class="lbl">Clientes</span>
 	                    </span>
 	                    <ul>
 	                        <li>
