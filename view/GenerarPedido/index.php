@@ -129,19 +129,14 @@
 									<label class="form-label semibold" for="exampleInput">Correo</label>
 									<input type="text" class="form-control" id="correo" name="correo" placeholder="Ingrese Nombre">
   								</fieldset>
-							</div>						
-								
-							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Fecha Servicio</label>
-									<div class="input-group icon icon-lg icon-color-primary">
-										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
-                                		<span class="input-group-append" data-toggle="">
-										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
-                                    	</span>
-									</div>
-								</fieldset>
 							</div>
+							
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
+									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
+  								</fieldset>
+							</div>						
 													
 							<div class="col-lg-4">
 								<fieldset class="form-group">
@@ -150,7 +145,29 @@
 								</fieldset>
 							</div>
 
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
+									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
+  								</fieldset>
+  							</div>
+
+							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
+									<div class="input-group icon icon-lg icon-color-primary">
+										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
+                                		<span class="input-group-append" data-toggle="">
+										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
+                                    	</span>
+									</div>
+								</fieldset>
+							</div>
+
 							<div class="col-lg-12">
+							<div class="col-lg-4">								
+								<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
+							</div>
 							<div class="box-typical box-typical-padding">				
 								<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 									<thead>
@@ -171,9 +188,7 @@
 							</div>
 							</div>
 
-							<div class="col-lg-12">								
-								<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
-							</div>	
+								
 							
 							<div class="col-lg-12">
 								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Generar Pedido</button>
