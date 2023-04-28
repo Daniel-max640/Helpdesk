@@ -33,10 +33,7 @@
 				</div>
 			</header>
 
-			<div class="box-typical box-typical-padding">
-				<p>
-					Desde esta ventana podra generar Nuevos Pedidos.
-				</p>
+			<div class="box-typical box-typical-padding">			
 
 				<h5 class="m-t-lg with-border">Ingresar Información</h5>
 
@@ -164,6 +161,15 @@
 								</fieldset>
 							</div>
 
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
+									<select id="id_pago" name="id_pago" class="form-control" data-placeholder="Seleccionar">
+									<option label="Seleccionar"></option>
+									</select>
+								</fieldset>
+							</div>
+
 							<div class="col-lg-12">
 							<div class="col-lg-4">								
 								<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
@@ -189,7 +195,15 @@
 							</div>
 
 								
-							
+							<div class="col-lg-12">
+								<fieldset class="form-group">
+								<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
+								<div class="summernote-theme-1">
+									<textarea id="tickd_requi" name="tickd_requi" class="summernote" name="name"></textarea>
+								</div>
+								</fieldset>
+							</div>
+
 							<div class="col-lg-12">
 								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Generar Pedido</button>
 							</div>							

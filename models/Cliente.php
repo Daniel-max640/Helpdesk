@@ -1,9 +1,22 @@
 <?php
     class Cliente extends Conectar{
    
-            public function insert_cliente($tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){
+        public function insert_cliente($tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){
             $conectar= parent::conexion();
             parent::set_names();
+
+            // Verificar si ya existe un cliente con el mismo número de documento
+        $sql_count = "SELECT COUNT(*) FROM tm_cliente WHERE nro_doc = ?";
+        $stmt = $conectar->prepare($sql_count);
+        $stmt->bindValue(1, $nro_doc);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            throw new Exception("Ya existe un cliente con el mismo número de documento.");
+        }
+
+         try { 
             $sql="INSERT INTO tm_cliente (id_cliente, tipodoc_id, nro_doc, nom_cli, direc_cli, id_departamento, id_provincia, id_distrito, tele_cli, correo_cli, contacto_telf, contacto_cli, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?, now(), NULL, NULL, '1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $tipodoc_id);
@@ -19,10 +32,13 @@
             $sql->bindValue(11, $contacto_cli);   
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }
-
-
-       public function update_cliente($id_cliente,$tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){
+            
+         } catch (Exception $e) {
+            throw new Exception("Error al insertar el cliente: " . $e->getMessage());
+         }
+        } 
+        
+        public function update_cliente($id_cliente,$tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_cliente set
@@ -87,13 +103,23 @@
         }
 
         public function delete_cliente($id_cliente){
-            $conectar= parent::conexion();
-            parent::set_names();
+            $conectar= parent::conexion(); 
+            parent::set_names();  
             $sql="call sp_d_cliente_01(?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $id_cliente);
             $sql->execute();
             return $resultado=$sql->fetchAll();
+        }
+
+        public function validar_documento($nro_doc){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT COUNT(*) AS existe FROM tm_cliente WHERE nro_doc = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $nro_doc);
+            $resultado=$sql->fetch(PDO::FETCH_ASSOC);
+            return $resultado['existe'] > 0;
         }
 
     } 

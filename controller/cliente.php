@@ -12,7 +12,7 @@
             else {
                 $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);
             }
-            break;
+        break;
          
 
         case "listar":
@@ -66,6 +66,7 @@
             $cliente->delete_cliente($_POST["id_cliente"]);
         break;
 
+      
         
     }
 ?>
