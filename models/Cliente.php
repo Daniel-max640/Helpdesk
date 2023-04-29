@@ -13,29 +13,31 @@
         $count = $stmt->fetchColumn();
 
         if ($count > 0) {
-            throw new Exception("Ya existe un cliente con el mismo número de documento.");
-        }
-
-         try { 
-            $sql="INSERT INTO tm_cliente (id_cliente, tipodoc_id, nro_doc, nom_cli, direc_cli, id_departamento, id_provincia, id_distrito, tele_cli, correo_cli, contacto_telf, contacto_cli, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?, now(), NULL, NULL, '1');";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $tipodoc_id);
-            $sql->bindValue(2, $nro_doc);
-            $sql->bindValue(3, $nom_cli);
-            $sql->bindValue(4, $direc_cli);
-            $sql->bindValue(5, $id_departamento);
-            $sql->bindValue(6, $id_provincia);
-            $sql->bindValue(7, $id_distrito);
-            $sql->bindValue(8, $tele_cli);
-            $sql->bindValue(9, $correo_cli);
-            $sql->bindValue(10, $contacto_telf);
-            $sql->bindValue(11, $contacto_cli);   
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-            
-         } catch (Exception $e) {
-            throw new Exception("Error al insertar el cliente: " . $e->getMessage());
-         }
+            echo "El número de documento ya existe";
+            return false;
+        } else {   
+                $sql="INSERT INTO tm_cliente (id_cliente, tipodoc_id, nro_doc, nom_cli, direc_cli, id_departamento, id_provincia, id_distrito, tele_cli, correo_cli, contacto_telf, contacto_cli, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?, now(), NULL, NULL, '1');";
+                $sql=$conectar->prepare($sql);
+                $sql->bindValue(1, $tipodoc_id);
+                $sql->bindValue(2, $nro_doc);
+                $sql->bindValue(3, $nom_cli);
+                $sql->bindValue(4, $direc_cli);
+                $sql->bindValue(5, $id_departamento);
+                $sql->bindValue(6, $id_provincia);
+                $sql->bindValue(7, $id_distrito);
+                $sql->bindValue(8, $tele_cli);
+                $sql->bindValue(9, $correo_cli);
+                $sql->bindValue(10, $contacto_telf);
+                $sql->bindValue(11, $contacto_cli);   
+                $sql->execute();
+                
+                if ($sql->rowCount() > 0) {
+                    return true; // El cliente se insertó correctamente
+                } else {
+                    return false; // Error al insertar el cliente
+                }        
+                
+            }
         } 
         
         public function update_cliente($id_cliente,$tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){

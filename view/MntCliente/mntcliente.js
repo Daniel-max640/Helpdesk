@@ -36,21 +36,39 @@ function guardaryeditar(e){
         data: formData,
         contentType: false,
         processData: false,
+        // parte de este codigo me recupera los mensajes del servidor 
+        //y lo imprime en la interfaz
         success: function (datos) {
-            $('#cliente_form')[0].reset();
-            $("#modalmantecliente").modal('hide');
-            $('#cliente_data').DataTable().ajax.reload();
-
-            swal({
-                title: "HelpDesk!",
-                text: "Completado.",
-                type: "success",
-                confirmButtonClass: "btn-success"
-            });
+            if (datos.includes("Error al insertar el cliente")) {
+                swal({
+                    title: "Error!",
+                    text: datos,
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+            } else {
+                $('#nro_doc').val('');
+                $('#cliente_form')[0].reset();
+                $("#modalmantecliente").modal('hide');
+                $('#cliente_data').DataTable().ajax.reload();
+        
+                swal({
+                    title: "HelpDesk!",
+                    text: "Cliente Insertado Correctamente.",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
+            }
         },
-        error: function () {
-            alert("Se produjo un error al guardar la información.");
+        error: function (xhr, ajaxOptions, thrownError) {
+            swal({
+                title: "Error!",
+                text: "Ha ocurrido un error al procesar la solicitud.",
+                type: "error",
+                confirmButtonClass: "btn-danger"
+            });
         }
+     
     });
 }
 

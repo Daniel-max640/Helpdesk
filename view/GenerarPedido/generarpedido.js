@@ -75,4 +75,12 @@ $("#flatpickr-disable-range").flatpickr({
     $('#modalagregarproductos').modal('show');
 });
 
+function actualizarCantidad(cantidad) {
+  var inputCantidad = document.getElementById("cantidad_producto");
+  var nuevaCantidad = parseInt(inputCantidad.value) + cantidad;
+  if (nuevaCantidad >= 1) {
+      inputCantidad.value = nuevaCantidad;
+  }
+}
+
 init();

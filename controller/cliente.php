@@ -7,7 +7,14 @@
        
         case "guardaryeditar":
             if(empty($_POST["id_cliente"])){              
-                $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);     
+                $resultado = $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);     
+                if ($resultado) {
+                    // El cliente se insertó correctamente
+                    echo "Cliente insertado correctamente.";
+                } else {
+                    // Error al insertar el cliente
+                    echo "Error al insertar el cliente.";
+                }
             }
             else {
                 $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);

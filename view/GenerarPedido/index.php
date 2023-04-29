@@ -99,7 +99,7 @@
 
 							<div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Modalidad</label>
+									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
 									<select id="modalidad" name="modalidad" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
@@ -144,10 +144,17 @@
 
 							<div class="col-lg-4">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
+									<label class="form-label semibold" for="exampleInput">Contacto de  Servico/Entrega</label>
 									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
   								</fieldset>
   							</div>
+
+							  <div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Telf. Contacto Servicio/Entrega</label>
+									<input type="text" id="telf_contacto" name="telf_contacto" class="form-control">
+								</fieldset>
+							</div>
 
 							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
@@ -161,7 +168,7 @@
 								</fieldset>
 							</div>
 
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
 									<select id="id_pago" name="id_pago" class="form-control" data-placeholder="Seleccionar">

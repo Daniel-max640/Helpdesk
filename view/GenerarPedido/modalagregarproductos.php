@@ -21,20 +21,23 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-4">
+                       
+                        <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="control-label">Cantidad</label> 
-                                <div class="el-input el-input--small el-input-group el-input-group--append el-input-group--prepend">
-                                    <div class="el-input-group__prepend">
-                                        <button type="button" class="el-button el-button--default el-button--small" style="padding-right: 5px; padding-left: 12px;"><!----><i class="el-icon-minus"></i><!----></button></div>
-                                        <input tabindex="2" type="text" autocomplete="off" class="el-input__inner"><!----><!---->
-                                        <div class="el-input-group__append">
-                                        <button type="button" class="el-button el-button--default el-button--small" style="padding-right: 5px; padding-left: 12px;"><!----><i class="el-icon-plus"></i><!----></button></div><!---->
-                                    </div> <!---->
+                                <label class="control-label">Cantidad</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                    <input type="text" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus"><i class="fa fa-plus"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                      
+            
                         
                     
                         <div class="col-lg-4">
