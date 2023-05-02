@@ -78,7 +78,7 @@
             $conectar= parent::conexion(); 
             parent::set_names();           
             // Consulta para buscar al cliente
-            $sql = "SELECT * FROM tm_cliente WHERE nro_doc = ?";
+            $sql = "SELECT * FROM tm_cliente WHERE nro_doc = ? and est = 1";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $nro_doc);
             $sql->execute();

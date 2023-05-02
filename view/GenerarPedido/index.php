@@ -156,18 +156,6 @@
 								</fieldset>
 							</div>
 
-							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
-									<div class="input-group icon icon-lg icon-color-primary">
-										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
-                                		<span class="input-group-append" data-toggle="">
-										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
-                                    	</span>
-									</div>
-								</fieldset>
-							</div>
-
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
@@ -176,6 +164,20 @@
 									</select>
 								</fieldset>
 							</div>
+
+							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
+									<div id="input-group" class="input-group icon icon-lg icon-color-primary">
+										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
+                                		<span class="input-group-append" data-toggle="">
+										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
+                                    	</span>
+									</div>
+								</fieldset>
+							</div>
+
+						
 
 							<div class="col-lg-12">
 							<div class="col-lg-4">								
@@ -186,10 +188,9 @@
 									<thead>
 										<tr>
 											<th style="width: 5%;">Id</th>
-											<th style="width: 28%;">Descripción</th>
+											<th style="width: 25%;">Descripción</th>
 											<th style="width: 5%;">cantidad</th>
-											<th class="d-none d-sm-table-cell" style="width: 5%;">Precio Unitario</th>
-											<th class="d-none d-sm-table-cell" style="width: 5%;">Sub-Total</th>
+											<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
 											<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
 											<th class="text-center" style="width: 5%;"></th>
 											<th class="text-center" style="width: 5%;"></th>

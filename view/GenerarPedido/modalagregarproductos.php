@@ -7,51 +7,59 @@
                 </button>
                 <h4 class="modal-title" id="mdltitulo"></h4>
             </div>
-            <form method="post" id="usuario_form">
+            <form method="post" id="productos_form">
                 <div class="modal-body">
                     <div class="container-fluid">
     
                         <input type="hidden" id="usu_id" name="usu_id">
-                        <div class="row">
-                            <div class="col-lg-12">
+                        
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label class="form-label" for="descripcion">Producto/Servicio</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese producto" required>
+                                <ul id="lista-resultados"></ul>
+                            </div>
+                         </div>
+
+                         
+                       <div class="col-lg-3">
+                            <div class="row">
                                 <div class="form-group">
-                                    <label class="form-label" for="usu_nom">Producto/Servicio</label>
-                                    <input type="text" class="form-control" id="usu_nom" name="usu_nom" placeholder="Ingrese Nombre" required>
+                                    <label class="form-label">Cantidad</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-default" data-type="minus"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                        <input type="text" id="cantidad" name="cantidad" class="form-control input-number" value="1" min="1" max="1000">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-default" data-type="plus"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                       </div> 
+                    
+                        
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="form-label" for="id_medida">U.Medida</label>
+                                <input type="text" class="form-control" id="id_medida" name="id_medida" required readonly>
                             </div>
                         </div>
 
-                       
-                        <div class="col-lg-4">
+
+                        <div class="col-lg-3">
                             <div class="form-group">
-                                <label class="control-label">Cantidad</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"><i class="fa fa-minus"></i></button>
-                                    </div>
-                                    <input type="text" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-default btn-number" data-type="plus"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      
-            
-                        
-                    
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-label" for="usu_correo">Precio Unitario</label>
-                                <input type="email" class="form-control" id="usu_correo" name="usu_correo" required>
+                                <label class="form-label" for="precio">Precio Unitario</label>
+                                <input type="text" class="form-control" id="precio" name="precio" required>
                             </div>
                         </div>
                         
                     
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <div class="form-group">
-                                <label class="form-label" for="usu_pass">Total</label>
-                                <input type="text" class="form-control" id="usu_pass" name="usu_pass" required readonly>
+                                <label class="form-label" for="total">Total</label>
+                                <input type="text" class="form-control" id="Total" name="Total" required readonly>
                             </div>
                         </div>
                     </div>
@@ -66,3 +74,7 @@
         </div>
     </div>
 </div>
+<?php require_once("../MainJs/js.php");?>
+<script src="generarpedido.js"></script>
+
+
