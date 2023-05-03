@@ -32,6 +32,14 @@ $(document).ready(function(){
         }
         });       
     } 
+
+    $('#cantidad').on('change', function() {
+      calcularTotal();
+    });
+
+    $('#precio').on('input', function() {
+      calcularTotal();
+    });
       
     $('#tickd_requi').summernote({
       height: 100,
@@ -46,22 +54,17 @@ $(document).ready(function(){
       ]
     });  
 
-    const descripcionInput = document.querySelector('#descripcion');
-
-    // Agregamos un evento de input para detectar cambios en el campo
-    descripcionInput.addEventListener('input', () => {
-      // Obtenemos el valor actual del campo
-      const descripcion = descripcionInput.value;
-      
-      // Llamamos a la función buscarProductos con el valor actual del campo
-     
+    $('#descripcion').on('input', function() {
+      const descripcion = $(this).val();
+      buscarProducto(descripcion);     
     });
-
     
-
-    $("#descripcion").keyup(function() {
-      buscarProducto($(this).val());
-    });
+    function calcularTotal() {
+      const cantidad = parseInt($('#cantidad').val());
+      const precio = parseFloat($('#precio').val());
+      const total = cantidad * precio;
+      $('#total').val(total.toFixed(2));
+    }
 
     function buscarProducto() {
       $('#descripcion').on('input', function() {
@@ -72,49 +75,52 @@ $(document).ready(function(){
             data: { "action": "buscar", "descripcion": descripcion },
             dataType: "json",
           success: function(response) {
-            const listaResultados = document.querySelector('#lista-resultados');
-            listaResultados.innerHTML = '';
+            const listaResultados = $('#lista-resultados');
+            listaResultados.empty();
             response.forEach(producto => {
-              const li = document.createElement('li');
-              li.textContent = producto.descripcion;
-              li.addEventListener('click', () => {
-                descripcionInput.value = producto.descripcion;
-                document.querySelector('#id_medida').value = producto.id_medida;
-                document.querySelector('#precio').value = producto.precio;
+              const li = $('<li class="list-group-item">').text(producto.descripcion);
+              li.on('click', () => {
+                $('#descripcion').val(producto.descripcion);
+                $('#id_medida').val(producto.medida_descripcion);
+                $('#precio').val(producto.precio);
                 calcularTotal();
-                listaResultados.innerHTML = '';
+                listaResultados.empty();
               });
-              listaResultados.appendChild(li);
+              listaResultados.append(li);
             });
           },
           error: function() {
-            const listaResultados = document.querySelector('#lista-resultados');
-            listaResultados.innerHTML = '<li>Error al buscar productos</li>';
-          }
+            const listaResultados = $('#lista-resultados');
+            listaResultados.empty();
+            listaResultados.append('<li>Error al buscar productos</li>');      }
         });
       });
     }
-  
 
+  });
+
+function calcularTotal() {
+  const cantidad = parseInt($('#cantidad').val());
+  const precio = parseFloat($('#precio').val());
+  const total = cantidad * precio;
+  $('#total').val(total.toFixed(2));
+}
+
+$(function() {			
+  $('.flatpickr').flatpickr();
+    $("#flatpickr-disable-range").flatpickr({
+    disable: [
+      {
+        from: "2016-08-16",
+          to: "2016-08-19"
+      },
+      "2016-08-24",
+        new Date().fp_incr(30) // 30 days from now
+        ]
+    });
 });
 
-
-$(function() {
-			
-$('.flatpickr').flatpickr();
-$("#flatpickr-disable-range").flatpickr({
-	disable: [
-		{
-			from: "2016-08-16",
-				to: "2016-08-19"
-		},
-		"2016-08-24",
-			new Date().fp_incr(30) // 30 days from now
-			]
-		});
-	});
-
-  $(document).on("click","#btnagregar", function(){
+$(document).on("click","#btnagregar", function(){
     $('#usu_id').val('');
     $('#mdltitulo').html('Agregar productos/Servicios');
     $('#productos_form')[0].reset();
@@ -142,6 +148,7 @@ btnPlus.on("click", function() {
   // asegurarse de que el nuevo valor esté dentro del rango permitido
   if (newValue <= parseInt(input.attr("max"))) {
     input.val(newValue);
+    calcularTotal();
   }
 });
 
@@ -153,6 +160,7 @@ btnMinus.on("click", function() {
   // asegurarse de que el nuevo valor esté dentro del rango permitido
   if (newValue >= parseInt(input.attr("min"))) {
     input.val(newValue);
+    calcularTotal();
   }
 });
 

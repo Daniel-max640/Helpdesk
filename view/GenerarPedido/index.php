@@ -135,12 +135,7 @@
   								</fieldset>
 							</div>						
 													
-							<div class="col-lg-4">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
-									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
-								</fieldset>
-							</div>
+							
 
 							<div class="col-lg-4">
 								<fieldset class="form-group">
@@ -177,29 +172,34 @@
 								</fieldset>
 							</div>
 
-						
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
+									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
+								</fieldset>
+							</div>
 
 							<div class="col-lg-12">
-							<div class="col-lg-4">								
-								<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
-							</div>
-							<div class="box-typical box-typical-padding">				
-								<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
-									<thead>
-										<tr>
-											<th style="width: 5%;">Id</th>
-											<th style="width: 25%;">Descripción</th>
-											<th style="width: 5%;">cantidad</th>
-											<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
-											<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
-											<th class="text-center" style="width: 5%;"></th>
-											<th class="text-center" style="width: 5%;"></th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
+								<div class="col-lg-4">								
+									<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
+								</div>
+								<div class="box-typical box-typical-padding">				
+									<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+										<thead>
+											<tr>
+												<th style="width: 5%;">Id</th>
+												<th style="width: 25%;">Descripción</th>
+												<th style="width: 5%;">cantidad</th>
+												<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
+												<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
+												<th class="text-center" style="width: 5%;"></th>
+												<th class="text-center" style="width: 5%;"></th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
 							</div>
 
 								

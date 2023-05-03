@@ -17,12 +17,27 @@
                             <div class="form-group">
                                 <label class="form-label" for="descripcion">Producto/Servicio</label>
                                 <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese producto" required>
-                                <ul id="lista-resultados"></ul>
+                                <ul id="lista-resultados" class="list-group"></ul>
                             </div>
                          </div>
 
                          
-                       <div class="col-lg-3">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="form-label" for="id_medida">U.Medida</label>
+                                <input type="text" class="form-control" id="id_medida" name="id_medida" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-label" for="precio">Precio Unitario</label>
+                                <input type="text" class="form-control" id="precio" name="precio" required>
+                            </div>
+                        </div>
+                        
+                         
+                       <div class="col-lg-4">
                             <div class="row">
                                 <div class="form-group">
                                     <label class="form-label">Cantidad</label>
@@ -37,29 +52,13 @@
                                     </div>
                                 </div>
                             </div>
-                       </div> 
+                       </div>                 
+                                              
                     
-                        
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-label" for="id_medida">U.Medida</label>
-                                <input type="text" class="form-control" id="id_medida" name="id_medida" required readonly>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-label" for="precio">Precio Unitario</label>
-                                <input type="text" class="form-control" id="precio" name="precio" required>
-                            </div>
-                        </div>
-                        
-                    
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-label" for="total">Total</label>
-                                <input type="text" class="form-control" id="Total" name="Total" required readonly>
+                                <input type="text" class="form-control" id="total" name="total" required readonly>
                             </div>
                         </div>
                     </div>
@@ -67,7 +66,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-primary">Agregar</button>
+                    <button type="submit" name="action" id="agregar_det" value="add" class="btn btn-rounded btn-primary">Agregar</button>
                 </div>
     
             </form>
