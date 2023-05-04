@@ -13,16 +13,23 @@
     
                         <input type="hidden" id="usu_id" name="usu_id">
                         
-                        <div class="col-lg-9">
+                        <div class="col-lg-8">
                             <div class="form-group">
                                 <label class="form-label" for="descripcion">Producto/Servicio</label>
                                 <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese producto" required>
-                                <ul id="lista-resultados" class="list-group"></ul>
+                                <div id="lista">
+                                    <ul id="lista-resultados" class="list-group"></ul>
+                                </div>
                             </div>
-                         </div>
+                        </div>
 
-                         
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label class="form-label" for="total">Codigo</label>
+                                <input type="text" class="form-control" id="id_producto" name="id_producto" required readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
                             <div class="form-group">
                                 <label class="form-label" for="id_medida">U.Medida</label>
                                 <input type="text" class="form-control" id="id_medida" name="id_medida" required readonly>
@@ -66,7 +73,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" name="action" id="agregar_det" value="add" class="btn btn-rounded btn-primary">Agregar</button>
+                    <button type="submit" name="action" id="btn-AgregarDetalle" class="btn btn-rounded btn-primary">Agregar</button>
                 </div>
     
             </form>

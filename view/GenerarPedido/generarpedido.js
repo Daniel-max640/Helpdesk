@@ -1,9 +1,5 @@
-var tabla;
-
 function init(){
-    $("#usuario_form").on("submit",function(e){
-        guardaryeditar(e);	
-    });
+    
 }
 
 $(document).ready(function(){
@@ -41,64 +37,101 @@ $(document).ready(function(){
       calcularTotal();
     });
       
-    $('#tickd_requi').summernote({
-      height: 100,
-      lang: "es-ES",
-      toolbar: [
-           ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['font', ['strikethrough', 'superscript', 'subscript']],
-          ['fontsize', ['fontsize']],
-           ['color', ['color']],
-           ['para', ['ul', 'ol', 'paragraph']],
-           ['height', ['height']]
-      ]
-    });  
+  
 
     $('#descripcion').on('input', function() {
       const descripcion = $(this).val();
-      buscarProducto(descripcion);     
+      if (descripcion === '') {
+        $('#lista-resultados').empty();
+      } else {
+        buscarProducto(descripcion);   
+      }
     });
     
-    function calcularTotal() {
-      const cantidad = parseInt($('#cantidad').val());
-      const precio = parseFloat($('#precio').val());
-      const total = cantidad * precio;
-      $('#total').val(total.toFixed(2));
-    }
+    function buscarProducto(descripcion) {
+      if (descripcion.trim().length === 0) {
+        $('#lista-resultados').empty();
+        return;
+      }
+      $.ajax({
+        url: '../../controller/producto.php?op=buscar',
+        type: "POST",
+        data: { "action": "buscar", "descripcion": descripcion },
+        dataType: "json",
+        success: function(response) {
+          const listaResultados = $('#lista-resultados');
+          listaResultados.empty();
+          response.forEach(producto => {
+            const li = $('<li class="list-group-item">').text(producto.descripcion);
+            li.on('click', () => {
+              $('#id_producto').val(producto.id_producto);
+              $('#descripcion').val(producto.descripcion);
+              $('#id_medida').val(producto.medida_descripcion);
+              $('#precio').val(producto.precio);
+              calcularTotal();
+              listaResultados.empty();
 
-    function buscarProducto() {
-      $('#descripcion').on('input', function() {
-        var descripcion = $(this).val();
-        $.ajax({
-          url: '../../controller/producto.php?op=buscar',
-          type: "POST",
-            data: { "action": "buscar", "descripcion": descripcion },
-            dataType: "json",
-          success: function(response) {
-            const listaResultados = $('#lista-resultados');
-            listaResultados.empty();
-            response.forEach(producto => {
-              const li = $('<li class="list-group-item">').text(producto.descripcion);
-              li.on('click', () => {
-                $('#descripcion').val(producto.descripcion);
-                $('#id_medida').val(producto.medida_descripcion);
-                $('#precio').val(producto.precio);
-                calcularTotal();
-                listaResultados.empty();
-              });
-              listaResultados.append(li);
-            });
-          },
-          error: function() {
-            const listaResultados = $('#lista-resultados');
-            listaResultados.empty();
-            listaResultados.append('<li>Error al buscar productos</li>');      }
-        });
+                          });
+            listaResultados.append(li);
+          });
+        },
+        error: function() {
+          const listaResultados = $('#lista-resultados');
+          listaResultados.empty();
+          listaResultados.append('<li>Error al buscar productos</li>');      
+        }
       });
     }
 
-  });
+    $('#btn-AgregarDetalle').on('click', function() {
+      // Obtener valores del producto seleccionado en el modal
+      var id_producto = $('#id_producto').val();
+      var descripcion = $('#descripcion').val();
+      var id_medida = $('#id_medida').val();
+      var cantidad = $('#cantidad').val();
+      var precio = $('#precio').val();
+      var total = $('#total').val();
+    
+      console.log('Función click del botón "Agregar detalle" ejecutada');
+      // Agregar nueva fila a la tabla de detalle de pedido
+      if (id_producto && descripcion && id_medida && cantidad && precio && total) {
+      $('#detalle_ped tbody').append('<tr>' +
+        '<td>' + id_producto + '</td>' +
+        '<td>' + descripcion + '</td>' +
+        '<td>' + id_medida + '</td>' +
+        '<td>' + cantidad + '</td>' +
+        '<td class="d-none d-sm-table-cell">' + precio + '</td>' +
+        '<td class="d-none d-sm-table-cell">' + total + '</td>' +
+        '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></a></td>' +
+        '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-primary"><i class="fa fa-pencil-alt"></i></a></td>' +
+        '</tr>');
+    
+      // Limpiar campos del modal y cerrarlo
+      $('#descripcion').val('');
+      $('#cantidad').val('1');
+      $('#precio').val('');
+      $('#id_medida').val('');
+      $('#id_producto').val('');
+      $('#total').val('');
+      
+      }
+      
+      });    
 
+});
+ 
+$('#tickd_requi').summernote({
+  height: 100,
+  lang: "es-ES",
+  toolbar: [
+       ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['strikethrough', 'superscript', 'subscript']],
+      ['fontsize', ['fontsize']],
+       ['color', ['color']],
+       ['para', ['ul', 'ol', 'paragraph']],
+       ['height', ['height']]
+  ]
+});  
 function calcularTotal() {
   const cantidad = parseInt($('#cantidad').val());
   const precio = parseFloat($('#precio').val());
@@ -121,7 +154,7 @@ $(function() {
 });
 
 $(document).on("click","#btnagregar", function(){
-    $('#usu_id').val('');
+    
     $('#mdltitulo').html('Agregar productos/Servicios');
     $('#productos_form')[0].reset();
     $('#modalagregarproductos').modal('show');
@@ -163,8 +196,4 @@ btnMinus.on("click", function() {
     calcularTotal();
   }
 });
-
- 
-
-
 init();

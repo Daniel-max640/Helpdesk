@@ -189,6 +189,7 @@
 											<tr>
 												<th style="width: 5%;">Id</th>
 												<th style="width: 25%;">Descripción</th>
+												<th style="width: 5%;">U.Medida</th>
 												<th style="width: 5%;">cantidad</th>
 												<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
 												<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
