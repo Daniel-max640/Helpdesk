@@ -108,8 +108,8 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Asesor</label>
-									<input type="text" id="asesor" name="asesor" class="form-control" readonly>
-								</fieldset>
+									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
+									</fieldset>
 							</div>
 							
 							<div class="col-lg-2">
@@ -154,7 +154,7 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
-									<select id="id_pago" name="id_pago" class="form-control" data-placeholder="Seleccionar">
+									<select id="id_demision" name="id_demision" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>

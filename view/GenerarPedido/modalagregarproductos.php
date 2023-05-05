@@ -81,6 +81,6 @@
     </div>
 </div>
 <?php require_once("../MainJs/js.php");?>
-<script src="generarpedido.js"></script>
+<script src="agregarproducto.js"></script>
 
 

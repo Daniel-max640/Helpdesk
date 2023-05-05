@@ -51,7 +51,7 @@
 
                     <li class="blue-dirty with-sub">
 	                    <span>
-	                    <i class="glyphicon glyphicon-list-alt"></i>
+	                    <i class="font-icon font-icon-widget"></i>
 	                    <span class="lbl">Productos/Servicios</span>
 	                    </span>
 	                    <ul>
