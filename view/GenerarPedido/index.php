@@ -202,6 +202,13 @@
 									</table>
 								</div>
 							</div>
+							
+							<!--DETALLE DEL TOTAL-->
+							<div class="col-lg-12">							 											
+								
+								<p class="text-right">IGV: S/0.01</p> <!----> 
+								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ 0.06</h3>
+							</div>
 
 								
 							<div class="col-lg-12">
