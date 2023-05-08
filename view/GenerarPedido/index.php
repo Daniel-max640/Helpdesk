@@ -205,10 +205,12 @@
 							
 							<!--DETALLE DEL TOTAL-->
 							<div class="col-lg-12">							 											
-								
-								<p class="text-right">IGV: S/0.01</p> <!----> 
-								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ 0.06</h3>
+							<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar">0.00</span</p> <!----> 
+								<p class="text-right"><b>IGV: </b>S/ <span id="igv">0.00</span</p> <!----> 
+								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final">0.00</span></h3>
 							</div>
+
+						
 
 								
 							<div class="col-lg-12">
@@ -218,7 +220,35 @@
 									<textarea id="tickd_requi" name="tickd_requi" class="summernote" name="name"></textarea>
 								</div>
 								</fieldset>
+							</div>		
+							
+							<div class="container-fluid">
+							<h3 class="text"><b>Contacto de Facturacion</b></h3>
+								<div class="col-md-4">
+									<label class="form-label semibold">Nombres</label>
+									<input type="text" class="form-control" id="contac_fac" required>
+									
+								</div>
+								<div class="col-md-4">
+									<label class="form-label semibold">Correo</label>
+									<input type="text" class="form-control" id="correo_fac" required>
+									
+								</div>
+								<div class="col-md-4">
+									<label  class="form-label semibold">Telefono</label>
+									<input type="text" class="form-control" id="Telefono_fac" required>
+									
+								</div>
 							</div>
+							
+							
+							</div>
+							
+							</div>
+							
+							</div>
+							
+							</form>
 
 							<div class="col-lg-12">
 								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Generar Pedido</button>

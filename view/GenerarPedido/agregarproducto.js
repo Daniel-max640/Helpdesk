@@ -1,3 +1,4 @@
+var sumaTotal = 0;
 function init(){
     
 }
@@ -5,7 +6,7 @@ function init(){
 
 $(document).ready(function(){
 
-    $('#btn-AgregarDetalle').hide();
+  $('#btn-AgregarDetalle').hide();
 
   $('#cantidad').on('change', function() {
     calcularTotal();
@@ -26,10 +27,17 @@ $(document).ready(function(){
   }); 
 
   $('#btn-AgregarDetalle').on('click', function() {
-     agegardetalle();
-    
+     agegardetalle();  
+       
   });  
 
+  $(document).on('click', '#detalle_ped tbody .btn-danger', function() {
+    var row = $(this).closest('tr');
+    var totalRow = parseFloat(row.find('td').eq(5).text());
+    sumaTotal -= totalRow;
+    actualizarIGVYTotal();
+    row.remove();
+  });
 });
 
 function buscarProducto(descripcion) {
@@ -68,6 +76,8 @@ function buscarProducto(descripcion) {
     });
   }
 
+ 
+
   function agegardetalle() {
     // Obtener valores del producto seleccionado en el modal
     var id_producto = $('#id_producto').val();
@@ -87,9 +97,19 @@ function buscarProducto(descripcion) {
     '<td>' + cantidad + '</td>' +
     '<td class="d-none d-sm-table-cell">' + precio + '</td>' +
     '<td class="d-none d-sm-table-cell">' + total + '</td>' +
-    '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-warning"><i class="fa fa-pencil"></i></a></td>' +
-    '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></a></td>' +
+    '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-warning btnEditar"><i class="fa fa-pencil"></i></a></td>' +
+    '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger btnEliminar"><i class="fa fa-trash"></i></a></td>' +
     '</tr>');
+
+    // Sumar el total de la fila actual a la variable global
+    sumaTotal += parseFloat(total);
+
+    // Asignar el valor de la suma al elemento <label>
+    $('#total_pagar').text(sumaTotal.toFixed(2));
+
+    // Actualizar el IGV y el total
+    actualizarIGVYTotal();
+    
 
     // Limpiar campos del modal y cerrarlo
     $('#descripcion').val('');
@@ -99,7 +119,24 @@ function buscarProducto(descripcion) {
     $('#id_producto').val('');
     $('#total').val('');
     $('#btn-AgregarDetalle').hide();
-    return false;   
+    return false;     
+    }
+
+    function actualizarIGVYTotal() {
+      const igv = sumaTotal * 0.18; // suponiendo que el IGV es del 18%
+      const total = sumaTotal + igv;
+      $('#total_pagar').text(sumaTotal.toFixed(2));
+      $('#igv').text(igv.toFixed(2));
+      $('#total_final').text(total.toFixed(2));
+    }
+
+    function eliminarDetalle(btn) {
+      var row = btn.parentNode.parentNode;
+      var total = parseFloat(row.cells[5].textContent);
+      row.parentNode.removeChild(row);
+      sumaTotal -= total;
+      // Actualizar el IGV y el total
+      actualizarIGVYTotal();
     }
 
   $(document).on("click","#btnagregar", function(){
