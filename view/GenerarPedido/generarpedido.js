@@ -64,8 +64,11 @@ function buscarCliente() {
     dataType: "json",
     success: function(data) {
       // Mostrar la información obtenida en los campos de texto correspondientes
-       $("#nom_cli").val(data.nom_cli);
+      $("#nom_cli").val(data.nom_cli);
       $("#direc_cli").val(data.direc_cli);
+      $("#contacto_cli").val(data.contacto_cli);
+      $("#contacto_telf").val(data.contacto_telf);
+      $("#correo_cli").val(data.correo_cli);
      },
      error: function() {
        alert("Error al buscar el cliente.");

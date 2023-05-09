@@ -33,14 +33,11 @@
 				</div>
 			</header>
 
-			<div class="box-typical box-typical-padding">			
-
+			<div class="box-typical box-typical-padding">
 				<h5 class="m-t-lg with-border">Ingresar Información</h5>
-
 				<div class="row">
 					<form method="post" id="ticket_form">
-
-						<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
+							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 
 						    <div class="col-lg-2">
 								<fieldset class="form-group">
@@ -86,15 +83,22 @@
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto</label>
-									<input type="text" class="form-control" id="contacto" name="contacto" placeholder="Ingrese Nombre">
+									<input type="text" class="form-control" id="contacto_cli" name="contacto_cli"  readonly>
   								</fieldset>
 							</div>
 
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Telf. Contacto</label>
-									<input type="text" id="telf_contacto" name="telf_contacto" class="form-control">
+									<input type="text" id="contacto_telf" name="contacto_telf" class="form-control" readonly>
 								</fieldset>
+							</div>
+
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Correo</label>
+									<input type="text" class="form-control" id="correo_cli" name="correo_cli" readonly>
+  								</fieldset>
 							</div>
 
 							<div class="col-lg-2">
@@ -105,56 +109,48 @@
 									</select>
 								</fieldset>
 							</div>
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Asesor</label>
-									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
-									</fieldset>
-							</div>
-							
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
-									<select id="id_pago" name="id_pago" class="form-control" data-placeholder="Seleccionar">
-									<option label="Seleccionar"></option>
-									</select>
-								</fieldset>
-							</div>
-							
-							<div class="col-lg-4">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Correo</label>
-									<input type="text" class="form-control" id="correo" name="correo" placeholder="Ingrese Nombre">
-  								</fieldset>
-							</div>
-							
-							<div class="col-lg-4">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
-									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
-  								</fieldset>
-							</div>						
-													
-							
-
+				
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto de  Servico/Entrega</label>
-									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
+									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Contacto">
   								</fieldset>
   							</div>
 
 							  <div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Telf. Contacto Servicio/Entrega</label>
-									<input type="text" id="telf_contacto" name="telf_contacto" class="form-control">
+									<input type="text" id="telf_contacto" name="telf_contacto" class="form-control" placeholder="Ingrese Telefono">
 								</fieldset>
 							</div>
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
+									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
+  								</fieldset>
+							</div>						
+
 
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
 									<select id="id_demision" name="id_demision" class="form-control" data-placeholder="Seleccionar">
+									<option label="Seleccionar"></option>
+									</select>
+								</fieldset>
+							</div>
+
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Asesor</label>
+									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
+								</fieldset>
+							</div>
+							
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
+									<select id="id_pago" name="id_pago" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
@@ -205,59 +201,63 @@
 							
 							<!--DETALLE DEL TOTAL-->
 							<div class="col-lg-12">							 											
-							<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar">0.00</span</p> <!----> 
+								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar">0.00</span</p> <!----> 
 								<p class="text-right"><b>IGV: </b>S/ <span id="igv">0.00</span</p> <!----> 
 								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final">0.00</span></h3>
 							</div>
-
-						
-
 								
 							<div class="col-lg-12">
 								<fieldset class="form-group">
-								<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
-								<div class="summernote-theme-1">
-									<textarea id="tickd_requi" name="tickd_requi" class="summernote" name="name"></textarea>
-								</div>
+									<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
+									<div class="summernote-theme-1">
+										<textarea id="tickd_requi" name="tickd_requi" class="summernote" name="name"></textarea>
+									</div>
 								</fieldset>
-							</div>		
-							
-							<div class="container-fluid">
-							<h3 class="text"><b>Contacto de Facturacion</b></h3>
-								<div class="col-md-4">
-									<label class="form-label semibold">Nombres</label>
-									<input type="text" class="form-control" id="contac_fac" required>
+							</div>					
 									
-								</div>
-								<div class="col-md-4">
-									<label class="form-label semibold">Correo</label>
-									<input type="text" class="form-control" id="correo_fac" required>
-									
-								</div>
-								<div class="col-md-4">
-									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="Telefono_fac" required>
-									
-								</div>
-							</div>
-							
-							
-							</div>
-							
-							</div>
-							
-							</div>
-							
-							</form>
-
 							<div class="col-lg-12">
-								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Generar Pedido</button>
-							</div>							
+								<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label semibold">Nombres</label>
+								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Nombre" required>										
+							</div>
+							<div class="col-md-4">
+								<label class="form-label semibold">Correo</label>
+								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo" required>									
+							</div>
+							<div class="col-md-4">
+							<fieldset class="form-group">
+								<label  class="form-label semibold">Telefono</label>
+								<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono" required>	
+							</fieldset>									
+							</div>						
+							<div class="col-lg-12">
+								<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label semibold">Nombres</label>
+								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Contacto" required>										
+							</div>
+							<div class="col-md-4">
+								<label class="form-label semibold">Correo</label>
+								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo" required>									
+							</div>
+							<div class="col-md-4">
+								<fieldset class="form-group">
+									<label  class="form-label semibold">Telefono</label>
+									<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono" required>	
+								</fieldset>									
+							</div>			
+							
+							<div class="col-lg-12">
+								<fieldset class="form-group">
+								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar</button>
+								</fieldset>
+							</div>
 					</form>
 				</div>
-
-			</div>
-		</div>
+  			</div>
 	</div>
 	<!-- Contenido -->
 	<?php require_once("modalagregarproductos.php");?>

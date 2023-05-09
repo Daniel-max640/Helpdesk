@@ -11,13 +11,18 @@
 
     switch($_GET["op"]){
 
+        
         case "buscarCli":           
         $datos=$cliente->buscarCliente($_POST["nro_doc"]);  
         if(is_array($datos)==true and count($datos)>0){
              foreach($datos as $row)
              {
+                  $output["id_cliente"] = $row["id_cliente"];
                   $output["nom_cli"] = $row["nom_cli"];
-                  $output["direc_cli"] = $row["direc_cli"];
+                  $output["direc_cli"] = $row["direc_cli"];                  
+                  $output["contacto_cli"] = $row["contacto_cli"];
+                  $output["contacto_telf"] = $row["contacto_telf"];
+                  $output["correo_cli"] = $row["correo_cli"];
                 
                }                
               echo json_encode($output);
