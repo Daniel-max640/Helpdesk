@@ -36,9 +36,9 @@
 			<div class="box-typical box-typical-padding">
 				<h5 class="m-t-lg with-border">Ingresar Información</h5>
 				<div class="row">
-					<form method="post" id="ticket_form">
+					<form method="post" id="pedido_form">
 							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
-
+							<input type="hidden" name="id_cliente" value="<?php echo $cliente_id; ?>">
 						    <div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">RUC/DNI</label>
@@ -104,7 +104,7 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
-									<select id="modalidad" name="modalidad" class="form-control" data-placeholder="Seleccionar">
+									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
@@ -150,7 +150,7 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
-									<select id="id_pago" name="id_pago" class="form-control" data-placeholder="Seleccionar">
+									<select id="id_fpago" name="id_fpago" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
@@ -160,7 +160,7 @@
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
 									<div id="input-group" class="input-group icon icon-lg icon-color-primary">
-										<input class="form-control flatpickr-input" placeholder="Elegir fecha" data-input="" readonly="readonly">
+										<input class="form-control flatpickr-input" id="fecha_entrega" placeholder="Elegir fecha" data-input="" readonly="readonly">
                                 		<span class="input-group-append" data-toggle="">
 										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
                                     	</span>
@@ -220,16 +220,16 @@
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Nombre" required>										
+								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Nombre">										
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo" required>									
+								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo">									
 							</div>
 							<div class="col-md-4">
 							<fieldset class="form-group">
 								<label  class="form-label semibold">Telefono</label>
-								<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono" required>	
+								<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono">	
 							</fieldset>									
 							</div>						
 							<div class="col-lg-12">
@@ -237,16 +237,16 @@
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Contacto" required>										
+								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Contacto">										
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo" required>									
+								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo">									
 							</div>
 							<div class="col-md-4">
 								<fieldset class="form-group">
 									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono" required>	
+									<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono">	
 								</fieldset>									
 							</div>			
 							

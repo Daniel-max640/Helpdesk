@@ -1,10 +1,10 @@
 <?php
     class Pedido extends Conectar{
 
-        public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$orden_compra,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_emision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
+        public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$orden_compra,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
             $conectar= parent::conexion();
-            parent::set_names();
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,orden_compra,fecha_emision,fecha_devolucion,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_emision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,?,now(),NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1');";
+            parent::set_names();            
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,orden_compra,fecha_emision,fecha_devolucion,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,?,now(), NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, '1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -18,10 +18,10 @@
             $sql->bindValue(10, $contacto);
             $sql->bindValue(11, $telf_contacto);
             $sql->bindValue(12, $dire_entrega);
-            $sql->bindValue(13, $id_emision);
+            $sql->bindValue(13, $id_demision);
             $sql->bindValue(14, $asesor);
             $sql->bindValue(15, $id_fpago);
-            $sql->bindValue(16, $fecha_entrega);
+            $sql->bindValue(16, date('Y/m/d', strtotime($fecha_entrega)));
             $sql->bindValue(17, $sub_total);
             $sql->bindValue(18, $igv);
             $sql->bindValue(19, $total);
@@ -33,17 +33,17 @@
             $sql->bindValue(25, $correo_ccobra);
             $sql->bindValue(26, $telf_ccobra);
             $sql->execute();
-
+          
             $sql1="select last_insert_id() as 'id_pedido';";
             $sql1=$conectar->prepare($sql1);
             $sql1->execute();
             return $resultado=$sql1->fetchAll(pdo::FETCH_ASSOC);
         }
 
-        public function editar_pedido($id_pedido,$usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$orden_compra,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_emision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
+        public function editar_pedido($id_pedido,$usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$orden_compra,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="UPDATE tm_pedido SET usu_id=?, id_cliente=?, nro_doc=?, direc_cli=?, nom_cli=?, orden_compra=?, fecha_emision=now(), serie_pedido=?, moneda=?, id_modalidad=?, contacto=?, telf_contacto=?, dire_entrega=?, id_emision=?, asesor=?, id_fpago=?, fecha_entrega=?, sub_total=?, igv=?, total=?, observacion=?, conta_factu=?, correo_cfactu=?, telf_cfactu=?, conta_cobra=?, correo_ccobra=?, telf_ccobra=? WHERE id_pedido=?";
+            $sql="UPDATE tm_pedido SET usu_id=?, id_cliente=?, nro_doc=?, direc_cli=?, nom_cli=?, orden_compra=?, fecha_emision=now(), serie_pedido=?, moneda=?, id_modalidad=?, contacto=?, telf_contacto=?, dire_entrega=?, id_demision=?, asesor=?, id_fpago=?, fecha_entrega=?, sub_total=?, igv=?, total=?, observacion=?, conta_factu=?, correo_cfactu=?, telf_cfactu=?, conta_cobra=?, correo_ccobra=?, telf_ccobra=? WHERE id_pedido=?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -57,7 +57,7 @@
             $sql->bindValue(10, $contacto);
             $sql->bindValue(11, $telf_contacto);
             $sql->bindValue(12, $dire_entrega);
-            $sql->bindValue(13, $id_emision);
+            $sql->bindValue(13, $id_demision);
             $sql->bindValue(14, $asesor);
             $sql->bindValue(15, $id_fpago);
             $sql->bindValue(16, $fecha_entrega);
@@ -76,6 +76,8 @@
 
             return $resultado=$sql->fetchAll();
         }
+
+      
 
         public function listar_pedido(){
             $conectar= parent::conexion();
@@ -104,7 +106,15 @@
             return $resultado=$sql->fetchAll();
         }
 
+      public function obtener_siguiente_numero_pedido() {
+            $conectar = parent::conexion();
+            $sql = "SELECT MAX(id_pedido) AS max_id FROM tm_pedido";
+            $result = $conectar->query($sql);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            return ($row['max_id'] + 1);
+        }
      
+  
         public function buscarCliente($nro_doc) {
             $conectar= parent::conexion(); 
             parent::set_names();           
@@ -115,7 +125,7 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-     
 
+        
     }
 ?>

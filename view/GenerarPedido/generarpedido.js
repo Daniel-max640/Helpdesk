@@ -1,5 +1,7 @@
 function init(){
-    
+  $("#pedido_form").on("submit",function(e){
+    guardaryeditarPedido(e);
+  });
 }
 
 $(document).ready(function(){
@@ -11,11 +13,11 @@ $(document).ready(function(){
     }); 
 
     $.post("../../controller/tservicio.php?op=combo",function(data, status){
-      $('#modalidad').html(data);
+      $('#id_modalidad').html(data);
     });
 
     $.post("../../controller/fpago.php?op=combo",function(data, status){
-      $('#id_pago').html(data);
+      $('#id_fpago').html(data);
     });
 
     $.post("../../controller/demision.php?op=combo",function(data, status){
@@ -50,7 +52,6 @@ $(function() {
     });
 });
 
-
 // Función para buscar el cliente utilizando AJAX
 function buscarCliente() {
   var nro_doc = $("#nro_doc").val(); // Obtener el número de documento ingresado
@@ -72,6 +73,31 @@ function buscarCliente() {
     }
     });       
 } 
+
+function guardaryeditarPedido(e){
+  e.preventDefault();
+  var formData = new FormData($("#pedido_form")[0]);
+  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0){
+      swal("Advertencia!", "Campos Vacios", "warning");
+  }else{
+          $.ajax({
+          url: "../../controller/pedido.php?op=generaryeditar",
+          type: "POST",
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(data){
+              console.log(data);
+              data = JSON.parse(data);
+              console.log(data[0].tick_id);
+
+              $('#tick_titulo').val('');
+              $('#tick_descrip').summernote('reset');
+              swal("Correcto!", "Registrado Correctamente", "success");
+          }
+      });
+  }
+}
 
 
 

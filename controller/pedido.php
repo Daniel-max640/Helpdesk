@@ -28,7 +28,7 @@
         $_POST["contacto"],
         $_POST["telf_contacto"],
         $_POST["dire_entrega"],
-        $_POST["id_emision"],
+        $_POST["id_demision"],
         $_POST["asesor"],
         $_POST["id_fpago"],
         $_POST["fecha_entrega"],
@@ -58,13 +58,13 @@
             $_POST["contacto"],
             $_POST["telf_contacto"],
             $_POST["dire_entrega"],
-            $_POST["id_emision"],
+            $_POST["id_demision"],
             $_POST["asesor"],
             $_POST["id_fpago"],
             $_POST["fecha_entrega"],
-            $_POST["sub_total"],
+            $_POST["total_pagar"],
             $_POST["igv"],
-            $_POST["total"],
+            $_POST["total_final"],
             $_POST["observacion"],
             $_POST["conta_factu"],
             $_POST["correo_cfactu"],
@@ -75,6 +75,7 @@
         }     
 
         break;
+
         
         case "buscarCli":           
         $datos=$cliente->buscarCliente($_POST["nro_doc"]);  

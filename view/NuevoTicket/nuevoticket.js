@@ -75,6 +75,7 @@ function guardaryeditar(e){
                 });
 
                 $('#tick_titulo').val('');
+                $('#usuario_form')[0].reset();
                 $('#tick_descrip').summernote('reset');
                 swal("Correcto!", "Registrado Correctamente", "success");
             }
