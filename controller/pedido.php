@@ -21,7 +21,6 @@
         $_POST["nro_doc"],
         $_POST["direc_cli"],
         $_POST["nom_cli"],
-        $_POST["orden_compra"],
         $_POST["serie_pedido"],
         $_POST["moneda"],
         $_POST["id_modalidad"],
