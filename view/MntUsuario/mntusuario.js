@@ -30,7 +30,6 @@ function guardaryeditar(e){
         }
     }); 
 }
-
 $(document).ready(function(){
     tabla=$('#usuario_data').dataTable({
         "aProcessing": true,

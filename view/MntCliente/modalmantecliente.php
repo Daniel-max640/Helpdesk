@@ -79,12 +79,20 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4"> 
+                        <div class="col-lg-8"> 
                             <div class="form-group">
                                 <label class="form-label" for="correo_cli">Correo</label>
                                 <input type="email" class="form-control" id="correo_cli" name="correo_cli" placeholder="test@test.com" required>
                             </div>
                         </div>
+                        
+                      
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label class="form-label" for="contacto_cli">Contacto</label>
+                                <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Nombre Contacto" >
+                            </div>
+                        </div> 
                         
                         <div class="col-lg-4"> 
                             <div class="form-group">
@@ -94,12 +102,6 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label" for="contacto_cli">Contacto</label>
-                                <input type="text" class="form-control" id="contacto_cli" name="contacto_cli" placeholder="Ingrese Nombre Contacto" >
-                            </div>
-                        </div>                 
                     </div>
                 </div>
                 

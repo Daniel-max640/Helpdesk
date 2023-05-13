@@ -58,7 +58,7 @@ function buscarCliente() {
   $.ajax({
     url: "../../controller/pedido.php?op=buscarCli", // El archivo PHP que contiene la función buscarCliente()
     type: "POST",
-    data: { "action": "buscarCli", "nro_doc": nro_doc },
+    data: { "action": "buscarCli", "nro_doc": nro_doc},
     dataType: "json",
     success: function(data) {
       // Mostrar la información obtenida en los campos de texto correspondientes
@@ -67,6 +67,9 @@ function buscarCliente() {
       $("#contacto_cli").val(data.contacto_cli);
       $("#contacto_telf").val(data.contacto_telf);
       $("#correo_cli").val(data.correo_cli);
+
+      // Asignar el valor del id_client a un campo oculto
+      $("#id_cliente").val(data.id_cliente);
      },
      error: function() {
        alert("Error al buscar el cliente.");
@@ -76,10 +79,21 @@ function buscarCliente() {
 
 function guardaryeditarPedido(e){
   e.preventDefault();
-  var formData = new FormData($("#pedido_form")[0]);
+ 
+  
   if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0){
       swal("Advertencia!", "Campos Vacios", "warning");
   }else{
+
+    var sub_total = parseFloat($('#total_pagar').text());
+    var igv = parseFloat($('#igv').text());
+    var total = parseFloat($('#total_final').text());
+  
+    var formData = new FormData($("#pedido_form")[0]);
+    formData.append('total_pagar', sub_total);
+    formData.append('igv', igv);
+    formData.append('total_final', total);
+ 
           $.ajax({
           url: "../../controller/pedido.php?op=generaryeditar",
           type: "POST",
@@ -87,18 +101,23 @@ function guardaryeditarPedido(e){
           contentType: false,
           processData: false,
           success: function(data){
-              console.log(data);
-              data = JSON.parse(data);
-              console.log(data[0].tick_id);
 
-              $('#tick_titulo').val('');
-              $('#tick_descrip').summernote('reset');
+            console.log(data);
+            if (data.trim() !== '') {
+              data = JSON.parse(data);
+              console.log(data[0].id_pedido);
+
+              
+              $("#nro_doc").val("");
+              $('#pedido_form')[0].reset();
+              $('#tickd_requi').summernote('reset');
               swal("Correcto!", "Registrado Correctamente", "success");
+            } else {
+              console.log('Respuesta vacía');
+            } 
           }
       });
   }
 }
-
-
 
 init();

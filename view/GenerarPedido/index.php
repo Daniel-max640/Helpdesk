@@ -38,7 +38,7 @@
 				<div class="row">
 					<form method="post" id="pedido_form">
 							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
-							<input type="hidden" name="id_cliente" value="<?php echo $cliente_id; ?>">
+							<input type="hidden" id="id_cliente" name="id_cliente" value="">
 						    <div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">RUC/DNI</label>
@@ -64,7 +64,7 @@
 							<div class="col-lg-1">
 								<div class="form-group">
 									<label class="form-label semibold" for="exampleInput">Serie</label>
-										<select id="Serie" name="Serie" class="form-control" data-placeholder="Seleccionar" required>
+										<select id="serie_pedido" name="serie_pedido" class="form-control" data-placeholder="Seleccionar" required>
 											<option value="1">NP01</option>									
 										</select>              
 								</div>
@@ -113,7 +113,7 @@
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto de  Servico/Entrega</label>
-									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Contacto">
+									<input type="text" class="form-control" id="contacto" name="contacto" placeholder="Ingrese Contacto">
   								</fieldset>
   							</div>
 
@@ -126,7 +126,7 @@
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
-									<input type="text" class="form-control" id="direc_ser" name="direc_ser" placeholder="Ingrese Direccion">
+									<input type="text" class="form-control" id="dire_entrega" name="dire_entrega" placeholder="Ingrese Direccion">
   								</fieldset>
 							</div>						
 
@@ -156,11 +156,11 @@
 								</fieldset>
 							</div>
 
-							<div class="col-lg-4 flatpickr" data-date-format="d-m-Y" data-wrap="true" data-click-opens="true">
+							<div class="col-lg-4 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
 									<div id="input-group" class="input-group icon icon-lg icon-color-primary">
-										<input class="form-control flatpickr-input" id="fecha_entrega" placeholder="Elegir fecha" data-input="" readonly="readonly">
+										<input class="form-control flatpickr-input" id="fecha_entrega" name="fecha_entrega" placeholder="Elegir fecha" data-input="" readonly="readonly">
                                 		<span class="input-group-append" data-toggle="">
 										<span class="input-group-text"><span class="font-icon font-icon-calend"></span></span>
                                     	</span>
@@ -201,16 +201,16 @@
 							
 							<!--DETALLE DEL TOTAL-->
 							<div class="col-lg-12">							 											
-								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar">0.00</span</p> <!----> 
-								<p class="text-right"><b>IGV: </b>S/ <span id="igv">0.00</span</p> <!----> 
-								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final">0.00</span></h3>
+								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 
+								<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
+								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
 							</div>
 								
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
 									<div class="summernote-theme-1">
-										<textarea id="tickd_requi" name="tickd_requi" class="summernote" name="name"></textarea>
+										<textarea id="tickd_requi" name="tickd_requi" class="summernote"></textarea>
 									</div>
 								</fieldset>
 							</div>					
@@ -220,16 +220,16 @@
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Nombre">										
+								<input type="text" class="form-control" id="conta_factu" name="conta_factu" placeholder="Ingrese Nombre">										
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo">									
+								<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" placeholder="Ingrese Correo">									
 							</div>
 							<div class="col-md-4">
 							<fieldset class="form-group">
 								<label  class="form-label semibold">Telefono</label>
-								<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono">	
+								<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" placeholder="Ingrese Telefono">	
 							</fieldset>									
 							</div>						
 							<div class="col-lg-12">
@@ -237,16 +237,16 @@
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="contac_fac" placeholder="Ingrese Contacto">										
+								<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" placeholder="Ingrese Contacto">										
 							</div>
 							<div class="col-md-4">
 								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_fac" placeholder="Ingrese Correo">									
+								<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" placeholder="Ingrese Correo">									
 							</div>
 							<div class="col-md-4">
 								<fieldset class="form-group">
 									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="Telefono_fac" placeholder="Ingrese Telefono">	
+									<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
 								</fieldset>									
 							</div>			
 							

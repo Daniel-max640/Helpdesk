@@ -4,7 +4,7 @@
         public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
             $conectar= parent::conexion();
             parent::set_names();            
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,fecha_devolucion,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,?,now(), NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, '1');";
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -20,7 +20,7 @@
             $sql->bindValue(12, $id_demision);
             $sql->bindValue(13, $asesor);
             $sql->bindValue(14, $id_fpago);
-            $sql->bindValue(15, date('Y/m/d', strtotime($fecha_entrega)));
+            $sql->bindValue(15, date($fecha_entrega));
             $sql->bindValue(16, $sub_total);
             $sql->bindValue(17, $igv);
             $sql->bindValue(18, $total);

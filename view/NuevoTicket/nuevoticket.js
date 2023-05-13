@@ -67,6 +67,7 @@ function guardaryeditar(e){
             processData: false,
             success: function(data){
                 console.log(data);
+                if (data.trim() !== '') {
                 data = JSON.parse(data);
                 console.log(data[0].tick_id);
 
@@ -75,9 +76,13 @@ function guardaryeditar(e){
                 });
 
                 $('#tick_titulo').val('');
-                $('#usuario_form')[0].reset();
+                
                 $('#tick_descrip').summernote('reset');
+                $('#ticket_form')[0].reset();
                 swal("Correcto!", "Registrado Correctamente", "success");
+            } else {
+                console.log('Respuesta vacía');
+              } 
             }
         });
     }

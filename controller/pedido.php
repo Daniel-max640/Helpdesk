@@ -8,14 +8,11 @@
 
     require_once("../models/Cliente.php");
     $cliente = new Cliente();
-
-
     switch($_GET["op"]){
-
         case "generaryeditar":
-             // Obtener los datos del formulario o de la solicitud
+        // Obtener los datos del formulario o de la solicitud
         if(empty($_POST["id_pedido"])){
-        $pedido->insert_pedido(
+        $datos=$pedido->insert_pedido(
         $_POST["usu_id"],
         $_POST["id_cliente"],
         $_POST["nro_doc"],
@@ -31,10 +28,10 @@
         $_POST["asesor"],
         $_POST["id_fpago"],
         $_POST["fecha_entrega"],
-        $_POST["sub_total"],
+        $_POST["total_pagar"],
         $_POST["igv"],
-        $_POST["total"],
-        $_POST["observacion"],
+        $_POST["total_final"],
+        $_POST["tickd_requi"],
         $_POST["conta_factu"],
         $_POST["correo_cfactu"],
         $_POST["telf_cfactu"],
@@ -50,7 +47,6 @@
             $_POST["nro_doc"],
             $_POST["direc_cli"],
             $_POST["nom_cli"],
-            $_POST["orden_compra"],
             $_POST["serie_pedido"],
             $_POST["moneda"],
             $_POST["id_modalidad"],
@@ -71,7 +67,8 @@
             $_POST["conta_cobra"],
             $_POST["correo_ccobra"],
             $_POST["telf_ccobra"]);
-        }     
+        } 
+        echo json_encode($datos);    
 
         break;
 
