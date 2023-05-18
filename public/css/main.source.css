@@ -2245,6 +2245,16 @@ html {
   padding: 0px;
   margin: 0px;
 }
+div#myTabContent {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+#myTabContent {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+
 img {
   border: none;
 }

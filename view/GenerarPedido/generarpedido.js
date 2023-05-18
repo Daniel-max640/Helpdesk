@@ -23,20 +23,10 @@ $(document).ready(function(){
     $.post("../../controller/demision.php?op=combo",function(data, status){
       $('#id_demision').html(data);
     });   
+
+    
 });
  
-$('#tickd_requi').summernote({
-  height: 100,
-  lang: "es-ES",
-  toolbar: [
-       ['style', ['bold', 'italic', 'underline', 'clear']],
-       ['font', ['strikethrough', 'superscript', 'subscript']],
-       ['fontsize', ['fontsize']],
-       ['color', ['color']],
-       ['para', ['ul', 'ol', 'paragraph']],
-       ['height', ['height']]
-  ]
-});  
 
 $(function() {			
   $('.flatpickr').flatpickr();
@@ -51,6 +41,20 @@ $(function() {
         ]
     });
 });
+
+$('#tickd_requi').summernote({
+  height: 100,
+  lang: "es-ES",
+  toolbar: [
+       ['style', ['bold', 'italic', 'underline', 'clear']],
+       ['font', ['strikethrough', 'superscript', 'subscript']],
+       ['fontsize', ['fontsize']],
+       ['color', ['color']],
+       ['para', ['ul', 'ol', 'paragraph']],
+       ['height', ['height']]
+  ]
+});  
+
 
 // Función para buscar el cliente utilizando AJAX
 function buscarCliente() {

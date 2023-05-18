@@ -30,10 +30,9 @@
 						</div>
 					</div>
 				</div>
-			</header>
-
+			</header>			
 			<div class="box-typical box-typical-padding">
-				<button type="button" id="btnnuevo" class="btn btn-inline btn-primary"><i class="fa fa-plus"></i>Nuevo Registro</button>
+				<button type="button" id="btnnuevo" class="btn btn-inline btn-primary" data-bs-target="#modalmantecliente"><i class="fa fa-plus"></i>Nuevo Registro</button>
 				<table id="cliente_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
@@ -47,11 +46,9 @@
 						</tr>
 					</thead>
 					<tbody>
-
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 	</div>
 	<!-- Contenido -->

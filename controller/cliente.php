@@ -7,7 +7,7 @@
        
         case "guardaryeditar":
             if(empty($_POST["id_cliente"])){              
-                $resultado = $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);     
+                $resultado = $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);     
                 if ($resultado) {
                     // El cliente se insertó correctamente
                     echo "Cliente insertado correctamente.";
@@ -17,7 +17,7 @@
                 }
             }
             else {
-                $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);
+                $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);
             }
         break;
          
@@ -55,6 +55,7 @@
                   $output["nro_doc"] = $row["nro_doc"];
                   $output["nom_cli"] = $row["nom_cli"];
                   $output["direc_cli"] = $row["direc_cli"];
+                  $output["id_ccredito"] = $row["id_ccredito"];
                   $output["id_departamento"] = $row["id_departamento"];
                   $output["id_provincia"] = $row["id_provincia"];
                   $output["id_distrito"] = $row["id_distrito"];

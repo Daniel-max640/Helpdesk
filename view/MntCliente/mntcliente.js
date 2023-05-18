@@ -29,47 +29,52 @@ function guardaryeditar(e){
         swal("Advertencia!","El número de documento debe tener " + longitud_requerida + " dígitos para el tipo de documento seleccionado.","warning");
         return; // Salir de la función si hay un error de validación
     }
-
-    $.ajax({
-        url: "../../controller/cliente.php?op=guardaryeditar",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        // parte de este codigo me recupera los mensajes del servidor 
-        //y lo imprime en la interfaz
-        success: function (datos) {
-            if (datos.includes("Error al insertar el cliente")) {
+    
+    if ($('#direc_cli').val()=='' || $('#correo_cli').val()=='' || $('#id_departamento').val() == 0 || $('#id_provincia').val() == 0 || $('#id_distrito').val() == 0){
+        swal("Advertencia!", "Campos Vacios", "warning");
+    }else{
+    
+        $.ajax({
+            url: "../../controller/cliente.php?op=guardaryeditar",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            // parte de este codigo me recupera los mensajes del servidor 
+            //y lo imprime en la interfaz
+            success: function (datos) {
+                if (datos.includes("Error al insertar el cliente")) {
+                    swal({
+                        title: "Error!",
+                        text: datos,
+                        type: "error",
+                        confirmButtonClass: "btn-danger"
+                    });
+                } else {
+                    $('#nro_doc').val('');
+                    $('#cliente_form')[0].reset();
+                    $("#modalmantecliente").modal('hide');
+                    $('#cliente_data').DataTable().ajax.reload();
+            
+                    swal({
+                        title: "HelpDesk!",
+                        text: "Cliente Insertado Correctamente.",
+                        type: "success",
+                        confirmButtonClass: "btn-success"
+                    });
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
                 swal({
                     title: "Error!",
-                    text: datos,
+                    text: "Ha ocurrido un error al procesar la solicitud.",
                     type: "error",
                     confirmButtonClass: "btn-danger"
                 });
-            } else {
-                $('#nro_doc').val('');
-                $('#cliente_form')[0].reset();
-                $("#modalmantecliente").modal('hide');
-                $('#cliente_data').DataTable().ajax.reload();
-        
-                swal({
-                    title: "HelpDesk!",
-                    text: "Cliente Insertado Correctamente.",
-                    type: "success",
-                    confirmButtonClass: "btn-success"
-                });
             }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            swal({
-                title: "Error!",
-                text: "Ha ocurrido un error al procesar la solicitud.",
-                type: "error",
-                confirmButtonClass: "btn-danger"
-            });
-        }
-     
-    });
+        
+        });
+    }    
 }
 
 $(document).ready(function(){
@@ -140,6 +145,11 @@ $(document).ready(function(){
      // Limpiar el combo de distrito
     });    
 
+    $.post("../../controller/credito.php?op=combocredito", function(data, status) {
+        $('#id_ccredito').html(data);
+     // Limpiar el combo de distrito
+    });   
+    //validacion de digitos para los tipo de documentos
     $("#tipodoc_id").on("change", function() {
         var tipoDocumento = $("#tipodoc_id").val();
         var numeroDocumento = document.getElementById("nro_doc");
@@ -153,7 +163,11 @@ $(document).ready(function(){
             numeroDocumento.setAttribute("maxlength", "20");  
           }
           numeroDocumento.value = "";  
-    });    
+    });
+    // llamar controles adicionales para contacto
+    $("#contacto-titulo").click(function() {
+        $("#campos-contacto-adicional").toggle();
+    });
 });
 
 function cargarProvinciasYDistritos() {
@@ -191,6 +205,7 @@ function editar(id_cliente){
             $('#nro_doc').val(data.nro_doc);
             $('#nom_cli').val(data.nom_cli);
             $('#direc_cli').val(data.direc_cli);
+            $('#id_ccredito').val(data.id_ccredito);
             $('#id_departamento').val(data.id_departamento);
             $('#id_provincia').val(data.id_provincia);
             $('#id_distrito').val(data.id_distrito);
@@ -264,6 +279,7 @@ function eliminar(id_cliente){
         }
     });
 }
+
 
 
 init();
