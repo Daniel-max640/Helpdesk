@@ -37,6 +37,7 @@
 				<h5 class="m-t-lg with-border">Ingresar Información</h5>
 				<div class="row">
 					<form method="post" id="pedido_form">
+						
 							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 							<input type="hidden" id="id_cliente" name="id_cliente" value="">
 						    <div class="col-lg-2">
@@ -65,7 +66,7 @@
 								<div class="form-group">
 									<label class="form-label semibold" for="exampleInput">Serie</label>
 										<select id="serie_pedido" name="serie_pedido" class="form-control" data-placeholder="Seleccionar" required>
-											<option value="1">NP01</option>									
+											<option value="NP01">NP01</option>									
 										</select>              
 								</div>
 							</div>                      

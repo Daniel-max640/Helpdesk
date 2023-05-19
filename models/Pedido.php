@@ -4,7 +4,7 @@
         public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
             $conectar= parent::conexion();
             parent::set_names();            
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,now(),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1');";
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -88,15 +88,15 @@
                 tm_usuario.usu_nom,
                 tm_pedido.id_cliente,
                 tm_cliente.nom_cli,
-                tm_pedido.dire_entrega,
+                tm_pedido.serie_pedido,
                 tm_pedido.id_fpago,
                 tm_pedido.total,
                 forma_pago.descripcion                
                 FROM 
                 tm_pedido
-                INNER join tm_cliente on tm_pedido.id_cliente = tm_cliente.id_cliente
-                INNER join tm_usuario on tm_pedido.usu_id = tm_usuario.usu_id
-                INNER join forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago
+                LEFT JOIN tm_cliente on tm_pedido.id_cliente = tm_cliente.id_cliente
+                LEFT JOIN tm_usuario on tm_pedido.usu_id = tm_usuario.usu_id
+                LEFT JOIN forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago
                 WHERE
                 tm_pedido.est_ped = 1";
             $sql=$conectar->prepare($sql);

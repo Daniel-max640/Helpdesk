@@ -133,6 +133,7 @@ function eliminar(usu_id){
 $(document).on("click","#btnnuevo", function(){
  
     window.open('http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/');
+    //  window.open('https://sanipperuerp.000webhostapp.com//view/GenerarPedido/');
 });
 
 

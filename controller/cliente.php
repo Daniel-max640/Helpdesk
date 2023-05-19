@@ -7,7 +7,7 @@
        
         case "guardaryeditar":
             if(empty($_POST["id_cliente"])){              
-                $resultado = $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);     
+                $resultado = $cliente->insert_cliente($_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"],$_POST["contacto_factu"],$_POST["correo_fac"],$_POST["contacto_cobra"],$_POST["correo_cobra"],$_POST["tele_cobra"],$_POST["contacto_adi"],$_POST["correo_adi"],$_POST["tele_adi"],$_POST["web"]);     
                 if ($resultado) {
                     // El cliente se insertó correctamente
                     echo "Cliente insertado correctamente.";
@@ -17,7 +17,7 @@
                 }
             }
             else {
-                $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"]);
+                $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"],$_POST["contacto_factu"],$_POST["correo_fac"],$_POST["contacto_cobra"],$_POST["correo_cobra"],$_POST["tele_cobra"],$_POST["contacto_adi"],$_POST["correo_adi"],$_POST["tele_adi"],$_POST["web"]);
             }
         break;
          
@@ -63,6 +63,15 @@
                   $output["correo_cli"] = $row["correo_cli"];
                   $output["contacto_telf"] = $row["contacto_telf"];
                   $output["contacto_cli"] = $row["contacto_cli"];
+                  $output["contacto_factu"] = $row["contacto_factu"];
+                  $output["correo_fac"] = $row["correo_fac"];
+                  $output["contacto_cobra"] = $row["contacto_cobra"];
+                  $output["correo_cobra"] = $row["correo_cobra"];
+                  $output["tele_cobra"] = $row["tele_cobra"];
+                  $output["contacto_adi"] = $row["contacto_adi"];
+                  $output["correo_adi"] = $row["correo_adi"];
+                  $output["tele_adi"] = $row["tele_adi"];
+                  $output["web"] = $row["web"];
                }
                 
               echo json_encode($output);

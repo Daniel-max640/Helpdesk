@@ -100,42 +100,13 @@
                 $sub_array[] = $row["fecha_entrega"];
                 $sub_array[] = $row["usu_nom"];
                 $sub_array[] = $row["nom_cli"];
-                $sub_array[] = $row["dire_entrega"];
+                $sub_array[] = $row["serie_pedido"];
                 $sub_array[] = $row["descripcion"];
                 $sub_array[] = $row["total"];
                 
-                
-                /*if ($row["tick_estado"]=="Abierto"){
-                    $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
-                }else{
-                    $sub_array[] = '<a onClick="CambiarEstado('.$row["tick_id"].')"><span class="label label-pill label-danger">Cerrado</span><a>';
-                }
-
-                $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
-
-                if($row["fech_asig"]==null){
-                    $sub_array[] = '<span class="label label-pill label-default">Sin Asignar</span>';
-                }else{
-                    $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_asig"]));
-                }
-
-                if($row["fech_cierre"]==null){
-                    $sub_array[] = '<span class="label label-pill label-default">Sin Cerrar</span>';
-                }else{
-                    $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_cierre"]));
-                }
-
-                if($row["usu_asig"]==null){
-                    $sub_array[] = '<a onClick="asignar('.$row["tick_id"].');"><span class="label label-pill label-warning">Sin Asignar</span></a>';
-                }else{
-                    $datos1=$usuario->get_usuario_x_id($row["usu_asig"]);
-                    foreach($datos1 as $row1){
-                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
-                    }
-                }
-                */
-                $sub_array[] = '<button type="button" onClick="ver('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-eye"></i></button>';
-                $sub_array[] = '<button type="button" onClick="facturar('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-eye"></i></button>';
+               
+                $sub_array[] = '<button type="button" onClick="ver('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-eye"></i></button>';
+              
                 $data[] = $sub_array;
             }
 

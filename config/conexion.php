@@ -9,7 +9,8 @@
                 //Local
 				$conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=andercode_helpdesk1","root","");
                 //Produccion
-               // $conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=id20283916_helpdesk","id20283916_userhelpdesk","sg%0}$~pU|/iF<fr");
+             
+               //$conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=id20721968_andercode_helpdesk1","id20721968_root","Abigail3005@");
 				return $conectar;
 			} catch (Exception $e) {
 				print "¡Error BD!: " . $e->getMessage() . "<br/>";
@@ -25,7 +26,7 @@
             //Local
 			return "http://localhost/TUTORIAL_HELPDESK-main/";
             //Produccion
-            //return "http://gestticket.000webhostapp.com/";
+            //return https://sanipperuerp.000webhostapp.com/";
 		}
 
     }

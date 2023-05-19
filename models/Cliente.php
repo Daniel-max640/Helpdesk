@@ -1,7 +1,7 @@
 <?php
     class Cliente extends Conectar{
    
-        public function insert_cliente($tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_ccredito,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){
+        public function insert_cliente($tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_ccredito,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli,$contacto_factu,$correo_fac,$contacto_cobra,$correo_cobra,$tele_cobra,$contacto_adi,$correo_adi,$tele_adi,$web){
             $conectar= parent::conexion();
             parent::set_names();
 
@@ -16,7 +16,7 @@
             echo "El número de documento ya existe";
             return false;
         } else {   
-                $sql="INSERT INTO tm_cliente (id_cliente, tipodoc_id, nro_doc, nom_cli, direc_cli, id_ccredito, id_departamento, id_provincia, id_distrito, tele_cli, correo_cli, contacto_telf, contacto_cli, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?, now(), NULL, NULL, '1');";
+                $sql="INSERT INTO tm_cliente (id_cliente, tipodoc_id, nro_doc, nom_cli, direc_cli, id_ccredito, id_departamento, id_provincia, id_distrito, tele_cli, correo_cli, contacto_telf, contacto_cli, fech_crea, fech_modi, fech_elim, est, contacto_factu, correo_fac, contacto_cobra, correo_cobra, tele_cobra, contacto_adi, correo_adi, tele_adi, web ) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?, now(), NULL, NULL, '1',?,?,?,?,?,?,?,?,?);";
                 $sql=$conectar->prepare($sql);
                 $sql->bindValue(1, $tipodoc_id);
                 $sql->bindValue(2, $nro_doc);
@@ -29,7 +29,17 @@
                 $sql->bindValue(9, $tele_cli);
                 $sql->bindValue(10, $correo_cli);
                 $sql->bindValue(11, $contacto_telf);
-                $sql->bindValue(12, $contacto_cli);   
+                $sql->bindValue(12, $contacto_cli);
+                $sql->bindValue(13, $contacto_factu);
+                $sql->bindValue(14, $correo_fac);
+                $sql->bindValue(15, $contacto_cobra);
+                $sql->bindValue(16, $correo_cobra);
+                $sql->bindValue(17, $tele_cobra);
+                $sql->bindValue(18, $contacto_adi);
+                $sql->bindValue(19, $correo_adi);
+                $sql->bindValue(20, $tele_adi);
+                $sql->bindValue(21, $web);
+                  
                 $sql->execute();
                 
                 if ($sql->rowCount() > 0) {
@@ -41,7 +51,7 @@
             }
         } 
         
-        public function update_cliente($id_cliente,$tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_ccredito,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli){
+        public function update_cliente($id_cliente,$tipodoc_id,$nro_doc,$nom_cli,$direc_cli,$id_ccredito,$id_departamento,$id_provincia,$id_distrito,$tele_cli,$correo_cli,$contacto_telf,$contacto_cli,$contacto_factu,$correo_fac,$contacto_cobra,$correo_cobra,$tele_cobra,$contacto_adi,$correo_adi,$tele_adi,$web){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_cliente set
@@ -56,7 +66,16 @@
                 tele_cli = ?,
                 correo_cli = ?,
                 contacto_telf = ?,
-                contacto_cli = ?
+                contacto_cli = ?,
+                contacto_factu = ?,
+                correo_fac = ?,
+                contacto_cobra = ?,
+                correo_cobra = ?,
+                tele_cobra = ?,
+                contacto_adi = ?,
+                correo_adi = ?,
+                tele_adi = ?,
+                web = ?
                 WHERE
                 id_cliente = ?";
             $sql=$conectar->prepare($sql);
@@ -72,7 +91,16 @@
             $sql->bindValue(10, $correo_cli);
             $sql->bindValue(11, $contacto_telf);
             $sql->bindValue(12, $contacto_cli);
-            $sql->bindValue(13, $id_cliente);
+            $sql->bindValue(13, $contacto_factu);
+            $sql->bindValue(14, $correo_fac);
+            $sql->bindValue(15, $contacto_cobra);
+            $sql->bindValue(16, $correo_cobra);
+            $sql->bindValue(17, $tele_cobra);
+            $sql->bindValue(18, $contacto_adi);
+            $sql->bindValue(19, $correo_adi);
+            $sql->bindValue(20, $tele_adi);
+            $sql->bindValue(21, $web);
+            $sql->bindValue(22, $id_cliente);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }

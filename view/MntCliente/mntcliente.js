@@ -212,7 +212,18 @@ function editar(id_cliente){
             $('#tele_cli').val(data.tele_cli);
             $('#correo_cli').val(data.correo_cli);
             $('#contacto_telf').val(data.contacto_telf);
-            $('#contacto_cli').val(data.contacto_cli);     
+            $('#contacto_cli').val(data.contacto_cli);
+            $('#contacto_factu').val(data.contacto_factu);
+            $('#correo_fac').val(data.correo_fac);
+            $('#contacto_cobra').val(data.contacto_cobra);
+            $('#correo_cobra').val(data.correo_cobra);
+            $('#tele_cobra').val(data.tele_cobra);
+            $('#contacto_adi').val(data.contacto_adi);
+            $('#correo_adi').val(data.correo_adi);
+            $('#tele_adi').val(data.tele_adi);
+            $('#web').val(data.web);
+            
+            
             console.log(data);         
                 
          })         

@@ -46,11 +46,11 @@
 							<th style="width: 10%;">Fecha-Entrega</th>
 							<th class="d-none d-sm-table-cell" style="width: 6%;">Asesor</th>
 							<th class="d-none d-sm-table-cell" style="width: 15%;">Cliente</th>
-							<th class="d-none d-sm-table-cell" style="width: 15%;">Direccion</th>
+							<th class="d-none d-sm-table-cell" style="width: 5%;">Serie</th>
 							<th class="d-none d-sm-table-cell" style="width: 10%;">F. Pago</th>
 							<th class="d-none d-sm-table-cell" style="width: 8%;">Total</th>
 							<th class="text-center" style="width: 5%;"></th>
-							<th class="text-center" style="width: 5%;"></th>
+							
 						</tr>
 					</thead>
 					<tbody>

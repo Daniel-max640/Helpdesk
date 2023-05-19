@@ -137,7 +137,7 @@
                                     <div class="col-lg-5"> 
                                         <div class="form-group">
                                             <label class="form-label semibold" for="correo_fac">Correo</label>
-                                            <input type="email" class="form-control" id="correo_fac" name="correo_factu" placeholder="test@test.com">
+                                            <input type="email" class="form-control" id="correo_fac" name="correo_fac" placeholder="test@test.com">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
