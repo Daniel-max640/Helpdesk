@@ -31,8 +31,7 @@
             $sql->bindValue(23, $conta_cobra);
             $sql->bindValue(24, $correo_ccobra);
             $sql->bindValue(25, $telf_ccobra);
-            $sql->execute();
-          
+            $sql->execute();          
             $sql1="select last_insert_id() as 'id_pedido';";
             $sql1=$conectar->prepare($sql1);
             $sql1->execute();
@@ -71,11 +70,8 @@
             $sql->bindValue(25, $telf_ccobra);
             $sql->bindValue(26, $id_pedido);
             $sql->execute();
-
             return $resultado=$sql->fetchAll();
         }
-
-      
 
         public function listar_pedido(){
             $conectar= parent::conexion();
@@ -104,15 +100,6 @@
             return $resultado=$sql->fetchAll();
         }
 
-      public function obtener_siguiente_numero_pedido() {
-            $conectar = parent::conexion();
-            $sql = "SELECT MAX(id_pedido) AS max_id FROM tm_pedido";
-            $result = $conectar->query($sql);
-            $row = $result->fetch(PDO::FETCH_ASSOC);
-            return ($row['max_id'] + 1);
-        }
-     
-  
         public function buscarCliente($nro_doc) {
             $conectar= parent::conexion(); 
             parent::set_names();           

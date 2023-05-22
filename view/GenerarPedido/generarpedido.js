@@ -22,9 +22,7 @@ $(document).ready(function(){
 
     $.post("../../controller/demision.php?op=combo",function(data, status){
       $('#id_demision').html(data);
-    });   
-
-    
+    });    
 });
  
 
@@ -53,9 +51,7 @@ $('#tickd_requi').summernote({
        ['para', ['ul', 'ol', 'paragraph']],
        ['height', ['height']]
   ]
-});  
-
-
+}); 
 // Función para buscar el cliente utilizando AJAX
 function buscarCliente() {
   var nro_doc = $("#nro_doc").val(); // Obtener el número de documento ingresado
@@ -76,28 +72,24 @@ function buscarCliente() {
       $("#id_cliente").val(data.id_cliente);
      },
      error: function() {
-       alert("Error al buscar el cliente.");
+      swal("Advertencia!", "Documento no existe", "warning");
     }
     });       
 } 
 
 function guardaryeditarPedido(e){
-  e.preventDefault();
- 
+  e.preventDefault(); 
   
-  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0){
+  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
       swal("Advertencia!", "Campos Vacios", "warning");
   }else{
-
     var sub_total = parseFloat($('#total_pagar').text());
     var igv = parseFloat($('#igv').text());
-    var total = parseFloat($('#total_final').text());
-  
+    var total = parseFloat($('#total_final').text());  
     var formData = new FormData($("#pedido_form")[0]);
     formData.append('total_pagar', sub_total);
     formData.append('igv', igv);
-    formData.append('total_final', total);
- 
+    formData.append('total_final', total); 
           $.ajax({
           url: "../../controller/pedido.php?op=generaryeditar",
           type: "POST",

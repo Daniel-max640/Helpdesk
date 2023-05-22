@@ -35,9 +35,9 @@
 
 			<div class="box-typical box-typical-padding">
 				<h5 class="m-t-lg with-border">Ingresar Información</h5>
-				<div class="row">
+				
 					<form method="post" id="pedido_form">
-						
+						<div class="row">						
 							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 							<input type="hidden" id="id_cliente" name="id_cliente" value="">
 						    <div class="col-lg-2">
@@ -80,7 +80,9 @@
 										</select>                  
 								</div>
 							</div>
+						</div>
 
+						<div class="row">
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto</label>
@@ -110,7 +112,9 @@
 									</select>
 								</fieldset>
 							</div>
-				
+						</div>	
+
+						<div class="row">
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto de  Servico/Entrega</label>
@@ -140,7 +144,9 @@
 									</select>
 								</fieldset>
 							</div>
+						</div>
 
+						<div class="row">
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Asesor</label>
@@ -175,7 +181,9 @@
 									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
 								</fieldset>
 							</div>
+						</div>	
 
+						<div class="row">
 							<div class="col-lg-12">
 								<div class="col-lg-4">								
 									<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
@@ -199,6 +207,7 @@
 									</table>
 								</div>
 							</div>
+						
 							
 							<!--DETALLE DEL TOTAL-->
 							<div class="col-lg-12">							 											
@@ -206,6 +215,7 @@
 								<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
 								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
 							</div>
+							
 								
 							<div class="col-lg-12">
 								<fieldset class="form-group">
@@ -257,7 +267,7 @@
 								</fieldset>
 							</div>
 					</form>
-				</div>
+				</div>			
   			</div>
 	</div>
 	<!-- Contenido -->

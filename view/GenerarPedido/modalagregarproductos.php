@@ -16,7 +16,7 @@
                         <div class="col-lg-8">
                             <div class="form-group">
                                 <label class="form-label" for="descripcion">Producto/Servicio</label>
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese producto" required>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese producto o servicio" required>
                                 <div id="lista">
                                     <ul id="lista-resultados" class="list-group"></ul>
                                 </div>
@@ -29,12 +29,16 @@
                                 <input type="text" class="form-control" id="id_producto" name="id_producto" required readonly>
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="form-group">
-                                <label class="form-label" for="id_medida">U.Medida</label>
-                                <input type="text" class="form-control" id="id_medida" name="id_medida" required readonly>
-                            </div>
-                        </div>
+
+                       <div class="col-lg-2">
+							<fieldset class="form-group">
+								<label class="form-label" for="exampleInput">Unidad Medida</label>
+								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
+								<option label="Seleccionar"></option>
+								</select>
+							</fieldset>
+						</div>
+                            
 
                         <div class="col-lg-4">
                             <div class="form-group">

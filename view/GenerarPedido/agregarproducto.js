@@ -5,6 +5,9 @@ function init(){
 
 
 $(document).ready(function(){
+  $.post("../../controller/umedida.php?op=combo",function(data, status){
+    $('#id_medida').html(data);
+  });   
 
   $('#btn-AgregarDetalle').hide();
 
@@ -26,6 +29,18 @@ $(document).ready(function(){
     }
   }); 
 
+  $('#descripcion, #precio').on('keydown', function(event) {
+    if (event.keyCode === 13) { // Código de la tecla Enter
+      const descripcion = $('#descripcion').val();
+      const precio = $('#precio').val();
+  
+      if (descripcion === '' || precio === '') {
+        event.preventDefault(); // Cancelar la acción predeterminada del formulario
+        return false;
+      }
+    }
+  });
+
   $('#btn-AgregarDetalle').on('click', function() {
      agegardetalle();  
        
@@ -41,48 +56,46 @@ $(document).ready(function(){
 });
 
 function buscarProducto(descripcion) {
-    if (descripcion.trim().length === 0) {
-      $('#lista-resultados').empty();
-      $('#btn-AgregarDetalle').hide();
+  if (descripcion.trim().length === 0) {
+    $('#lista-resultados').empty();
+    $('#btn-AgregarDetalle').hide();
       return;
-    }
-    $.ajax({
-      url: '../../controller/producto.php?op=buscar',
-      type: "POST",
-      data: { "action": "buscar", "descripcion": descripcion },
-      dataType: "json",
-      success: function(response) {
-        const listaResultados = $('#lista-resultados');
-        listaResultados.empty();
-        response.forEach(producto => {
-          const li = $('<li class="list-group-item">').text(producto.descripcion);
-          li.on('click', () => {
-            $('#id_producto').val(producto.id_producto);
-            $('#descripcion').val(producto.descripcion);
-            $('#id_medida').val(producto.medida_descripcion);
-            $('#precio').val(producto.precio);
-            calcularTotal();
-            listaResultados.empty();
-            $('#btn-AgregarDetalle').show();
-            });
-          listaResultados.append(li);
-        });
-      },
-      error: function() {
-        const listaResultados = $('#lista-resultados');
-        listaResultados.empty();
-        listaResultados.append('<li>Error al buscar productos</li>');      
-      }
-    });
   }
-
- 
+  $.ajax({
+     url: '../../controller/producto.php?op=buscar',
+    type: "POST",
+    data: { "action": "buscar", "descripcion": descripcion },
+    dataType: "json",
+    success: function(response) {
+      const listaResultados = $('#lista-resultados');
+      listaResultados.empty();
+      response.forEach(producto => {
+        const li = $('<li class="list-group-item">').text(producto.descripcion);
+        li.on('click', () => {
+          $('#id_producto').val(producto.id_servicio);
+          $('#descripcion').val(producto.descripcion);
+          $('#id_medida').val(producto.medida_descripcion);
+          $('#precio').val(producto.precio);
+          calcularTotal();
+          listaResultados.empty();
+           $('#btn-AgregarDetalle').show();
+          });
+        listaResultados.append(li);
+      });
+     },
+    error: function() {
+       const listaResultados = $('#lista-resultados');
+      listaResultados.empty();
+       listaResultados.append('<li>Error al buscar productos</li>');      
+     }
+   });
+}
 
   function agegardetalle() {
     // Obtener valores del producto seleccionado en el modal
     var id_producto = $('#id_producto').val();
     var descripcion = $('#descripcion').val();
-    var id_medida = $('#id_medida').val();
+    var id_medida = $('#id_medida option:selected').text();
     var cantidad = $('#cantidad').val();
     var precio = $('#precio').val();
     var total = $('#total').val();
@@ -120,7 +133,7 @@ function buscarProducto(descripcion) {
     $('#total').val('');
     $('#btn-AgregarDetalle').hide();
     return false;     
-    }
+  }
 
     function actualizarIGVYTotal() {
       const igv = sumaTotal * 0.18; // suponiendo que el IGV es del 18%
