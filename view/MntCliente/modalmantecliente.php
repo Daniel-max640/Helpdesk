@@ -30,10 +30,7 @@
                                             <label class="form-label" for="exampleInput">Tipo Doc. Identidad</label>
                                             <select id="tipodoc_id" name="tipodoc_id" class="form-control" data-placeholder="Seleccionar" required>
                                                 <option label="Seleccionar"></option>
-                                                <option value="1">RUC</option>
-                                                <option value="2">DNI</option>
-                                                <option value="3">CE</option>
-                                                <option value="4">PASAPORTE</option>
+                                                
                                             </select>                  
                                         </div>
                                     </div>

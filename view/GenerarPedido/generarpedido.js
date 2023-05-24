@@ -11,7 +11,6 @@ $(document).ready(function(){
          buscarCliente(); // Llamar a la función buscarCliente()
        }
     }); 
-
     $.post("../../controller/tservicio.php?op=combo",function(data, status){
       $('#id_modalidad').html(data);
     });
@@ -23,8 +22,7 @@ $(document).ready(function(){
     $.post("../../controller/demision.php?op=combo",function(data, status){
       $('#id_demision').html(data);
     });    
-});
- 
+}); 
 
 $(function() {			
   $('.flatpickr').flatpickr();
@@ -51,7 +49,8 @@ $('#tickd_requi').summernote({
        ['para', ['ul', 'ol', 'paragraph']],
        ['height', ['height']]
   ]
-}); 
+});
+
 // Función para buscar el cliente utilizando AJAX
 function buscarCliente() {
   var nro_doc = $("#nro_doc").val(); // Obtener el número de documento ingresado
@@ -67,15 +66,14 @@ function buscarCliente() {
       $("#contacto_cli").val(data.contacto_cli);
       $("#contacto_telf").val(data.contacto_telf);
       $("#correo_cli").val(data.correo_cli);
-
       // Asignar el valor del id_client a un campo oculto
       $("#id_cliente").val(data.id_cliente);
      },
      error: function() {
-      swal("Advertencia!", "Documento no existe", "warning");
+      swal("Error!", "Documento no existe", "error");
     }
     });       
-} 
+}
 
 function guardaryeditarPedido(e){
   e.preventDefault(); 
@@ -85,11 +83,34 @@ function guardaryeditarPedido(e){
   }else{
     var sub_total = parseFloat($('#total_pagar').text());
     var igv = parseFloat($('#igv').text());
-    var total = parseFloat($('#total_final').text());  
+    var total = parseFloat($('#total_final').text());
+
+    // Capturar los productos
+    var productos = [];
+
+    $('#detalle_ped tbody tr').each(function() {
+      var id_servicio = $(this).find('td:nth-child(1)').text();
+      var descripcion = $(this).find('td:nth-child(2)').text();
+      var u_medida = $(this).find('td:nth-child(3)').text();
+      var cantidad = $(this).find('td:nth-child(4)').text();
+      var precio_uni = $(this).find('td:nth-child(5)').text();
+      var total = $(this).find('td:nth-child(6)').text();    
+      var producto = {
+        id_servicio: id_servicio,
+        descripcion: descripcion,
+        u_medida: u_medida,
+        cantidad: cantidad,
+        precio_uni: precio_uni,
+        total: total
+      };    
+      productos.push(producto);
+    });
     var formData = new FormData($("#pedido_form")[0]);
+  
     formData.append('total_pagar', sub_total);
     formData.append('igv', igv);
-    formData.append('total_final', total); 
+    formData.append('total_final', total);
+    formData.append('productos', JSON.stringify(productos)); 
           $.ajax({
           url: "../../controller/pedido.php?op=generaryeditar",
           type: "POST",
@@ -97,13 +118,10 @@ function guardaryeditarPedido(e){
           contentType: false,
           processData: false,
           success: function(data){
-
             console.log(data);
             if (data.trim() !== '') {
               data = JSON.parse(data);
-              console.log(data[0].id_pedido);
-
-              
+              console.log(data[0].id_pedido);              
               $("#nro_doc").val("");
               $('#pedido_form')[0].reset();
               $('#tickd_requi').summernote('reset');
@@ -115,5 +133,4 @@ function guardaryeditarPedido(e){
       });
   }
 }
-
 init();

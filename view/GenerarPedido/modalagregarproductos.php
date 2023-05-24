@@ -45,8 +45,7 @@
                                 <label class="form-label" for="precio">Precio Unitario</label>
                                 <input type="text" class="form-control" id="precio" name="precio" required>
                             </div>
-                        </div>
-                        
+                        </div>                        
                          
                        <div class="col-lg-4">
                             <div class="row">

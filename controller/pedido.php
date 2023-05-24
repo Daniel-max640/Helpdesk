@@ -12,6 +12,7 @@
         case "generaryeditar":
         // Obtener los datos del formulario o de la solicitud
         if(empty($_POST["id_pedido"])){
+        $detalle_ped = json_decode($_POST["productos"], true);
         $datos=$pedido->insert_pedido(
         $_POST["usu_id"],
         $_POST["id_cliente"],
@@ -37,7 +38,8 @@
         $_POST["telf_cfactu"],
         $_POST["conta_cobra"],
         $_POST["correo_ccobra"],
-        $_POST["telf_ccobra"]);
+        $_POST["telf_ccobra"],
+        $detalle_ped);        
         }
         else {
         $pedido->editar_pedido(
@@ -68,8 +70,7 @@
             $_POST["correo_ccobra"],
             $_POST["telf_ccobra"]);
         } 
-        echo json_encode($datos);    
-
+        echo json_encode($datos);
         break;
 
         
@@ -102,10 +103,8 @@
                 $sub_array[] = $row["nom_cli"];
                 $sub_array[] = $row["serie_pedido"];
                 $sub_array[] = $row["descripcion"];
-                $sub_array[] = $row["total"];
-                
-               
-                $sub_array[] = '<button type="button" onClick="ver('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-eye"></i></button>';
+                $sub_array[] = $row["total"];              
+                $sub_array[] = '<button type="button" onClick="ver('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';
               
                 $data[] = $sub_array;
             }

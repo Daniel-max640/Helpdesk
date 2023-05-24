@@ -1,7 +1,7 @@
 <?php
     class Pedido extends Conectar{
 
-        public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
+        public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra,$detalles){
             $conectar= parent::conexion();
             parent::set_names();            
             $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1');";
@@ -32,11 +32,38 @@
             $sql->bindValue(24, $correo_ccobra);
             $sql->bindValue(25, $telf_ccobra);
             $sql->execute();          
-            $sql1="select last_insert_id() as 'id_pedido';";
+            /*$sql1="select last_insert_id() as 'id_pedido';";
             $sql1=$conectar->prepare($sql1);
             $sql1->execute();
             return $resultado=$sql1->fetchAll(pdo::FETCH_ASSOC);
+            */
+            $pedido_id = $conectar->lastInsertId();
+    
+                // Insertar detalles del pedido
+            foreach ($detalles as $detalle) {
+            $id_servicio = $detalle['id_servicio'];
+            $descripcion = $detalle['descripcion'];
+            $u_medida = $detalle['u_medida'];
+            $cantidad = $detalle['cantidad'];
+            $precio_uni = $detalle['precio_uni'];
+            $total = $detalle['total'];
+                
+            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?);";
+            $sql_detalle = $conectar->prepare($sql_detalle);
+            $sql_detalle->bindValue(1, $pedido_id);
+            $sql_detalle->bindValue(2, $id_servicio);
+            $sql_detalle->bindValue(3, $descripcion);
+            $sql_detalle->bindValue(4, $u_medida);
+            $sql_detalle->bindValue(5, $cantidad);
+            $sql_detalle->bindValue(6, $precio_uni);
+            $sql_detalle->bindValue(7, $total);
+            $sql_detalle->execute();
+            }
+             
+            return $pedido_id;
         }
+
+        
 
         public function editar_pedido($id_pedido,$usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra){
             $conectar= parent::conexion();

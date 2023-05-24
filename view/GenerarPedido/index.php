@@ -42,7 +42,7 @@
 							<input type="hidden" id="id_cliente" name="id_cliente" value="">
 						    <div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">RUC/DNI</label>
+									<label class="form-label semibold" for="exampleInput">RUC/DNI<a href="#" id="btnAgregarCliente"> [+ Nuevo]</a></label>
 									<input type="text" class="form-control" id="nro_doc" name="nro_doc" placeholder="Ingrese RUC/DNI">
 									</select>
 								</fieldset>
@@ -112,8 +112,7 @@
 									</select>
 								</fieldset>
 							</div>
-						</div>	
-
+						</div>
 						<div class="row">
 							<div class="col-lg-4">
 								<fieldset class="form-group">
@@ -133,9 +132,7 @@
 									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
 									<input type="text" class="form-control" id="dire_entrega" name="dire_entrega" placeholder="Ingrese Direccion">
   								</fieldset>
-							</div>						
-
-
+							</div>							
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
@@ -145,15 +142,13 @@
 								</fieldset>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Asesor</label>
 									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
 								</fieldset>
-							</div>
-							
+							</div>							
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
@@ -162,7 +157,6 @@
 									</select>
 								</fieldset>
 							</div>
-
 							<div class="col-lg-4 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
@@ -174,15 +168,13 @@
 									</div>
 								</fieldset>
 							</div>
-
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
 									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
 								</fieldset>
 							</div>
-						</div>	
-
+						</div>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="col-lg-4">								
@@ -206,17 +198,13 @@
 										</tbody>
 									</table>
 								</div>
-							</div>
-						
-							
+							</div>							
 							<!--DETALLE DEL TOTAL-->
 							<div class="col-lg-12">							 											
 								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 
 								<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
 								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
-							</div>
-							
-								
+							</div>								
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
@@ -224,8 +212,7 @@
 										<textarea id="tickd_requi" name="tickd_requi" class="summernote"></textarea>
 									</div>
 								</fieldset>
-							</div>					
-									
+							</div>									
 							<div class="col-lg-12">
 								<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
 							</div>
@@ -259,8 +246,7 @@
 									<label  class="form-label semibold">Telefono</label>
 									<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
 								</fieldset>									
-							</div>			
-							
+							</div>							
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar</button>
@@ -273,9 +259,7 @@
 	<!-- Contenido -->
 	<?php require_once("modalagregarproductos.php");?>
 	<?php require_once("../MainJs/js.php");?>
-
 	<script type="text/javascript" src="generarpedido.js"></script>
-
 </body>
 </html>
 <?php
