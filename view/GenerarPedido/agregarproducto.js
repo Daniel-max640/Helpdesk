@@ -4,17 +4,20 @@ function init(){
 }
 
 $(document).ready(function(){
+  //cargado de informacion en el combo de Unidad de MEDIDA
   $.post("../../controller/umedida.php?op=combo",function(data, status){
     console.log(data); // Verificar los datos recibidos en la consola
     $('#id_medida').html(data);
-  });   
+  });
 
+  //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
-
+  
+  //Calcula los valores automaticamente del total cuando se genera un cambio en la cantidad
   $('#cantidad').on('change', function() {
     calcularTotal();
   });
-
+  //Calcula los valores automaticamente del total cuando se genera un cambio en el precio
   $('#precio').on('input', function() {
     calcularTotal();
   });
@@ -54,42 +57,49 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '#detalle_ped tbody .btn-warning', function() {
-    $('#mdltitulo').html('Editar Servicio');        
+    $('#mdltitulo').html('Editar Servicio');  
   
       // Obtener la fila actual
-  var row = $(this).closest('tr');
+    var row = $(this).closest('tr');
 
-  // Obtener los valores actuales del detalle de producto
-  var id_producto = row.find('td:nth-child(1)').text();
-  var descripcion = row.find('td:nth-child(2)').text();
-  var id_medida = row.find('td:nth-child(3)').text();
-  var cantidad = row.find('td:nth-child(4)').text();
-  var precio = row.find('td:nth-child(5)').text();
+    // Obtener los valores actuales del detalle de producto
+    var id_producto = row.find('td:nth-child(1)').text();
+    var descripcion = row.find('td:nth-child(2)').text();
+    var id_medida = row.find('td:nth-child(3)').text();
+    var cantidad = row.find('td:nth-child(4)').text();
+    var precio = row.find('td:nth-child(5)').text();
+   
+    //console.log("id_medida:", id_medida);
 
-  console.log("id_medida:", id_medida);
+    // Asignar los valores a los campos del formulario de edición
+    $('#id_producto').val(id_producto);
+    $('#descripcion').val(descripcion);   
+    $('#cantidad').val(cantidad);
+    $('#precio').val(precio);
 
-  // Asignar los valores a los campos del formulario de edición
-  $('#id_producto').val(id_producto);
-  $('#descripcion').val(descripcion);
-  $('#id_medida').val(id_medida).trigger('change');
-  $('#cantidad').val(cantidad);
-  $('#precio').val(precio);
+    $('#id_medida option').each(function() {
+      if ($(this).text() === id_medida) {
+        $('#id_medida').val($(this).val()).trigger('change');
+        return false; // Salir del bucle each
+      }
+    });
+  
 
-  calcularTotal();  
+    calcularTotal();  
 
-  // Cambiar el modo del modal a "editar"
-  modoModal = 'editar';
-  $('#btn-AgregarDetalle').show();
+    // Cambiar el modo del modal a "editar"
+    modoModal = 'editar';
+    $('#btn-AgregarDetalle').show();
 
-  // Cambiar el texto del botón en el modal a "Guardar Edición"
-  $('#btn-AgregarDetalle').text('Guardar Edición');
+    // Cambiar el texto del botón en el modal a "Guardar Edición"
+    $('#btn-AgregarDetalle').text('Guardar Edición');
 
-  // Mostrar el modal de agregar/editar detalle
-  $('#modalagregarproductos').modal('show');
+    // Mostrar el modal de agregar/editar detalle
+    $('#modalagregarproductos').modal('show');
 
-  // Agregar la clase "editando" a la fila actual
-  row.addClass('editando');
-  });
+    // Agregar la clase "editando" a la fila actual
+    row.addClass('editando');
+    });
   
 });
 
@@ -101,12 +111,16 @@ function agegardetalle() {
   var cantidad = $('#cantidad').val();
   var precio = $('#precio').val();
   var total = $('#total').val();
-
+ 
   // Verificar si todos los campos requeridos tienen valores
   if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
     swal("Advertencia!", "Por favor, completa todos los campos antes de agregar el detalle.", "warning");
     return;
   }
+
+   // Obtener el nombre de la medida seleccionada
+   var nombre_medida = $('#id_medida option:selected').data('nombre');
+
 
   // Verificar si el modal está en modo de edición
   if (modoModal === 'editar') {
@@ -116,7 +130,7 @@ function agegardetalle() {
     // Actualizar los valores de la fila con los nuevos datos
     filaEditando.find('td:nth-child(1)').text(id_producto);
     filaEditando.find('td:nth-child(2)').text(descripcion);
-    filaEditando.find('td:nth-child(3)').text(id_medida);
+    filaEditando.find('td:nth-child(3)').text(nombre_medida);
     filaEditando.find('td:nth-child(4)').text(cantidad);
     filaEditando.find('td:nth-child(5)').text(precio);
     filaEditando.find('td:nth-child(6)').text(total);
@@ -128,12 +142,14 @@ function agegardetalle() {
  
       // Cambiar el texto del botón en el modal a "Agregar Detalle"
       $('#btn-AgregarDetalle').text('Agregar');
+      // Cerrar el modal
+      $('#modalagregarproductos').modal('hide');
   } else {
     // Agregar nueva fila a la tabla de detalle de pedido
     $('#detalle_ped tbody').append('<tr>' +
       '<td>' + id_producto + '</td>' +
       '<td>' + descripcion + '</td>' +
-      '<td>' + id_medida + '</td>' +
+      '<td>' + nombre_medida + '</td>' +
       '<td>' + cantidad + '</td>' +
       '<td class="d-none d-sm-table-cell">' + precio + '</td>' +
       '<td class="d-none d-sm-table-cell">' + total + '</td>' +
@@ -174,7 +190,7 @@ function buscarProducto(descripcion) {
   }
 
   $.ajax({
-     url: '../../controller/producto.php?op=buscar',
+    url: '../../controller/producto.php?op=buscar',
     type: "POST",
     data: { "action": "buscar", "descripcion": descripcion },
     dataType: "json",
@@ -193,16 +209,14 @@ function buscarProducto(descripcion) {
           });
         listaResultados.append(li);
       });
-     },
+    },
     error: function() {
-       const listaResultados = $('#lista-resultados');
+      const listaResultados = $('#lista-resultados');
       listaResultados.empty();
-       listaResultados.append('<li>Error al buscar productos</li>');      
-     }
-   });
-      
+      listaResultados.append('<li>Error al buscar productos</li>');      
+    }
+  });      
 }
-
 
 function actualizarIGVYTotal() {
   const igv = sumaTotal * 0.18; // suponiendo que el IGV es del 18%
@@ -221,8 +235,7 @@ function eliminarDetalle(btn) {
   actualizarIGVYTotal();
 }
 
-$(document).on("click","#btnagregar", function(){
-    
+$(document).on("click","#btnagregar", function(){    
   $('#mdltitulo').html('Agregar productos/Servicios');
   $('#productos_form')[0].reset();
   $('#modalagregarproductos').modal('show');

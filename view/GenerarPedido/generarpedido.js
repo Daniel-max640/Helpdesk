@@ -72,7 +72,7 @@ function buscarCliente() {
      error: function() {
       swal("Error!", "Documento no existe", "error");
     }
-    });       
+  });       
 }
 
 function guardaryeditarPedido(e){
@@ -121,10 +121,20 @@ function guardaryeditarPedido(e){
             console.log(data);
             if (data.trim() !== '') {
               data = JSON.parse(data);
-              console.log(data[0].id_pedido);              
+              console.log(data[0].id_pedido); 
+              // Limpiar la tabla
+              $('#detalle_ped tbody').empty();
+
+              //Restablecer valores de campos y editor de texto             
               $("#nro_doc").val("");
               $('#pedido_form')[0].reset();
               $('#tickd_requi').summernote('reset');
+              
+              // Restablecer valores de subtotal, IGV y total a pagar
+              $('#total_pagar').text('0.00');
+              $('#igv').text('0.00');
+              $('#total_final').text('0.00');
+
               swal("Correcto!", "Registrado Correctamente", "success");
             } else {
               console.log('Respuesta vacía');

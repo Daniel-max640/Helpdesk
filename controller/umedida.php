@@ -5,13 +5,15 @@
 
     switch($_GET["op"]){
         case "combo":
+            $valor_seleccionado = ""; 
             $datos = $umedida->get_umedida();
             $html="";
             $html.= "<option label='Seleccionar'></option>";
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
                 {
-                    $html.= "<option value='".$row['id_medida']."'>".$row['abreviatura']."</option>";
+                    $selected = ($row['id_medida'] == $valor_seleccionado) ? "selected" : ""; // Agrega esta línea, reemplazando $valor_seleccionado con el valor correcto
+                    $html .= "<option value='".$row['id_medida']."' data-nombre='".$row['abreviatura']."'>".$row['abreviatura']."</option>";
                 }
                 echo $html;
             }
