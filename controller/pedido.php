@@ -42,7 +42,8 @@
         $detalle_ped);        
         }
         else {
-        $pedido->editar_pedido(
+        $detalle_ped = json_decode($_POST["productos"], true);
+        $datos = $pedido->editar_pedido(
             $_POST["id_pedido"],
             $_POST["usu_id"],
             $_POST["id_cliente"],
@@ -62,17 +63,19 @@
             $_POST["total_pagar"],
             $_POST["igv"],
             $_POST["total_final"],
-            $_POST["observacion"],
+            $_POST["tickd_requi"],
             $_POST["conta_factu"],
             $_POST["correo_cfactu"],
             $_POST["telf_cfactu"],
             $_POST["conta_cobra"],
             $_POST["correo_ccobra"],
-            $_POST["telf_ccobra"]);
-        } 
+            $_POST["telf_ccobra"],
+            $detalle_ped
+            );
+        }
         echo json_encode($datos);
-        break;
 
+        break;
         
         case "buscarCli":           
         $datos=$cliente->buscarCliente($_POST["nro_doc"]);  
@@ -104,11 +107,9 @@
                 $sub_array[] = $row["serie_pedido"];
                 $sub_array[] = $row["descripcion"];
                 $sub_array[] = $row["total"];              
-                $sub_array[] = '<button type="button" onClick="ver('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';
-              
+                $sub_array[] = '<button type="button" onClick="editapedido('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';              
                 $data[] = $sub_array;
             }
-
             $results = array(
                 "sEcho"=>1,
                 "iTotalRecords"=>count($data),
@@ -116,6 +117,41 @@
                 "aaData"=>$data);
             echo json_encode($results);
         break;
+
+        case "mostrar":
+            $datos=$pedido->listar_pedido_x_id ($_POST["id_pedido"]); 
+            if(is_array($datos)==true and count($datos)>0){
+                foreach($datos as $row)
+                {
+                    $output["id_pedido"] = $row["id_pedido"];
+                    $output["nro_doc"] = $row["nro_doc"];
+                    $output["direc_cli"] = $row["direc_cli"];
+                    $output["nom_cli"] = $row["nom_cli"];
+                    $output["serie_pedido"] = $row["serie_pedido"];
+                    $output["moneda"] = $row["moneda"];
+                    $output["id_modalidad"] = $row["id_modalidad"];
+                    $output["contacto"] = $row["contacto"];
+                    $output["telf_contacto"] = $row["telf_contacto"];
+                    $output["dire_entrega"] = $row["dire_entrega"];
+                    $output["id_demision"] = $row["id_demision"];
+                    $output["asesor"] = $row["asesor"];
+                    //$output["id_fpago"] = $row["id_fpago"];
+                    //$output["fecha_entrega"] = $row["fecha_entrega"];
+                    //$output["total_pagar"] = $row["total_pagar"];
+                    //$output["igv"] = $row["igv"];
+                    //$output["total_final"] = $row["total_final"];
+                    //$output["tickd_requi"] = $row["tickd_requi"];
+                    //$output["conta_factu"] = $row["conta_factu"];
+                    //$output["correo_cfactu"] = $row["correo_cfactu"];
+                    //$output["telf_cfactu"] = $row["telf_cfactu"];
+                    //$output["conta_cobra"] = $row["conta_cobra"];
+                    //$output["correo_ccobra"] = $row["correo_ccobra"];
+                    //$output["telf_ccobra"] = $row["telf_ccobra"];
+                }
+                
+                echo json_encode($output);
+            }
+        break;  
         
     }
 ?>

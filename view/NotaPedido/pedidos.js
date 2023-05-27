@@ -136,6 +136,11 @@ $(document).on("click","#btnnuevo", function(){
     //  window.open('https://sanipperuerp.000webhostapp.com//view/GenerarPedido/');
 });
 
+function editapedido(id_pedido){
+    window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');
+    
+}
+
 
 		$(function() {
 			

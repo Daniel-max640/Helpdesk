@@ -134,6 +134,7 @@ function guardaryeditarPedido(e){
               $('#total_pagar').text('0.00');
               $('#igv').text('0.00');
               $('#total_final').text('0.00');
+              console.log("Mensaje de éxito"); // Agrega esta línea
 
               swal("Correcto!", "Registrado Correctamente", "success");
             } else {

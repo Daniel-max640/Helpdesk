@@ -122,8 +122,6 @@ $(document).ready(function(){
             }     
         }).DataTable(); 
     }
-   
-
 });  
 
 function ver(tick_id){
@@ -141,7 +139,6 @@ function asignar(tick_id){
         $("#modalasignar").modal('show');
     });
 }
-
 /* TODO: Guardar asignacion de usuario de soporte */
 function guardar(e){
     e.preventDefault();
@@ -166,7 +163,6 @@ function guardar(e){
         }
     });
 }
-
 function CambiarEstado(tick_id){
     swal({
         title: "HelpDesk",
