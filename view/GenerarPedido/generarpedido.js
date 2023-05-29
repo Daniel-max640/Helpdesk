@@ -21,7 +21,8 @@ $(document).ready(function(){
 
     $.post("../../controller/demision.php?op=combo",function(data, status){
       $('#id_demision').html(data);
-    });    
+    });
+        
 }); 
 
 $(function() {			

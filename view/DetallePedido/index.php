@@ -107,7 +107,7 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
-									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
+									<select id="id_modalidad" name="id_modalidad" class="form-control">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
@@ -257,9 +257,10 @@
   			</div>
 	</div>
 	<!-- Contenido -->
-	<?php require_once("../GenerarPedido/modalagregarproductos.php");?>
+	
 	<?php require_once("../MainJs/js.php");?>
 	<script type="text/javascript" src="detallepedido.js"></script>
+	
 
 	
 </body>

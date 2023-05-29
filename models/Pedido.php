@@ -201,12 +201,12 @@
                 tm_pedido.telf_ccobra,
                 tipo_servicio.modalidad,
                 doc_emision.documento,                
-                forma_pago.descripcion    
+                forma_pago.descripcion           
                 FROM 
                 tm_pedido
                 INNER join tipo_servicio on tm_pedido.id_modalidad = tipo_servicio.id_modalidad
                 INNER join doc_emision on tm_pedido.id_demision = doc_emision.id_demision
-                INNER join forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago
+                INNER join forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago                
                 WHERE
                 tm_pedido.est_ped = 1
                 AND tm_pedido.id_pedido = ?";
@@ -214,6 +214,31 @@
             $sql->bindValue(1, $id_pedido);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }        
+        } 
+
+        public function listar_detalle_pedido($id_pedido){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+                tm_pedido.id_pedido,
+                tm_servicio.id_servicio,
+                tm_servicio.descripcion,
+                det_pedido.U_medida,
+                det_pedido.cantidad,
+                det_pedido.precio_uni,
+                det_pedido.total
+                FROM 
+                det_pedido
+                INNER join tm_pedido ON det_pedido.id_pedido = tm_pedido.id_pedido
+                INNER join tm_servicio ON det_pedido.id_servicio = tm_servicio.id_servicio
+                WHERE
+                tm_pedido.id_pedido = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_pedido);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        } 
+        
+        
     }
 ?>
