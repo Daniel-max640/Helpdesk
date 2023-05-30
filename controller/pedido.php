@@ -139,9 +139,9 @@
                     $output["asesor"] = $row["asesor"];
                     $output["id_fpago"] = $row["id_fpago"];
                     $output["fecha_entrega"] = $row["fecha_entrega"];
-                    //$output["sub_total"] = $row["sub_total"];
-                    //$output["igv"] = $row["igv"];
-                    //$output["total_final"] = $row["total_final"];
+                    $output["sub_total"] = $row["sub_total"];
+                    $output["igv"] = $row["igv"];
+                    $output["total_final"] = $row["total"];
                     $output["tickd_requi"] = $row["observacion"];
                     $output["conta_factu"] = $row["conta_factu"];
                     $output["correo_cfactu"] = $row["correo_cfactu"];
@@ -172,57 +172,6 @@
             }
             break;
 
-            case "mostrar":
-                $datos=$pedido->listar_pedido_x_id ($_POST["id_pedido"]); 
-                if(is_array($datos)==true and count($datos)>0){
-                    foreach($datos as $row)
-                    {
-                        $output["id_pedido"] = $row["id_pedido"];
-                        $output["nro_doc"] = $row["nro_doc"];
-                        $output["direc_cli"] = $row["direc_cli"];
-                        $output["nom_cli"] = $row["nom_cli"];
-                        $output["serie_pedido"] = $row["serie_pedido"];
-                        $output["moneda"] = $row["moneda"];
-                        $output["id_modalidad"] = $row["id_modalidad"];
-                        $output["contacto"] = $row["contacto"];
-                        $output["telf_contacto"] = $row["telf_contacto"];
-                        $output["dire_entrega"] = $row["dire_entrega"];
-                        $output["id_demision"] = $row["id_demision"];
-                        $output["asesor"] = $row["asesor"];
-                        $output["id_fpago"] = $row["id_fpago"];
-                        $output["fecha_entrega"] = $row["fecha_entrega"];
-                        //$output["sub_total"] = $row["sub_total"];
-                        //$output["igv"] = $row["igv"];
-                        //$output["total_final"] = $row["total_final"];
-                        $output["tickd_requi"] = $row["observacion"];
-                        $output["conta_factu"] = $row["conta_factu"];
-                        $output["correo_cfactu"] = $row["correo_cfactu"];
-                        $output["telf_cfactu"] = $row["telf_cfactu"];
-                        $output["conta_cobra"] = $row["conta_cobra"];
-                        $output["correo_ccobra"] = $row["correo_ccobra"];
-                        $output["telf_ccobra"] = $row["telf_ccobra"];
-                        
-                        $output["detalles"] = [];
-    
-                        $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);
-                        if (is_array($detalles) && count($detalles) > 0) {
-                            foreach ($detalles as $detalle) {
-                                $detalles_pedido = [
-                                    "id_servicio" => $detalle["id_servicio"],
-                                    "descripcion" => $detalle["descripcion"],
-                                    "U_medida" => $detalle["U_medida"],
-                                    "cantidad" => $detalle["cantidad"],
-                                    "precio_uni" => $detalle["precio_uni"],
-                                    "total" => $detalle["total"]
-                                ];
-    
-                                $output["detalles"][] = $detalles_pedido;
-                            }
-                        }
-                    }                
-                    echo json_encode($output);
-                }
-             break;  
                             
         }
 ?>

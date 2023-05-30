@@ -40,6 +40,7 @@
 						<div class="row">						
 							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 							<input type="hidden" id="id_cliente" name="id_cliente" value="">
+							<input type="hidden" id="id_pedido" name="id_pedido" value="">
 						    <div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">RUC/DNI<a href="#" id="btnAgregarCliente"> [+ Nuevo]</a></label>
@@ -249,7 +250,7 @@
 							</div>							
 							<div class="col-lg-12">
 								<fieldset class="form-group">
-								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar</button>
+								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar Modificacion</button>
 								</fieldset>
 							</div>
 					</form>
@@ -258,10 +259,10 @@
 	</div>
 	<!-- Contenido -->
 	
-	<?php require_once("../MainJs/js.php");?>
-	<script type="text/javascript" src="detallepedido.js"></script>
-	
 
+	<?php require_once("../MainJs/js.php");?>
+	<?php require_once("modalagregarservicios.php");?>	
+	<script type="text/javascript" src="detallepedido.js"></script>
 	
 </body>
 </html>

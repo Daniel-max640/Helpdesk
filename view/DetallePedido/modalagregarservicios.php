@@ -1,4 +1,4 @@
-<div id="modalagregarproductos"  class="modal bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="modalagregaryeditar"  class="modal bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,7 @@
                 </button>
                 <h4 class="modal-title" id="mdltitulo"></h4>
             </div>
-            <form method="post" id="productos_form">
+            <form method="post" id="servicios_form">
                 <div class="modal-body">
                     <div class="container-fluid">
     
@@ -43,7 +43,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-label" for="precio">Precio Unitario</label>
-                                <input type="text" class="form-control" id="precio" name="precio" required>
+                                <input type="text" class="form-control" id="precio" name="precio" required></input>
                             </div>
                         </div>                        
                          
@@ -84,6 +84,6 @@
     </div>
 </div>
 <?php require_once("../MainJs/js.php");?>
-<script src="agregarproducto.js"></script>
+<script type="text/javascript" src="agregarservicios.js"></script>
 
 

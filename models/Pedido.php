@@ -62,8 +62,7 @@
             parent::set_names();
         
             try {
-                $conectar->beginTransaction();
-        
+                $conectar->beginTransaction();        
                 $sql = "UPDATE tm_pedido SET usu_id=?, id_cliente=?, nro_doc=?, direc_cli=?, nom_cli=?, fecha_emision=now(), serie_pedido=?, moneda=?, id_modalidad=?, contacto=?, telf_contacto=?, dire_entrega=?, id_demision=?, asesor=?, id_fpago=?, fecha_entrega=?, sub_total=?, igv=?, total=?, observacion=?, conta_factu=?, correo_cfactu=?, telf_cfactu=?, conta_cobra=?, correo_ccobra=?, telf_ccobra=? WHERE id_pedido=?";
                 $sql = $conectar->prepare($sql);
                 $sql->bindValue(1, $usu_id);

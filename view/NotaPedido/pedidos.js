@@ -15,12 +15,10 @@ function guardaryeditar(e){
         data: formData,
         contentType: false,
         processData: false,
-        success: function(datos){    
-            
+        success: function(datos){           
             $('#usuario_form')[0].reset();
             $("#modalmantenimiento").modal('hide');
             $('#usuario_data').DataTable().ajax.reload();
-
             swal({
                 title: "HelpDesk!",
                 text: "Completado.",
@@ -87,7 +85,6 @@ $(document).ready(function(){
 
 function editar(usu_id){
     $('#mdltitulo').html('Editar Registro');
-
     $.post("../../controller/usuario.php?op=mostrar", {usu_id : usu_id}, function (data) {
         data = JSON.parse(data);
         $('#usu_id').val(data.usu_id);
@@ -96,8 +93,7 @@ function editar(usu_id){
         $('#usu_correo').val(data.usu_correo);
         $('#usu_pass').val(data.usu_pass);
         $('#rol_id').val(data.rol_id).trigger('change');
-    }); 
-
+    });
     $('#modalmantenimiento').modal('show');
 }
 
@@ -115,11 +111,8 @@ function eliminar(usu_id){
     function(isConfirm) {
         if (isConfirm) {
             $.post("../../controller/usuario.php?op=eliminar", {usu_id : usu_id}, function (data) {
-
             }); 
-
-            $('#usuario_data').DataTable().ajax.reload();	
-
+            $('#usuario_data').DataTable().ajax.reload();
             swal({
                 title: "HelpDesk!",
                 text: "Registro Eliminado.",
@@ -130,37 +123,27 @@ function eliminar(usu_id){
     });
 }
 
-$(document).on("click","#btnnuevo", function(){
- 
+$(document).on("click","#btnnuevo", function(){ 
     window.open('http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/');
     //  window.open('https://sanipperuerp.000webhostapp.com//view/GenerarPedido/');
 });
 
 function editapedido(id_pedido){
-    window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');
-    
+    window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');    
 }
 
 
-		$(function() {
-			
-			/* ==========================================================================
-			 Datepicker
-			 ========================================================================== */
-
-			$('.flatpickr').flatpickr();
-			$("#flatpickr-disable-range").flatpickr({
-				disable: [
-					{
-						from: "2016-08-16",
-						to: "2016-08-19"
-					},
-					"2016-08-24",
-					new Date().fp_incr(30) // 30 days from now
+$(function() {
+    $('.flatpickr').flatpickr();
+	$("#flatpickr-disable-range").flatpickr({
+		disable: [
+			{
+			 from: "2016-08-16",
+			 to: "2016-08-19"
+			},
+				"2016-08-24",
+				new Date().fp_incr(30) // 30 days from now
 				]
-			});
 		});
-
-
-
+	});
 init();

@@ -48,17 +48,9 @@ $(document).ready(function(){
      agegardetalle();         
   });  
 
-  $(document).on('click', '#detalle_ped tbody .btn-danger', function() {
-    var row = $(this).closest('tr');
-    var totalRow = parseFloat(row.find('td').eq(5).text());
-    sumaTotal -= totalRow;
-    actualizarIGVYTotal();
-    row.remove();
-  });
 
   $(document).on('click', '#detalle_ped tbody .btn-warning', function() {
-    $('#mdltitulo').html('Editar Servicio');  
-  
+    $('#mdltitulo').html('Editar Servicio');   
       // Obtener la fila actual
     var row = $(this).closest('tr');
 
@@ -67,8 +59,7 @@ $(document).ready(function(){
     var descripcion = row.find('td:nth-child(2)').text();
     var id_medida = row.find('td:nth-child(3)').text();
     var cantidad = row.find('td:nth-child(4)').text();
-    var precio = row.find('td:nth-child(5)').text();
-   
+    var precio = row.find('td:nth-child(5)').text();   
     //console.log("id_medida:", id_medida);
 
     // Asignar los valores a los campos del formulario de edición
@@ -95,7 +86,7 @@ $(document).ready(function(){
     $('#btn-AgregarDetalle').text('Guardar Edición');
 
     // Mostrar el modal de agregar/editar detalle
-    $('#modalagregarproductos').modal('show');
+    $('#modalagregaryeditar').modal('show');
 
     // Agregar la clase "editando" a la fila actual
     row.addClass('editando');
@@ -143,7 +134,8 @@ function agegardetalle() {
       // Cambiar el texto del botón en el modal a "Agregar Detalle"
       $('#btn-AgregarDetalle').text('Agregar');
       // Cerrar el modal
-      $('#modalagregarproductos').modal('hide');
+      $('#modalagregaryeditar').modal('hide');
+      
   } else {
     // Agregar nueva fila a la tabla de detalle de pedido
     $('#detalle_ped tbody').append('<tr>' +
@@ -218,19 +210,6 @@ function buscarProducto(descripcion) {
   });      
 }
 
-function actualizarIGVYTotal() {
-  const igv = sumaTotal * 0.18; // suponiendo que el IGV es del 18%
-  const total = sumaTotal + igv;
-  $('#total_pagar').text(sumaTotal.toFixed(2));
-  $('#igv').text(igv.toFixed(2));
-  $('#total_final').text(total.toFixed(2));
-}
-
-$(document).on("click","#btnagregar", function(){    
-  $('#mdltitulo').html('Agregar productos/Servicios');
-  $('#productos_form')[0].reset();
-  $('#modalagregarproductos').modal('show');
-});
 
 function actualizarCantidad(cantidad) {
   var inputCantidad = document.getElementById("cantidad");
