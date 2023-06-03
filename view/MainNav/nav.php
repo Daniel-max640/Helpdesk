@@ -92,6 +92,18 @@
 	                    </ul>
 	                </li>
 
+                    <li class="blue-dirty with-sub">
+	                    <span>
+	                    <i class="font-icon font-icon-user"></i>
+	                    <span class="lbl">PDF</span>
+	                    </span>
+	                    <ul>
+	                        <li>
+                                <a href="..\TCPDF\"><span class="lbl">IMPRESIONES</span></a>
+                            </li>	                                   
+	                    </ul>
+	                </li>
+
 
 
                 </ul>

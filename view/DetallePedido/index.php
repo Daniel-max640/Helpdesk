@@ -66,9 +66,7 @@
 							<div class="col-lg-1">
 								<div class="form-group">
 									<label class="form-label semibold" for="exampleInput">Serie</label>
-										<select id="serie_pedido" name="serie_pedido" class="form-control" data-placeholder="Seleccionar" required>
-											<option value="NP01">NP01</option>									
-										</select>              
+									<input type="text" class="form-control" id="serie_pedido" name="serie_pedido" readonly>            
 								</div>
 							</div>                      
 

@@ -1,7 +1,8 @@
 var sumaTotal = 0;
+var cantidadesLimpieza = [];
 function init(){ 
   $("#pedido_form").on("submit",function(e){
-    guardaryeditarPedido(e);
+    guardaryeditarPed(e);
   });
 }
 
@@ -26,8 +27,7 @@ $(document).ready(function(){
   });
 
   var id_pedido = getUrlParameter('IDs');
-  listardetalle(id_pedido); 
-         
+  listardetalle(id_pedido);         
 }); 
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -61,8 +61,8 @@ function buscarCliente() {
       // Asignar el valor del id_client a un campo oculto
       $("#id_cliente").val(data.id_cliente);
      },
-     error: function() {
-      swal("Error!", "Documento no existe", "error");
+    error: function() {
+    swal("Error!", "Documento no existe", "error");
     }
   });       
 }
@@ -72,7 +72,9 @@ function listardetalle(id_pedido){
         data = JSON.parse(data);
         console.log(data);        
         $('#lblid_pedido').html("Editar Pedido "+data.serie_pedido);
-        $('#id_pedido').val(data.id_pedido);   
+        $('#id_pedido').val(data.id_pedido); 
+        $('#serie_pedido').val(data.serie_pedido);
+        $('#id_cliente').val(data.id_cliente);  
         $('#nro_doc').val(data.nro_doc);
         $('#nom_cli').val(data.nom_cli);
         $('#direc_cli').val(data.direc_cli);
@@ -95,7 +97,7 @@ function listardetalle(id_pedido){
         $.post("../../controller/pedido.php?op=mostrar", { id_pedido: id_pedido }, function(detalles) {
         detalles = JSON.parse(detalles);  
         // Obtener los detalles de los servicios
-        var detalles = data.detalles;      
+        var detalles = data.detalles; 
         // Referencia a la tabla
         var tabla = $('#detalle_ped');
         // Limpiar filas anteriores de la tabla (excepto la cabecera)
@@ -109,10 +111,13 @@ function listardetalle(id_pedido){
             '<td>' + detalle.cantidad + '</td>' +
             '<td>' + detalle.precio_uni + '</td>' +
             '<td>' + detalle.total + '</td>' +
-            '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-warning btnEditar"><i class="fa fa-pencil"></i></a></td>' +
+            '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btnEditar btn-warning"><i class="fa fa-pencil"></i></a></td>' +
             '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger btnEliminar"><i class="fa fa-trash"></i></a></td>' +      
             '</tr>';      
           $('#detalle_ped').append(fila);
+
+          // Almacenar el valor de cant_limpieza en el array
+        cantidadesLimpieza.push(detalle.cant_limpieza);
         });
 
         sumaTotal = 0;
@@ -121,7 +126,6 @@ function listardetalle(id_pedido){
           var totalRow = parseFloat(row.find('td').eq(5).text());
           sumaTotal += totalRow;
         });
-
         // Asignar el valor de la suma al elemento <label>
         $('#total_pagar').text(sumaTotal.toFixed(2));
         actualizarIGVYTotal();
@@ -179,38 +183,36 @@ $(document).on("click","#btnagregar", function(){
   $('#modalagregaryeditar').modal('show');
 });
 
-function guardaryeditarPedido(e){
-  e.preventDefault(); 
-  
+function guardaryeditarPed(e){
+  e.preventDefault();  
   if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
       swal("Advertencia!", "Campos Vacios", "warning");
   }else{
     var sub_total = parseFloat($('#total_pagar').text());
     var igv = parseFloat($('#igv').text());
     var total = parseFloat($('#total_final').text());
-
     // Capturar los productos
     var productos = [];
-
     $('#detalle_ped tbody tr').each(function() {
       var id_servicio = $(this).find('td:nth-child(1)').text();
       var descripcion = $(this).find('td:nth-child(2)').text();
       var u_medida = $(this).find('td:nth-child(3)').text();
       var cantidad = $(this).find('td:nth-child(4)').text();
       var precio_uni = $(this).find('td:nth-child(5)').text();
-      var total = $(this).find('td:nth-child(6)').text();    
+      var total = $(this).find('td:nth-child(6)').text();
+      var cant_limpieza = $(this).find('td:nth-child(7)').text(); // Nuevo campo cant_limpieza  
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
         u_medida: u_medida,
         cantidad: cantidad,
         precio_uni: precio_uni,
-        total: total
+        total: total,
+        cant_limpieza: cant_limpieza
       };    
       productos.push(producto);
     });
-    var formData = new FormData($("#pedido_form")[0]);
-  
+    var formData = new FormData($("#pedido_form")[0]);  
     formData.append('total_pagar', sub_total);
     formData.append('igv', igv);
     formData.append('total_final', total);
@@ -228,19 +230,17 @@ function guardaryeditarPedido(e){
               data = JSON.parse(data);
               // Limpiar la tabla
               $('#detalle_ped tbody').empty();
-
               //Restablecer valores de campos y editor de texto             
               $("#nro_doc").val("");
               $('#pedido_form')[0].reset();
-              $('#tickd_requi').summernote('reset');
-              
+              $('#tickd_requi').summernote('reset');              
               // Restablecer valores de subtotal, IGV y total a pagar
               $('#total_pagar').text('0.00');
               $('#igv').text('0.00');
               $('#total_final').text('0.00');
               console.log("Mensaje de éxito"); // Agrega esta línea
-
-              swal("Correcto!", "Registrado Correctamente", "success");
+              swal("Correcto!", "Los cambios se han guardado correctamente.", "success");
+              window.location.href = "../NotaPedido";
             } else {
               console.log('Respuesta vacía');
             } 

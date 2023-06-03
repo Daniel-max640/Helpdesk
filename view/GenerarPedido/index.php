@@ -83,6 +83,16 @@
 						</div>
 
 						<div class="row">
+
+						<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
+									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
+									<option label="Seleccionar"></option>
+									</select>
+								</fieldset>
+							</div>
+
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto</label>
@@ -104,16 +114,18 @@
   								</fieldset>
 							</div>
 
-							<div class="col-lg-2">
+							
+						</div>
+						<div class="row">
+
+						<div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
-									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
+									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
+									<select id="id_demision" name="id_demision" class="form-control" data-placeholder="Seleccionar">
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
 							</div>
-						</div>
-						<div class="row">
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto de  Servico/Entrega</label>
@@ -123,7 +135,7 @@
 
 							  <div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Telf. Contacto Servicio/Entrega</label>
+									<label class="form-label semibold" for="exampleInput">Telf. Cont Servicio</label>
 									<input type="text" id="telf_contacto" name="telf_contacto" class="form-control" placeholder="Ingrese Telefono">
 								</fieldset>
 							</div>
@@ -133,23 +145,11 @@
 									<input type="text" class="form-control" id="dire_entrega" name="dire_entrega" placeholder="Ingrese Direccion">
   								</fieldset>
 							</div>							
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
-									<select id="id_demision" name="id_demision" class="form-control" data-placeholder="Seleccionar">
-									<option label="Seleccionar"></option>
-									</select>
-								</fieldset>
-							</div>
+							
 						</div>
 						<div class="row">
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Asesor</label>
-									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
-								</fieldset>
-							</div>							
-							<div class="col-lg-2">
+
+						<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
 									<select id="id_fpago" name="id_fpago" class="form-control" data-placeholder="Seleccionar">
@@ -157,6 +157,13 @@
 									</select>
 								</fieldset>
 							</div>
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Asesor</label>
+									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
+								</fieldset>
+							</div>							
+						
 							<div class="col-lg-4 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>

@@ -95,14 +95,19 @@ function guardaryeditarPedido(e){
       var u_medida = $(this).find('td:nth-child(3)').text();
       var cantidad = $(this).find('td:nth-child(4)').text();
       var precio_uni = $(this).find('td:nth-child(5)').text();
-      var total = $(this).find('td:nth-child(6)').text();    
+      var total = $(this).find('td:nth-child(6)').text(); 
+      // Obtener la cantidad de limpiezas de la fila correspondiente
+      var cant_limpieza = $(this).data('cant_limpieza');
+   
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
         u_medida: u_medida,
         cantidad: cantidad,
         precio_uni: precio_uni,
-        total: total
+        total: total,
+        cant_limpieza: cant_limpieza // Agregar el campo de cantidad de limpiezas
+
       };    
       productos.push(producto);
     });
@@ -122,8 +127,7 @@ function guardaryeditarPedido(e){
             console.log(data);
             if (data.trim() !== '') {
               data = JSON.parse(data);
-              console.log(data[0].id_pedido); 
-              // Limpiar la tabla
+               // Limpiar la tabla
               $('#detalle_ped tbody').empty();
 
               //Restablecer valores de campos y editor de texto             
@@ -138,6 +142,7 @@ function guardaryeditarPedido(e){
               console.log("Mensaje de éxito"); // Agrega esta línea
 
               swal("Correcto!", "Registrado Correctamente", "success");
+              //window.location.href = "../NotaPedido";
             } else {
               console.log('Respuesta vacía');
             } 

@@ -39,19 +39,21 @@
             $id_servicio = $detalle['id_servicio'];
             $descripcion = $detalle['descripcion'];
             $u_medida = $detalle['u_medida'];
+            $cant_limpieza = $detalle['cant_limpieza'];
             $cantidad = $detalle['cantidad'];
             $precio_uni = $detalle['precio_uni'];
             $total = $detalle['total'];
                 
-            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?);";
+            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?,?);";
             $sql_detalle = $conectar->prepare($sql_detalle);
             $sql_detalle->bindValue(1, $pedido_id);
             $sql_detalle->bindValue(2, $id_servicio);
             $sql_detalle->bindValue(3, $descripcion);
             $sql_detalle->bindValue(4, $u_medida);
-            $sql_detalle->bindValue(5, $cantidad);
-            $sql_detalle->bindValue(6, $precio_uni);
-            $sql_detalle->bindValue(7, $total);
+            $sql_detalle->bindValue(5, $cant_limpieza);
+            $sql_detalle->bindValue(6, $cantidad);
+            $sql_detalle->bindValue(7, $precio_uni);
+            $sql_detalle->bindValue(8, $total);
             $sql_detalle->execute();
             }             
             return $pedido_id;
@@ -99,25 +101,28 @@
                 $sql_delete->bindValue(1, $id_pedido);
                 $sql_delete->execute();
         
-                // Insertar los nuevos detalles del pedido
-                $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?);";
-                $sql_detalle = $conectar->prepare($sql_detalle);
-        
+               
                 foreach ($detalles as $detalle) {
                     $id_servicio = $detalle['id_servicio'];
                     $descripcion = $detalle['descripcion'];
                     $u_medida = $detalle['u_medida'];
+                    $cant_limpieza = isset($detalle['cant_limpieza']) ? $detalle['cant_limpieza'] : null; // Verificar si la clave existe
                     $cantidad = $detalle['cantidad'];
                     $precio_uni = $detalle['precio_uni'];
                     $total = $detalle['total'];
+
+                     // Insertar los nuevos detalles del pedido
+                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?,?)";
+                    $sql_detalle = $conectar->prepare($sql_detalle);   
         
                     $sql_detalle->bindValue(1, $id_pedido);
                     $sql_detalle->bindValue(2, $id_servicio);
                     $sql_detalle->bindValue(3, $descripcion);
                     $sql_detalle->bindValue(4, $u_medida);
-                    $sql_detalle->bindValue(5, $cantidad);
-                    $sql_detalle->bindValue(6, $precio_uni);
-                    $sql_detalle->bindValue(7, $total);
+                    $sql_detalle->bindValue(5, $cant_limpieza);
+                    $sql_detalle->bindValue(6, $cantidad);
+                    $sql_detalle->bindValue(7, $precio_uni);
+                    $sql_detalle->bindValue(8, $total);
                     $sql_detalle->execute();
                 }
         
@@ -223,6 +228,7 @@
                 tm_servicio.id_servicio,
                 tm_servicio.descripcion,
                 det_pedido.U_medida,
+                det_pedido.cant_limpieza,
                 det_pedido.cantidad,
                 det_pedido.precio_uni,
                 det_pedido.total
@@ -236,8 +242,6 @@
             $sql->bindValue(1, $id_pedido);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        } 
-        
-        
+        }        
     }
 ?>

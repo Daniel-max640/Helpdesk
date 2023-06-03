@@ -56,7 +56,7 @@ $(document).ready(function(){
     row.remove();
   });
 
-  $(document).on('click', '#detalle_ped tbody .btn-warning', function() {
+  $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
     $('#mdltitulo').html('Editar Servicio');  
   
       // Obtener la fila actual
@@ -68,6 +68,7 @@ $(document).ready(function(){
     var id_medida = row.find('td:nth-child(3)').text();
     var cantidad = row.find('td:nth-child(4)').text();
     var precio = row.find('td:nth-child(5)').text();
+    var cant_limpieza = row.data('cant_limpieza');
    
     //console.log("id_medida:", id_medida);
 
@@ -76,6 +77,7 @@ $(document).ready(function(){
     $('#descripcion').val(descripcion);   
     $('#cantidad').val(cantidad);
     $('#precio').val(precio);
+    $('#cant_limpieza').val(cant_limpieza);
 
     $('#id_medida option').each(function() {
       if ($(this).text() === id_medida) {
@@ -99,9 +101,9 @@ $(document).ready(function(){
 
     // Agregar la clase "editando" a la fila actual
     row.addClass('editando');
-    });
-  
+    });  
 });
+
 
 function agegardetalle() {
   // Obtener valores del producto seleccionado en el modal
@@ -111,9 +113,10 @@ function agegardetalle() {
   var cantidad = $('#cantidad').val();
   var precio = $('#precio').val();
   var total = $('#total').val();
+  var cant_limpieza = $('#cant_limpieza').val();
  
   // Verificar si todos los campos requeridos tienen valores
-  if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
+  if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '' || cant_limpieza === '') {
     swal("Advertencia!", "Por favor, completa todos los campos antes de agregar el detalle.", "warning");
     return;
   }
@@ -135,6 +138,8 @@ function agegardetalle() {
     filaEditando.find('td:nth-child(5)').text(precio);
     filaEditando.find('td:nth-child(6)').text(total);
 
+    filaEditando.data('cant_limpieza', cant_limpieza);
+
     filaEditando.removeClass('editando');
 
       // Cambiar el modo del modal a "agregar"
@@ -153,9 +158,15 @@ function agegardetalle() {
       '<td>' + cantidad + '</td>' +
       '<td class="d-none d-sm-table-cell">' + precio + '</td>' +
       '<td class="d-none d-sm-table-cell">' + total + '</td>' +
-      '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-warning btnEditar"><i class="fa fa-pencil"></i></a></td>' +
+      '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btnEditar btn-warning "><i class="fa fa-pencil"></i></a></td>' +
       '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger btnEliminar"><i class="fa fa-trash"></i></a></td>' +
       '</tr>');
+
+       // Obtener la última fila agregada
+      var nuevaFila = $('#detalle_ped tbody tr:last-child');
+
+    // Guardar el valor de cantidad de limpiezas como un atributo de datos en la fila
+    nuevaFila.data('cant_limpieza', cant_limpieza);
   }
 
   // Recalcular el total
@@ -179,6 +190,7 @@ function agegardetalle() {
   $('#id_medida').val('');
   $('#id_producto').val('');
   $('#total').val('');
+  $('#cant_limpieza').val('');
   $('#btn-AgregarDetalle').hide();
 }
 

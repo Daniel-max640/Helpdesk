@@ -38,16 +38,22 @@
 								</select>
 							</fieldset>
 						</div>
-                            
+                        
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="form-label" for="cant_limpieza">N° Limpiezas</label>
+                                <input type="text" class="form-control" id="cant_limpieza" name="cant_limpieza" required>
+                            </div>
+                        </div>   
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <div class="form-group">
                                 <label class="form-label" for="precio">Precio Unitario</label>
                                 <input type="text" class="form-control" id="precio" name="precio" required></input>
                             </div>
                         </div>                        
                          
-                       <div class="col-lg-4">
+                       <div class="col-lg-3">
                             <div class="row">
                                 <div class="form-group">
                                     <label class="form-label">Cantidad</label>
@@ -65,7 +71,7 @@
                        </div>                 
                                               
                     
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <div class="form-group">
                                 <label class="form-label" for="total">Total</label>
                                 <input type="text" class="form-control" id="total" name="total" required readonly>

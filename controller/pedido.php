@@ -126,6 +126,7 @@
                 foreach($datos as $row)
                 {
                     $output["id_pedido"] = $row["id_pedido"];
+                    $output["id_cliente"] = $row["id_cliente"];
                     $output["nro_doc"] = $row["nro_doc"];
                     $output["direc_cli"] = $row["direc_cli"];
                     $output["nom_cli"] = $row["nom_cli"];
@@ -161,7 +162,8 @@
                                 "U_medida" => $detalle["U_medida"],
                                 "cantidad" => $detalle["cantidad"],
                                 "precio_uni" => $detalle["precio_uni"],
-                                "total" => $detalle["total"]
+                                "total" => $detalle["total"],
+                                "cant_limpieza" => $detalle["cant_limpieza"]
                             ];
 
                             $output["detalles"][] = $detalles_pedido;
