@@ -148,11 +148,6 @@ function agegardetalle() {
 
       // Cambiar el modo del modal a "agregar"
       modoModal = 'agregar';
- 
-      // Cambiar el texto del botón en el modal a "Agregar Detalle"
-      $('#btn-AgregarDetalle').text('Agregar');
-      // Cerrar el modal
-      $('#modalagregaryeditar').modal('hide');
       
   } else {
     // Agregar nueva fila a la tabla de detalle de pedido
@@ -167,8 +162,7 @@ function agegardetalle() {
       '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger btnEliminar"><i class="fa fa-trash"></i></a></td>' +
       '</tr>');
 
-       // Obtener la última fila agregada
-      // var nuevaFila = $('#detalle_ped tbody tr:last-child');
+      var nuevaFila = $('#detalle_ped tbody tr:last-child');
 
        // Guardar el valor de cantidad de limpiezas como un atributo de datos en la fila
        nuevaFila.data('cant_limpieza', cant_limpieza);
