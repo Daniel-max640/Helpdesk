@@ -5,24 +5,21 @@ function init(){
 }
 
 $(document).ready(function(){
-    $("#nro_doc").on("keydown", function(event) {
-       if (event.keyCode === 13) { // Si se presiona Enter
-        event.preventDefault(); // Prevenir el comportamiento por defecto de la tecla Enter (enviar el formulario)
-         buscarCliente(); // Llamar a la función buscarCliente()
-       }
-    }); 
-    $.post("../../controller/tservicio.php?op=combo",function(data, status){
-      $('#id_modalidad').html(data);
+  $("#nro_doc").on("keydown", function(event) {
+    if (event.keyCode === 13) { // Si se presiona Enter
+     event.preventDefault(); // Prevenir el comportamiento por defecto de la tecla Enter (enviar el formulario)
+      buscarCliente(); // Llamar a la función buscarCliente()
+    }
+  }); 
+  $.post("../../controller/tservicio.php?op=combo",function(data, status){
+   $('#id_modalidad').html(data);
     });
-
-    $.post("../../controller/fpago.php?op=combo",function(data, status){
-      $('#id_fpago').html(data);
-    });
-
-    $.post("../../controller/demision.php?op=combo",function(data, status){
-      $('#id_demision').html(data);
-    });
-        
+  $.post("../../controller/fpago.php?op=combo",function(data, status){
+    $('#id_fpago').html(data);
+  });
+  $.post("../../controller/demision.php?op=combo",function(data, status){
+    $('#id_demision').html(data);
+  });        
 }); 
 
 $(function() {			
@@ -77,18 +74,15 @@ function buscarCliente() {
 }
 
 function guardaryeditarPedido(e){
-  e.preventDefault(); 
-  
+  e.preventDefault();   
   if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
       swal("Advertencia!", "Campos Vacios", "warning");
   }else{
     var sub_total = parseFloat($('#total_pagar').text());
     var igv = parseFloat($('#igv').text());
     var total = parseFloat($('#total_final').text());
-
     // Capturar los productos
     var productos = [];
-
     $('#detalle_ped tbody tr').each(function() {
       var id_servicio = $(this).find('td:nth-child(1)').text();
       var descripcion = $(this).find('td:nth-child(2)').text();
@@ -97,8 +91,7 @@ function guardaryeditarPedido(e){
       var precio_uni = $(this).find('td:nth-child(5)').text();
       var total = $(this).find('td:nth-child(6)').text(); 
       // Obtener la cantidad de limpiezas de la fila correspondiente
-      var cant_limpieza = $(this).data('cant_limpieza');
-   
+      var cant_limpieza = $(this).data('cant_limpieza');   
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -107,46 +100,46 @@ function guardaryeditarPedido(e){
         precio_uni: precio_uni,
         total: total,
         cant_limpieza: cant_limpieza // Agregar el campo de cantidad de limpiezas
-
       };    
       productos.push(producto);
     });
-    var formData = new FormData($("#pedido_form")[0]);
-  
+    // Obtén el estado de los campos "acceso_portal" y "entrega_factura"
+    var accesoPortal = $('#acceso_portal').is(':checked') ? 0 : 1;
+    var entregaFactura = $('#entrega_factura').is(':checked') ? 0 : 1;
+    var formData = new FormData($("#pedido_form")[0]);  
     formData.append('total_pagar', sub_total);
     formData.append('igv', igv);
     formData.append('total_final', total);
+    formData.append('acceso_portal', accesoPortal);
+    formData.append('entrega_factura', entregaFactura);
     formData.append('productos', JSON.stringify(productos)); 
-          $.ajax({
-          url: "../../controller/pedido.php?op=generaryeditar",
-          type: "POST",
-          data: formData,
-          contentType: false,
-          processData: false,
-          success: function(data){
-            console.log(data);
-            if (data.trim() !== '') {
-              data = JSON.parse(data);
-               // Limpiar la tabla
-              $('#detalle_ped tbody').empty();
-
-              //Restablecer valores de campos y editor de texto             
-              $("#nro_doc").val("");
-              $('#pedido_form')[0].reset();
-              $('#tickd_requi').summernote('reset');
-              
-              // Restablecer valores de subtotal, IGV y total a pagar
-              $('#total_pagar').text('0.00');
-              $('#igv').text('0.00');
-              $('#total_final').text('0.00');
-              console.log("Mensaje de éxito"); // Agrega esta línea
-
-              swal("Correcto!", "Registrado Correctamente", "success");
-              //window.location.href = "../NotaPedido";
-            } else {
-              console.log('Respuesta vacía');
-            } 
-          }
+      $.ajax({
+      url: "../../controller/pedido.php?op=generaryeditar",
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function(data){
+        console.log(data);
+        if (data.trim() !== '') {
+           data = JSON.parse(data);
+           // Limpiar la tabla
+           $('#detalle_ped tbody').empty();
+           //Restablecer valores de campos y editor de texto             
+           $("#nro_doc").val("");
+           $('#pedido_form')[0].reset();
+           $('#tickd_requi').summernote('reset');             
+           // Restablecer valores de subtotal, IGV y total a pagar
+           $('#total_pagar').text('0.00');
+           $('#igv').text('0.00');
+           $('#total_final').text('0.00');
+           console.log("Mensaje de éxito"); // Agrega esta línea
+           swal("Correcto!", "Registrado Correctamente", "success");
+           //window.location.href = "../NotaPedido";
+          } else {
+            console.log('Respuesta vacía');
+          } 
+        }
       });
   }
 }

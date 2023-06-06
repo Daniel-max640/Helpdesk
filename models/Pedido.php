@@ -1,10 +1,14 @@
 <?php
     class Pedido extends Conectar{
 
-        public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,$serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,$id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,$conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra,$detalles){
+        public function insert_pedido($usu_id,$id_cliente,$nro_doc,$direc_cli,$nom_cli,
+        $serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,
+        $id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,
+        $conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra,
+        $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,$detalles){
             $conectar= parent::conexion();
             parent::set_names();            
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1');";
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1',?,?,?,?,?,?);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -31,6 +35,12 @@
             $sql->bindValue(23, $conta_cobra);
             $sql->bindValue(24, $correo_ccobra);
             $sql->bindValue(25, $telf_ccobra);
+            $sql->bindValue(26, $cotizacion);
+            $sql->bindValue(27, $link);
+            $sql->bindValue(28, $cierre_facturacion);
+            $sql->bindValue(29, $fecha_pago);
+            $sql->bindValue(30, $acceso_portal); // Convertir a 0 si está activo, 1 si no lo está
+            $sql->bindValue(31, $entrega_factura); // Convertir a 0 si está activo, 1 si no lo está
             $sql->execute();         
             $pedido_id = $conectar->lastInsertId();
     
@@ -59,13 +69,17 @@
             return $pedido_id;
         }        
 
-        public function editar_pedido($id_pedido, $usu_id, $id_cliente, $nro_doc, $direc_cli, $nom_cli, $serie_pedido, $moneda, $id_modalidad, $contacto, $telf_contacto, $dire_entrega, $id_demision, $asesor, $id_fpago, $fecha_entrega, $sub_total, $igv, $total, $observacion, $conta_factu, $correo_cfactu, $telf_cfactu, $conta_cobra, $correo_ccobra, $telf_ccobra, $detalles) {
+        public function editar_pedido($id_pedido, $usu_id, $id_cliente, $nro_doc, $direc_cli, $nom_cli, 
+            $serie_pedido, $moneda, $id_modalidad, $contacto, $telf_contacto, $dire_entrega, $id_demision, 
+            $asesor, $id_fpago, $fecha_entrega, $sub_total, $igv, $total, $observacion, $conta_factu, 
+            $correo_cfactu, $telf_cfactu, $conta_cobra, $correo_ccobra, $telf_ccobra, $cotizacion, $link, 
+            $cierre_facturacion, $fecha_pago, $acceso_portal, $entrega_factura, $detalles) {
             $conectar = parent::conexion();
             parent::set_names();
         
             try {
                 $conectar->beginTransaction();        
-                $sql = "UPDATE tm_pedido SET usu_id=?, id_cliente=?, nro_doc=?, direc_cli=?, nom_cli=?, fecha_emision=now(), serie_pedido=?, moneda=?, id_modalidad=?, contacto=?, telf_contacto=?, dire_entrega=?, id_demision=?, asesor=?, id_fpago=?, fecha_entrega=?, sub_total=?, igv=?, total=?, observacion=?, conta_factu=?, correo_cfactu=?, telf_cfactu=?, conta_cobra=?, correo_ccobra=?, telf_ccobra=? WHERE id_pedido=?";
+                $sql = "UPDATE tm_pedido SET usu_id=?, id_cliente=?, nro_doc=?, direc_cli=?, nom_cli=?, fecha_emision=now(), serie_pedido=?, moneda=?, id_modalidad=?, contacto=?, telf_contacto=?, dire_entrega=?, id_demision=?, asesor=?, id_fpago=?, fecha_entrega=?, sub_total=?, igv=?, total=?, observacion=?, conta_factu=?, correo_cfactu=?, telf_cfactu=?, conta_cobra=?, correo_ccobra=?, telf_ccobra=?, cotizacion=?, link=?, cierre_facturacion=?, fecha_pago=?, acceso_portal=?, entrega_factura=? WHERE id_pedido=?";
                 $sql = $conectar->prepare($sql);
                 $sql->bindValue(1, $usu_id);
                 $sql->bindValue(2, $id_cliente);
@@ -92,15 +106,20 @@
                 $sql->bindValue(23, $conta_cobra);
                 $sql->bindValue(24, $correo_ccobra);
                 $sql->bindValue(25, $telf_ccobra);
-                $sql->bindValue(26, $id_pedido);
+                $sql->bindValue(26, $cotizacion);
+                $sql->bindValue(27, $link);
+                $sql->bindValue(28, $cierre_facturacion);
+                $sql->bindValue(29, $fecha_pago);
+                $sql->bindValue(30, $acceso_portal); // Convertir a 0 si está activo, 1 si no lo está
+                $sql->bindValue(31, $entrega_factura); // Convertir a 0 si está activo, 1 si no lo está
+                $sql->bindValue(32, $id_pedido);
                 $sql->execute();
         
                 // Eliminar los detalles anteriores del pedido
                 $sql_delete = "DELETE FROM det_pedido WHERE id_pedido = ?";
                 $sql_delete = $conectar->prepare($sql_delete);
                 $sql_delete->bindValue(1, $id_pedido);
-                $sql_delete->execute();
-        
+                $sql_delete->execute();        
                
                 foreach ($detalles as $detalle) {
                     $id_servicio = $detalle['id_servicio'];
@@ -110,11 +129,9 @@
                     $cantidad = $detalle['cantidad'];
                     $precio_uni = $detalle['precio_uni'];
                     $total = $detalle['total'];
-
-                     // Insertar los nuevos detalles del pedido
+                    // Insertar los nuevos detalles del pedido
                     $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?,?)";
-                    $sql_detalle = $conectar->prepare($sql_detalle);   
-        
+                    $sql_detalle = $conectar->prepare($sql_detalle);        
                     $sql_detalle->bindValue(1, $id_pedido);
                     $sql_detalle->bindValue(2, $id_servicio);
                     $sql_detalle->bindValue(3, $descripcion);
@@ -124,8 +141,7 @@
                     $sql_detalle->bindValue(7, $precio_uni);
                     $sql_detalle->bindValue(8, $total);
                     $sql_detalle->execute();
-                }
-        
+                }        
                 $conectar->commit();
                 return true;
             } catch (PDOException $e) {
@@ -203,6 +219,12 @@
                 tm_pedido.conta_cobra,
                 tm_pedido.correo_ccobra,
                 tm_pedido.telf_ccobra,
+                tm_pedido.cotizacion,
+                tm_pedido.link,
+                tm_pedido.cierre_facturacion,
+                tm_pedido.fecha_pago,
+                tm_pedido.acceso_portal,
+                tm_pedido.entrega_factura,
                 tipo_servicio.modalidad,
                 doc_emision.documento,                
                 forma_pago.descripcion           

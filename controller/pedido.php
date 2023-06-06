@@ -41,6 +41,12 @@
         $_POST["conta_cobra"],
         $_POST["correo_ccobra"],
         $_POST["telf_ccobra"],
+        $_POST["cotizacion"],
+        $_POST["link"],
+        $_POST["cierre_facturacion"],
+        $_POST["fecha_pago"],
+        $_POST["acceso_portal"],
+        $_POST["entrega_factura"],
         $detalle_ped);        
         }
         else {
@@ -72,6 +78,12 @@
             $_POST["conta_cobra"],
             $_POST["correo_ccobra"],
             $_POST["telf_ccobra"],
+            $_POST["cotizacion"],
+            $_POST["link"],
+            $_POST["cierre_facturacion"],
+            $_POST["fecha_pago"],
+            $_POST["acceso_portal"],
+            $_POST["entrega_factura"],
             $detalle_ped
             );
         }
@@ -149,7 +161,14 @@
                     $output["telf_cfactu"] = $row["telf_cfactu"];
                     $output["conta_cobra"] = $row["conta_cobra"];
                     $output["correo_ccobra"] = $row["correo_ccobra"];
-                    $output["telf_ccobra"] = $row["telf_ccobra"];                    
+                    $output["telf_ccobra"] = $row["telf_ccobra"];
+                    
+                    $output["cotizacion"] = $row["cotizacion"];
+                    $output["link"] = $row["link"];
+                    $output["cierre_facturacion"] = $row["cierre_facturacion"];
+                    $output["fecha_pago"] = $row["fecha_pago"];
+                    $output["acceso_portal"] = $row["acceso_portal"];
+                    $output["entrega_factura"] = $row["entrega_factura"]; 
                     $output["detalles"] = [];
 
                     $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);

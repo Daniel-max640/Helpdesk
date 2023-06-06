@@ -84,14 +84,6 @@
 
 						<div class="row">
 
-						<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
-									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
-									<option label="Seleccionar"></option>
-									</select>
-								</fieldset>
-							</div>
 
 							<div class="col-lg-4">
 								<fieldset class="form-group">
@@ -114,11 +106,18 @@
   								</fieldset>
 							</div>
 
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Asesor</label>
+									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
+								</fieldset>
+							</div>	
+
 							
 						</div>
-						<div class="row">
 
-						<div class="col-lg-2">
+						<div class="row">
+							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
 									<select id="id_demision" name="id_demision" class="form-control" data-placeholder="Seleccionar">
@@ -144,12 +143,11 @@
 									<label class="form-label semibold" for="exampleInput">Direccion Servico/Entrega</label>
 									<input type="text" class="form-control" id="dire_entrega" name="dire_entrega" placeholder="Ingrese Direccion">
   								</fieldset>
-							</div>							
-							
+							</div>						
 						</div>
-						<div class="row">
 
-						<div class="col-lg-2">
+						<div class="row">
+							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
 									<select id="id_fpago" name="id_fpago" class="form-control" data-placeholder="Seleccionar">
@@ -157,12 +155,17 @@
 									</select>
 								</fieldset>
 							</div>
-							<div class="col-lg-2">
+
+							
+						<div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Asesor</label>
-									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
+									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
+									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
+									<option label="Seleccionar"></option>
+									</select>
 								</fieldset>
-							</div>							
+							</div>
+													
 						
 							<div class="col-lg-4 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
@@ -182,6 +185,58 @@
 								</fieldset>
 							</div>
 						</div>
+						
+						<div class="row">
+
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Cotizacion</label>
+									<input type="text" class="form-control" id="cotizacion" name="cotizacion" placeholder="Ingrese N° de Cotizacion">
+								</fieldset>
+							</div>
+
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Link de Ubicacion</label>
+									<input type="text" class="form-control" id="link" name="link" placeholder="Ingrese Ubicacion">
+								</fieldset>
+							</div>
+							<div class="col-lg-3">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Cierre de Facturacion</label>
+									<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+  								</fieldset>
+  							</div>						
+							
+							<div class="col-lg-3">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Fecha de Pago</label>
+									<select id="fecha_pago" name="fecha_pago" class="form-control" data-placeholder="Seleccionar">
+										<option label="Seleccionar"></option>	
+										<option value="1-7">1 - 7</option>
+										<option value="8-15">8 - 15</option>
+										<option value="15-22">16 - 22</option>
+										<option value="23-30">23 - 30</option>
+									</select>
+  								</fieldset>
+							</div>						
+						</div>
+
+						<div class="row">
+							<div class="form-group">
+								<div class="col-lg-6">
+									<div class="checkbox checkbox-primary">
+											<input id="entrega_factura" name="entrega_factura" type="checkbox">
+											<label class="form-label semibold" for="entrega_factura">Entrega de Factura Física</label>
+									</div>
+									<div class="checkbox checkbox-primary">
+											<input id="acceso_portal" name="acceso_portal" type="checkbox">
+											<label class="form-label semibold" for="acceso_portal">Acceso al Portal del Cliente</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="col-lg-4">								
