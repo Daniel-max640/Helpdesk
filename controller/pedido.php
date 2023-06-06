@@ -149,8 +149,7 @@
                     $output["telf_cfactu"] = $row["telf_cfactu"];
                     $output["conta_cobra"] = $row["conta_cobra"];
                     $output["correo_ccobra"] = $row["correo_ccobra"];
-                    $output["telf_ccobra"] = $row["telf_ccobra"];
-                    
+                    $output["telf_ccobra"] = $row["telf_ccobra"];                    
                     $output["detalles"] = [];
 
                     $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);

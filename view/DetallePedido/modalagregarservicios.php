@@ -83,13 +83,9 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
                     <button type="button" name="action" id="btn-AgregarDetalle" class="btn btn-rounded btn-primary">Agregar</button>
-                </div>
-    
+                </div>    
             </form>
         </div>
     </div>
 </div>
-<?php require_once("../MainJs/js.php");?>
-<script type="text/javascript" src="agregarservicios.js"></script>
-
 

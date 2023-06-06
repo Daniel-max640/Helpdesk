@@ -106,7 +106,7 @@
                     $id_servicio = $detalle['id_servicio'];
                     $descripcion = $detalle['descripcion'];
                     $u_medida = $detalle['u_medida'];
-                    $cant_limpieza = isset($detalle['cant_limpieza']) ? $detalle['cant_limpieza'] : null; // Verificar si la clave existe
+                    $cant_limpieza = isset($detalle['cant_limpieza']) ? $detalle['cant_limpieza'] : null;
                     $cantidad = $detalle['cantidad'];
                     $precio_uni = $detalle['precio_uni'];
                     $total = $detalle['total'];
