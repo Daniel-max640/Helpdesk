@@ -181,7 +181,7 @@
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
-									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
+									<input type="file" name="fileElem" id="fileElem" class="form-control" multiple>
 								</fieldset>
 							</div>
 						</div>

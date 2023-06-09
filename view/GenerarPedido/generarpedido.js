@@ -104,9 +104,14 @@ function guardaryeditarPedido(e){
       productos.push(producto);
     });
     // Obtén el estado de los campos "acceso_portal" y "entrega_factura"
-    var accesoPortal = $('#acceso_portal').is(':checked') ? 0 : 1;
-    var entregaFactura = $('#entrega_factura').is(':checked') ? 0 : 1;
-    var formData = new FormData($("#pedido_form")[0]);  
+
+    var formData = new FormData($("#pedido_form")[0]);
+    var totalfiles = $('#fileElem').val().length;
+        for (var i = 0; i < totalfiles; i++) {
+            formData.append("files[]", $('#fileElem')[0].files[i]);
+        }
+    var accesoPortal = $('#acceso_portal').is(':checked') ? 1 : 0;
+    var entregaFactura = $('#entrega_factura').is(':checked') ? 1 : 0;
     formData.append('total_pagar', sub_total);
     formData.append('igv', igv);
     formData.append('total_final', total);
@@ -123,6 +128,7 @@ function guardaryeditarPedido(e){
         console.log(data);
         if (data.trim() !== '') {
            data = JSON.parse(data);
+           console.log(data[0].id_pedido);
            // Limpiar la tabla
            $('#detalle_ped tbody').empty();
            //Restablecer valores de campos y editor de texto             

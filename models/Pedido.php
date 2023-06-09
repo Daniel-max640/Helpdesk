@@ -42,7 +42,9 @@
             $sql->bindValue(30, $acceso_portal); // Convertir a 0 si está activo, 1 si no lo está
             $sql->bindValue(31, $entrega_factura); // Convertir a 0 si está activo, 1 si no lo está
             $sql->execute();         
-            $pedido_id = $conectar->lastInsertId();
+           
+          
+            $id_pedido = $conectar->lastInsertId();
     
             // Insertar detalles del pedido
             foreach ($detalles as $detalle) {
@@ -56,7 +58,7 @@
                 
             $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?,?);";
             $sql_detalle = $conectar->prepare($sql_detalle);
-            $sql_detalle->bindValue(1, $pedido_id);
+            $sql_detalle->bindValue(1, $id_pedido);
             $sql_detalle->bindValue(2, $id_servicio);
             $sql_detalle->bindValue(3, $descripcion);
             $sql_detalle->bindValue(4, $u_medida);
@@ -65,8 +67,9 @@
             $sql_detalle->bindValue(7, $precio_uni);
             $sql_detalle->bindValue(8, $total);
             $sql_detalle->execute();
-            }             
-            return $pedido_id;
+            }  
+            return $id_pedido;
+            
         }        
 
         public function editar_pedido($id_pedido, $usu_id, $id_cliente, $nro_doc, $direc_cli, $nom_cli, 

@@ -112,4 +112,4 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
     //Close and output PDF document
     $pdf->Output('EjemploTCPDF.pdf', 'I');
-?>
+
