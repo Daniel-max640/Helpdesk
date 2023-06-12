@@ -128,7 +128,7 @@ function guardaryeditarPedido(e){
         console.log(data);
         if (data.trim() !== '') {
            data = JSON.parse(data);
-           console.log(data[0].id_pedido);
+           console.log(data[0].id_pedidos);
            // Limpiar la tabla
            $('#detalle_ped tbody').empty();
            //Restablecer valores de campos y editor de texto             

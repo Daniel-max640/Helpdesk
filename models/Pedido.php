@@ -43,10 +43,11 @@
             $sql->bindValue(31, $entrega_factura); // Convertir a 0 si está activo, 1 si no lo está
             $sql->execute();         
            
-          
             $id_pedido = $conectar->lastInsertId();
-    
+
+           
             // Insertar detalles del pedido
+      
             foreach ($detalles as $detalle) {
             $id_servicio = $detalle['id_servicio'];
             $descripcion = $detalle['descripcion'];
@@ -67,9 +68,14 @@
             $sql_detalle->bindValue(7, $precio_uni);
             $sql_detalle->bindValue(8, $total);
             $sql_detalle->execute();
-            }  
-            return $id_pedido;
+            } 
             
+            $sql1="select last_insert_id() as 'id_pedido';";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->execute();
+            return $resultado=$sql1->fetchAll(pdo::FETCH_ASSOC);         
+                    
+
         }        
 
         public function editar_pedido($id_pedido, $usu_id, $id_cliente, $nro_doc, $direc_cli, $nom_cli, 
