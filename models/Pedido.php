@@ -39,15 +39,38 @@
             $sql->bindValue(27, $link);
             $sql->bindValue(28, $cierre_facturacion);
             $sql->bindValue(29, $fecha_pago);
-            $sql->bindValue(30, $acceso_portal); // Convertir a 0 si está activo, 1 si no lo está
-            $sql->bindValue(31, $entrega_factura); // Convertir a 0 si está activo, 1 si no lo está
+            $sql->bindValue(30, $acceso_portal);
+            $sql->bindValue(31, $entrega_factura); 
             $sql->execute();         
            
-            $id_pedido = $conectar->lastInsertId();
+            $id_pedido = $conectar->lastInsertId();           
+            
+            // Crear la carpeta con el nombre del ID de pedido
+            $ruta = "../public/pedido/" . $id_pedido . "/";
+            if (!file_exists($ruta)) {
+                mkdir($ruta, 0777, true);
+            }
 
-           
+            // Mover los archivos adjuntos a la carpeta
+            if (!empty($_FILES['files']['name'])) {
+                $countfiles = count($_FILES['files']['name']);
+
+                // Insertar información del archivo en la tabla Documentopedido
+                require_once("../models/Documentopedido.php");
+                $documentopedido = new Documentopedido();
+
+                for ($index = 0; $index < $countfiles; $index++) {
+                    $doc1 = $_FILES['files']['tmp_name'][$index];
+                    $destino = $ruta . $_FILES['files']['name'][$index];
+
+                    move_uploaded_file($doc1, $destino);                
+                
+                    $documentopedido->insert_docpedido($id_pedido, $_FILES['files']['name'][$index]);
+                }
+            }
+
             // Insertar detalles del pedido
-      
+        
             foreach ($detalles as $detalle) {
             $id_servicio = $detalle['id_servicio'];
             $descripcion = $detalle['descripcion'];
@@ -69,14 +92,10 @@
             $sql_detalle->bindValue(8, $total);
             $sql_detalle->execute();
             } 
-            
-            $sql1="select last_insert_id() as 'id_pedido';";
-            $sql1=$conectar->prepare($sql1);
-            $sql1->execute();
-            return $resultado=$sql1->fetchAll(pdo::FETCH_ASSOC);         
-                    
-
-        }        
+       
+            return $id_pedido;       
+        }   
+       
 
         public function editar_pedido($id_pedido, $usu_id, $id_cliente, $nro_doc, $direc_cli, $nom_cli, 
             $serie_pedido, $moneda, $id_modalidad, $contacto, $telf_contacto, $dire_entrega, $id_demision, 

@@ -11,8 +11,8 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = '<a href="../../public/pedidos/'.$_POST["id_pedido"].'/'.$row["doc_nombre"].'" target="_blank">'.$row["doc_nombre"].'</a>';
-                $sub_array[] = '<a type="button" href="../../public/pedidos/'.$_POST["id_pedido"].'/'.$row["doc_nombre"].'" target="_blank" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-eye"></i></a>';
+                $sub_array[] = '<a href="../../public/pedido/'.$_POST["id_pedido"].'/'.$row["doc_nombre"].'" target="_blank">'.$row["doc_nombre"].'</a>';
+                $sub_array[] = '<a type="button" href="../../public/pedido/'.$_POST["id_pedido"].'/'.$row["doc_nombre"].'" target="_blank" class="btn btn-inline btn-primary btn-sm ladda-button"><i class="fa fa-eye"></i></a>';
                 $data[] = $sub_array;
             }
             $results = array(

@@ -107,9 +107,9 @@ function guardaryeditarPedido(e){
 
     var formData = new FormData($("#pedido_form")[0]);
     var totalfiles = $('#fileElem').val().length;
-        for (var i = 0; i < totalfiles; i++) {
-            formData.append("files[]", $('#fileElem')[0].files[i]);
-        }
+    for (var i = 0; i < totalfiles; i++) {
+      formData.append("files[]", $('#fileElem')[0].files[i]);
+    }
     var accesoPortal = $('#acceso_portal').is(':checked') ? 1 : 0;
     var entregaFactura = $('#entrega_factura').is(':checked') ? 1 : 0;
     formData.append('total_pagar', sub_total);
@@ -118,35 +118,35 @@ function guardaryeditarPedido(e){
     formData.append('acceso_portal', accesoPortal);
     formData.append('entrega_factura', entregaFactura);
     formData.append('productos', JSON.stringify(productos)); 
-      $.ajax({
-      url: "../../controller/pedido.php?op=generaryeditar",
-      type: "POST",
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function(data){
-        console.log(data);
-        if (data.trim() !== '') {
-           data = JSON.parse(data);
-           console.log(data[0].id_pedidos);
-           // Limpiar la tabla
-           $('#detalle_ped tbody').empty();
-           //Restablecer valores de campos y editor de texto             
-           $("#nro_doc").val("");
-           $('#pedido_form')[0].reset();
-           $('#tickd_requi').summernote('reset');             
-           // Restablecer valores de subtotal, IGV y total a pagar
-           $('#total_pagar').text('0.00');
-           $('#igv').text('0.00');
-           $('#total_final').text('0.00');
-           console.log("Mensaje de éxito"); // Agrega esta línea
-           swal("Correcto!", "Registrado Correctamente", "success");
-           //window.location.href = "../NotaPedido";
-          } else {
-            console.log('Respuesta vacía');
-          } 
-        }
-      });
+    $.ajax({
+    url: "../../controller/pedido.php?op=generaryeditar",
+    type: "POST",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function(data){
+      console.log(data);
+      if (data.trim() !== '') {
+          data = JSON.parse(data);
+          //console.log(data[0].id_pedidos);
+          // Limpiar la tabla
+          $('#detalle_ped tbody').empty();
+          //Restablecer valores de campos y editor de texto             
+          $("#nro_doc").val("");
+          $('#pedido_form')[0].reset();
+          $('#tickd_requi').summernote('reset');             
+          // Restablecer valores de subtotal, IGV y total a pagar
+          $('#total_pagar').text('0.00');
+          $('#igv').text('0.00');
+          $('#total_final').text('0.00');
+          console.log("Mensaje de éxito"); // Agrega esta línea
+          swal("Correcto!", "Registrado Correctamente", "success");
+          //window.location.href = "../NotaPedido";
+        } else {
+          console.log('Respuesta vacía');
+        } 
+      }
+    });
   }
 }
 init();

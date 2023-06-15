@@ -50,36 +50,7 @@
         $_POST["fecha_pago"],
         $_POST["acceso_portal"],
         $_POST["entrega_factura"],
-        $detalle_ped);        
-        
-        if (is_array($datos) && count($datos) > 0) {
-            foreach ($datos as $row) {
-                $output["id_pedido"] = $row["id_pedido"];
-
-                 //empty($_FILES['files']['name']);
-                if (empty($_FILES['files']['name'])){
-
-                }else{
-                    $countfiles = count($_FILES['files']['name']);
-                    $ruta = "../public/pedido/".$output["id_pedido"]."/";
-                    $files_arr = array();
-
-                    if (!file_exists($ruta)) {
-                        mkdir($ruta, 0777, true);
-                    }
-
-                    for ($index = 0; $index < $countfiles; $index++) {
-                        $doc1 = $_FILES['files']['tmp_name'][$index];
-                        $destino = $ruta.$_FILES['files']['name'][$index];
-
-                        $documentopedido->insert_docpedido( $output["id_pedido"],$_FILES['files']['name'][$index]);
-
-                        move_uploaded_file($doc1,$destino);
-                    }
-                }
-            }
-        }
-        
+        $detalle_ped);       
         } else {
         $detalle_ped = json_decode($_POST["productos"], true);
         $datos = $pedido->editar_pedido(
