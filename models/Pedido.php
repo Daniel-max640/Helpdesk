@@ -46,29 +46,27 @@
             $id_pedido = $conectar->lastInsertId();           
             
             // Crear la carpeta con el nombre del ID de pedido
-            $ruta = "../public/pedido/" . $id_pedido . "/";
-            if (!file_exists($ruta)) {
-                mkdir($ruta, 0777, true);
-            }
+            //$ruta = "../public/pedido/" . $id_pedido . "/";
+            //if (!file_exists($ruta)) {
+               //mkdir($ruta, 0777, true);
+            //}
 
             // Mover los archivos adjuntos a la carpeta
-            if (!empty($_FILES['files']['name'])) {
-                $countfiles = count($_FILES['files']['name']);
-
-                // Insertar información del archivo en la tabla Documentopedido
-                require_once("../models/Documentopedido.php");
-                $documentopedido = new Documentopedido();
-
-                for ($index = 0; $index < $countfiles; $index++) {
-                    $doc1 = $_FILES['files']['tmp_name'][$index];
-                    $destino = $ruta . $_FILES['files']['name'][$index];
-
-                    move_uploaded_file($doc1, $destino);                
-                
-                    $documentopedido->insert_docpedido($id_pedido, $_FILES['files']['name'][$index]);
-                }
-            }
-
+            //if (!empty($_FILES['files']['name'])) {
+            //    $countfiles = count($_FILES['files']['name']);
+//
+            //    // Insertar información del archivo en la tabla Documentopedido
+            //    require_once("../models/Documentopedido.php");
+           //     $documentopedido = new Documentopedido();
+//
+            //    for ($index = 0; $index < $countfiles; $index++) {
+             //       $doc1 = $_FILES['files']['tmp_name'][$index];
+           //         $destino = $ruta . $_FILES['files']['name'][$index];
+//        move_uploaded_file($doc1, $destino);                
+            //    
+            //        $documentopedido->insert_docpedido($id_pedido, $_FILES['files']['name'][$index]);
+            //    }
+           // }
             // Insertar detalles del pedido
         
             foreach ($detalles as $detalle) {

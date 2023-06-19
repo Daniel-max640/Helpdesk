@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reporte Cierre de Caja</title>
+</head>
+
+<body>
+    <h1>Reporte Cierre de Caja del Local Principal</h1>
+    <p>FECHA : Diciembre del 1969<br>
+        RUC : 10257254572<br>
+        RAZON SOCIAL : Abel Espinza Herrera</p>
+    <!-- ****************************************************** -->
+    <table border="1" cellspacing="0" cellpadding="0">
+        <tr>
+            <th bgcolor="#e1e1e1">Nº</th>
+            <th bgcolor="#e1e1e1">Documento</th>
+            <th bgcolor="#e1e1e1">Serie</th>
+            <th bgcolor="#e1e1e1">Fecha Registro</th>
+            <th bgcolor="#e1e1e1">Cliente</th>
+            <th bgcolor="#e1e1e1">Total</th>
+            <th bgcolor="#e1e1e1">Asesor Ventas</th>
+        </tr>
+                        <tr>
+                    <td>1</td>
+                    <td>BOLETA DE VENTA</td>
+                    <td>BB01-00000007</td>
+                    <td>05-06-2022</td>
+                    <td>LEGUA NUÑEZ ALONSO MAURICIO</td>
+                    <td align="right">s/. 0.00</td>
+                    <td></td>
+                </tr>
+                        <tr>
+                <td colspan="5" bgcolor="#e1e1e1">TOTAL VENTAS</td>
+                <td align="right" bgcolor="#e1e1e1">s/. 0.00</td>
+                <td bgcolor="#e1e1e1"></td>
+            </tr>
+            <tr>
+                <td colspan="5" bgcolor="#e1e1e1">TOTAL NOTAS DE CREDITO</td>
+                <td align="right" bgcolor="#e1e1e1">s/. 0.00</td>
+                <td bgcolor="#e1e1e1" </td>
+            </tr>
+            <tr>
+                <td colspan="5" bgcolor="#e1e1e1">TOTAL GENERAL</td>
+                <td align="right" bgcolor="#e1e1e1">s/. 0.00</td>
+                <td bgcolor="#e1e1e1"></td>
+            </tr>
+            </table>
+</body>
+
+</html>

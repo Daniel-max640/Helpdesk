@@ -274,41 +274,54 @@
 										<textarea id="tickd_requi" name="tickd_requi" class="summernote"></textarea>
 									</div>
 								</fieldset>
-							</div>									
-							<div class="col-lg-12">
-								<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
 							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="conta_factu" name="conta_factu" placeholder="Ingrese Nombre">										
-							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" placeholder="Ingrese Correo">									
-							</div>
-							<div class="col-md-4">
-							<fieldset class="form-group">
-								<label  class="form-label semibold">Telefono</label>
-								<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" placeholder="Ingrese Telefono">	
-							</fieldset>									
-							</div>						
-							<div class="col-lg-12">
-								<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
-							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" placeholder="Ingrese Contacto">										
-							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" placeholder="Ingrese Correo">									
-							</div>
-							<div class="col-md-4">
-								<fieldset class="form-group">
-									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
-								</fieldset>									
-							</div>							
+							<div class="row">								
+								<div class="col-lg-12" style="margin-left: 15px; margin-right: 10px;">
+									<h6><strong id="info-adicional">Informacion de Contactos Adicional +</strong>
+								</div>
+
+								<div id="campos_adicionales" style="display: none;">
+									<div class="container-fluid">
+										
+										<div class="col-lg-12">
+											<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Nombres</label>
+											<input type="text" class="form-control" id="conta_factu" name="conta_factu" placeholder="Ingrese Nombre">										
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Correo</label>
+											<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" placeholder="Ingrese Correo">									
+										</div>
+										<div class="col-md-4">
+										<fieldset class="form-group">
+											<label  class="form-label semibold">Telefono</label>
+											<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" placeholder="Ingrese Telefono">	
+										</fieldset>									
+										</div>						
+										<div class="col-lg-12">
+											<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Nombres</label>
+											<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" placeholder="Ingrese Contacto">										
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Correo</label>
+											<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" placeholder="Ingrese Correo">									
+										</div>
+										<div class="col-md-4">
+											<fieldset class="form-group">
+												<label  class="form-label semibold">Telefono</label>
+												<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
+											</fieldset>									
+										</div>
+								</div>			
+										
+								</div>		
+							</div>	
+
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar</button>

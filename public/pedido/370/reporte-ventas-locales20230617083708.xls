@@ -1,0 +1,478 @@
+
+<h2>Reporte de Ventas</h2>
+<p>Razón Social : Abel Espinza Herrera<br>
+RUC : 10257254572<br>
+Dirección : Jr. Manuel Scorza 161 La Molina<br>
+<strong>Tienda/Local : </strong></p>
+<h2>Reporte de Ventas 
+De : 01-01-2023 a 17-06-2023</p></h2>  
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+	<tr>
+      <th width="3%" align="left" bgcolor="#E1E1E1">Nº</th>  
+      <th width="3%" align="left" bgcolor="#E1E1E1">Documento</th>
+      <th width="3%" align="left" bgcolor="#E1E1E1">Serie</th>      
+      <th width="13%" align="left" bgcolor="#E1E1E1">Fecha Registro</th>
+	  <th width="14%" align="left" bgcolor="#E1E1E1">Forma Pago</th>
+      <th width="3%" align="left" bgcolor="#E1E1E1">Producto</th>
+      <th width="3%" align="left" bgcolor="#E1E1E1">Cantidad</th>
+      <th width="3%" align="left" bgcolor="#E1E1E1">Precio S/.</th>
+	  <th width="11%" align="right" bgcolor="#E1E1E1">Total S/.</th>
+	</tr>
+	<tbody>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>NOTA VENTAS </td>
+                  <td align='left'>NN01-00000002</td>
+				  <td align='left'><strong style='#d43769'>07-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Chalis Color Entero S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>8</td>
+                  <td align='right'>8.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>NOTA VENTAS </td>
+                  <td align='left'>NN01-00000002</td>
+				  <td align='left'><strong style='#d43769'>07-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Pantalon Ston Cuadros  S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>32</td>
+                  <td align='right'>32.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 40.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>2 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>2 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000009</td>
+				  <td align='left'><strong style='#d43769'>21-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Chalis Color Entero S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>8</td>
+                  <td align='right'>8.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000009</td>
+				  <td align='left'><strong style='#d43769'>21-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Chalis Estampado S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>8</td>
+                  <td align='right'>8.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>3</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000009</td>
+				  <td align='left'><strong style='#d43769'>21-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Chalis Con Vena S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>10</td>
+                  <td align='right'>10.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>4</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000009</td>
+				  <td align='left'><strong style='#d43769'>21-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Ston Con Lazo S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>15</td>
+                  <td align='right'>15.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>5</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000010</td>
+				  <td align='left'><strong style='#d43769'>21-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Ston Con Lazo S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>15</td>
+                  <td align='right'>15.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>6</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000010</td>
+				  <td align='left'><strong style='#d43769'>21-02-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Chalis Con Vena S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>10</td>
+                  <td align='right'>10.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 58.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>6 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>5 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>NOTA DE CREDITO </td>
+                  <td align='left'>BB01-00000001</td>
+				  <td align='left'><strong style='#d43769'>22-02-2023</strong></td>                  
+                  <td align='left'></td>
+                  <td align='left'>Short Chalis Con Vena S-M-L</td>
+                  <td align='left'>3</td>
+                  <td align='left'>10</td>
+                  <td align='right'>30.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>NOTA DE CREDITO </td>
+                  <td align='left'>BB01-00000001</td>
+				  <td align='left'><strong style='#d43769'>22-02-2023</strong></td>                  
+                  <td align='left'></td>
+                  <td align='left'>Short Chalis Estampado S-M-L</td>
+                  <td align='left'>3</td>
+                  <td align='left'>8</td>
+                  <td align='right'>24.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>3</td>
+                  <td align='left'>NOTA DE CREDITO </td>
+                  <td align='left'>BB01-00000001</td>
+				  <td align='left'><strong style='#d43769'>22-02-2023</strong></td>                  
+                  <td align='left'></td>
+                  <td align='left'>Short Chalis Color Entero S-M-L</td>
+                  <td align='left'>2</td>
+                  <td align='left'>8</td>
+                  <td align='right'>16.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 40.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>3 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>5 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000011</td>
+				  <td align='left'><strong style='#d43769'>15-03-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Enterizo Rumbera Corto Color Entero</td>
+                  <td align='left'>5</td>
+                  <td align='left'>22</td>
+                  <td align='right'>110.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000011</td>
+				  <td align='left'><strong style='#d43769'>15-03-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Bermuda Caballero S-M-L</td>
+                  <td align='left'>2</td>
+                  <td align='left'>17</td>
+                  <td align='right'>34.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>3</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000012</td>
+				  <td align='left'><strong style='#d43769'>15-03-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Bermuda Caballero S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>17</td>
+                  <td align='right'>17.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>4</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000013</td>
+				  <td align='left'><strong style='#d43769'>15-03-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Paty Corto Estampado</td>
+                  <td align='left'>1</td>
+                  <td align='left'>15</td>
+                  <td align='right'>15.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>5</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000013</td>
+				  <td align='left'><strong style='#d43769'>15-03-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Con Copa Corto Estampado</td>
+                  <td align='left'>1</td>
+                  <td align='left'>20</td>
+                  <td align='right'>20.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 86.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>5 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>5 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000012</td>
+				  <td align='left'><strong style='#d43769'>03-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Pantalon Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>12</td>
+                  <td align='right'>12.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000012</td>
+				  <td align='left'><strong style='#d43769'>03-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Pantalon Con Vena S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>14</td>
+                  <td align='right'>14.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 14.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>2 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>1 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000013</td>
+				  <td align='left'><strong style='#d43769'>18-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Manga Acero Corto Estampado</td>
+                  <td align='left'>1</td>
+                  <td align='left'>27</td>
+                  <td align='right'>27.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000013</td>
+				  <td align='left'><strong style='#d43769'>18-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Con Manga Corto Estampado</td>
+                  <td align='left'>1</td>
+                  <td align='left'>22</td>
+                  <td align='right'>22.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>3</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000013</td>
+				  <td align='left'><strong style='#d43769'>18-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Manga Acero Corto Color Entero</td>
+                  <td align='left'>1</td>
+                  <td align='left'>22</td>
+                  <td align='right'>22.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>4</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000013</td>
+				  <td align='left'><strong style='#d43769'>18-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Hermana Estampado</td>
+                  <td align='left'>1</td>
+                  <td align='left'>27</td>
+                  <td align='right'>27.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 71.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>4 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>3 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000014</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Vestido Con Amarre Corto Estampado</td>
+                  <td align='left'>1</td>
+                  <td align='left'>20</td>
+                  <td align='right'>20.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>2</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000015</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Chavo Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>10</td>
+                  <td align='right'>10.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>3</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000015</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Pantalon Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>12</td>
+                  <td align='right'>12.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>4</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000015</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>9</td>
+                  <td align='right'>9.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>5</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000016</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Chavo Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>10</td>
+                  <td align='right'>10.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>6</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000016</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Pantalon Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>12</td>
+                  <td align='right'>12.00</td>
+				</tr>
+				<tr>
+				  <td align='left'>7</td>
+                  <td align='left'>FACTURA </td>
+                  <td align='left'>FF01-00000016</td>
+				  <td align='left'><strong style='#d43769'>20-04-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Short Piel Rayas S-M-L</td>
+                  <td align='left'>1</td>
+                  <td align='left'>9</td>
+                  <td align='right'>9.00</td>
+				</tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>s/. 62.00</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Numero Ventas :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>7 Ventas</h4></td>
+        </tr>
+        <tr>
+            <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+            <td align='right' bgcolor='#E1E1E1'><h4>6 Prods</h4></td>
+        </tr>
+        
+        <tr>
+            <td align='right' colspan='9'></td>            
+        </tr>
+				<tr>
+				  <td align='left'>1</td>
+                  <td align='left'>BOLETA DE VENTA </td>
+                  <td align='left'>BB01-00000014</td>
+				  <td align='left'><strong style='#d43769'>13-06-2023</strong></td>                  
+                  <td align='left'>Contado</td>
+                  <td align='left'>Pantalon Economico S-M-L</td>
+                  <td align='left'>11</td>
+                  <td align='left'>14</td>
+                  <td align='right'>154.00</td>
+				</tr>
+    <tr>
+        <td align='right' colspan='8'><h4>Total Dinero Ventas :</h4></td>
+        <td align='right' bgcolor='#E1E1E1'><h4>s/. 0.00</h4></td>
+    </tr>
+    <tr>
+        <td align='right' colspan='8'><h4>NÃºmero Ventas :</h4></td>
+        <td align='right' bgcolor='#E1E1E1'><h4>1 Ventas</h4></td>
+    </tr>
+    <tr>
+        <td align='right' colspan='8'><h4>Total Productos :</h4></td>
+        <td align='right' bgcolor='#E1E1E1'><h4>0 Prods</h4></td>
+    </tr>
+    	
+  </tbody>
+</table>

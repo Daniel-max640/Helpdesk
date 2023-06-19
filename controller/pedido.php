@@ -50,7 +50,32 @@
         $_POST["fecha_pago"],
         $_POST["acceso_portal"],
         $_POST["entrega_factura"],
-        $detalle_ped);       
+        $detalle_ped);
+
+        //recupero el ultimo id_generado
+        $last_inserted_id = $datos;
+        if (!empty($_FILES['files']['name'])) {
+
+            $ruta = "../public/pedido/" . $last_inserted_id . "/";
+            if (!file_exists($ruta)) {
+               mkdir($ruta, 0777, true);
+            }
+        
+            // Manejar los archivos adjuntos
+       
+            $countfiles = count($_FILES['files']['name']);
+
+            for ($index = 0; $index < $countfiles; $index++) {
+                $doc1 = $_FILES['files']['tmp_name'][$index];
+                $destino = $ruta . $_FILES['files']['name'][$index];
+
+                move_uploaded_file($doc1, $destino);
+
+                // Insertar información del archivo en la tabla Documentopedido
+                $documentopedido->insert_docpedido($last_inserted_id, $_FILES['files']['name'][$index]);
+            }
+        }
+
         } else {
         $detalle_ped = json_decode($_POST["productos"], true);
         $datos = $pedido->editar_pedido(
@@ -103,8 +128,7 @@
                   $output["direc_cli"] = $row["direc_cli"];                  
                   $output["contacto_cli"] = $row["contacto_cli"];
                   $output["contacto_telf"] = $row["contacto_telf"];
-                  $output["correo_cli"] = $row["correo_cli"];
-                
+                  $output["correo_cli"] = $row["correo_cli"];                
                }                
               echo json_encode($output);             
          }   
@@ -163,8 +187,7 @@
                     $output["telf_cfactu"] = $row["telf_cfactu"];
                     $output["conta_cobra"] = $row["conta_cobra"];
                     $output["correo_ccobra"] = $row["correo_ccobra"];
-                    $output["telf_ccobra"] = $row["telf_ccobra"];
-                    
+                    $output["telf_ccobra"] = $row["telf_ccobra"];                    
                     $output["cotizacion"] = $row["cotizacion"];
                     $output["link"] = $row["link"];
                     $output["cierre_facturacion"] = $row["cierre_facturacion"];

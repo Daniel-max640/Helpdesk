@@ -122,7 +122,7 @@
 
 							  <div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Telf. Contacto Servicio/Entrega</label>
+									<label class="form-label semibold" for="exampleInput">Telf. Servicio/Entrega</label>
 									<input type="text" id="telf_contacto" name="telf_contacto" class="form-control" placeholder="Ingrese Telefono">
 								</fieldset>
 							</div>
@@ -167,12 +167,15 @@
 									</div>
 								</fieldset>
 							</div>
+
+							
 							<div class="col-lg-4">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
-									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
+									<label class="form-label semibold" for="exampleInput">Link de Ubicacion</label>
+									<input type="text" class="form-control" id="link" name="link" placeholder="Ingrese Ubicacion">
 								</fieldset>
 							</div>
+							
 						</div>
 
 						<div class="row">
@@ -184,12 +187,6 @@
 								</fieldset>
 							</div>
 
-							<div class="col-lg-4">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Link de Ubicacion</label>
-									<input type="text" class="form-control" id="link" name="link" placeholder="Ingrese Ubicacion">
-								</fieldset>
-							</div>
 							<div class="col-lg-3">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Cierre de Facturacion</label>
@@ -208,9 +205,34 @@
 										<option value="23-30">23 - 30</option>
 									</select>
   								</fieldset>
-							</div>						
-						</div>
+							</div>
+							
+							<div class="col-lg-4">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
+									<input type="file" name="fileElem1" id="fileElem1" class="form-control" multiple>
+								</fieldset>
+							</div>
 
+							<div class="col-lg-12">
+								<fieldset class="form-group">
+								<label class="form-label semibold" for="tick_titulo">Documentos Adjuntos</label>
+								<table id="documentos_pedido" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+									<thead>
+									<tr>
+										<th style="width: 90%;">Nombre</th>
+										<th class="text-center" style="width: 10%;"></th>
+									</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+								</fieldset>
+							</div>
+
+						</div>
+						
 						<div class="row">
 							<div class="form-group">
 								<div class="col-lg-6">
@@ -225,7 +247,6 @@
 								</div>
 							</div>
 						</div>
-
 
 						<div class="row">
 							<div class="col-lg-12">
@@ -250,7 +271,8 @@
 										</tbody>
 									</table>
 								</div>
-							</div>							
+							</div>
+
 							<!--DETALLE DEL TOTAL-->
 							<div class="col-lg-12">							 											
 								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 

@@ -20,6 +20,11 @@ $(document).ready(function(){
   $.post("../../controller/demision.php?op=combo",function(data, status){
     $('#id_demision').html(data);
   });        
+
+    // llamar controles adicionales para contacto
+    $("#info-adicional").click(function() {
+      $("#campos_adicionales").toggle();
+  });
 }); 
 
 $(function() {			
