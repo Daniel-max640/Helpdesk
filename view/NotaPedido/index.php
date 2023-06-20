@@ -41,14 +41,16 @@
 				<table id="pedido_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
-                            <th style="width: 5%;">Id</th>
-							<th style="width: 10%;">Fecha-Emision</th>
-							<th style="width: 10%;">Fecha-Entrega</th>
-							<th class="d-none d-sm-table-cell" style="width: 6%;">Asesor</th>
-							<th class="d-none d-sm-table-cell" style="width: 15%;">Cliente</th>
+                            <th style="width: 1%;">Id</th>
+							<th style="width: 5%;">Fecha-Emision</th>
+							<th style="width: 5%;">Fecha-Servicio</th>
+							<th class="d-none d-sm-table-cell" style="width: 3%;">Asesor</th>
+							<th class="d-none d-sm-table-cell" style="width: 16%;">Cliente</th>
 							<th class="d-none d-sm-table-cell" style="width: 5%;">Serie</th>
-							<th class="d-none d-sm-table-cell" style="width: 10%;">F. Pago</th>
-							<th class="d-none d-sm-table-cell" style="width: 8%;">Total</th>
+							<th class="d-none d-sm-table-cell" style="width: 4%;">F. Pago</th>
+							<th class="d-none d-sm-table-cell" style="width: 4%;">Estado</th>
+
+							<th class="d-none d-sm-table-cell" style="width: 3%;">Total</th>
 							<th class="text-center" style="width: 5%;"></th>
 							
 						</tr>

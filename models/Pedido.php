@@ -8,7 +8,7 @@
         $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,$detalles){
             $conectar= parent::conexion();
             parent::set_names();            
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'1',?,?,?,?,?,?);";
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -42,33 +42,10 @@
             $sql->bindValue(30, $acceso_portal);
             $sql->bindValue(31, $entrega_factura); 
             $sql->execute();         
-           
-            $id_pedido = $conectar->lastInsertId();           
-            
-            // Crear la carpeta con el nombre del ID de pedido
-            //$ruta = "../public/pedido/" . $id_pedido . "/";
-            //if (!file_exists($ruta)) {
-               //mkdir($ruta, 0777, true);
-            //}
+            //obtener el ultimo id_pedido generado
+            $id_pedido = $conectar->lastInsertId();
 
-            // Mover los archivos adjuntos a la carpeta
-            //if (!empty($_FILES['files']['name'])) {
-            //    $countfiles = count($_FILES['files']['name']);
-//
-            //    // Insertar información del archivo en la tabla Documentopedido
-            //    require_once("../models/Documentopedido.php");
-           //     $documentopedido = new Documentopedido();
-//
-            //    for ($index = 0; $index < $countfiles; $index++) {
-             //       $doc1 = $_FILES['files']['tmp_name'][$index];
-           //         $destino = $ruta . $_FILES['files']['name'][$index];
-//        move_uploaded_file($doc1, $destino);                
-            //    
-            //        $documentopedido->insert_docpedido($id_pedido, $_FILES['files']['name'][$index]);
-            //    }
-           // }
-            // Insertar detalles del pedido
-        
+            // Insertar detalles del pedido        
             foreach ($detalles as $detalle) {
             $id_servicio = $detalle['id_servicio'];
             $descripcion = $detalle['descripcion'];
@@ -89,11 +66,9 @@
             $sql_detalle->bindValue(7, $precio_uni);
             $sql_detalle->bindValue(8, $total);
             $sql_detalle->execute();
-            } 
-       
+            }       
             return $id_pedido;       
-        }   
-       
+        }       
 
         public function editar_pedido($id_pedido, $usu_id, $id_cliente, $nro_doc, $direc_cli, $nom_cli, 
             $serie_pedido, $moneda, $id_modalidad, $contacto, $telf_contacto, $dire_entrega, $id_demision, 
@@ -189,6 +164,7 @@
                 tm_cliente.nom_cli,
                 tm_pedido.serie_pedido,
                 tm_pedido.id_fpago,
+                tm_pedido.estado,
                 tm_pedido.total,
                 forma_pago.descripcion                
                 FROM 
@@ -238,6 +214,7 @@
                 tm_pedido.sub_total,
                 tm_pedido.igv,
                 tm_pedido.total,
+                tm_pedido.estado,
                 tm_pedido.observacion,
                 tm_pedido.conta_factu,
                 tm_pedido.correo_cfactu,

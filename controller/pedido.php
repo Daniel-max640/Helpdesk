@@ -146,8 +146,21 @@
                 $sub_array[] = $row["nom_cli"];
                 $sub_array[] = $row["serie_pedido"];
                 $sub_array[] = $row["descripcion"];
+                $sub_array[] = $row["estado"];
                 $sub_array[] = $row["total"];              
-                $sub_array[] = '<button type="button" onClick="editapedido('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';              
+                //$sub_array[] = '<button type="button" onClick="editapedido('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';              
+                $opciones = '<div class="dropdown">';
+                $opciones .= '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                $opciones .= 'Acciones';
+                $opciones .= '</button>';
+                $opciones .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+                $opciones .= '<a class="dropdown-item" href="#" onclick="opcionSeleccionada(\'editar\', '.$row["id_pedido"].')">Editar</a>';
+                $opciones .= '<a class="dropdown-item" href="#" onclick="opcionSeleccionada(\'anular\', '.$row["id_pedido"].')">Anular</a>';
+                // Agrega más opciones según tus necesidades
+                $opciones .= '</div>';
+                $opciones .= '</div>';
+        
+                $sub_array[] = $opciones;
                 $data[] = $sub_array;
             }
             $results = array(

@@ -83,55 +83,25 @@ $(document).ready(function(){
     }).DataTable(); 
 });
 
-function editar(usu_id){
-    $('#mdltitulo').html('Editar Registro');
-    $.post("../../controller/usuario.php?op=mostrar", {usu_id : usu_id}, function (data) {
-        data = JSON.parse(data);
-        $('#usu_id').val(data.usu_id);
-        $('#usu_nom').val(data.usu_nom);
-        $('#usu_ape').val(data.usu_ape);
-        $('#usu_correo').val(data.usu_correo);
-        $('#usu_pass').val(data.usu_pass);
-        $('#rol_id').val(data.rol_id).trigger('change');
-    });
-    $('#modalmantenimiento').modal('show');
-}
-
-function eliminar(usu_id){
-    swal({
-        title: "HelpDesk",
-        text: "Esta seguro de Eliminar el registro?",
-        type: "error",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false
-    },
-    function(isConfirm) {
-        if (isConfirm) {
-            $.post("../../controller/usuario.php?op=eliminar", {usu_id : usu_id}, function (data) {
-            }); 
-            $('#usuario_data').DataTable().ajax.reload();
-            swal({
-                title: "HelpDesk!",
-                text: "Registro Eliminado.",
-                type: "success",
-                confirmButtonClass: "btn-success"
-            });
-        }
-    });
-}
 
 $(document).on("click","#btnnuevo", function(){ 
     window.open('http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/');
     //  window.open('https://sanipperuerp.000webhostapp.com//view/GenerarPedido/');
 });
 
-function editapedido(id_pedido){
-    window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');    
-}
 
+
+function opcionSeleccionada(opcion, id_pedido) {
+    if (opcion === 'editar') {
+        // Lógica para la opción "Editar"
+        window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');    
+    } else if (opcion === 'anular') {
+        // Lógica para la opción "Eliminar"
+        anular(id_pedido);
+    } else {
+        // Otra lógica para opciones adicionales
+    }
+}
 
 $(function() {
     $('.flatpickr').flatpickr();
