@@ -17,6 +17,13 @@
         case "generaryeditar":
         // Obtener los datos del formulario o de la solicitud
         $detalle_ped = json_decode($_POST["productos"], true);
+
+        // Verificar si la forma de pago es crédito o alguna otra forma de pago que requiere estado pendiente
+        if ($_POST["id_fpago"] == 2 || $_POST["id_fpago"] == 5 || $_POST["id_fpago"] == 10 || $_POST["id_fpago"] == 13) {
+            $estado_pago = "Pendiente";
+        } else {
+            $estado_pago = "Pagado";
+        }
         if(empty($_POST["id_pedido"])){       
         $datos=$pedido->insert_pedido(
         $_POST["usu_id"],
@@ -32,7 +39,7 @@
         $_POST["dire_entrega"],
         $_POST["id_demision"],
         $_POST["asesor"],
-        $_POST["id_fpago"],
+        $_POST["id_fpago"],        
         $_POST["fecha_entrega"],
         $_POST["total_pagar"],
         $_POST["igv"],
@@ -50,7 +57,9 @@
         $_POST["fecha_pago"],
         $_POST["acceso_portal"],
         $_POST["entrega_factura"],
-        $detalle_ped);
+        $estado_pago,
+        $detalle_ped
+       );        
 
         //recupero el ultimo id_generado
         $last_inserted_id = $datos;
@@ -117,6 +126,15 @@
         echo json_encode($datos);
 
         break;
+
+        case "update":
+            $pedido->update_pedido($_POST["id_pedido"]);
+        break;
+
+        case "updateest":
+            $pedido->update_estpedido($_POST["id_pedido"]);
+        break;
+        
         
         case "buscarCli":           
         $datos=$cliente->buscarCliente($_POST["nro_doc"]);  
@@ -142,20 +160,33 @@
                 $sub_array[] = $row["id_pedido"];
                 $sub_array[] = $row["fecha_emision"];
                 $sub_array[] = $row["fecha_entrega"];
+                if ($row["estado"]=="Registrado"){
+                    $sub_array[] = '<span class="label label-success">Registrado</span>';
+                }else{
+                    $sub_array[] = '<span class="label label-danger">Anulado</span></a>';
+                }
                 $sub_array[] = $row["usu_nom"];
                 $sub_array[] = $row["nom_cli"];
                 $sub_array[] = $row["serie_pedido"];
-                $sub_array[] = $row["descripcion"];
-                $sub_array[] = $row["estado"];
-                $sub_array[] = $row["total"];              
+                $sub_array[] = $row["descripcion"];               
+                $sub_array[] = $row["total"];
+                if ($row["estado_pago"]=="Pendiente"){
+                    $sub_array[] = '<span class="label label-warning">Pendiente</span>';
+                } elseif ($row["estado_pago"] == "Pagado") {
+                    $sub_array[] = '<span class="label label-info">Pagado</span>';
+                } elseif ($row["estado_pago"] == "Anulado") {
+                    $sub_array[] = '<span class="label label-danger">Anulado</span>';
+                }   
+
                 //$sub_array[] = '<button type="button" onClick="editapedido('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';              
                 $opciones = '<div class="dropdown">';
-                $opciones .= '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                $opciones .= '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
                 $opciones .= 'Acciones';
                 $opciones .= '</button>';
-                $opciones .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+                $opciones .= '<div class="dropdown-menu" aria-labelledby="dropdownMenu1">';
                 $opciones .= '<a class="dropdown-item" href="#" onclick="opcionSeleccionada(\'editar\', '.$row["id_pedido"].')">Editar</a>';
                 $opciones .= '<a class="dropdown-item" href="#" onclick="opcionSeleccionada(\'anular\', '.$row["id_pedido"].')">Anular</a>';
+                $opciones .= '<a class="dropdown-item" href="#" onclick="opcionSeleccionada(\'seguimiento\', '.$row["id_pedido"].')">Seguimiento</a>';
                 // Agrega más opciones según tus necesidades
                 $opciones .= '</div>';
                 $opciones .= '</div>';

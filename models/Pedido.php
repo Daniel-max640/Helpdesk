@@ -5,10 +5,10 @@
         $serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,
         $id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,
         $conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra,
-        $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,$detalles){
+        $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,$estado_pago,$detalles){
             $conectar= parent::conexion();
             parent::set_names();            
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?);";
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura,estado_pago) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?,?);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);
@@ -24,7 +24,7 @@
             $sql->bindValue(12, $id_demision);
             $sql->bindValue(13, $asesor);
             $sql->bindValue(14, $id_fpago);
-            $sql->bindValue(15, date($fecha_entrega));
+            $sql->bindValue(15, $fecha_entrega);
             $sql->bindValue(16, $sub_total);
             $sql->bindValue(17, $igv);
             $sql->bindValue(18, $total);
@@ -41,6 +41,7 @@
             $sql->bindValue(29, $fecha_pago);
             $sql->bindValue(30, $acceso_portal);
             $sql->bindValue(31, $entrega_factura); 
+            $sql->bindValue(32, $estado_pago);
             $sql->execute();         
             //obtener el ultimo id_pedido generado
             $id_pedido = $conectar->lastInsertId();
@@ -157,7 +158,7 @@
             $sql="SELECT
                 tm_pedido.id_pedido,
                 tm_pedido.fecha_emision,
-                tm_pedido.fecha_entrega,
+                DATE(tm_pedido.fecha_entrega) AS fecha_entrega,
                 tm_pedido.usu_id,
                 tm_usuario.usu_nom,
                 tm_pedido.id_cliente,
@@ -166,7 +167,8 @@
                 tm_pedido.id_fpago,
                 tm_pedido.estado,
                 tm_pedido.total,
-                forma_pago.descripcion                
+                forma_pago.descripcion,
+                tm_pedido.estado_pago                
                 FROM 
                 tm_pedido
                 LEFT JOIN tm_cliente on tm_pedido.id_cliente = tm_cliente.id_cliente
@@ -267,6 +269,35 @@
             $sql->bindValue(1, $id_pedido);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }        
+        } 
+        
+        public function update_pedido($id_pedido){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="update tm_pedido 
+                set	
+                    estado = 'Anulado'
+                where
+                    id_pedido = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_pedido);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function update_estpedido($id_pedido){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="update tm_pedido 
+                set	
+                    estado_pago = 'Anulado'
+                where
+                    id_pedido = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_pedido);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+        
     }
 ?>

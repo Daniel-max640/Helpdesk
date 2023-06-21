@@ -277,7 +277,7 @@
 							</div>
 							<div class="row">								
 								<div class="col-lg-12" style="margin-left: 15px; margin-right: 10px;">
-									<h6><strong id="info-adicional">Informacion de Contactos Adicional +</strong>
+									<h6><strong id="info-adicional">Agregar Informacion Adicional de Contactos +</strong>
 								</div>
 
 								<div id="campos_adicionales" style="display: none;">

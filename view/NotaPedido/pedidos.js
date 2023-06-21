@@ -89,15 +89,43 @@ $(document).on("click","#btnnuevo", function(){
     //  window.open('https://sanipperuerp.000webhostapp.com//view/GenerarPedido/');
 });
 
-
-
 function opcionSeleccionada(opcion, id_pedido) {
     if (opcion === 'editar') {
         // Lógica para la opción "Editar"
         window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');    
     } else if (opcion === 'anular') {
-        // Lógica para la opción "Eliminar"
-        anular(id_pedido);
+        // Lógica para la opción "Anular"
+        swal({
+            title: "HelpDesk",
+            text: "Esta seguro de Anular el Pedido?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-warning",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false
+        },
+        function(isConfirm) {
+         if (isConfirm) {
+            $.post("../../controller/pedido.php?op=update", {opcion : opcion,id_pedido : id_pedido}, function (data) {
+       
+            });
+            
+            $.post("../../controller/pedido.php?op=updateest", {opcion : opcion,id_pedido : id_pedido}, function (data) {
+       
+            })
+            	
+
+            $('#pedido_data').DataTable().ajax.reload();	
+
+            swal({
+                title: "HelpDesk!",
+                text: "Pedido Anulado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
     } else {
         // Otra lógica para opciones adicionales
     }
