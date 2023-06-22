@@ -167,7 +167,7 @@
 							</div>
 													
 						
-							<div class="col-lg-4 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
+							<div class="col-lg-2 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Fecha Servicio/Entrega</label>
 									<div id="input-group" class="input-group icon icon-lg icon-color-primary">
@@ -178,6 +178,14 @@
 									</div>
 								</fieldset>
 							</div>
+
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Orden de Compra</label>
+									<input type="text" class="form-control" id="orden_compra" name="orden_compra" placeholder="Ingrese Orden">
+								</fieldset>
+  							</div>
+
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>

@@ -27,7 +27,7 @@ $(document).ready(function(){
         ]
     });
 
-    $('#tickd_descripusu').summernote('disable');
+    $('#ped_descrip').summernote('disable');
 
     
 

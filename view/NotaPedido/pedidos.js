@@ -54,8 +54,10 @@ $(document).ready(function(){
         "bDestroy": true,
         "responsive": true,
         "bInfo":true,
-        "iDisplayLength": 20,
+        "iDisplayLength": 10,
+        //Ordenamiento mostrando los ultimos registro en el table
         "autoWidth": false,
+        "order": [[0, 'desc']],
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -78,8 +80,12 @@ $(document).ready(function(){
             "oAria": {
                 "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
             }
-        }     
+            
+        } 
+        
+            
     }).DataTable(); 
 });
 

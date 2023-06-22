@@ -58,6 +58,7 @@
         $_POST["acceso_portal"],
         $_POST["entrega_factura"],
         $estado_pago,
+        $_POST["orden_compra"],
         $detalle_ped
        );        
 
@@ -120,6 +121,8 @@
             $_POST["fecha_pago"],
             $_POST["acceso_portal"],
             $_POST["entrega_factura"],
+            $estado_pago,
+            $_POST["orden_compra"],
             $detalle_ped
             );
         }
@@ -166,6 +169,7 @@
                     $sub_array[] = '<span class="label label-danger">Anulado</span></a>';
                 }
                 $sub_array[] = $row["usu_nom"];
+                $sub_array[] = $row["orden_compra"];  
                 $sub_array[] = $row["nom_cli"];
                 $sub_array[] = $row["serie_pedido"];
                 $sub_array[] = $row["descripcion"];               
@@ -176,7 +180,8 @@
                     $sub_array[] = '<span class="label label-info">Pagado</span>';
                 } elseif ($row["estado_pago"] == "Anulado") {
                     $sub_array[] = '<span class="label label-danger">Anulado</span>';
-                }   
+                }
+                 
 
                 //$sub_array[] = '<button type="button" onClick="editapedido('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';              
                 $opciones = '<div class="dropdown">';
@@ -237,7 +242,8 @@
                     $output["cierre_facturacion"] = $row["cierre_facturacion"];
                     $output["fecha_pago"] = $row["fecha_pago"];
                     $output["acceso_portal"] = $row["acceso_portal"];
-                    $output["entrega_factura"] = $row["entrega_factura"]; 
+                    $output["entrega_factura"] = $row["entrega_factura"];
+                    $output["orden_compra"] = $row["orden_compra"];  
                     $output["detalles"] = [];
 
                     $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);

@@ -256,6 +256,7 @@ function listardetalle(id_pedido){
      $('#fecha_pago').val(data.fecha_pago);
      $('#acceso_portal').prop('checked', data.acceso_portal);
      $('#entrega_factura').prop('checked', data.entrega_factura);
+     $('#orden_compra').val(data.orden_compra);
 
 
      // Obtener detalles de los productos
