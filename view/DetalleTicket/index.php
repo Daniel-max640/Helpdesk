@@ -105,6 +105,7 @@ if (isset($_SESSION["usu_id"])) {
           <p>
             Ingrese su duda o consulta
           </p>
+          
           <div class="row">
               <div class="col-lg-12">
                 <fieldset class="form-group">

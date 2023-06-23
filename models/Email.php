@@ -101,8 +101,7 @@ class Email extends PHPMailer{
             $usu = $row["usu_nom"];
             $titulo = $row["tick_titulo"];
             $categoria = $row["cat_nom"];
-            $correo = $row["usu_correo"];
-            
+            $correo = $row["usu_correo"];            
         }
 
         //IGual//

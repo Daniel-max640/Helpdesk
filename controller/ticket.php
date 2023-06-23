@@ -161,28 +161,24 @@
         break;
     
         case "listarxasig":
-            $datos=$ticket->listar_ticket_asig();
+            $datos=$ticket->listar_ticket_asig($_POST["usu_id"]);
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
                 $sub_array[] = $row["tick_id"];
                 $sub_array[] = $row["cat_nom"];
                 $sub_array[] = $row["tick_titulo"];
-
                 if ($row["tick_estado"]=="Abierto"){
                     $sub_array[] = '<span class="label label-pill label-success">Abierto</span>';
                 }else{
                     $sub_array[] = '<a onClick="CambiarEstado('.$row["tick_id"].')"><span class="label label-pill label-danger">Cerrado</span><a>';
                 }
-
                 $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
-
                 if($row["fech_asig"]==null){
                     $sub_array[] = '<span class="label label-pill label-default">Sin Asignar</span>';
                 }else{
                     $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_asig"]));
                 }
-
                 if($row["usu_asig"]==null){
                     $sub_array[] = '<a onClick="asignar('.$row["tick_id"].');"><span class="label label-pill label-warning">Sin Asignar</span></a>';
                 }else{

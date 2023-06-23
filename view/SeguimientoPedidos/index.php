@@ -56,10 +56,17 @@
 								</fieldset>
 							</div>						
 
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Direccion</label>
-									<input type="text" class="form-control" id="direc_cli" name="direc_cli" readonly>
+									<label class="form-label semibold" for="exampleInput">Fecha Emision</label>
+									<input type="text" class="form-control" id="fecha_emision" name="fecha_emision" readonly>
+								</fieldset>
+							</div>
+
+							<div class="col-lg-2">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Orden de Compra</label>
+									<input type="text" class="form-control" id="orden_compra" name="orden_compra" readonly>
 								</fieldset>
 							</div>
 
@@ -79,7 +86,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto de  Servico/Entrega</label>
 									<input type="text" class="form-control" id="contacto" name="contacto" readonly>
@@ -102,15 +109,30 @@
 
 							<div class="col-lg-2 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Fecha Servicio</label>
+									<label class="form-label semibold" for="exampleInput">Fecha/Servicio</label>
 									<input type="text" class="form-control" id="fecha_entrega" name="fecha_entrega" readonly>
 								</fieldset>
-							</div>							
+							</div>
+							
+							<div class="col-lg-1">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Cierre de F.</label>
+									<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" readonly>
+  								</fieldset>
+  							</div>						
+							
+							<div class="col-lg-1">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="exampleInput">Fecha Pago</label>
+									<input type="text" class="form-control" id="fecha_pago" name="fecha_pago" readonly>
+  								</fieldset>
+							</div>
+							
 							
 						</div>
 
 						<div class="row">
-							<div class="col-lg-2">
+							<div class="col-lg-1">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Asesor</label>
 									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
@@ -120,21 +142,21 @@
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
-									<input type="text" class="form-control" id="id_fpago" name="id_fpago" readonly>
+									<input type="text" class="form-control" id="fpago" name="fpago" readonly>
 								</fieldset>
 							</div>
 
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
-									<input type="text" class="form-control" id="id_demision" name="id_demision" readonly>
+									<input type="text" class="form-control" id="demision" name="demision" readonly>
 								</fieldset>
 							</div>							
 
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
-									<input type="text" class="form-control" id="id_modalidad" name="id_modalidad" readonly>
+									<input type="text" class="form-control" id="modalidad" name="modalidad" readonly>
 								</fieldset>
 							</div>
 							
@@ -143,47 +165,26 @@
 									<label class="form-label semibold" for="exampleInput">Link de Ubicacion</label>
 									<input type="text" class="form-control" id="link" name="link"  readonly>
 								</fieldset>
-							</div>							
-						</div>
-
-						<div class="row">
-							<div class="col-lg-2">
+							</div>	
+							
+							<div class="col-lg-1">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Cotizacion</label>
 									<input type="text" class="form-control" id="cotizacion" name="cotizacion" readonly>
 								</fieldset>
 							</div>
+						</div>
 
-							<div class="col-lg-3">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Cierre de Facturacion</label>
-									<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" readonly>
-  								</fieldset>
-  							</div>						
-							
-							<div class="col-lg-3">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Fecha de Pago</label>
-									<input type="text" class="form-control" id="fecha_pago" name="fecha_pago" readonly>
-  								</fieldset>
-							</div>
-							
-							<div class="col-lg-4">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Orden de Compra</label>
-									<input type="file" name="orden_compra" id="orden_compra" class="form-control" multiple>
-								</fieldset>
-							</div>
-
+						<div class="row">							
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 								<label class="form-label semibold" for="tick_titulo">Documentos Adjuntos</label>
 								<table id="documentos_pedido" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 									<thead>
-									<tr>
-										<th style="width: 90%;">Nombre</th>
-										<th class="text-center" style="width: 10%;"></th>
-									</tr>
+										<tr>
+											<th style="width: 90%;">Nombre</th>
+											<th class="text-center" style="width: 10%;"></th>
+										</tr>
 									</thead>
 									<tbody>
 
@@ -207,12 +208,14 @@
 								</div>
 							</div>
 						</div>
+  	
 
 						<div class="row">
-							<div class="col-lg-12">
-								<div class="col-lg-4">								
-									<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
-								</div>
+							<div class="col-lg-4">								
+								<label class="form-label semibold">Informacion de Productos y/o Servicios</label>
+							</div>
+
+							<div class="col-lg-12">								
 								<div class="box-typical box-typical-padding">				
 									<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 										<thead>
@@ -224,7 +227,7 @@
 												<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
 												<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
 												<th class="text-center" style="width: 5%;"></th>
-												<th class="text-center" style="width: 5%;"></th>
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -239,6 +242,7 @@
 								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
 							</div>
 
+							
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="ped_descrip">Observaciones/Requisitos</label>
@@ -247,60 +251,84 @@
 									</div>
 								</fieldset>
 							</div>
+						</div>
+
+						<div class="row">
 
 							<div class="col-lg-12">
-								<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
+								<h6><strong id="info-adicional">Ver Informacion Adicional de Contactos</strong>
 							</div>
 
-							<div class="col-md-4">
-								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="conta_factu" name="conta_factu" readonly>										
+							<div id="campos_adicionales" style="display: none;">									
+										
+								<div class="col-lg-12">
+									<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
+								</div>
+								<div class="col-md-4">
+									<label class="form-label semibold">Nombres</label>
+									<input type="text" class="form-control" id="conta_factu" name="conta_factu" placeholder="Ingrese Nombre">										
+								</div>
+								<div class="col-md-4">
+									<label class="form-label semibold">Correo</label>
+									<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" placeholder="Ingrese Correo">									
+								</div>
+								<div class="col-md-4">
+									<fieldset class="form-group">
+										<label  class="form-label semibold">Telefono</label>
+										<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" placeholder="Ingrese Telefono">	
+									</fieldset>									
+								</div>						
+								<div class="col-lg-12">
+									<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
+								</div>
+								<div class="col-md-4">
+									<label class="form-label semibold">Nombres</label>
+									<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" placeholder="Ingrese Contacto">										
+								</div>
+								<div class="col-md-4">
+									<label class="form-label semibold">Correo</label>
+									<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" placeholder="Ingrese Correo">									
+								</div>
+								<div class="col-md-4">
+									<fieldset class="form-group">
+										<label  class="form-label semibold">Telefono</label>
+										<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
+									</fieldset>									
+								</div>
+																	
+							</div>		
+						</div>						
+					</div>		
+
+						<section class="activity-line" id="lbldetalle">
+						</section>
+
+						<div class="box-typical box-typical-padding" id="pnldetalle">
+							<p>Ingrese su duda o consulta</p>
+
+							<div class="row">
+								<div class="col-lg-12">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="segui_descrip">Descripción</label>
+										<div class="summernote-theme-1">
+											<textarea id="segui_descrip" name="segui_descrip" class="summernote" name="name"></textarea>
+										</div>
+									</fieldset>
+								</div>
+
+								<div class="col-lg-12">
+									<fieldset class="form-group">
+										<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Enviar Comentarios</button>
+									</fieldset>
+								</div>
 							</div>
-
-							<div class="col-md-4">
-								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" readonly>									
-							</div>
-
-							<div class="col-md-4">
-								<fieldset class="form-group">
-									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" readonly>	
-								</fieldset>									
-							</div>	
-
-							<div class="col-lg-12">
-								<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
-							</div>
-
-							<div class="col-md-4">
-								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" readonly>										
-							</div>
-
-							<div class="col-md-4">
-								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" readonly>									
-							</div>
-
-							<div class="col-md-4">
-								<fieldset class="form-group">
-									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" readonly>	
-								</fieldset>									
-							</div>	
-
-							<div class="col-lg-12">
-								<fieldset class="form-group">
-								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Enviar</button>
-								</fieldset>
-							</div>
-					</form>
-				</div>			
-  			</div>
+						</div>	
+					</div>
+				</form>
+			</div>			
+  		</div>
 	</div>
 	<!-- Contenido -->
-	
 
 	<?php require_once("../MainJs/js.php");?>		
 	<script type="text/javascript" src="seguimientopedidos.js"></script>

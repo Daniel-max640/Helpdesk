@@ -1,10 +1,12 @@
 <?php
     require_once("../config/conexion.php");
+
     require_once("../models/Pedido.php");
     $pedido = new Pedido();
 
     require_once("../models/Usuario.php");
     $usuario = new Usuario();
+
     require_once("../models/Tservicio.php");
     $tservicio = new Tservicio();
 
@@ -60,32 +62,24 @@
         $estado_pago,
         $_POST["orden_compra"],
         $detalle_ped
-       );        
-
-        //recupero el ultimo id_generado
+       ); 
+       //recupero el ultimo id_generado
         $last_inserted_id = $datos;
         if (!empty($_FILES['files']['name'])) {
-
             $ruta = "../public/pedido/" . $last_inserted_id . "/";
             if (!file_exists($ruta)) {
                mkdir($ruta, 0777, true);
-            }
-        
-            // Manejar los archivos adjuntos
-       
+            }        
+            // Manejar los archivos adjuntos       
             $countfiles = count($_FILES['files']['name']);
-
             for ($index = 0; $index < $countfiles; $index++) {
                 $doc1 = $_FILES['files']['tmp_name'][$index];
                 $destino = $ruta . $_FILES['files']['name'][$index];
-
                 move_uploaded_file($doc1, $destino);
-
                 // Insertar información del archivo en la tabla Documentopedido
                 $documentopedido->insert_docpedido($last_inserted_id, $_FILES['files']['name'][$index]);
             }
         }
-
         } else {
         $detalle_ped = json_decode($_POST["productos"], true);
         $datos = $pedido->editar_pedido(
@@ -127,7 +121,6 @@
             );
         }
         echo json_encode($datos);
-
         break;
 
         case "update":
@@ -136,8 +129,7 @@
 
         case "updateest":
             $pedido->update_estpedido($_POST["id_pedido"]);
-        break;
-        
+        break;        
         
         case "buscarCli":           
         $datos=$cliente->buscarCliente($_POST["nro_doc"]);  
@@ -181,8 +173,6 @@
                 } elseif ($row["estado_pago"] == "Anulado") {
                     $sub_array[] = '<span class="label label-danger">Anulado</span>';
                 }
-                 
-
                 //$sub_array[] = '<button type="button" onClick="editapedido('.$row["id_pedido"].');"  id="'.$row["id_pedido"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-pencil"></i></button>';              
                 $opciones = '<div class="dropdown">';
                 $opciones .= '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
@@ -219,6 +209,7 @@
                     $output["nom_cli"] = $row["nom_cli"];
                     $output["serie_pedido"] = $row["serie_pedido"];
                     $output["moneda"] = $row["moneda"];
+                    $output["fecha_emision"] = $row["fecha_emision"];
                     $output["id_modalidad"] = $row["id_modalidad"];
                     $output["contacto"] = $row["contacto"];
                     $output["telf_contacto"] = $row["telf_contacto"];
@@ -243,7 +234,8 @@
                     $output["fecha_pago"] = $row["fecha_pago"];
                     $output["acceso_portal"] = $row["acceso_portal"];
                     $output["entrega_factura"] = $row["entrega_factura"];
-                    $output["orden_compra"] = $row["orden_compra"];  
+                    $output["orden_compra"] = $row["orden_compra"];
+                    $output["descripcion"] = $row["descripcion"];    
                     $output["detalles"] = [];
 
                     $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);
@@ -266,7 +258,67 @@
                     echo json_encode($output);
             }
             break;
-
-                            
+            
+            case "mostrarxsegui":
+                $datos=$pedido->listar_pedido_x_id ($_POST["id_pedido"]); 
+                if(is_array($datos)==true and count($datos)>0){
+                    foreach($datos as $row)
+                    {
+                        $output["id_pedido"] = $row["id_pedido"];
+                        $output["id_cliente"] = $row["id_cliente"];
+                        $output["nro_doc"] = $row["nro_doc"];
+                        $output["direc_cli"] = $row["direc_cli"];
+                        $output["nom_cli"] = $row["nom_cli"];
+                        $output["serie_pedido"] = $row["serie_pedido"];
+                        $output["moneda"] = $row["moneda"];
+                        $output["fecha_emision"] = $row["fecha_emision"];
+                        $output["contacto"] = $row["contacto"];
+                        $output["telf_contacto"] = $row["telf_contacto"];
+                        $output["dire_entrega"] = $row["dire_entrega"];
+                        $output["asesor"] = $row["asesor"];
+                        $output["id_fpago"] = $row["id_fpago"];
+                        $output["fecha_entrega"] = $row["fecha_entrega"];
+                        $output["sub_total"] = $row["sub_total"];
+                        $output["igv"] = $row["igv"];
+                        $output["total_final"] = $row["total"];
+                        $output["tickd_requi"] = $row["observacion"];
+                        $output["conta_factu"] = $row["conta_factu"];
+                        $output["correo_cfactu"] = $row["correo_cfactu"];
+                        $output["telf_cfactu"] = $row["telf_cfactu"];
+                        $output["conta_cobra"] = $row["conta_cobra"];
+                        $output["correo_ccobra"] = $row["correo_ccobra"];
+                        $output["telf_ccobra"] = $row["telf_ccobra"];                    
+                        $output["cotizacion"] = $row["cotizacion"];
+                        $output["link"] = $row["link"];
+                        $output["cierre_facturacion"] = $row["cierre_facturacion"];
+                        $output["fecha_pago"] = $row["fecha_pago"];
+                        $output["acceso_portal"] = $row["acceso_portal"];
+                        $output["entrega_factura"] = $row["entrega_factura"];
+                        $output["orden_compra"] = $row["orden_compra"];
+                        $output["descripcion"] = $row["descripcion"];
+                        $output["documento"] = $row["documento"];
+                        $output["modalidad"] = $row["modalidad"];        
+                        $output["detalles"] = [];
+    
+                        $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);
+                        if (is_array($detalles) && count($detalles) > 0) {
+                            foreach ($detalles as $detalle) {
+                                $detalles_pedido = [
+                                    "id_servicio" => $detalle["id_servicio"],
+                                    "descripcion" => $detalle["descripcion"],
+                                    "U_medida" => $detalle["U_medida"],
+                                    "cantidad" => $detalle["cantidad"],
+                                    "precio_uni" => $detalle["precio_uni"],
+                                    "total" => $detalle["total"],
+                                    "cant_limpieza" => $detalle["cant_limpieza"]
+                                ];
+    
+                                $output["detalles"][] = $detalles_pedido;
+                            }
+                        }
+                    }                
+                        echo json_encode($output);
+                }
+                break;                            
         }
 ?>

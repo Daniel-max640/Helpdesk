@@ -21,9 +21,9 @@ $(document).ready(function(){
     $('#id_demision').html(data);
   });        
 
-    // llamar controles adicionales para contacto
-    $("#info-adicional").click(function() {
-      $("#campos_adicionales").toggle();
+  // llamar controles adicionales para contacto
+  $("#info-adicional").click(function() {
+     $("#campos_adicionales").toggle();
   });
 }); 
 

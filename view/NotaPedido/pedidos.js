@@ -132,8 +132,11 @@ function opcionSeleccionada(opcion, id_pedido) {
             });
         }
     });
+    } else if (opcion === 'seguimiento') {
+         // Lógica para la opción "Editar"
+         window.open('http://localhost/Tutorial_Helpdesk-main/view/SeguimientoPedidos/?IDs='+ id_pedido +'');    
     } else {
-        // Otra lógica para opciones adicionales
+
     }
 }
 

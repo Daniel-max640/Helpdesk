@@ -75,8 +75,8 @@
 								<div class="form-group">
 									<label class="form-label semibold" for="exampleInput">Moneda</label>
 										<select id="moneda" name="moneda" class="form-control" data-placeholder="Seleccionar" required>
-											<option value="1">SOLES</option>
-											<option value="2">DOLARES</option>										
+											<option value="SOLES">SOLES</option>
+											<option value="DOLARES">DOLARES</option>										
 										</select>                  
 								</div>
 							</div>
@@ -223,7 +223,7 @@
 										<option label="Seleccionar"></option>	
 										<option value="1-7">1 - 7</option>
 										<option value="8-15">8 - 15</option>
-										<option value="15-22">16 - 22</option>
+										<option value="16-22">16 - 22</option>
 										<option value="23-30">23 - 30</option>
 									</select>
   								</fieldset>

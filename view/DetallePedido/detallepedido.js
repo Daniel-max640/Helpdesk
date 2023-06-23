@@ -232,6 +232,7 @@ function listardetalle(id_pedido){
      $('#lblid_pedido').html("Editar Pedido "+data.serie_pedido);
      $('#id_pedido').val(data.id_pedido); 
      $('#serie_pedido').val(data.serie_pedido);
+     $('#moneda').val(data.moneda);
      $('#id_cliente').val(data.id_cliente);  
      $('#nro_doc').val(data.nro_doc);
      $('#nom_cli').val(data.nom_cli);
