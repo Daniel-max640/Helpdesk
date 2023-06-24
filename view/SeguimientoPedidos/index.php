@@ -132,128 +132,120 @@
 						</div>
 
 						<div class="row">
-							<div class="col-lg-1">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Asesor</label>
-									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
-								</fieldset>
-							</div>
+							<fieldset class="form-group">
+								<div class="col-lg-1">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="exampleInput">Asesor</label>
+										<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
+									</fieldset>
+								</div>
 
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
-									<input type="text" class="form-control" id="fpago" name="fpago" readonly>
-								</fieldset>
-							</div>
+								<div class="col-lg-2">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="exampleInput">Forma de Pago</label>
+										<input type="text" class="form-control" id="fpago" name="fpago" readonly>
+									</fieldset>
+								</div>
 
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
-									<input type="text" class="form-control" id="demision" name="demision" readonly>
-								</fieldset>
-							</div>							
+								<div class="col-lg-2">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="exampleInput">Documento a Emitir</label>
+										<input type="text" class="form-control" id="demision" name="demision" readonly>
+									</fieldset>
+								</div>							
 
-							<div class="col-lg-2">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
-									<input type="text" class="form-control" id="modalidad" name="modalidad" readonly>
-								</fieldset>
-							</div>
-							
-							<div class="col-lg-4">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Link de Ubicacion</label>
-									<input type="text" class="form-control" id="link" name="link"  readonly>
-								</fieldset>
-							</div>	
-							
-							<div class="col-lg-1">
-								<fieldset class="form-group">
-									<label class="form-label semibold" for="exampleInput">Cotizacion</label>
-									<input type="text" class="form-control" id="cotizacion" name="cotizacion" readonly>
-								</fieldset>
-							</div>
+								<div class="col-lg-2">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
+										<input type="text" class="form-control" id="modalidad" name="modalidad" readonly>
+									</fieldset>
+								</div>
+								
+								<div class="col-lg-4">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="exampleInput">Link de Ubicacion</label>
+										<input type="text" class="form-control" id="link" name="link"  readonly>
+									</fieldset>
+								</div>	
+								
+								<div class="col-lg-1">
+									<fieldset class="form-group">
+										<label class="form-label semibold" for="exampleInput">Cotizacion</label>
+										<input type="text" class="form-control" id="cotizacion" name="cotizacion" readonly>
+									</fieldset>
+								</div>
+							</fieldset>
 						</div>
 
 						<div class="row">							
-							<div class="col-lg-12">
-								<fieldset class="form-group">
+							<div class="col-lg-6">							
+								<div class="box-typical box-typical-padding">
 								<label class="form-label semibold" for="tick_titulo">Documentos Adjuntos</label>
-								<table id="documentos_pedido" class="table table-bordered table-striped table-vcenter js-dataTable-full">
-									<thead>
-										<tr>
-											<th style="width: 90%;">Nombre</th>
-											<th class="text-center" style="width: 10%;"></th>
-										</tr>
-									</thead>
-									<tbody>
-
-									</tbody>
-								</table>
-								</fieldset>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="form-group">
-								<div class="col-lg-6">
-									<div class="checkbox checkbox-primary">
+									<fieldset class="form-group">									
+										<table id="documentos_pedido" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+											<thead>
+												<tr>
+													<th style="width: 90%;">Nombre</th>
+													<th class="text-center" style="width: 10%;"></th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</fieldset>						
+							
+									<div class="form-group">								
+										<div class="checkbox checkbox-primary">
 											<input id="entrega_factura" name="entrega_factura" type="checkbox">
 											<label class="form-label semibold" for="entrega_factura">Entrega de Factura Física</label>
-									</div>
-									<div class="checkbox checkbox-primary">
+										</div>
+										<div class="checkbox checkbox-primary">
 											<input id="acceso_portal" name="acceso_portal" type="checkbox">
 											<label class="form-label semibold" for="acceso_portal">Acceso al Portal del Cliente</label>
+										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-  	
-
-						<div class="row">
-							<div class="col-lg-4">								
-								<label class="form-label semibold">Informacion de Productos y/o Servicios</label>
+								</div>	
 							</div>
 
-							<div class="col-lg-12">								
-								<div class="box-typical box-typical-padding">				
-									<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
-										<thead>
-											<tr>
-												<th style="width: 5%;">Id</th>
-												<th style="width: 25%;">Descripción</th>
-												<th style="width: 5%;">U.Medida</th>
-												<th style="width: 5%;">cantidad</th>
-												<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
-												<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
-												<th class="text-center" style="width: 5%;"></th>
-												
-											</tr>
-										</thead>
-										<tbody>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<!--DETALLE DEL TOTAL-->
-							<div class="col-lg-12">							 											
-								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 
-								<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
-								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
-							</div>
+							<div class="col-lg-6">									
+								<div class="box-typical box-typical-padding">
+									<label class="form-label semibold" for="tick_titulo">Detalle de Productos</label>		
+									<fieldset class="form-group">			
+										<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+											<thead>
+												<tr>
+													<th style="width: 5%;">Id</th>
+													<th style="width: 25%;">Descripción</th>
+													<th style="width: 5%;">U.Medida</th>
+													<th style="width: 5%;">cantidad</th>
+													<th class="d-none d-sm-table-cell" style="width: 8%;">Precio Unitario</th>
+													<th class="d-none d-sm-table-cell" style="width: 5%;">Total</th>
+													<th class="text-center" style="width: 5%;"></th>
+													
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
 
+										<div class="form-group">	
+											<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 
+											<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
+											<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
+										</div>	
+									</fieldset>
+								</div>							
+							</div>
+							
 							
 							<div class="col-lg-12">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="ped_descrip">Observaciones/Requisitos</label>
+									<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
 									<div class="summernote-theme-1">
-										<textarea id="ped_descrip" name="ped_descrip" class="summernote"></textarea>
+										<textarea id="tickd_requi" name="tickd_requi" class="summernote"></textarea>
 									</div>
 								</fieldset>
-							</div>
-						</div>
-
-						<div class="row">
+							</div>					
 
 							<div class="col-lg-12">
 								<h6><strong id="info-adicional">Ver Informacion Adicional de Contactos</strong>
@@ -300,31 +292,31 @@
 						</div>						
 					</div>		
 
-						<section class="activity-line" id="lbldetalle">
-						</section>
+					<section class="activity-line" id="lbldetalle">
+  					</section>
 
-						<div class="box-typical box-typical-padding" id="pnldetalle">
-							<p>Ingrese su duda o consulta</p>
+					<div class="box-typical box-typical-padding" id="pnldetalle">
+						<p>Ingrese su duda o consulta</p>
 
-							<div class="row">
-								<div class="col-lg-12">
-									<fieldset class="form-group">
-										<label class="form-label semibold" for="segui_descrip">Descripción</label>
-										<div class="summernote-theme-1">
-											<textarea id="segui_descrip" name="segui_descrip" class="summernote" name="name"></textarea>
-										</div>
-									</fieldset>
-								</div>
-
-								<div class="col-lg-12">
-									<fieldset class="form-group">
-										<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Enviar Comentarios</button>
-									</fieldset>
-								</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<fieldset class="form-group">
+									<label class="form-label semibold" for="segui_descrip">Descripción</label>
+									<div class="summernote-theme-1">
+										<textarea id="segui_descrip" name="segui_descrip" class="summernote" name="name"></textarea>
+									</div>
+								</fieldset>
 							</div>
-						</div>	
-					</div>
-				</form>
+
+							<div class="col-lg-12">
+								<fieldset class="form-group">
+									<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Enviar Comentarios</button>
+								</fieldset>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</form>
 			</div>			
   		</div>
 	</div>

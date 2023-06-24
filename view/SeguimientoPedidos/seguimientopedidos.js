@@ -1,10 +1,14 @@
+var sumaTotal = 0;
+var cantidadesLimpieza = [];
+var modoModal;
+
 function init(){
    
 }
 
 $(document).ready(function(){  
 
-    $('#ped_descrip').summernote({
+    $('#tickd_requi').summernote({
         height: 50,
         lang: "es-ES",
         callbacks: {
@@ -26,7 +30,7 @@ $(document).ready(function(){
         ]
     });
 
-    $('#ped_descrip').summernote('disable');
+    $('#tickd_requi').summernote('disable');
     $('#segui_descrip').summernote({
         height:200,
         lang: "es-ES",
@@ -57,6 +61,54 @@ $(document).ready(function(){
     var id_pedido = getUrlParameter('IDs');
     listardetalle(id_pedido);
 
+      //Mostrar documentos adjutos en data table
+      tabla=$('#documentos_pedido').dataTable({
+        "aProcessing": true,
+        "aServerSide": true,
+        "searching": false,
+        lengthChange: false,
+        colReorder: true,
+        buttons: [],
+        "ajax":{
+            url: '../../controller/documentopedido.php?op=listar',
+            type : "post",
+            data : {id_pedido:id_pedido},
+            dataType : "json",
+            error: function(e){
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "responsive": true,
+        "bInfo":true,
+        "iDisplayLength": 10,
+        "autoWidth": false,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    }).DataTable();
+
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -73,7 +125,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 function listardetalle(id_pedido){  
-    $.post("../../controller/pedido.php?op=mostrarxsegui", { id_pedido : id_pedido }, function (data) {
+    $.post("../../controller/pedido.php?op=mostrar", { id_pedido : id_pedido }, function (data) {
       data = JSON.parse(data);
       console.log(data);        
        $('#lblid_pedido').html("Seguimiento  Pedido "+data.serie_pedido);
@@ -107,11 +159,13 @@ function listardetalle(id_pedido){
        $('#orden_compra').val(data.orden_compra);
        $('#fpago').val(data.descripcion);
        $('#modalidad').val(data.modalidad);
-       $('#demision').val(data.documento);
-  
+       $('#demision').val(data.documento); 
+       $('#total_pagar').text(data.sub_total);  
+       $('#igv').text(data.igv);
+       $('#total_final').text(data.total); 
   
        // Obtener detalles de los productos
-       $.post("../../controller/pedido.php?op=mostrarxsegui", { id_pedido: id_pedido }, function(detalles) {
+       $.post("../../controller/pedido.php?op=mostrar", { id_pedido: id_pedido }, function(detalles) {
       detalles = JSON.parse(detalles);  
       // Obtener los detalles de los servicios
        var detalles = data.detalles; 
@@ -136,15 +190,7 @@ function listardetalle(id_pedido){
       cantidadesLimpieza.push(detalle.cant_limpieza);
       });
   
-      sumaTotal = 0;
-      $('#detalle_ped tbody tr').each(function() {
-       var row = $(this);
-      var totalRow = parseFloat(row.find('td').eq(5).text());
-      sumaTotal += totalRow;
-      });
-      // Asignar el valor de la suma al elemento <label>
-      $('#total_pagar').text(sumaTotal.toFixed(2));
-      actualizarIGVYTotal();
+     
       });
   
     });

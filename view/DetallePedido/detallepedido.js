@@ -352,7 +352,7 @@ $(document).on("click","#btnagregar", function(){
 
 function guardaryeditarPed(e){
   e.preventDefault();  
-  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
+  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
       swal("Advertencia!", "Campos Vacios", "warning");
   }else{    
     var sub_total = parseFloat($('#total_pagar').text());
