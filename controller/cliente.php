@@ -45,6 +45,22 @@
             echo json_encode($results);
         break;
 
+        case "buscarCli":           
+            $datos=$cliente->buscarClientes($_POST["nro_doc"]);  
+            if(is_array($datos)==true and count($datos)>0){
+                 foreach($datos as $row)
+                 {
+                      $output["id_cliente"] = $row["id_cliente"];
+                      $output["nom_cli"] = $row["nom_cli"];
+                      $output["direc_cli"] = $row["direc_cli"];                  
+                      $output["contacto_cli"] = $row["contacto_cli"];
+                      $output["contacto_telf"] = $row["contacto_telf"];
+                      $output["correo_cli"] = $row["correo_cli"];                
+                   }                
+                  echo json_encode($output);             
+             }   
+            break;       
+
         case "mostrarcliente";
         $datos=$cliente->get_cliente_x_id($_POST["id_cliente"]);  
         if(is_array($datos)==true and count($datos)>0){

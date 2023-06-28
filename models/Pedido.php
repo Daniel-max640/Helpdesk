@@ -183,18 +183,7 @@
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }
-
-        public function buscarCliente($nro_doc) {
-            $conectar= parent::conexion(); 
-            parent::set_names();           
-            // Consulta para buscar al cliente
-            $sql = "SELECT * FROM tm_cliente WHERE nro_doc = ?";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $nro_doc);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
+        }    
 
         public function listar_pedido_x_id($id_pedido){
             $conectar= parent::conexion();
@@ -303,6 +292,43 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-        
+
+        public function insert_seguimiento($id_pedido,$usu_id,$segui_descripcion){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="INSERT INTO td_pedidoseguimiento (id_Seguimiento,id_pedido,usu_id,segui_descripcion,fecha_crea,estado) VALUES (NULL,?,?,?,now(),'1');";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_pedido);
+            $sql->bindValue(2, $usu_id);
+            $sql->bindValue(3, $segui_descripcion);
+            $sql->execute();
+
+            //Devuelve el ultimo comentario ingresado
+            $sql1="select last_insert_id() as 'id_seguimiento';";
+            $sql1=$conectar->prepare($sql1);
+            $sql1->execute();
+            return $resultado=$sql1->fetchAll(pdo::FETCH_ASSOC);
+        }
+
+        public function listar_seguimiento_x_pedido($id_pedido){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT
+                td_pedidoseguimiento.id_seguimiento,
+                td_pedidoseguimiento.segui_descripcion,
+                td_pedidoseguimiento.fecha_crea,
+                tm_usuario.usu_nom,
+                tm_usuario.usu_ape,
+                tm_usuario.rol_id
+                FROM 
+                td_pedidoseguimiento
+                INNER join tm_usuario on td_pedidoseguimiento.usu_id = tm_usuario.usu_id
+                WHERE 
+                id_pedido =?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_pedido);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }       
     }
 ?>

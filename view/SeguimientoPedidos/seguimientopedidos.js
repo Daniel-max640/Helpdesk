@@ -31,7 +31,8 @@ $(document).ready(function(){
     });
 
     $('#tickd_requi').summernote('disable');
-    $('#segui_descrip').summernote({
+
+    $('#segui_descripcion').summernote({
         height:200,
         lang: "es-ES",
         callbacks: {
@@ -124,7 +125,47 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+$(document).on("click","#btnenviar", function(){
+    var id_pedido = getUrlParameter('IDs');
+    var usu_id = $('#user_idx').val();
+    var segui_descripcion = $('#segui_descripcion').val();
+
+    if ($('#segui_descripcion').summernote('isEmpty')){
+        swal("Advertencia!", "Falta Descripción", "warning");
+        
+    }else{
+        var formData = new FormData();
+        formData.append('id_pedido', id_pedido);
+        formData.append('usu_id', usu_id);
+        formData.append('segui_descripcion', segui_descripcion);
+        var totalfiles = $('#fileElem').val().length;
+        for (var i = 0; i < totalfiles; i++) {
+            formData.append("files[]", $('#fileElem')[0].files[i]);
+          }
+
+          $.ajax({
+            url: "../../controller/pedido.php?op=insert_seguidetalle",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                console.log(data);
+                listardetalle(id_pedido);
+                $('#segui_descripcion').summernote('reset');
+                swal("Correcto!", "Registrado Correctamente", "success");
+            } 
+            
+        });  
+    }
+});
+
 function listardetalle(id_pedido){  
+
+    $.post("../../controller/pedido.php?op=listardetalle", { id_pedido : id_pedido }, function (data) {
+        $('#lbldetalle').html(data);
+    }); 
+
     $.post("../../controller/pedido.php?op=mostrar", { id_pedido : id_pedido }, function (data) {
       data = JSON.parse(data);
       console.log(data);        

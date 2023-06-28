@@ -19,5 +19,15 @@
             $sql->execute();
             return $resultado = $sql->fetchAll(pdo::FETCH_ASSOC);
         }
+
+        public function insert_docseguimiento($id_seguimiento,$docsegui_nom){
+            $conectar= parent::conexion();
+            /* consulta sql */
+            $sql="INSERT INTO td_documentoseguimiento (id_docseguimiento,id_seguimiento,docsegui_nom,estado) VALUES (NULL,?,?,1);";
+            $sql = $conectar->prepare($sql);
+            $sql->bindParam(1,$id_seguimiento);
+            $sql->bindParam(2,$docsegui_nom);
+            $sql->execute();
+        }
     }
 ?>

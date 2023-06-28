@@ -121,7 +121,6 @@ if (isset($_SESSION["usu_id"])) {
               </div>
           </div>
 			  </div>
-
       </div>
     </div>
     <!-- Contenido -->

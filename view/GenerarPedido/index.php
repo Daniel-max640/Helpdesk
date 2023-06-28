@@ -84,7 +84,6 @@
 
 						<div class="row">
 
-
 							<div class="col-lg-4">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Contacto</label>
@@ -112,7 +111,6 @@
 									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
 								</fieldset>
 							</div>	
-
 							
 						</div>
 
@@ -164,8 +162,7 @@
 									<option label="Seleccionar"></option>
 									</select>
 								</fieldset>
-							</div>
-													
+							</div>													
 						
 							<div class="col-lg-2 flatpickr" data-date-format="Y-m-d" data-wrap="true" data-click-opens="true">
 								<fieldset class="form-group">
@@ -325,7 +322,7 @@
 												<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
 											</fieldset>									
 										</div>
-								</div>			
+									</div>		
 										
 								</div>		
 							</div>	

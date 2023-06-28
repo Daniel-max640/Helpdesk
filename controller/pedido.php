@@ -129,22 +129,6 @@
 
         case "updateest":
             $pedido->update_estpedido($_POST["id_pedido"]);
-        break;        
-        
-        case "buscarCli":           
-        $datos=$cliente->buscarCliente($_POST["nro_doc"]);  
-        if(is_array($datos)==true and count($datos)>0){
-             foreach($datos as $row)
-             {
-                  $output["id_cliente"] = $row["id_cliente"];
-                  $output["nom_cli"] = $row["nom_cli"];
-                  $output["direc_cli"] = $row["direc_cli"];                  
-                  $output["contacto_cli"] = $row["contacto_cli"];
-                  $output["contacto_telf"] = $row["contacto_telf"];
-                  $output["correo_cli"] = $row["correo_cli"];                
-               }                
-              echo json_encode($output);             
-         }   
         break;       
 
         case "listar":
@@ -197,6 +181,54 @@
             echo json_encode($results);
         break;
 
+        case "listardetalle":
+            $datos=$pedido->listar_seguimiento_x_pedido($_POST["id_pedido"]);
+            ?>
+                <?php
+                    foreach($datos as $row){
+                        ?>
+                            <article class="activity-line-item box-typical">
+                                <div class="activity-line-date">
+                                    <?php echo date("d/m/Y", strtotime($row["fecha_crea"]));?>
+                                </div>
+                                <header class="activity-line-item-header">
+                                    <div class="activity-line-item-user">
+                                        <div class="activity-line-item-user-photo">
+                                            <a href="#">
+                                                <img src="../../public/<?php echo $row['rol_id'] ?>.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="activity-line-item-user-name"><?php echo $row['usu_nom'].' '.$row['usu_ape'];?></div>
+                                        <div class="activity-line-item-user-status">
+                                            <?php 
+                                                if ($row['rol_id']==1){
+                                                    echo 'Usuario';
+                                                }else{
+                                                    echo 'Soporte';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </header>
+                                <div class="activity-line-action-list">
+                                    <section class="activity-line-action">
+                                        <div class="time"><?php echo date("H:i:s", strtotime($row["fecha_crea"]));?></div>
+                                        <div class="cont">
+                                            <div class="cont-in">
+                                                <p>
+                                                    <?php echo $row["segui_descripcion"];?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </article>
+                        <?php
+                    }
+                ?>
+            <?php
+        break;
+
         case "mostrar":
             $datos=$pedido->listar_pedido_x_id ($_POST["id_pedido"]); 
             if(is_array($datos)==true and count($datos)>0){
@@ -238,8 +270,6 @@
                     $output["descripcion"] = $row["descripcion"];
                     $output["documento"] = $row["documento"];
                     $output["modalidad"] = $row["modalidad"];
-                    
-
                     $output["detalles"] = [];
 
                     $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);
@@ -261,6 +291,46 @@
                 }                
                     echo json_encode($output);
             }
+            break;
+
+            case "insert_seguidetalle":
+                $datos=$pedido->insert_seguimiento($_POST["id_pedido"],$_POST["usu_id"],$_POST["segui_descripcion"]);
+                if (is_array($datos)==true and count($datos)>0){
+                    foreach ($datos as $row){
+                        //Obtener  id_seguimiento de $datos
+                        $output["id_seguimiento"] = $row["id_seguimiento"];
+    
+                        //Consultamos si vienen archivos deede la vista
+                        if (empty($_FILES['files']['name'])){
+    
+                        }else{
+                            //Contar resgistros
+                            $countfiles = count($_FILES['files']['name']);
+                            //Ruta de los documentos
+                            $ruta = "../public/doc_seguimiento/".$output["id_seguimiento"]."/";
+                            //crear array de archivos
+                            $files_arr = array();
+
+                            //Consultar si ruta existe en caso sea no, crearla
+    
+                            if (!file_exists($ruta)) {
+                                mkdir($ruta, 0777, true);
+                            }
+    
+                            for ($index = 0; $index < $countfiles; $index++) {
+                                $doc1 = $_FILES['files']['tmp_name'][$index];
+                                $destino = $ruta.$_FILES['files']['name'][$index];
+    
+                                $documentopedido->insert_docseguimiento( $output["id_seguimiento"],$_FILES['files']['name'][$index]);
+    
+                                move_uploaded_file($doc1,$destino);
+                            }
+                        }
+                    }
+                }
+                echo json_encode($datos);
+
+
             break;
             
           

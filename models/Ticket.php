@@ -198,7 +198,7 @@
         public function insert_ticketdetalle_reabrir($tick_id,$usu_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="	INSERT INTO td_ticketdetalle 
+            $sql="	INSERT INTO td_ticketdetalle
                 (tickd_id,tick_id,usu_id,tickd_descrip,fech_crea,est) 
                 VALUES 
                 (NULL,?,?,'Ticket Re-Abierto...',now(),'1');";

@@ -293,6 +293,7 @@
 					</div>		
 
 					<section class="activity-line" id="lbldetalle">
+						
   					</section>
 
 					<div class="box-typical box-typical-padding" id="pnldetalle">
@@ -301,16 +302,23 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<fieldset class="form-group">
-									<label class="form-label semibold" for="segui_descrip">Descripción</label>
+									<label class="form-label semibold" for="segui_descripcion">Descripción</label>
 									<div class="summernote-theme-1">
-										<textarea id="segui_descrip" name="segui_descrip" class="summernote" name="name"></textarea>
+										<textarea id="segui_descripcion" name="segui_descripcion" class="summernote" name="name"></textarea>
 									</div>
 								</fieldset>
 							</div>
 
 							<div class="col-lg-12">
 								<fieldset class="form-group">
-									<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Enviar Comentarios</button>
+									<label class="form-label semibold" for="exampleInput">Documentos Adicionales</label>
+									<input type="file" name="fileElem" id="fileElem" class="form-control" multiple>
+								</fieldset>
+							</div>
+
+							<div class="col-lg-12">
+								<fieldset class="form-group">
+								<button type="button" id="btnenviar" class="btn btn-rounded btn-inline btn-primary">Enviar Comentarios</button>
 								</fieldset>
 							</div>
 						</div>
