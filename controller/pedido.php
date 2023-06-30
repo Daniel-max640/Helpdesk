@@ -218,6 +218,40 @@
                                                 <p>
                                                     <?php echo $row["segui_descripcion"];?>
                                                 </p>
+                                                <br>
+                                                <?php
+                                                    $datos_seg=$documentopedido->get_documento_x_id_seguimiento($row["id_seguimiento"]);
+                                                    if(is_array($datos_seg)==true and count($datos_seg)>0){
+                                                        ?>
+                                                            <p><strong>Documentos Adicionales</strong></p>
+
+                                                            <p>
+                                                                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 60%;">Nombre</th>
+                                                                            <th style="width: 40%;"></th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                            foreach ($datos_seg as $row_det){                                                                           
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td><?php echo $row_det["docsegui_nom"]; ?></td>
+                                                                            <td>
+                                                                                <a href="../../public/doc_seguimiento/<?php echo $row_det["id_seguimiento"]; ?>/<?php echo $row_det["docsegui_nom"]; ?>" target="_blank" class="btn btn_inline btn-primary btn-sm">Ver</a>
+                                                                            </td> 
+                                                                        </tr>    
+                                                                        <?php
+                                                                             }
+                                                                        ?>                                                                    </tbody>
+                                                                </table>
+                                                            </p>
+                                                        <?php    
+                                                    }
+                                                ?>
                                             </div>
                                         </div>
                                     </section>

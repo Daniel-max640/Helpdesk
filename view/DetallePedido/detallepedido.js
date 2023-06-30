@@ -205,7 +205,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function buscarCliente() {
   var nro_doc = $("#nro_doc").val(); // Obtener el número de documento ingresado
   $.ajax({
-    url: "../../controller/pedido.php?op=buscarCli", // El archivo PHP que contiene la función buscarCliente()
+    url: "../../controller/cliente.php?op=buscarCli", // El archivo PHP que contiene la función buscarCliente()
     type: "POST",
     data: { "action": "buscarCli", "nro_doc": nro_doc},
     dataType: "json",

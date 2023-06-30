@@ -29,5 +29,15 @@
             $sql->bindParam(2,$docsegui_nom);
             $sql->execute();
         }
+
+        public function get_documento_x_id_seguimiento($id_seguimiento){
+            $conectar= parent::conexion();
+            /* consulta sql */
+            $sql="SELECT * FROM td_documentoseguimiento WHERE id_seguimiento=?";
+            $sql = $conectar->prepare($sql);
+            $sql->bindParam(1,$id_seguimiento);
+            $sql->execute();
+            return $resultado = $sql->fetchAll(pdo::FETCH_ASSOC);
+        }
     }
 ?>

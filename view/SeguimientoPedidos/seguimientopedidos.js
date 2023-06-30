@@ -152,6 +152,7 @@ $(document).on("click","#btnenviar", function(){
             success: function(data){
                 console.log(data);
                 listardetalle(id_pedido);
+                $('#fileElem').val('');
                 $('#segui_descripcion').summernote('reset');
                 swal("Correcto!", "Registrado Correctamente", "success");
             } 
