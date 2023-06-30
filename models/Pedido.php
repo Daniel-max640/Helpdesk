@@ -5,7 +5,8 @@
         $serie_pedido,$moneda,$id_modalidad,$contacto,$telf_contacto,$dire_entrega,
         $id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,
         $conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra,
-        $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,$estado_pago,$orden_compra,$detalles){
+        $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,
+        $estado_pago,$orden_compra,$detalles){
             $conectar= parent::conexion();
             parent::set_names();            
             $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura,estado_pago,orden_compra) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?,?,?);";
@@ -42,7 +43,8 @@
             $sql->bindValue(30, $acceso_portal);
             $sql->bindValue(31, $entrega_factura); 
             $sql->bindValue(32, $estado_pago);
-            $sql->bindValue(33, $orden_compra);
+            $sql->bindValue(33, $orden_compra);            ;
+
             $sql->execute();         
             //obtener el ultimo id_pedido generado
             $id_pedido = $conectar->lastInsertId();
@@ -56,8 +58,9 @@
             $cantidad = $detalle['cantidad'];
             $precio_uni = $detalle['precio_uni'];
             $total = $detalle['total'];
+            $descrip_producto = $detalle['descrip_producto'];
                 
-            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?,?);";
+            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto) VALUES (NULL,?,?,?,?,?,?,?,?,?);";
             $sql_detalle = $conectar->prepare($sql_detalle);
             $sql_detalle->bindValue(1, $id_pedido);
             $sql_detalle->bindValue(2, $id_servicio);
@@ -67,6 +70,7 @@
             $sql_detalle->bindValue(6, $cantidad);
             $sql_detalle->bindValue(7, $precio_uni);
             $sql_detalle->bindValue(8, $total);
+            $sql_detalle->bindValue(9, $descrip_producto);
             $sql_detalle->execute();
             }       
             return $id_pedido;       
@@ -134,8 +138,9 @@
                     $cantidad = $detalle['cantidad'];
                     $precio_uni = $detalle['precio_uni'];
                     $total = $detalle['total'];
+                    $descrip_producto = $detalle['descrip_producto'];
                     // Insertar los nuevos detalles del pedido
-                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total) VALUES (NULL,?,?,?,?,?,?,?,?)";
+                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
                     $sql_detalle = $conectar->prepare($sql_detalle);        
                     $sql_detalle->bindValue(1, $id_pedido);
                     $sql_detalle->bindValue(2, $id_servicio);
@@ -145,6 +150,7 @@
                     $sql_detalle->bindValue(6, $cantidad);
                     $sql_detalle->bindValue(7, $precio_uni);
                     $sql_detalle->bindValue(8, $total);
+                    $sql_detalle->bindValue(9, $descrip_producto);
                     $sql_detalle->execute();
                 }        
                 $conectar->commit();
@@ -252,7 +258,8 @@
                 det_pedido.cant_limpieza,
                 det_pedido.cantidad,
                 det_pedido.precio_uni,
-                det_pedido.total
+                det_pedido.total,
+                det_pedido.descrip_producto
                 FROM 
                 det_pedido
                 INNER join tm_pedido ON det_pedido.id_pedido = tm_pedido.id_pedido

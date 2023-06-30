@@ -77,6 +77,15 @@
                                 <input type="text" class="form-control" id="total" name="total" required readonly>
                             </div>
                         </div>
+
+                        <div class="col-lg-12">
+							<fieldset class="form-group">
+								<label class="form-label semibold" for="descrip_producto">Descripcion de Producto o Servicio</label>
+								<div class="summernote-theme-1">
+									<textarea id="descrip_producto" name="descrip_producto" class="summernote"></textarea>
+								</div>
+							</fieldset>
+						</div>
                     </div>
                 </div>
                 

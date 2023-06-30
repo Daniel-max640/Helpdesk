@@ -32,6 +32,20 @@ $(document).ready(function(){
     }
   }); 
 
+  $('#descrip_producto').summernote({
+    height: 50,
+    lang: "es-ES",
+    toolbar: [
+         ['style', ['bold', 'italic', 'underline', 'clear']],
+         ['font', ['strikethrough', 'superscript', 'subscript']],
+         ['fontsize', ['fontsize']],
+         ['color', ['color']],
+         ['para', ['ul', 'ol', 'paragraph']],
+         ['height', ['height']]
+    ]
+  });
+
+
   $('#descripcion, #precio').on('keydown', function(event) {
     if (event.keyCode === 13) { // Código de la tecla Enter
       const descripcion = $('#descripcion').val();
@@ -57,11 +71,13 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
-    $('#mdltitulo').html('Editar Servicio');  
-  
-      // Obtener la fila actual
-    var row = $(this).closest('tr');
+    $('#mdltitulo').html('Editar Servicio'); 
 
+    // Obtener la fila actual
+    var row = $(this).closest('tr');
+    // Remover la clase "editando" de cualquier otra fila que la tenga para que guarde solo para la fila editada
+    $('.editando').removeClass('editando');
+     
     // Obtener los valores actuales del detalle de producto
     var id_producto = row.find('td:nth-child(1)').text();
     var descripcion = row.find('td:nth-child(2)').text();
@@ -69,6 +85,7 @@ $(document).ready(function(){
     var cantidad = row.find('td:nth-child(4)').text();
     var precio = row.find('td:nth-child(5)').text();
     var cant_limpieza = row.data('cant_limpieza');
+    var descrip_producto = row.data('descrip_producto');
    
     //console.log("id_medida:", id_medida);
 
@@ -78,6 +95,8 @@ $(document).ready(function(){
     $('#cantidad').val(cantidad);
     $('#precio').val(precio);
     $('#cant_limpieza').val(cant_limpieza);
+    // Establecer el contenido del Summernote
+    $('#descrip_producto').summernote('code', descrip_producto);
 
     $('#id_medida option').each(function() {
       if ($(this).text() === id_medida) {
@@ -102,8 +121,30 @@ $(document).ready(function(){
     // Agregar la clase "editando" a la fila actual
     row.addClass('editando');
     });  
-});
 
+  // solucion a incidencia (cuando se edita y no se guardaba, al momento de queere agregar un nuevo servicio se quedaba en modo edicion)
+  $('#modalagregarproductos').on('hidden.bs.modal', function () {
+    // Restablecer el modo del modal a "agregar"
+    modoModal = 'agregar';
+  
+    // Restablecer el texto del botón en el modal a "Agregar Detalle"
+    $('#btn-AgregarDetalle').text('Agregar');
+      // Limpiar los campos del formulario
+    $('#descripcion').val('');
+    $('#cantidad').val('1');
+    $('#precio').val('');
+    $('#id_medida').val('');
+    $('#id_producto').val('');
+    $('#total').val('');
+    $('#cant_limpieza').val('');
+    $('#descrip_producto').summernote('reset');
+    // Ocultar el botón de agregar detalle
+    $('#btn-AgregarDetalle').hide();
+    
+
+  });
+  
+});
 
 function agegardetalle() {
   // Obtener valores del producto seleccionado en el modal
@@ -114,6 +155,7 @@ function agegardetalle() {
   var precio = $('#precio').val();
   var total = $('#total').val();
   var cant_limpieza = $('#cant_limpieza').val();
+  var descrip_producto = $('#descrip_producto').val();
  
   // Verificar si todos los campos requeridos tienen valores
   if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '' || cant_limpieza === '') {
@@ -139,6 +181,7 @@ function agegardetalle() {
     filaEditando.find('td:nth-child(6)').text(total);
 
     filaEditando.data('cant_limpieza', cant_limpieza);
+    filaEditando.data('descrip_producto', descrip_producto);
 
     filaEditando.removeClass('editando');
 
@@ -167,6 +210,7 @@ function agegardetalle() {
 
     // Guardar el valor de cantidad de limpiezas como un atributo de datos en la fila
     nuevaFila.data('cant_limpieza', cant_limpieza);
+    nuevaFila.data('descrip_producto', descrip_producto);
   }
 
   // Recalcular el total
@@ -191,6 +235,7 @@ function agegardetalle() {
   $('#id_producto').val('');
   $('#total').val('');
   $('#cant_limpieza').val('');
+  $('#descrip_producto').summernote('reset');  
   $('#btn-AgregarDetalle').hide();
 }
 

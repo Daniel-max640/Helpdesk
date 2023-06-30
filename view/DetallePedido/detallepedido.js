@@ -1,5 +1,6 @@
 var sumaTotal = 0;
 var cantidadesLimpieza = [];
+var descripcion_producto = [];
 var modoModal;
 
 function init(){ 
@@ -16,6 +17,20 @@ $(document).ready(function(){
       buscarCliente(); // Llamar a la función buscarCliente()
     }
  }); 
+
+ $('#descrip_producto').summernote({
+  height: 50,
+  lang: "es-ES",
+  toolbar: [
+       ['style', ['bold', 'italic', 'underline', 'clear']],
+       ['font', ['strikethrough', 'superscript', 'subscript']],
+       ['fontsize', ['fontsize']],
+       ['color', ['color']],
+       ['para', ['ul', 'ol', 'paragraph']],
+       ['height', ['height']]
+  ]
+});
+
   $.post("../../controller/tservicio.php?op=combo",function(data, status){
   $('#id_modalidad').html(data);
   });
@@ -53,7 +68,6 @@ $(document).ready(function(){
       buscarProducto(descripcion);   
     }
   }); 
-
   
   $('#descripcion, #precio').on('keydown', function(event) {
     if (event.keyCode === 13) { // Código de la tecla Enter
@@ -71,7 +85,7 @@ $(document).ready(function(){
 
   $('#btn-AgregarDetalle').on('click', function() {    
     agegardetalle();         
- });  
+  });  
 
   
   $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
@@ -90,11 +104,13 @@ $(document).ready(function(){
       var cantidad = row.find('td:nth-child(4)').text();
       var precio = row.find('td:nth-child(5)').text();
       var cant_limpieza = $('#cant_limpieza').val();
+      var descrip_producto = row.data('descrip_producto');
 
       // Obtén el índice de la fila editada
       var rowIndex = $('.editando').index();
       // Actualiza la cantidad de limpieza en el arreglo correspondiente
       var cant_limpieza = cantidadesLimpieza[rowIndex];
+      var descrip_producto = descripcion_producto[rowIndex];
 
       // Asignar los valores a los campos del formulario de edición
       $('#id_producto').val(id_producto);
@@ -102,6 +118,8 @@ $(document).ready(function(){
       $('#cantidad').val(cantidad);
       $('#precio').val(precio); // Asignar el valor de cant_limpieza al campo de texto
       $('#cant_limpieza').get(0).value = cant_limpieza;
+      //$('#descrip_producto').get(0).value = descrip_producto;
+      $('#descrip_producto').summernote('code', descrip_producto);
 
       $('#id_medida option').each(function() {
         if ($(this).text() === id_medida) {
@@ -285,6 +303,7 @@ function listardetalle(id_pedido){
 
     // Almacenar el valor de cant_limpieza en el array
     cantidadesLimpieza.push(detalle.cant_limpieza);
+    descripcion_producto.push(detalle.descrip_producto);
     });
 
     sumaTotal = 0;
@@ -369,6 +388,7 @@ function guardaryeditarPed(e){
       var total = $(this).find('td:nth-child(6)').text();
       //cant_limpieza se obtendrá directamente del arreglo cantidadesLimpieza en lugar de buscarlo en el campo del modal.
       var cant_limpieza = cantidadesLimpieza[$(this).index()];
+      var descrip_producto = descripcion_producto[$(this).index()];
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -376,7 +396,8 @@ function guardaryeditarPed(e){
         cantidad: cantidad,
         precio_uni: precio_uni,
         total: total,
-        cant_limpieza: cant_limpieza
+        cant_limpieza: cant_limpieza,
+        descrip_producto: descrip_producto
       };    
       productos.push(producto);
     });
@@ -517,6 +538,8 @@ function agegardetalle() {
   var precio = $('#precio').val();
   var total = $('#total').val();
   var cant_limpieza = $('#cant_limpieza').val();
+  var descrip_producto = $('#descrip_producto').val();
+ 
  
   // Verificar si todos los campos requeridos tienen valores
   if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '' || cant_limpieza === '') {
@@ -540,8 +563,10 @@ function agegardetalle() {
     filaEditando.find('td:nth-child(6)').text(total);
     var rowIndex = filaEditando.index();
     filaEditando.data('cant_limpieza', cant_limpieza);
+    filaEditando.data('descrip_producto', descrip_producto);
     
     cantidadesLimpieza[rowIndex] = cant_limpieza;
+    descripcion_producto[rowIndex] = descrip_producto;
 
     filaEditando.removeClass('editando');  
 
@@ -567,11 +592,13 @@ function agegardetalle() {
 
       // Guardar el valor de cantidad de limpiezas como un atributo de datos en la fila
       nuevaFila.data('cant_limpieza', cant_limpieza);
+      nuevaFila.data('descrip_producto', descrip_producto);
 
       // Agregar la nueva fila al final de la tabla
       $('#detalle_ped tbody').append(nuevaFila);
 
       cantidadesLimpieza.push(cant_limpieza);
+      descripcion_producto.push(descrip_producto);
       // Mostrar alerta de éxito al agregar
       swal("Éxito!", "El servicio se agrego corectamente.", "success");
 
@@ -596,7 +623,9 @@ function agegardetalle() {
   $('#precio').val('');
   $('#id_medida').val('');
   $('#cant_limpieza').val('');
+  $('#cant_limpieza').val('');
   $('#id_producto').val('');
+  $('#descrip_producto').summernote('reset');
   $('#total').val('');
   $('#btn-AgregarDetalle').hide();
 }

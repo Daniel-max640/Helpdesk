@@ -96,7 +96,8 @@ function guardaryeditarPedido(e){
       var precio_uni = $(this).find('td:nth-child(5)').text();
       var total = $(this).find('td:nth-child(6)').text(); 
       // Obtener la cantidad de limpiezas de la fila correspondiente
-      var cant_limpieza = $(this).data('cant_limpieza');   
+      var cant_limpieza = $(this).data('cant_limpieza');
+      var descrip_producto = $(this).data('descrip_producto');    
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -104,7 +105,8 @@ function guardaryeditarPedido(e){
         cantidad: cantidad,
         precio_uni: precio_uni,
         total: total,
-        cant_limpieza: cant_limpieza // Agregar el campo de cantidad de limpiezas
+        cant_limpieza: cant_limpieza, // Agregar el campo de cantidad de limpiezas
+        descrip_producto: descrip_producto
       };    
       productos.push(producto);
     });

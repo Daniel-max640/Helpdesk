@@ -316,7 +316,8 @@
                                 "cantidad" => $detalle["cantidad"],
                                 "precio_uni" => $detalle["precio_uni"],
                                 "total" => $detalle["total"],
-                                "cant_limpieza" => $detalle["cant_limpieza"]
+                                "cant_limpieza" => $detalle["cant_limpieza"],
+                                "descrip_producto" => $detalle["descrip_producto"]
                             ];
 
                             $output["detalles"][] = $detalles_pedido;
