@@ -169,8 +169,10 @@
                 tm_pedido.fecha_emision,
                 DATE(tm_pedido.fecha_entrega) AS fecha_entrega,
                 tm_pedido.usu_id,
-                tm_usuario.usu_nom,
+                /*tm_usuario.usu_nom,*/
                 tm_pedido.id_cliente,
+                tm_pedido.asesor,
+                tm_pedido.id_modalidad,
                 tm_cliente.nom_cli,
                 tm_pedido.serie_pedido,
                 tm_pedido.id_fpago,
@@ -178,12 +180,14 @@
                 tm_pedido.total,
                 forma_pago.descripcion,
                 tm_pedido.estado_pago,
-                tm_pedido.orden_compra                   
+                tm_pedido.orden_compra,
+                tipo_servicio.modalidad                   
                 FROM 
                 tm_pedido
                 LEFT JOIN tm_cliente on tm_pedido.id_cliente = tm_cliente.id_cliente
                 LEFT JOIN tm_usuario on tm_pedido.usu_id = tm_usuario.usu_id
                 LEFT JOIN forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago
+                LEFT JOIN tipo_servicio on tm_pedido.id_modalidad = tipo_servicio.id_modalidad
                 WHERE
                 tm_pedido.est_ped = 1";
             $sql=$conectar->prepare($sql);

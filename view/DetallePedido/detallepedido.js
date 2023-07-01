@@ -117,7 +117,8 @@ $(document).ready(function(){
       $('#descripcion').val(descripcion);   
       $('#cantidad').val(cantidad);
       $('#precio').val(precio); // Asignar el valor de cant_limpieza al campo de texto
-      $('#cant_limpieza').get(0).value = cant_limpieza;
+      //$('#cant_limpieza').get(0).value = cant_limpieza;
+      $('#cant_limpieza').val(cant_limpieza);
       //$('#descrip_producto').get(0).value = descrip_producto;
       $('#descrip_producto').summernote('code', descrip_producto);
 

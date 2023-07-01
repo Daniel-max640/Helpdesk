@@ -45,9 +45,10 @@
 							<th style="width: 3%;">Fecha-Servicio</th>
 							<th class="d-none d-sm-table-cell" style="width: 3%;">Estado</th>
 							<th class="d-none d-sm-table-cell" style="width: 3%;">Asesor</th>
-							<th class="d-none d-sm-table-cell" style="width: 3%;">O.Compra</th>
+							<!--<th class="d-none d-sm-table-cell" style="width: 3%;">O.Compra</th>-->
 							<th class="d-none d-sm-table-cell" style="width: 17%;">Cliente</th>
 							<th class="d-none d-sm-table-cell" style="width: 7%;">Serie</th>
+							<th class="d-none d-sm-table-cell" style="width: 7%;">Servicio</th>
 							<th class="d-none d-sm-table-cell" style="width: 5%;">F.Pago</th>
 							<th class="d-none d-sm-table-cell" style="width: 3%;">Total</th>
 							<th class="d-none d-sm-table-cell" style="width: 3%;">Estado-Pago</th>
