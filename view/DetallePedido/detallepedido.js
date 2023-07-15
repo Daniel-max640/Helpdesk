@@ -80,6 +80,7 @@ $(document).ready(function(){
     }
   });
 
+  
   var id_pedido = getUrlParameter('IDs');
   listardetalle(id_pedido);
 
@@ -249,6 +250,7 @@ function listardetalle(id_pedido){
     data = JSON.parse(data);
     console.log(data);        
      $('#lblid_pedido').html("Editar Pedido "+data.serie_pedido);
+     $('#lblestado').html(data.estado);
      $('#id_pedido').val(data.id_pedido); 
      $('#serie_pedido').val(data.serie_pedido);
      $('#moneda').val(data.moneda);
@@ -371,8 +373,19 @@ $(document).on("click","#btnagregar", function(){
 });
 
 function guardaryeditarPed(e){
-  e.preventDefault();  
-  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_modalidad').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
+  e.preventDefault(); 
+  var estadoPedido =$('#lblestado').text();
+  // Verificar si el pedido está anulado
+  if (estadoPedido.toLowerCase() === 'anulado') {
+    // Deshabilitar el botón de guardar cambios
+    $('#btnGuardarCambios').prop('disabled', true);
+
+    // Mostrar mensaje al usuario
+    swal("Advertencia!", "No se pueden guardar cambios en pedidos anulados.", "warning");
+    return;
+  }
+
+  if ($('#nro_doc').val()=='' || $('#id_modalidad').val() == 0 || $('#id_demision').val() == 0 || $('#id_fpago').val() == 0 || $('#direc_ser').val() == 0 || $('#fecha_entrega').val() == 0){
       swal("Advertencia!", "Campos Vacios", "warning");
   }else{    
     var sub_total = parseFloat($('#total_pagar').text());
@@ -623,7 +636,6 @@ function agegardetalle() {
   $('#cantidad').val('1');
   $('#precio').val('');
   $('#id_medida').val('');
-  $('#cant_limpieza').val('');
   $('#cant_limpieza').val('');
   $('#id_producto').val('');
   $('#descrip_producto').summernote('reset');

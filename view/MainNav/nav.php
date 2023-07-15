@@ -65,20 +65,7 @@
                                 <a href="..\NuevoTicket\"><span class="lbl">Modelos de Portatiles</span></a>
                             </li>
 	                    </ul>
-	                </li>
-
-
-                    <li class="blue-dirty with-sub">
-	                    <span>
-	                    <i class="font-icon font-icon-notebook"></i>
-	                    <span class="lbl">Pedidos</span>
-	                    </span>
-	                    <ul>
-	                        <li>
-                                <a href="..\SeguimientoPedidos\"><span class="lbl">Seguimiento de Pedidos</span></a>
-                            </li>	                                   
-	                    </ul>
-	                </li>
+	                </li>                   
 
                     <li class="blue-dirty with-sub">
 	                    <span>
@@ -103,8 +90,6 @@
                             </li>	                                   
 	                    </ul>
 	                </li>
-
-
 
                 </ul>
             </nav>            

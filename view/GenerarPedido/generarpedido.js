@@ -5,6 +5,7 @@ function init(){
 }
 
 $(document).ready(function(){
+
   $("#nro_doc").on("keydown", function(event) {
     if (event.keyCode === 13) { // Si se presiona Enter
      event.preventDefault(); // Prevenir el comportamiento por defecto de la tecla Enter (enviar el formulario)
@@ -25,6 +26,7 @@ $(document).ready(function(){
   $("#info-adicional").click(function() {
      $("#campos_adicionales").toggle();
   });
+
 }); 
 
 $(function() {			
@@ -54,6 +56,16 @@ $('#tickd_requi').summernote({
   ]
 });
 
+$("#btnagregar").on("click", function() {
+  var valorServicio = $("#id_modalidad").val();
+  if (valorServicio === "5") { // Compara con el valor correspondiente a "Portatiles"
+    $("#campo_cantidad_limpieza").show(); // Mostrar el campo de cantidad de limpieza
+  } else {
+    $("#campo_cantidad_limpieza").hide(); // Ocultar el campo de cantidad de limpieza
+  }
+
+});
+
 // Función para buscar el cliente utilizando AJAX
 function buscarCliente() {
   var nro_doc = $("#nro_doc").val(); // Obtener el número de documento ingresado
@@ -75,7 +87,9 @@ function buscarCliente() {
      error: function() {
       swal("Error!", "Documento no existe", "error");
     }
-  });       
+  });   
+
+ 
 }
 
 function guardaryeditarPedido(e){

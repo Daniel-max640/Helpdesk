@@ -133,18 +133,8 @@ $(document).ready(function(){
     $.post("../../controller/tipodoc.php?op=combo",function(data, status){
         $('#tipodoc_id').html(data);
     });
-
  
-    $.post("../../controller/provincia.php?op=combo2", function(data, status) {
-        $('#id_provincia').html(data);
-     // Limpiar el combo de distrito
-    });
-
-    $.post("../../controller/distrito.php?op=combo3", function(data, status) {
-        $('#id_distrito').html(data);
-     // Limpiar el combo de distrito
-    });    
-
+   
     $.post("../../controller/credito.php?op=combocredito", function(data, status) {
         $('#id_ccredito').html(data);
      // Limpiar el combo de distrito
@@ -168,6 +158,8 @@ $(document).ready(function(){
     $("#contacto-titulo").click(function() {
         $("#campos-contacto-adicional").toggle();
     });
+
+    cargarProvinciasYDistritos();
 });
 
 function cargarProvinciasYDistritos() {
@@ -175,6 +167,17 @@ function cargarProvinciasYDistritos() {
     $.post("../../controller/departamento.php?op=combo",function(data, status){
         $('#id_departamento').html(data);
     });
+
+    $.post("../../controller/provincia.php?op=combo2", function(data, status) {
+        $('#id_provincia').html(data);
+     // Limpiar el combo de distrito
+    });
+
+    $.post("../../controller/distrito.php?op=combo3", function(data, status) {
+        $('#id_distrito').html(data);
+     // Limpiar el combo de distrito
+    });    
+
     // Cargar provincias según el departamento seleccionado
     $("#id_departamento").on("change", function() {
         var id_departamento = $(this).val();
@@ -184,7 +187,7 @@ function cargarProvinciasYDistritos() {
         });
     });
 
-    //  $('#id_distrito').html('<option value=""></option>');
+     $('#id_distrito').html('<option value=""></option>');
     // Cargar distritos según la provincia seleccionada
     $("#id_provincia").on("change", function() {
         var id_provincia = $(this).val();
@@ -194,43 +197,42 @@ function cargarProvinciasYDistritos() {
     });
 }
 
-function editar(id_cliente){     
-    cargarProvinciasYDistritos();
-    $('#mdltitulo').html('Editar Cliente');        
-    $('#modalmantecliente').modal('show');
-        $.post("../../controller/cliente.php?op=mostrarcliente", {id_cliente : id_cliente}, function (data) {
-            data = JSON.parse(data);
-            $('#id_cliente').val(data.id_cliente);
-            $('#tipodoc_id').val(data.tipodoc_id);
-            $('#nro_doc').val(data.nro_doc);
-            $('#nom_cli').val(data.nom_cli);
-            $('#direc_cli').val(data.direc_cli);
-            $('#id_ccredito').val(data.id_ccredito);
-            $('#id_departamento').val(data.id_departamento);
-            $('#id_provincia').val(data.id_provincia);
-            $('#id_distrito').val(data.id_distrito);
-            $('#tele_cli').val(data.tele_cli);
-            $('#correo_cli').val(data.correo_cli);
-            $('#contacto_telf').val(data.contacto_telf);
-            $('#contacto_cli').val(data.contacto_cli);
-            $('#contacto_factu').val(data.contacto_factu);
-            $('#correo_fac').val(data.correo_fac);
-            $('#contacto_cobra').val(data.contacto_cobra);
-            $('#correo_cobra').val(data.correo_cobra);
-            $('#tele_cobra').val(data.tele_cobra);
-            $('#contacto_adi').val(data.contacto_adi);
-            $('#correo_adi').val(data.correo_adi);
-            $('#tele_adi').val(data.tele_adi);
-            $('#web').val(data.web);
+function editar(id_cliente){   
+    
+$('#mdltitulo').html('Editar Cliente');        
+$('#modalmantecliente').modal('show');
+    $.post("../../controller/cliente.php?op=mostrarcliente", {id_cliente : id_cliente}, function (data) {
+        data = JSON.parse(data);
+        $('#id_cliente').val(data.id_cliente);
+        $('#tipodoc_id').val(data.tipodoc_id);
+        $('#nro_doc').val(data.nro_doc);
+        $('#nom_cli').val(data.nom_cli);
+        $('#direc_cli').val(data.direc_cli);
+        $('#id_ccredito').val(data.id_ccredito);
+        $('#id_departamento').val(data.id_departamento);
+        $('#id_provincia').val(data.id_provincia);
+        $('#id_distrito').val(data.id_distrito);
+        $('#tele_cli').val(data.tele_cli);
+        $('#correo_cli').val(data.correo_cli);
+        $('#contacto_telf').val(data.contacto_telf);
+        $('#contacto_cli').val(data.contacto_cli);
+        $('#contacto_factu').val(data.contacto_factu);
+        $('#correo_fac').val(data.correo_fac);
+        $('#contacto_cobra').val(data.contacto_cobra);
+        $('#correo_cobra').val(data.correo_cobra);
+        $('#tele_cobra').val(data.tele_cobra);
+        $('#contacto_adi').val(data.contacto_adi);
+        $('#correo_adi').val(data.correo_adi);
+        $('#tele_adi').val(data.tele_adi);
+        $('#web').val(data.web);           
+        
+        console.log(data);         
             
-            
-            console.log(data);         
-                
-         })         
+    })         
 }
 
 $(document).on("click","#btnnuevo", function(){
-    cargarProvinciasYDistritos();
+    
     $('#id_cliente').val('');
     $('#mdltitulo').html('Nuevo Registro');
     $('#cliente_form')[0].reset();
@@ -290,7 +292,4 @@ function eliminar(id_cliente){
         }
     });
 }
-
-
-
 init();

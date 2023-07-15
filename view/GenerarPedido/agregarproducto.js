@@ -12,11 +12,14 @@ $(document).ready(function(){
 
   //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
+  $("#campo_cantidad_limpieza").hide(); // Ocultar el div completo al inicializar la página
   
   //Calcula los valores automaticamente del total cuando se genera un cambio en la cantidad
   $('#cantidad').on('change', function() {
     calcularTotal();
   });
+
+
   //Calcula los valores automaticamente del total cuando se genera un cambio en el precio
   $('#precio').on('input', function() {
     calcularTotal();
@@ -158,11 +161,21 @@ function agegardetalle() {
   var descrip_producto = $('#descrip_producto').val();
  
   // Verificar si todos los campos requeridos tienen valores
-  if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '' || cant_limpieza === '') {
+  if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
     swal("Advertencia!", "Por favor, completa todos los campos antes de agregar el detalle.", "warning");
     return;
-  }
+  } 
 
+    // Obtener el valor seleccionado del campo id_modalidad
+    var id_modalidad = $('#id_modalidad').val();
+
+    // Verificar si se ha seleccionado "Portatiles" como servicio
+    if (id_modalidad === '5' && cant_limpieza === '') {
+      swal("Advertencia!", "Por favor, ingresa la cantidad de limpiezas.", "warning");
+      return;
+    }
+  
+ 
    // Obtener el nombre de la medida seleccionada
    var nombre_medida = $('#id_medida option:selected').data('nombre');
 
@@ -288,14 +301,6 @@ $(document).on("click","#btnagregar", function(){
   $('#productos_form')[0].reset();
   $('#modalagregarproductos').modal('show');
 });
-
-function actualizarCantidad(cantidad) {
-  var inputCantidad = document.getElementById("cantidad");
-  var nuevaCantidad = parseInt(inputCantidad.value) + cantidad;
-  if (nuevaCantidad >= 1) {
-    inputCantidad.value = nuevaCantidad;
-  }
-}
 
 function calcularTotal() {
   const cantidad = parseInt($('#cantidad').val());

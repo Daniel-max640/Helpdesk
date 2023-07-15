@@ -39,7 +39,7 @@
 							</fieldset>
 						</div>
                         
-                        <div class="col-lg-3">
+                        <div class="col-lg-3" id="campo_cantidad_limpieza" style="display: none;">
                             <div class="form-group">
                                 <label class="form-label" for="cant_limpieza">N° Limpiezas</label>
                                 <input type="text" class="form-control" id="cant_limpieza" name="cant_limpieza" required>

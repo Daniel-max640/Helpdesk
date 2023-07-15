@@ -39,10 +39,10 @@
 							</fieldset>
 						</div>
                             
-                        <div class="col-lg-3">
+                        <div id="campo_cantidad_limpieza" class="col-lg-3">
                             <div class="form-group">
                                 <label class="form-label" for="precio">N° Limpiezas</label>
-                                <input type="text" class="form-control" id="cant_limpieza" name="cant_limpieza" required>
+                                <input type="text" class="form-control" id="cant_limpieza" name="cant_limpieza" required> 
                             </div>
                         </div>   
 
@@ -78,6 +78,8 @@
                             </div>
                         </div>
 
+                    
+
                         <div class="col-lg-12">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="descrip_producto">Descripcion de Producto o Servicio</label>
@@ -86,7 +88,43 @@
 								</div>
 							</fieldset>
 						</div>
+
+                        <div class="col-lg-2">
+                            <fieldset class="form-group">
+								<label class="form-label" for="exampleInput">Tipo de Acopio</label>
+								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
+								<option label="Seleccionar"></option>
+								</select>
+							</fieldset>
+						</div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label class="form-label" for="precio">Cantidad</label>
+                                <input type="text" class="form-control" id="precio" name="precio" required>
+                            </div>
+                        </div>    
+
+                        
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+								<label class="form-label" for="exampleInput">Unidad Vehicular</label>
+								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
+								<option label="Seleccionar"></option>
+								</select>
+							</fieldset>
+                        </div>  
+
+                        <div class="col-lg-4">
+                         <fieldset class="form-group">
+								<label class="form-label" for="exampleInput">Dispocicion Final</label>
+								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
+								<option label="Seleccionar"></option>
+								</select>
+							</fieldset>
+                        </div>  
                     </div>
+
                 </div>
                 
                 <div class="modal-footer">

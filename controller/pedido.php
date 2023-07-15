@@ -20,7 +20,7 @@
         // Obtener los datos del formulario o de la solicitud
         $detalle_ped = json_decode($_POST["productos"], true);
 
-        // Verificar si la forma de pago es crédito o alguna otra forma de pago que requiere estado pendiente
+        //! Verificar si la forma de pago es crédito o alguna otra forma de pago que requiere estado pendiente
         if ($_POST["id_fpago"] == 2 || $_POST["id_fpago"] == 5 || $_POST["id_fpago"] == 10 || $_POST["id_fpago"] == 13) {
             $estado_pago = "Pendiente";
         } else {
@@ -271,6 +271,11 @@
                 {
                     $output["id_pedido"] = $row["id_pedido"];
                     $output["id_cliente"] = $row["id_cliente"];
+                    if ($row["estado"]=="Registrado"){
+                        $output["estado"] = '<span class="label label-pill label-success">Registrado</span>';
+                    }else{
+                        $output["estado"] = '<span class="label label-pill label-danger">Anulado</span>';
+                    }
                     $output["nro_doc"] = $row["nro_doc"];
                     $output["direc_cli"] = $row["direc_cli"];
                     $output["nom_cli"] = $row["nom_cli"];

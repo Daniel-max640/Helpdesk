@@ -24,6 +24,7 @@
 					<div class="tbl-row">
 						<div class="tbl-cell">
 							<h3 id="lblid_pedido">Editar Pedido - </h3>
+							<div id="lblestado"></div>  
 							<ol class="breadcrumb breadcrumb-simple">
 								<li><a href="#">Home</a></li>
 								<li class="active">Pedidos</li>
@@ -329,7 +330,7 @@
 							</div>							
 							<div class="col-lg-12">
 								<fieldset class="form-group">
-								<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar Modificacion</button>
+								<button id="btnGuardarCambios" type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar Modificacion</button>
 								</fieldset>
 							</div>
 					</form>
