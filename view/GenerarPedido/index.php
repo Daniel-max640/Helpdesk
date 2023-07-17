@@ -8,17 +8,13 @@
 	<title>::Generar Pedidos</title>
 </head>
 <body class="with-side-menu">
-
     <?php require_once("../MainHeader/header.php");?>
-
     <div class="mobile-menu-left-overlay"></div>
-
     <?php require_once("../MainNav/nav.php");?>
 
 	<!-- Contenido -->
 	<div class="page-content">
 		<div class="container-fluid">
-
 			<header class="section-header">
 				<div class="tbl">
 					<div class="tbl-row">
@@ -34,8 +30,7 @@
 			</header>
 
 			<div class="box-typical box-typical-padding">
-				<h5 class="m-t-lg with-border">Ingresar Información</h5>
-				
+				<h5 class="m-t-lg with-border">Ingresar Información</h5>				
 					<form method="post" id="pedido_form">
 						<div class="row">						
 							<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
@@ -110,8 +105,7 @@
 									<label class="form-label semibold" for="exampleInput">Asesor</label>
 									<input type="text" id="asesor" name="asesor" class="form-control" readonly value="<?php echo $_SESSION["usu_nom"] ?> <?php echo $_SESSION["usu_ape"] ?>">
 								</fieldset>
-							</div>	
-							
+							</div>							
 						</div>
 
 						<div class="row">
@@ -192,7 +186,6 @@
 						</div>
 						
 						<div class="row">
-
 							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Cotizacion</label>
@@ -286,8 +279,8 @@
 								</div>
 
 								<div id="campos_adicionales" style="display: none;">
-									<div class="container-fluid">
-										
+
+									<div class="container-fluid">										
 										<div class="col-lg-12">
 											<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
 										</div>
@@ -322,8 +315,7 @@
 												<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
 											</fieldset>									
 										</div>
-									</div>		
-										
+									</div>											
 								</div>		
 							</div>	
 

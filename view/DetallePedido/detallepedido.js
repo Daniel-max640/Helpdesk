@@ -1,6 +1,10 @@
 var sumaTotal = 0;
 var cantidadesLimpieza = [];
 var descripcion_producto = [];
+var id_acopios = [];
+var cants = [];
+var id_unidad_vehiculars = [];
+var id_disposicions = [];
 var modoModal;
 
 function init(){ 
@@ -28,7 +32,7 @@ $(document).ready(function(){
        ['color', ['color']],
        ['para', ['ul', 'ol', 'paragraph']],
        ['height', ['height']]
-  ]
+  ]  
 });
 
   $.post("../../controller/tservicio.php?op=combo",function(data, status){
@@ -47,6 +51,18 @@ $(document).ready(function(){
     console.log(data); // Verificar los datos recibidos en la consola
     $('#id_medida').html(data);
   });
+
+  $.post("../../controller/acopio.php?op=combo",function(data, status){
+    $('#id_acopio').html(data);
+  });  
+
+  $.post("../../controller/u_vehicular.php?op=combo",function(data, status){
+    $('#id_unidad_vehicular').html(data);
+  });  
+
+  $.post("../../controller/disposicion.php?op=combo",function(data, status){
+    $('#id_disposicion').html(data);
+  });  
   //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
   
@@ -107,11 +123,21 @@ $(document).ready(function(){
       var cant_limpieza = $('#cant_limpieza').val();
       var descrip_producto = row.data('descrip_producto');
 
+      var id_acopio = row.data('id_acopio');
+      var cant = row.data('cant');
+      var id_unidad_vehicular = row.data('id_unidad_vehicular');
+      var id_disposicion = row.data('id_disposicion');
+
       // Obtén el índice de la fila editada
       var rowIndex = $('.editando').index();
       // Actualiza la cantidad de limpieza en el arreglo correspondiente
       var cant_limpieza = cantidadesLimpieza[rowIndex];
       var descrip_producto = descripcion_producto[rowIndex];
+
+      var id_acopio = id_acopios[rowIndex];
+      var cant = cants[rowIndex];
+      var id_unidad_vehicular = id_unidad_vehiculars[rowIndex];
+      var id_disposicion = id_disposicions[rowIndex];
 
       // Asignar los valores a los campos del formulario de edición
       $('#id_producto').val(id_producto);
@@ -129,6 +155,11 @@ $(document).ready(function(){
           return false; // Salir del bucle each
         }
       });
+
+      $('#id_acopio').val(id_acopio);
+      $('#cant').val(cant);   
+      $('#id_unidad_vehicular').val(id_unidad_vehicular);
+      $('#id_disposicion').val(id_disposicion);
       calcularTotal();
       // Cambiar el modo del modal a "editar"
       modoModal = 'editar';
@@ -138,10 +169,13 @@ $(document).ready(function(){
       $('#btn-AgregarDetalle').text('Guardar Edición');
 
       // Mostrar el modal de agregar/editar detalle
-      $('#modalagregaryeditar').modal('show');
+      $('#modalagregaryeditar').modal('show');   
 
       // Agregar la clase "editando" a la fila actual
       row.addClass('editando');
+
+      /// Llamada adicional para mostrar u ocultar el campo de cantidad de limpieza en el modal de edición
+      mostrarOcultarCantidadLimpieza();
     });
 
     $('#modalagregaryeditar').on('hide.bs.modal', function() {
@@ -151,6 +185,7 @@ $(document).ready(function(){
         // Cambiar el texto del botón en el modal a "Agregar Detalle"
         $('#btn-AgregarDetalle').text('Agregar');
       }
+ 
     });
 
     //Mostrar documentos adjutos en data table
@@ -206,8 +241,28 @@ $(document).ready(function(){
           }
       }
   }).DataTable();
+  mostrarOcultarCantidadLimpieza()
+
 
 }); 
+
+$(document).on("click","#btnagregar", function(){  
+  $('#mdltitulo').html('Agregar productos/Servicios');
+  $('#servicios_form')[0].reset();
+  $('#modalagregaryeditar').modal('show');
+  mostrarOcultarCantidadLimpieza();
+});
+
+function mostrarOcultarCantidadLimpieza() {
+  var valorServicio = $("#id_modalidad").val();
+  if (valorServicio === "5") { // Compara con el valor correspondiente a "Portatiles"
+      $("#campo_cantidad").show(); // Mostrar el campo de cantidad de limpieza
+      $("#contenedorServicio").hide();
+  } else {
+      $("#campo_cantidad").hide(); // Ocultar el campo de cantidad de limpieza
+      $("#contenedorServicio").show();
+  }
+}
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -307,6 +362,10 @@ function listardetalle(id_pedido){
     // Almacenar el valor de cant_limpieza en el array
     cantidadesLimpieza.push(detalle.cant_limpieza);
     descripcion_producto.push(detalle.descrip_producto);
+    id_acopios.push(detalle.id_acopio);
+    cants.push(detalle.cant);
+    id_unidad_vehiculars.push(detalle.id_unidad_vehicular);
+    id_disposicions.push(detalle.id_disposicion);
     });
 
     sumaTotal = 0;
@@ -366,11 +425,6 @@ $(function() {
   });
 });
 
-$(document).on("click","#btnagregar", function(){    
-  $('#mdltitulo').html('Agregar productos/Servicios');
-  $('#servicios_form')[0].reset();
-  $('#modalagregaryeditar').modal('show');
-});
 
 function guardaryeditarPed(e){
   e.preventDefault(); 
@@ -403,6 +457,10 @@ function guardaryeditarPed(e){
       //cant_limpieza se obtendrá directamente del arreglo cantidadesLimpieza en lugar de buscarlo en el campo del modal.
       var cant_limpieza = cantidadesLimpieza[$(this).index()];
       var descrip_producto = descripcion_producto[$(this).index()];
+      var id_acopio = id_acopios[$(this).index()];
+      var cant = cants[$(this).index()];
+      var id_unidad_vehicular = id_unidad_vehiculars[$(this).index()];
+      var id_disposicion = id_disposicions[$(this).index()];
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -411,7 +469,11 @@ function guardaryeditarPed(e){
         precio_uni: precio_uni,
         total: total,
         cant_limpieza: cant_limpieza,
-        descrip_producto: descrip_producto
+        descrip_producto: descrip_producto,
+        id_acopio: id_acopio,
+        cant: cant,
+        id_unidad_vehicular: id_unidad_vehicular,
+        id_disposicion: id_disposicion
       };    
       productos.push(producto);
     });
@@ -553,13 +615,28 @@ function agegardetalle() {
   var total = $('#total').val();
   var cant_limpieza = $('#cant_limpieza').val();
   var descrip_producto = $('#descrip_producto').val();
+  var id_acopio = $('#id_acopio').val();
+  var cant = $('#cant').val();
+  var id_unidad_vehicular = $('#id_unidad_vehicular').val();
+  var id_disposicion = $('#id_disposicion').val();
  
  
   // Verificar si todos los campos requeridos tienen valores
-  if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '' || cant_limpieza === '') {
+  if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
     swal("Advertencia!", "Por favor, completa todos los campos antes de agregar el detalle.", "warning");
     return;
   }
+
+
+  // Obtener el valor seleccionado del campo id_modalidad
+  var id_modalidad = $('#id_modalidad').val();
+
+  // Verificar si se ha seleccionado "Portatiles" como servicio
+  if (id_modalidad === '5' && cant_limpieza === '') {
+    swal("Advertencia!", "Por favor, ingresa la cantidad de limpiezas.", "warning");
+    return;
+  }
+
    // Obtener el nombre de la medida seleccionada
    var nombre_medida = $('#id_medida option:selected').data('nombre');
 
@@ -578,9 +655,18 @@ function agegardetalle() {
     var rowIndex = filaEditando.index();
     filaEditando.data('cant_limpieza', cant_limpieza);
     filaEditando.data('descrip_producto', descrip_producto);
+    filaEditando.data('id_acopio', id_acopio);
+    filaEditando.data('cant', cant);
+    filaEditando.data('id_unidad_vehicular', id_unidad_vehicular);
+    filaEditando.data('id_disposicion', id_disposicion);
     
     cantidadesLimpieza[rowIndex] = cant_limpieza;
     descripcion_producto[rowIndex] = descrip_producto;
+
+    id_acopios[rowIndex] = id_acopio;
+    cants[rowIndex] = cant;
+    id_unidad_vehiculars[rowIndex] = id_unidad_vehicular;
+    id_disposicions[rowIndex] = id_disposicion;
 
     filaEditando.removeClass('editando');  
 
@@ -608,11 +694,21 @@ function agegardetalle() {
       nuevaFila.data('cant_limpieza', cant_limpieza);
       nuevaFila.data('descrip_producto', descrip_producto);
 
+      nuevaFila.data('id_acopio', id_acopio);
+      nuevaFila.data('cant', cant);
+      nuevaFila.data('id_unidad_vehicular', id_unidad_vehicular);
+      nuevaFila.data('id_disposicion', id_disposicion);
+
       // Agregar la nueva fila al final de la tabla
       $('#detalle_ped tbody').append(nuevaFila);
 
       cantidadesLimpieza.push(cant_limpieza);
       descripcion_producto.push(descrip_producto);
+
+      id_acopios.push(id_acopio);
+      cants.push(cant);
+      id_unidad_vehiculars.push(id_unidad_vehicular);
+      id_disposicions.push(id_disposicion);
       // Mostrar alerta de éxito al agregar
       swal("Éxito!", "El servicio se agrego corectamente.", "success");
 
@@ -637,6 +733,11 @@ function agegardetalle() {
   $('#precio').val('');
   $('#id_medida').val('');
   $('#cant_limpieza').val('');
+
+  $('#id_acopio').val('');
+  $('#cant').val('');
+  $('#id_unidad_vehicular').val('');
+  $('#id_disposicion').val('');
   $('#id_producto').val('');
   $('#descrip_producto').summernote('reset');
   $('#total').val('');

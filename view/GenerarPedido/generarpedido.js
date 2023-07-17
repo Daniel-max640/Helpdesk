@@ -60,10 +60,11 @@ $("#btnagregar").on("click", function() {
   var valorServicio = $("#id_modalidad").val();
   if (valorServicio === "5") { // Compara con el valor correspondiente a "Portatiles"
     $("#campo_cantidad_limpieza").show(); // Mostrar el campo de cantidad de limpieza
+    $("#contenedorServicio").hide();
   } else {
     $("#campo_cantidad_limpieza").hide(); // Ocultar el campo de cantidad de limpieza
+    $("#contenedorServicio").show();
   }
-
 });
 
 // Función para buscar el cliente utilizando AJAX
@@ -87,9 +88,7 @@ function buscarCliente() {
      error: function() {
       swal("Error!", "Documento no existe", "error");
     }
-  });   
-
- 
+  });  
 }
 
 function guardaryeditarPedido(e){
@@ -111,7 +110,13 @@ function guardaryeditarPedido(e){
       var total = $(this).find('td:nth-child(6)').text(); 
       // Obtener la cantidad de limpiezas de la fila correspondiente
       var cant_limpieza = $(this).data('cant_limpieza');
-      var descrip_producto = $(this).data('descrip_producto');    
+      var descrip_producto = $(this).data('descrip_producto');
+
+      var id_acopio = $(this).data('id_acopio');
+      var cant = $(this).data('cant');
+      var id_unidad_vehicular = $(this).data('id_unidad_vehicular');
+      var id_disposicion = $(this).data('id_disposicion');      
+      
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -120,12 +125,15 @@ function guardaryeditarPedido(e){
         precio_uni: precio_uni,
         total: total,
         cant_limpieza: cant_limpieza, // Agregar el campo de cantidad de limpiezas
-        descrip_producto: descrip_producto
+        descrip_producto: descrip_producto,
+        id_acopio: id_acopio,
+        cant: cant,
+        id_unidad_vehicular: id_unidad_vehicular,
+        id_disposicion: id_disposicion
       };    
       productos.push(producto);
     });
     // Obtén el estado de los campos "acceso_portal" y "entrega_factura"
-
     var formData = new FormData($("#pedido_form")[0]);
     var totalfiles = $('#fileElem').val().length;
     for (var i = 0; i < totalfiles; i++) {

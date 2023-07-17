@@ -68,17 +68,14 @@
                                     </div>
                                 </div>
                             </div>
-                       </div>                 
-                                              
+                       </div>                                             
                     
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label class="form-label" for="total">Total</label>
                                 <input type="text" class="form-control" id="total" name="total" required readonly>
                             </div>
-                        </div>
-
-                    
+                        </div>                    
 
                         <div class="col-lg-12">
 							<fieldset class="form-group">
@@ -89,42 +86,52 @@
 							</fieldset>
 						</div>
 
-                        <div class="col-lg-2">
-                            <fieldset class="form-group">
-								<label class="form-label" for="exampleInput">Tipo de Acopio</label>
-								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
-								<option label="Seleccionar"></option>
-								</select>
-							</fieldset>
-						</div>
+                        <div class="row">
+                            <div id="contenedorServicio" class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-label" for="exampleInput">Tipo de Acopio</label>
+                                        <select id="id_acopio" name="id_acopio" class="form-control" data-placeholder="Seleccionar" required>
+                                        <option label="Seleccionar"></option>
+                                        </select>
+                                    </fieldset>
+                                </div>
 
-                        <div class="col-lg-2">
-                            <div class="form-group">
-                                <label class="form-label" for="precio">Cantidad</label>
-                                <input type="text" class="form-control" id="precio" name="precio" required>
-                            </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="precio">Cantidad</label>
+                                        <input type="text" class="form-control" id="cant" name="cant" required>
+                                    </div>
+                                </div>    
+
+                                
+                                <div class="col-lg-6">
+                                    <fieldset class="form-group">
+                                        <label class="form-label" for="exampleInput">Unidad Vehicular</label>
+                                        <select id="id_unidad_vehicular" name="id_unidad_vehicular" class="form-control" data-placeholder="Seleccionar" required>
+                                        <option label="Seleccionar"></option>
+                                        </select>
+                                    </fieldset>
+                                </div>  
+
+                                <div class="col-lg-6">
+                                    <fieldset class="form-group">
+                                        <label class="form-label" for="exampleInput">Dispocicion Final</label>
+                                        <select id="id_disposicion" name="id_disposicion" class="form-control" data-placeholder="Seleccionar" required>
+                                        <option label="Seleccionar"></option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <fieldset class="form-group">
+                                        <label class="form-label" for="exampleInput">Personal Solicitado</label>
+                                        <input type="text" class="form-control" id="personal" name="personal" required>
+                                    </fieldset>
+                                </div>
+                            </div> 
                         </div>    
-
-                        
-                        <div class="col-lg-4">
-                            <fieldset class="form-group">
-								<label class="form-label" for="exampleInput">Unidad Vehicular</label>
-								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
-								<option label="Seleccionar"></option>
-								</select>
-							</fieldset>
-                        </div>  
-
-                        <div class="col-lg-4">
-                         <fieldset class="form-group">
-								<label class="form-label" for="exampleInput">Dispocicion Final</label>
-								<select id="id_medida" name="id_medida" class="form-control" data-placeholder="Seleccionar" required>
-								<option label="Seleccionar"></option>
-								</select>
-							</fieldset>
-                        </div>  
-                    </div>
-
+                    </div> 
                 </div>
                 
                 <div class="modal-footer">

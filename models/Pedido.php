@@ -59,8 +59,12 @@
             $precio_uni = $detalle['precio_uni'];
             $total = $detalle['total'];
             $descrip_producto = $detalle['descrip_producto'];
+            $id_acopio = $detalle['id_acopio'];
+            $cant = $detalle['cant'];
+            $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
+            $id_disposicion = $detalle['id_disposicion'];
                 
-            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto) VALUES (NULL,?,?,?,?,?,?,?,?,?);";
+            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             $sql_detalle = $conectar->prepare($sql_detalle);
             $sql_detalle->bindValue(1, $id_pedido);
             $sql_detalle->bindValue(2, $id_servicio);
@@ -71,6 +75,10 @@
             $sql_detalle->bindValue(7, $precio_uni);
             $sql_detalle->bindValue(8, $total);
             $sql_detalle->bindValue(9, $descrip_producto);
+            $sql_detalle->bindValue(10, $id_acopio);
+            $sql_detalle->bindValue(11, $cant);
+            $sql_detalle->bindValue(12, $id_unidad_vehicular);
+            $sql_detalle->bindValue(13, $id_disposicion);
             $sql_detalle->execute();
             }       
             return $id_pedido;       
@@ -139,8 +147,13 @@
                     $precio_uni = $detalle['precio_uni'];
                     $total = $detalle['total'];
                     $descrip_producto = $detalle['descrip_producto'];
+                    $id_acopio = $detalle['id_acopio'];
+                    $cant = $detalle['cant'];
+                    $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
+                    $id_disposicion = $detalle['id_disposicion'];
+                
                     // Insertar los nuevos detalles del pedido
-                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
+                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     $sql_detalle = $conectar->prepare($sql_detalle);        
                     $sql_detalle->bindValue(1, $id_pedido);
                     $sql_detalle->bindValue(2, $id_servicio);
@@ -151,6 +164,10 @@
                     $sql_detalle->bindValue(7, $precio_uni);
                     $sql_detalle->bindValue(8, $total);
                     $sql_detalle->bindValue(9, $descrip_producto);
+                    $sql_detalle->bindValue(10, $id_acopio);
+                    $sql_detalle->bindValue(11, $cant);
+                    $sql_detalle->bindValue(12, $id_unidad_vehicular);
+                    $sql_detalle->bindValue(13, $id_disposicion);
                     $sql_detalle->execute();
                 }        
                 $conectar->commit();
@@ -263,11 +280,19 @@
                 det_pedido.cantidad,
                 det_pedido.precio_uni,
                 det_pedido.total,
-                det_pedido.descrip_producto
+                det_pedido.descrip_producto,
+                det_pedido.id_acopio,
+                det_pedido.cant,
+                det_pedido.id_unidad_vehicular,
+                det_pedido.id_disposicion
                 FROM 
                 det_pedido
-                INNER join tm_pedido ON det_pedido.id_pedido = tm_pedido.id_pedido
-                INNER join tm_servicio ON det_pedido.id_servicio = tm_servicio.id_servicio
+                LEFT JOIN tm_pedido ON det_pedido.id_pedido = tm_pedido.id_pedido
+                LEFT JOIN tm_servicio ON det_pedido.id_servicio = tm_servicio.id_servicio
+                LEFT JOIN tm_tipo_vehiculo ON det_pedido.id_unidad_vehicular = tm_tipo_vehiculo.id_unidad_vehicular
+                LEFT JOIN tm_acopio ON det_pedido.id_acopio = tm_acopio.id_acopio
+                LEFT JOIN tm_disposicion_final ON det_pedido.id_disposicion = tm_disposicion_final.id_disposicion
+
                 WHERE
                 tm_pedido.id_pedido = ?";
             $sql=$conectar->prepare($sql);

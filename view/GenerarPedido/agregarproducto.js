@@ -10,6 +10,18 @@ $(document).ready(function(){
     $('#id_medida').html(data);
   });
 
+  $.post("../../controller/acopio.php?op=combo",function(data, status){
+    $('#id_acopio').html(data);
+  });  
+
+  $.post("../../controller/u_vehicular.php?op=combo",function(data, status){
+    $('#id_unidad_vehicular').html(data);
+  });  
+
+  $.post("../../controller/disposicion.php?op=combo",function(data, status){
+    $('#id_disposicion').html(data);
+  });  
+
   //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
   $("#campo_cantidad_limpieza").hide(); // Ocultar el div completo al inicializar la página
@@ -89,6 +101,10 @@ $(document).ready(function(){
     var precio = row.find('td:nth-child(5)').text();
     var cant_limpieza = row.data('cant_limpieza');
     var descrip_producto = row.data('descrip_producto');
+    var id_acopio = row.data('id_acopio');
+    var cant = row.data('cant');
+    var id_unidad_vehicular = row.data('id_unidad_vehicular');
+    var id_disposicion = row.data('id_disposicion');
    
     //console.log("id_medida:", id_medida);
 
@@ -107,6 +123,11 @@ $(document).ready(function(){
         return false; // Salir del bucle each
       }
     });
+
+    $('#id_acopio').val(id_acopio);
+    $('#cant').val(cant);   
+    $('#id_unidad_vehicular').val(id_unidad_vehicular);
+    $('#id_disposicion').val(id_disposicion);
   
 
     calcularTotal();  
@@ -141,9 +162,12 @@ $(document).ready(function(){
     $('#total').val('');
     $('#cant_limpieza').val('');
     $('#descrip_producto').summernote('reset');
+    $('#id_acopio').val('');
+    $('#cant').val('');
+    $('#id_unidad_vehicular').val('');
+    $('#id_disposicion').val('');
     // Ocultar el botón de agregar detalle
-    $('#btn-AgregarDetalle').hide();
-    
+    $('#btn-AgregarDetalle').hide();  
 
   });
   
@@ -159,6 +183,10 @@ function agegardetalle() {
   var total = $('#total').val();
   var cant_limpieza = $('#cant_limpieza').val();
   var descrip_producto = $('#descrip_producto').val();
+  var id_acopio = $('#id_acopio').val();
+  var cant = $('#cant').val();
+  var id_unidad_vehicular = $('#id_unidad_vehicular').val();
+  var id_disposicion = $('#id_disposicion').val();
  
   // Verificar si todos los campos requeridos tienen valores
   if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
@@ -192,9 +220,13 @@ function agegardetalle() {
     filaEditando.find('td:nth-child(4)').text(cantidad);
     filaEditando.find('td:nth-child(5)').text(precio);
     filaEditando.find('td:nth-child(6)').text(total);
-
     filaEditando.data('cant_limpieza', cant_limpieza);
     filaEditando.data('descrip_producto', descrip_producto);
+
+    filaEditando.data('id_acopio', id_acopio);
+    filaEditando.data('cant', cant);
+    filaEditando.data('id_unidad_vehicular', id_unidad_vehicular);
+    filaEditando.data('id_disposicion', id_disposicion);
 
     filaEditando.removeClass('editando');
 
@@ -224,6 +256,11 @@ function agegardetalle() {
     // Guardar el valor de cantidad de limpiezas como un atributo de datos en la fila
     nuevaFila.data('cant_limpieza', cant_limpieza);
     nuevaFila.data('descrip_producto', descrip_producto);
+
+    nuevaFila.data('id_acopio', id_acopio);
+    nuevaFila.data('cant', cant);
+    nuevaFila.data('id_unidad_vehicular', id_unidad_vehicular);
+    nuevaFila.data('id_disposicion', id_disposicion);
   }
 
   // Recalcular el total
@@ -248,7 +285,12 @@ function agegardetalle() {
   $('#id_producto').val('');
   $('#total').val('');
   $('#cant_limpieza').val('');
-  $('#descrip_producto').summernote('reset');  
+  $('#descrip_producto').summernote('reset'); 
+  
+  $('#id_acopio').val('');
+  $('#cant').val('');
+  $('#id_unidad_vehicular').val('');
+  $('#id_disposicion').val('');
   $('#btn-AgregarDetalle').hide();
 }
 

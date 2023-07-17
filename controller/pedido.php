@@ -323,9 +323,12 @@
                                 "precio_uni" => $detalle["precio_uni"],
                                 "total" => $detalle["total"],
                                 "cant_limpieza" => $detalle["cant_limpieza"],
-                                "descrip_producto" => $detalle["descrip_producto"]
+                                "descrip_producto" => $detalle["descrip_producto"],
+                                "id_acopio" => $detalle["id_acopio"],
+                                "cant" => $detalle["cant"],
+                                "id_unidad_vehicular" => $detalle["id_unidad_vehicular"],
+                                "id_disposicion" => $detalle["id_disposicion"]
                             ];
-
                             $output["detalles"][] = $detalles_pedido;
                         }
                     }
@@ -370,8 +373,6 @@
                     }
                 }
                 echo json_encode($datos);
-
-
             break;
             
           
