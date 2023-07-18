@@ -17,8 +17,9 @@
     $cliente = new Cliente();
     switch($_GET["op"]){
         case "generaryeditar":
-        // Obtener los datos del formulario o de la solicitud
+        //! Obtener los datos del formulario o de la solicitud
         $detalle_ped = json_decode($_POST["productos"], true);
+        $manifiesto_ped = json_decode($_POST["manifiestos"], true);
 
         //! Verificar si la forma de pago es crédito o alguna otra forma de pago que requiere estado pendiente
         if ($_POST["id_fpago"] == 2 || $_POST["id_fpago"] == 5 || $_POST["id_fpago"] == 10 || $_POST["id_fpago"] == 13) {
@@ -61,7 +62,8 @@
         $_POST["entrega_factura"],
         $estado_pago,
         $_POST["orden_compra"],
-        $detalle_ped
+        $detalle_ped,
+        $manifiesto_ped
        ); 
        //recupero el ultimo id_generado
         $last_inserted_id = $datos;
@@ -327,7 +329,8 @@
                                 "id_acopio" => $detalle["id_acopio"],
                                 "cant" => $detalle["cant"],
                                 "id_unidad_vehicular" => $detalle["id_unidad_vehicular"],
-                                "id_disposicion" => $detalle["id_disposicion"]
+                                "id_disposicion" => $detalle["id_disposicion"],
+                                "personal_solicitado" => $detalle["personal_solicitado"]
                             ];
                             $output["detalles"][] = $detalles_pedido;
                         }

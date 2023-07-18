@@ -27,7 +27,22 @@ $(document).ready(function(){
      $("#campos_adicionales").toggle();
   });
 
-}); 
+  $("#manifiesto").hide();
+
+  $("#id_modalidad").on("change", function() {
+    mostrarOcultarFormulario();
+  });
+
+});
+
+function mostrarOcultarFormulario() {
+  var valorServicio = $("#id_modalidad").val();
+  if (valorServicio === "3" || valorServicio === "4") {
+    $("#manifiesto").show();
+  } else {
+    $("#manifiesto").hide();
+  }
+}
 
 $(function() {			
   $('.flatpickr').flatpickr();
@@ -61,9 +76,11 @@ $("#btnagregar").on("click", function() {
   if (valorServicio === "5") { // Compara con el valor correspondiente a "Portatiles"
     $("#campo_cantidad_limpieza").show(); // Mostrar el campo de cantidad de limpieza
     $("#contenedorServicio").hide();
+  
   } else {
     $("#campo_cantidad_limpieza").hide(); // Ocultar el campo de cantidad de limpieza
     $("#contenedorServicio").show();
+    
   }
 });
 
@@ -99,7 +116,8 @@ function guardaryeditarPedido(e){
     var sub_total = parseFloat($('#total_pagar').text());
     var igv = parseFloat($('#igv').text());
     var total = parseFloat($('#total_final').text());
-    // Capturar los productos
+
+    //* Capturar los productos
     var productos = [];
     $('#detalle_ped tbody tr').each(function() {
       var id_servicio = $(this).find('td:nth-child(1)').text();
@@ -108,14 +126,14 @@ function guardaryeditarPedido(e){
       var cantidad = $(this).find('td:nth-child(4)').text();
       var precio_uni = $(this).find('td:nth-child(5)').text();
       var total = $(this).find('td:nth-child(6)').text(); 
-      // Obtener la cantidad de limpiezas de la fila correspondiente
+      //* Obtener la cantidad de limpiezas de la fila correspondiente
       var cant_limpieza = $(this).data('cant_limpieza');
       var descrip_producto = $(this).data('descrip_producto');
-
       var id_acopio = $(this).data('id_acopio');
       var cant = $(this).data('cant');
       var id_unidad_vehicular = $(this).data('id_unidad_vehicular');
-      var id_disposicion = $(this).data('id_disposicion');      
+      var id_disposicion = $(this).data('id_disposicion');
+      var personal_solicitado = $(this).data('personal_solicitado');        
       
       var producto = {
         id_servicio: id_servicio,
@@ -129,11 +147,16 @@ function guardaryeditarPedido(e){
         id_acopio: id_acopio,
         cant: cant,
         id_unidad_vehicular: id_unidad_vehicular,
-        id_disposicion: id_disposicion
+        id_disposicion: id_disposicion,
+        personal_solicitado: personal_solicitado
       };    
       productos.push(producto);
     });
-    // Obtén el estado de los campos "acceso_portal" y "entrega_factura"
+
+    //*Capturar los datos de los manifiestos
+
+
+    //* Obtén el estado de los campos "acceso_portal" y "entrega_factura"
     var formData = new FormData($("#pedido_form")[0]);
     var totalfiles = $('#fileElem').val().length;
     for (var i = 0; i < totalfiles; i++) {

@@ -149,7 +149,7 @@
 							</div>
 
 							
-						<div class="col-lg-2">
+							<div class="col-lg-2">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="exampleInput">Tipo de Servicio</label>
 									<select id="id_modalidad" name="id_modalidad" class="form-control" data-placeholder="Seleccionar">
@@ -264,7 +264,12 @@
 								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 
 								<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
 								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
-							</div>								
+							</div>
+
+						
+							
+						
+
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 									<label class="form-label semibold" for="tickd_requi">Observaciones/Requisitos</label>
@@ -317,6 +322,48 @@
 										</div>
 									</div>											
 								</div>		
+							</div>
+							<br>
+							<div class="col-lg-12">
+								<div class="box-typical box-typical-padding" id="manifiesto">
+								<h6 class="text"><b>MANIFIESTO RESPECTO A LAS DISPÒSICION FINAL</b></h2>
+									<div class="row" >
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">Nombres y Apellido  del Representante Legal</label>
+												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+											</fieldset>
+										</div>	
+
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">DNI</label>
+												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+											</fieldset>
+										</div>	
+
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">Nombre y Apellido del Ing. Responsable</label>
+												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+											</fieldset>
+										</div>	
+
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">CIP</label>
+												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+											</fieldset>
+										</div>
+
+										<div class="col-lg-12">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">Nombre del Residuo</label>
+												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+											</fieldset>
+										</div>
+									</div>		
+								</div>
 							</div>	
 
 							<div class="col-lg-12">

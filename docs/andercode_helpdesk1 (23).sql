@@ -3814,7 +3814,7 @@ INSERT INTO `tm_subcategoria` (`cats_id`, `cat_id`, `cats_nom`, `est`) VALUES
 (26, 4, 'INTERRUPCIONES EXTERNAS', 1),
 (27, 5, 'CONTRATACION LEGAL', 1),
 (28, 5, 'HOMOLOGACION', 1),
-(29, 5, 'EPP\'s/HIGIENE LABORAL', 1);
+(29, 5, 'EPP\HIGIENE LABORAL', 1);
 
 -- --------------------------------------------------------
 

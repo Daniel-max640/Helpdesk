@@ -127,7 +127,7 @@
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label class="form-label" for="exampleInput">Personal Solicitado</label>
-                                        <input type="text" class="form-control" id="personal" name="personal" required>
+                                        <input type="text" class="form-control" id="personal_solicitado" name="personal_solicitado" required>
                                     </fieldset>
                                 </div>
                             </div> 

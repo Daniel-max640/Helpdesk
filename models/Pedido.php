@@ -6,7 +6,7 @@
         $id_demision,$asesor,$id_fpago,$fecha_entrega,$sub_total,$igv,$total,$observacion,
         $conta_factu,$correo_cfactu,$telf_cfactu,$conta_cobra,$correo_ccobra,$telf_ccobra,
         $cotizacion,$link,$cierre_facturacion,$fecha_pago,$acceso_portal,$entrega_factura,
-        $estado_pago,$orden_compra,$detalles){
+        $estado_pago,$orden_compra,$detalles,$manifiestos){
             $conectar= parent::conexion();
             parent::set_names();            
             $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura,estado_pago,orden_compra) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?,?,?);";
@@ -43,44 +43,69 @@
             $sql->bindValue(30, $acceso_portal);
             $sql->bindValue(31, $entrega_factura); 
             $sql->bindValue(32, $estado_pago);
-            $sql->bindValue(33, $orden_compra);            ;
+            $sql->bindValue(33, $orden_compra);
+            $sql->execute();      
 
-            $sql->execute();         
-            //obtener el ultimo id_pedido generado
+            //*obtener el ultimo id_pedido generado
             $id_pedido = $conectar->lastInsertId();
 
-            // Insertar detalles del pedido        
+            //* Insertar detalles del pedido        
             foreach ($detalles as $detalle) {
-            $id_servicio = $detalle['id_servicio'];
-            $descripcion = $detalle['descripcion'];
-            $u_medida = $detalle['u_medida'];
-            $cant_limpieza = $detalle['cant_limpieza'];
-            $cantidad = $detalle['cantidad'];
-            $precio_uni = $detalle['precio_uni'];
-            $total = $detalle['total'];
-            $descrip_producto = $detalle['descrip_producto'];
-            $id_acopio = $detalle['id_acopio'];
-            $cant = $detalle['cant'];
-            $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
-            $id_disposicion = $detalle['id_disposicion'];
-                
-            $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-            $sql_detalle = $conectar->prepare($sql_detalle);
-            $sql_detalle->bindValue(1, $id_pedido);
-            $sql_detalle->bindValue(2, $id_servicio);
-            $sql_detalle->bindValue(3, $descripcion);
-            $sql_detalle->bindValue(4, $u_medida);
-            $sql_detalle->bindValue(5, $cant_limpieza);
-            $sql_detalle->bindValue(6, $cantidad);
-            $sql_detalle->bindValue(7, $precio_uni);
-            $sql_detalle->bindValue(8, $total);
-            $sql_detalle->bindValue(9, $descrip_producto);
-            $sql_detalle->bindValue(10, $id_acopio);
-            $sql_detalle->bindValue(11, $cant);
-            $sql_detalle->bindValue(12, $id_unidad_vehicular);
-            $sql_detalle->bindValue(13, $id_disposicion);
-            $sql_detalle->execute();
-            }       
+                $id_servicio = $detalle['id_servicio'];
+                $descripcion = $detalle['descripcion'];
+                $u_medida = $detalle['u_medida'];
+                $cant_limpieza = $detalle['cant_limpieza'];
+                $cantidad = $detalle['cantidad'];
+                $precio_uni = $detalle['precio_uni'];
+                $total = $detalle['total'];
+                $descrip_producto = $detalle['descrip_producto'];
+                $id_acopio = $detalle['id_acopio'];
+                $cant = $detalle['cant'];
+                $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
+                $id_disposicion = $detalle['id_disposicion'];
+                $personal_solicitado = $detalle['personal_solicitado'];
+                    
+                $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion, personal_solicitado) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                $sql_detalle = $conectar->prepare($sql_detalle);
+                $sql_detalle->bindValue(1, $id_pedido);
+                $sql_detalle->bindValue(2, $id_servicio);
+                $sql_detalle->bindValue(3, $descripcion);
+                $sql_detalle->bindValue(4, $u_medida);
+                $sql_detalle->bindValue(5, $cant_limpieza);
+                $sql_detalle->bindValue(6, $cantidad);
+                $sql_detalle->bindValue(7, $precio_uni);
+                $sql_detalle->bindValue(8, $total);
+                $sql_detalle->bindValue(9, $descrip_producto);
+                $sql_detalle->bindValue(10, $id_acopio);
+                $sql_detalle->bindValue(11, $cant);
+                $sql_detalle->bindValue(12, $id_unidad_vehicular);
+                $sql_detalle->bindValue(13, $id_disposicion);
+                $sql_detalle->bindValue(14, $personal_solicitado);
+                $sql_detalle->execute();
+            } 
+            
+            //*Insertar los datos del manifiesto en la bd alguardar el pedido
+            foreach ($manifiestos as $manifiesto){
+                $fecha = $manifiesto['fecha'];
+                $id_cliente = $manifiesto['id_cliente'];
+                $representante_legal = $manifiesto['representante_legal'];
+                $dni_repre = $manifiesto['dni_repre'];
+                $ing_responsable = $manifiesto['ing_responsable'];
+                $cip_ing = $manifiesto['cip_ing'];
+                $nom_residuos = $manifiesto['nom_residuos'];
+
+                $sql_manifiesto = "INSERT INTO tm_manifiestos (id_manifiesto, id_pedido, fecha, id_cliente, representante_legal, dni_repre, ing_responsable, cip_ing, nom_residuos) VALUES (NULL,?,now(),?,?,?,?,?,?);";
+                $sql_manifiesto = $conectar->prepare($sql_manifiesto);
+                $sql_manifiesto->bindValue(1, $id_pedido);
+                $sql_manifiesto->bindValue(2, $fecha);
+                $sql_manifiesto->bindValue(3, $id_cliente);
+                $sql_manifiesto->bindValue(4, $representante_legal);
+                $sql_manifiesto->bindValue(5, $dni_repre);
+                $sql_manifiesto->bindValue(6, $ing_responsable);
+                $sql_manifiesto->bindValue(7, $cip_ing);
+                $sql_manifiesto->bindValue(8, $nom_residuos);
+                $sql_manifiesto->execute();              
+            }
             return $id_pedido;       
         }       
 
@@ -151,9 +176,10 @@
                     $cant = $detalle['cant'];
                     $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
                     $id_disposicion = $detalle['id_disposicion'];
+                    $personal_solicitado = $detalle['personal_solicitado'];
                 
                     // Insertar los nuevos detalles del pedido
-                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion, personal_solicitado) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     $sql_detalle = $conectar->prepare($sql_detalle);        
                     $sql_detalle->bindValue(1, $id_pedido);
                     $sql_detalle->bindValue(2, $id_servicio);
@@ -168,6 +194,7 @@
                     $sql_detalle->bindValue(11, $cant);
                     $sql_detalle->bindValue(12, $id_unidad_vehicular);
                     $sql_detalle->bindValue(13, $id_disposicion);
+                    $sql_detalle->bindValue(14, $personal_solicitado);
                     $sql_detalle->execute();
                 }        
                 $conectar->commit();
@@ -284,7 +311,8 @@
                 det_pedido.id_acopio,
                 det_pedido.cant,
                 det_pedido.id_unidad_vehicular,
-                det_pedido.id_disposicion
+                det_pedido.id_disposicion,
+                det_pedido.personal_solicitado
                 FROM 
                 det_pedido
                 LEFT JOIN tm_pedido ON det_pedido.id_pedido = tm_pedido.id_pedido
@@ -292,7 +320,6 @@
                 LEFT JOIN tm_tipo_vehiculo ON det_pedido.id_unidad_vehicular = tm_tipo_vehiculo.id_unidad_vehicular
                 LEFT JOIN tm_acopio ON det_pedido.id_acopio = tm_acopio.id_acopio
                 LEFT JOIN tm_disposicion_final ON det_pedido.id_disposicion = tm_disposicion_final.id_disposicion
-
                 WHERE
                 tm_pedido.id_pedido = ?";
             $sql=$conectar->prepare($sql);

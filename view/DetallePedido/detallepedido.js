@@ -5,6 +5,7 @@ var id_acopios = [];
 var cants = [];
 var id_unidad_vehiculars = [];
 var id_disposicions = [];
+var personal_solicitados = [];
 var modoModal;
 
 function init(){ 
@@ -127,6 +128,7 @@ $(document).ready(function(){
       var cant = row.data('cant');
       var id_unidad_vehicular = row.data('id_unidad_vehicular');
       var id_disposicion = row.data('id_disposicion');
+      var personal_solicitado = row.data('personal_solicitado');
 
       // Obtén el índice de la fila editada
       var rowIndex = $('.editando').index();
@@ -138,6 +140,7 @@ $(document).ready(function(){
       var cant = cants[rowIndex];
       var id_unidad_vehicular = id_unidad_vehiculars[rowIndex];
       var id_disposicion = id_disposicions[rowIndex];
+      var personal_solicitado = personal_solicitados[rowIndex];
 
       // Asignar los valores a los campos del formulario de edición
       $('#id_producto').val(id_producto);
@@ -160,6 +163,7 @@ $(document).ready(function(){
       $('#cant').val(cant);   
       $('#id_unidad_vehicular').val(id_unidad_vehicular);
       $('#id_disposicion').val(id_disposicion);
+      $('#personal_solicitado').val(personal_solicitado);
       calcularTotal();
       // Cambiar el modo del modal a "editar"
       modoModal = 'editar';
@@ -366,6 +370,7 @@ function listardetalle(id_pedido){
     cants.push(detalle.cant);
     id_unidad_vehiculars.push(detalle.id_unidad_vehicular);
     id_disposicions.push(detalle.id_disposicion);
+    personal_solicitados.push(detalle.personal_solicitado);
     });
 
     sumaTotal = 0;
@@ -461,6 +466,7 @@ function guardaryeditarPed(e){
       var cant = cants[$(this).index()];
       var id_unidad_vehicular = id_unidad_vehiculars[$(this).index()];
       var id_disposicion = id_disposicions[$(this).index()];
+      var personal_solicitado = personal_solicitados[$(this).index()];
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -473,7 +479,8 @@ function guardaryeditarPed(e){
         id_acopio: id_acopio,
         cant: cant,
         id_unidad_vehicular: id_unidad_vehicular,
-        id_disposicion: id_disposicion
+        id_disposicion: id_disposicion,
+        personal_solicitado: personal_solicitado
       };    
       productos.push(producto);
     });
@@ -619,6 +626,7 @@ function agegardetalle() {
   var cant = $('#cant').val();
   var id_unidad_vehicular = $('#id_unidad_vehicular').val();
   var id_disposicion = $('#id_disposicion').val();
+  var personal_solicitado = $('#personal_solicitado').val();
  
  
   // Verificar si todos los campos requeridos tienen valores
@@ -659,6 +667,7 @@ function agegardetalle() {
     filaEditando.data('cant', cant);
     filaEditando.data('id_unidad_vehicular', id_unidad_vehicular);
     filaEditando.data('id_disposicion', id_disposicion);
+    filaEditando.data('personal_solicitado', personal_solicitado);
     
     cantidadesLimpieza[rowIndex] = cant_limpieza;
     descripcion_producto[rowIndex] = descrip_producto;
@@ -667,6 +676,7 @@ function agegardetalle() {
     cants[rowIndex] = cant;
     id_unidad_vehiculars[rowIndex] = id_unidad_vehicular;
     id_disposicions[rowIndex] = id_disposicion;
+    personal_solicitados[rowIndex] = personal_solicitado;
 
     filaEditando.removeClass('editando');  
 
@@ -698,17 +708,18 @@ function agegardetalle() {
       nuevaFila.data('cant', cant);
       nuevaFila.data('id_unidad_vehicular', id_unidad_vehicular);
       nuevaFila.data('id_disposicion', id_disposicion);
+      nuevaFila.data('personal_solicitado', personal_solicitado);
 
       // Agregar la nueva fila al final de la tabla
       $('#detalle_ped tbody').append(nuevaFila);
 
       cantidadesLimpieza.push(cant_limpieza);
       descripcion_producto.push(descrip_producto);
-
       id_acopios.push(id_acopio);
       cants.push(cant);
       id_unidad_vehiculars.push(id_unidad_vehicular);
       id_disposicions.push(id_disposicion);
+      personal_solicitados.push(personal_solicitado);
       // Mostrar alerta de éxito al agregar
       swal("Éxito!", "El servicio se agrego corectamente.", "success");
 
@@ -733,11 +744,12 @@ function agegardetalle() {
   $('#precio').val('');
   $('#id_medida').val('');
   $('#cant_limpieza').val('');
-
   $('#id_acopio').val('');
   $('#cant').val('');
   $('#id_unidad_vehicular').val('');
   $('#id_disposicion').val('');
+  $('#personal_solicitado').val('');
+
   $('#id_producto').val('');
   $('#descrip_producto').summernote('reset');
   $('#total').val('');

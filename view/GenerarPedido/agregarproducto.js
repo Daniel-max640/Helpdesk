@@ -60,7 +60,6 @@ $(document).ready(function(){
     ]
   });
 
-
   $('#descripcion, #precio').on('keydown', function(event) {
     if (event.keyCode === 13) { // Código de la tecla Enter
       const descripcion = $('#descripcion').val();
@@ -105,6 +104,7 @@ $(document).ready(function(){
     var cant = row.data('cant');
     var id_unidad_vehicular = row.data('id_unidad_vehicular');
     var id_disposicion = row.data('id_disposicion');
+    var personal_solicitado = row.data('personal_solicitado');
    
     //console.log("id_medida:", id_medida);
 
@@ -128,6 +128,7 @@ $(document).ready(function(){
     $('#cant').val(cant);   
     $('#id_unidad_vehicular').val(id_unidad_vehicular);
     $('#id_disposicion').val(id_disposicion);
+    $('#personal_solicitado').val(personal_solicitado);
   
 
     calcularTotal();  
@@ -166,6 +167,7 @@ $(document).ready(function(){
     $('#cant').val('');
     $('#id_unidad_vehicular').val('');
     $('#id_disposicion').val('');
+    $('#personal_solicitado').val('');
     // Ocultar el botón de agregar detalle
     $('#btn-AgregarDetalle').hide();  
 
@@ -187,6 +189,7 @@ function agegardetalle() {
   var cant = $('#cant').val();
   var id_unidad_vehicular = $('#id_unidad_vehicular').val();
   var id_disposicion = $('#id_disposicion').val();
+  var personal_solicitado = $('#personal_solicitado').val();
  
   // Verificar si todos los campos requeridos tienen valores
   if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
@@ -220,13 +223,14 @@ function agegardetalle() {
     filaEditando.find('td:nth-child(4)').text(cantidad);
     filaEditando.find('td:nth-child(5)').text(precio);
     filaEditando.find('td:nth-child(6)').text(total);
+
     filaEditando.data('cant_limpieza', cant_limpieza);
     filaEditando.data('descrip_producto', descrip_producto);
-
     filaEditando.data('id_acopio', id_acopio);
     filaEditando.data('cant', cant);
     filaEditando.data('id_unidad_vehicular', id_unidad_vehicular);
     filaEditando.data('id_disposicion', id_disposicion);
+    filaEditando.data('personal_solicitado', personal_solicitado);
 
     filaEditando.removeClass('editando');
 
@@ -261,6 +265,7 @@ function agegardetalle() {
     nuevaFila.data('cant', cant);
     nuevaFila.data('id_unidad_vehicular', id_unidad_vehicular);
     nuevaFila.data('id_disposicion', id_disposicion);
+    nuevaFila.data('personal_solicitado', personal_solicitado);
   }
 
   // Recalcular el total
@@ -291,6 +296,7 @@ function agegardetalle() {
   $('#cant').val('');
   $('#id_unidad_vehicular').val('');
   $('#id_disposicion').val('');
+  $('#personal_solicitado').val('');
   $('#btn-AgregarDetalle').hide();
 }
 
