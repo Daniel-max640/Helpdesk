@@ -120,17 +120,19 @@
                                         <option label="Seleccionar"></option>
                                         </select>
                                     </fieldset>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <fieldset class="form-group">
-                                        <label class="form-label" for="exampleInput">Personal Solicitado</label>
-                                        <input type="text" class="form-control" id="personal_solicitado" name="personal_solicitado" required>
-                                    </fieldset>
-                                </div>
+                                </div>                                
                             </div> 
-                        </div>    
+                        </div> 
+                        
+                        <div class="col-lg-12">
+                        <fieldset class="form-group">
+                             <label class="form-label" for="exampleInput">Personal Solicitado</label>
+                            <input type="text" class="form-control" id="personal_solicitado" name="personal_solicitado" required>
+                        </fieldset>
+                    </div>
                     </div> 
+
+                    
                 </div>
                 
                 <div class="modal-footer">

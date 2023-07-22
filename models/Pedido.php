@@ -86,7 +86,6 @@
             
             //*Insertar los datos del manifiesto en la bd alguardar el pedido
             foreach ($manifiestos as $manifiesto){
-                $fecha = $manifiesto['fecha'];
                 $id_cliente = $manifiesto['id_cliente'];
                 $representante_legal = $manifiesto['representante_legal'];
                 $dni_repre = $manifiesto['dni_repre'];
@@ -97,13 +96,12 @@
                 $sql_manifiesto = "INSERT INTO tm_manifiestos (id_manifiesto, id_pedido, fecha, id_cliente, representante_legal, dni_repre, ing_responsable, cip_ing, nom_residuos) VALUES (NULL,?,now(),?,?,?,?,?,?);";
                 $sql_manifiesto = $conectar->prepare($sql_manifiesto);
                 $sql_manifiesto->bindValue(1, $id_pedido);
-                $sql_manifiesto->bindValue(2, $fecha);
-                $sql_manifiesto->bindValue(3, $id_cliente);
-                $sql_manifiesto->bindValue(4, $representante_legal);
-                $sql_manifiesto->bindValue(5, $dni_repre);
-                $sql_manifiesto->bindValue(6, $ing_responsable);
-                $sql_manifiesto->bindValue(7, $cip_ing);
-                $sql_manifiesto->bindValue(8, $nom_residuos);
+                $sql_manifiesto->bindValue(2, $id_cliente);
+                $sql_manifiesto->bindValue(3, $representante_legal);
+                $sql_manifiesto->bindValue(4, $dni_repre);
+                $sql_manifiesto->bindValue(5, $ing_responsable);
+                $sql_manifiesto->bindValue(6, $cip_ing);
+                $sql_manifiesto->bindValue(7, $nom_residuos);
                 $sql_manifiesto->execute();              
             }
             return $id_pedido;       
@@ -113,7 +111,7 @@
             $serie_pedido, $moneda, $id_modalidad, $contacto, $telf_contacto, $dire_entrega, $id_demision, 
             $asesor, $id_fpago, $fecha_entrega, $sub_total, $igv, $total, $observacion, $conta_factu, 
             $correo_cfactu, $telf_cfactu, $conta_cobra, $correo_ccobra, $telf_ccobra, $cotizacion, $link, 
-            $cierre_facturacion, $fecha_pago, $acceso_portal, $entrega_factura, $estado_pago, $orden_compra, $detalles) {
+            $cierre_facturacion, $fecha_pago, $acceso_portal, $entrega_factura, $estado_pago, $orden_compra, $detalles, $manifiestos) {
             $conectar = parent::conexion();
             parent::set_names();
         
@@ -153,7 +151,7 @@
                 $sql->bindValue(30, $acceso_portal); // Convertir a 0 si está activo, 1 si no lo está
                 $sql->bindValue(31, $entrega_factura);
                 $sql->bindValue(32, $estado_pago);
-                $sql->bindValue(33, $orden_compra); // Convertir a 0 si está activo, 1 si no lo está
+                $sql->bindValue(33, $orden_compra);
                 $sql->bindValue(34, $id_pedido);
                 $sql->execute();
         
@@ -161,8 +159,8 @@
                 $sql_delete = "DELETE FROM det_pedido WHERE id_pedido = ?";
                 $sql_delete = $conectar->prepare($sql_delete);
                 $sql_delete->bindValue(1, $id_pedido);
-                $sql_delete->execute();        
-               
+                $sql_delete->execute();       
+                            
                 foreach ($detalles as $detalle) {
                     $id_servicio = $detalle['id_servicio'];
                     $descripcion = $detalle['descripcion'];
@@ -196,8 +194,37 @@
                     $sql_detalle->bindValue(13, $id_disposicion);
                     $sql_detalle->bindValue(14, $personal_solicitado);
                     $sql_detalle->execute();
-                }        
+                }  
+                
+                 // Eliminar los manifiestos anteriores del pedido
+                 $sql_delete_manifiestos = "DELETE FROM tm_manifiestos WHERE id_pedido = ?";
+                 $sql_delete_manifiestos = $conectar->prepare($sql_delete_manifiestos);
+                 $sql_delete_manifiestos->bindValue(1, $id_pedido);
+                 $sql_delete_manifiestos->execute();
+                     
+         
+                //*Insertar los datos del manifiesto en la bd alguardar el pedido
+                foreach ($manifiestos as $manifiesto){
+                    $id_cliente = $manifiesto['id_cliente'];
+                    $representante_legal = $manifiesto['representante_legal'];
+                    $dni_repre = $manifiesto['dni_repre'];
+                    $ing_responsable = $manifiesto['ing_responsable'];
+                    $cip_ing = $manifiesto['cip_ing'];
+                    $nom_residuos = $manifiesto['nom_residuos'];
+
+                    $sql_manifiesto = "INSERT INTO tm_manifiestos (id_manifiesto, id_pedido, fecha, id_cliente, representante_legal, dni_repre, ing_responsable, cip_ing, nom_residuos) VALUES (NULL,?,now(),?,?,?,?,?,?);";
+                    $sql_manifiesto = $conectar->prepare($sql_manifiesto);
+                    $sql_manifiesto->bindValue(1, $id_pedido);
+                    $sql_manifiesto->bindValue(2, $id_cliente);
+                    $sql_manifiesto->bindValue(3, $representante_legal);
+                    $sql_manifiesto->bindValue(4, $dni_repre);
+                    $sql_manifiesto->bindValue(5, $ing_responsable);
+                    $sql_manifiesto->bindValue(6, $cip_ing);
+                    $sql_manifiesto->bindValue(7, $nom_residuos);
+                    $sql_manifiesto->execute();     
+                }
                 $conectar->commit();
+
                 return true;
             } catch (PDOException $e) {
                 $conectar->rollback();
@@ -283,9 +310,9 @@
                 forma_pago.descripcion           
                 FROM 
                 tm_pedido
-                INNER join tipo_servicio on tm_pedido.id_modalidad = tipo_servicio.id_modalidad
-                INNER join doc_emision on tm_pedido.id_demision = doc_emision.id_demision
-                INNER join forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago                
+                LEFT join tipo_servicio on tm_pedido.id_modalidad = tipo_servicio.id_modalidad
+                LEFT join doc_emision on tm_pedido.id_demision = doc_emision.id_demision
+                LEFT join forma_pago on tm_pedido.id_fpago = forma_pago.id_fpago                
                 WHERE
                 tm_pedido.est_ped = 1
                 AND tm_pedido.id_pedido = ?";
@@ -327,6 +354,31 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         } 
+
+        public function listar_manifiestos($id_pedido){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+                tm_manifiestos.id_pedido,
+                tm_manifiestos.fecha,
+                tm_manifiestos.id_cliente,
+                tm_manifiestos.representante_legal,
+                tm_manifiestos.dni_repre,
+                tm_manifiestos.ing_responsable,
+                tm_manifiestos.cip_ing,
+                tm_manifiestos.nom_residuos,
+                tm_cliente.nom_cli             
+                FROM 
+                tm_manifiestos
+                INNER JOIN tm_pedido ON tm_manifiestos.id_pedido = tm_pedido.id_pedido
+                LEFT JOIN tm_cliente ON tm_manifiestos.id_cliente = tm_cliente.id_cliente               
+                WHERE
+                tm_pedido.id_pedido = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $id_pedido);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }         
         
         public function update_pedido($id_pedido){
             $conectar= parent::conexion();

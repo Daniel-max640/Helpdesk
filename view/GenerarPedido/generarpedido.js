@@ -20,7 +20,9 @@ $(document).ready(function(){
   });
   $.post("../../controller/demision.php?op=combo",function(data, status){
     $('#id_demision').html(data);
-  });        
+  });  
+
+  $("#campos_adicionales").hide();
 
   // llamar controles adicionales para contacto
   $("#info-adicional").click(function() {
@@ -37,12 +39,13 @@ $(document).ready(function(){
 
 function mostrarOcultarFormulario() {
   var valorServicio = $("#id_modalidad").val();
-  if (valorServicio === "3" || valorServicio === "4") {
+  if (valorServicio === "3" || valorServicio === "4" || valorServicio === "2") {
     $("#manifiesto").show();
   } else {
     $("#manifiesto").hide();
   }
 }
+
 
 $(function() {			
   $('.flatpickr').flatpickr();
@@ -73,16 +76,21 @@ $('#tickd_requi').summernote({
 
 $("#btnagregar").on("click", function() {
   var valorServicio = $("#id_modalidad").val();
-  if (valorServicio === "5") { // Compara con el valor correspondiente a "Portatiles"
+  if (valorServicio === "5" ) { // Compara con el valor correspondiente a "Portatiles"
     $("#campo_cantidad_limpieza").show(); // Mostrar el campo de cantidad de limpieza
     $("#contenedorServicio").hide();
   
+  } else if (valorServicio === "2") {
+    $("#campo_cantidad_limpieza").hide(); // Ocultar el campo de cantidad de limpieza
+    $("#contenedorServicio").hide();
+    
   } else {
     $("#campo_cantidad_limpieza").hide(); // Ocultar el campo de cantidad de limpieza
     $("#contenedorServicio").show();
-    
   }
 });
+
+
 
 // Función para buscar el cliente utilizando AJAX
 function buscarCliente() {
@@ -153,8 +161,26 @@ function guardaryeditarPedido(e){
       productos.push(producto);
     });
 
-    //*Capturar los datos de los manifiestos
+    //* Capturar los valores de los campos de manifiestos
+    var representante_legal = $('#representante_legal').val();
+    var dni_repre = $('#dni_repre').val();
+    var ing_responsable = $('#ing_responsable').val();
+    var cip_ing = $('#cip_ing').val();
+    var nom_residuos = $('#nom_residuos').val();
+    var id_cliente = $('#id_cliente').val();
 
+    //* Crear un objeto con los datos del manifiesto
+    var manifiesto = {
+      id_cliente: id_cliente,
+      representante_legal: representante_legal,
+      dni_repre: dni_repre,
+      ing_responsable: ing_responsable,
+      cip_ing: cip_ing,
+      nom_residuos: nom_residuos
+    };
+
+     // Agregar el objeto manifiesto a un array para enviarlo junto con otros manifiestos si es necesario
+     var manifiestos = [manifiesto];
 
     //* Obtén el estado de los campos "acceso_portal" y "entrega_factura"
     var formData = new FormData($("#pedido_form")[0]);
@@ -169,7 +195,8 @@ function guardaryeditarPedido(e){
     formData.append('total_final', total);
     formData.append('acceso_portal', accesoPortal);
     formData.append('entrega_factura', entregaFactura);
-    formData.append('productos', JSON.stringify(productos)); 
+    formData.append('productos', JSON.stringify(productos));
+    formData.append('manifiestos', JSON.stringify(manifiestos)); 
     $.ajax({
     url: "../../controller/pedido.php?op=generaryeditar",
     type: "POST",

@@ -18,34 +18,34 @@ $(document).ready(function(){
 
   $("#nro_doc").on("keydown", function(event) {
     if (event.keyCode === 13) { // Si se presiona Enter
-     event.preventDefault(); // Prevenir el comportamiento por defecto de la tecla Enter (enviar el formulario)
+      event.preventDefault(); // Prevenir el comportamiento por defecto de la tecla Enter (enviar el formulario)
       buscarCliente(); // Llamar a la función buscarCliente()
     }
- }); 
+  }); 
 
- $('#descrip_producto').summernote({
-  height: 50,
-  lang: "es-ES",
-  toolbar: [
-       ['style', ['bold', 'italic', 'underline', 'clear']],
-       ['font', ['strikethrough', 'superscript', 'subscript']],
-       ['fontsize', ['fontsize']],
-       ['color', ['color']],
-       ['para', ['ul', 'ol', 'paragraph']],
-       ['height', ['height']]
-  ]  
-});
+  $('#descrip_producto').summernote({
+    height: 50,
+    lang: "es-ES",
+    toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']]
+    ]  
+  });
 
   $.post("../../controller/tservicio.php?op=combo",function(data, status){
-  $('#id_modalidad').html(data);
+    $('#id_modalidad').html(data);
   });
 
   $.post("../../controller/fpago.php?op=combo",function(data, status){
-  $('#id_fpago').html(data);
+    $('#id_fpago').html(data);
   });
 
   $.post("../../controller/demision.php?op=combo",function(data, status){
-  $('#id_demision').html(data);
+    $('#id_demision').html(data);
   });
 
   $.post("../../controller/umedida.php?op=combo",function(data, status){
@@ -66,8 +66,16 @@ $(document).ready(function(){
   });  
   //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
-  
-  //Calcula los valores automaticamente del total cuando se genera un cambio en la cantidad
+
+  $("#campos_adicionales").hide();
+
+  // llamar controles adicionales para contacto
+  $("#info-adicional").click(function() {
+     $("#campos_adicionales").toggle();
+  });
+
+
+    //Calcula los valores automaticamente del total cuando se genera un cambio en la cantidad
   $('#cantidad').on('change', function() {
     calcularTotal();
   });
@@ -75,7 +83,6 @@ $(document).ready(function(){
   $('#precio').on('input', function() {
     calcularTotal();
   });
-
   $('#descripcion').on('input', function() {
     const descripcion = $(this).val();
     if (descripcion === '') {
@@ -84,7 +91,7 @@ $(document).ready(function(){
     } else {
       buscarProducto(descripcion);   
     }
-  }); 
+  });
   
   $('#descripcion, #precio').on('keydown', function(event) {
     if (event.keyCode === 13) { // Código de la tecla Enter
@@ -96,159 +103,154 @@ $(document).ready(function(){
       }
     }
   });
-
-  
+   
   var id_pedido = getUrlParameter('IDs');
   listardetalle(id_pedido);
-
+  
   $('#btn-AgregarDetalle').on('click', function() {    
     agegardetalle();         
   });  
-
   
-  $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
-    $('#mdltitulo').html('Editar Servicio');   
-      // Obtener la fila actual
-    var row = $(this).closest('tr');
-     // Remover la clase "editando" de cualquier otra fila que la tenga
-  $('.editando').removeClass('editando');
+ 
+  $('#modalagregaryeditar').on('hide.bs.modal', function() {
+    if (modoModal === 'editar') {
+      // Cambiar el modo del modal a "agregar"
+      modoModal = 'agregar';    
+      // Cambiar el texto del botón en el modal a "Agregar Detalle"
+      $('#btn-AgregarDetalle').text('Agregar');
+    }
 
+  });  
+  
+  $("#id_modalidad").on("change", function() {
+    mostrarOcultarManifiesto();
+  });
+
+  //Mostrar documentos adjutos en data table
+  tabla=$('#documentos_pedido').dataTable({
+    "aProcessing": true,
+    "aServerSide": true,
+    dom: 'Bfrtip',
+    "searching": true,
+    lengthChange: false,
+    colReorder: true,
+    buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+            ],
+    "ajax":{
+        url: '../../controller/documentopedido.php?op=listar',
+        type : "post",
+        data : {id_pedido:id_pedido},
+        dataType : "json",
+        error: function(e){
+            console.log(e.responseText);
+
+        }
+    },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,
+    "autoWidth": false,
+    "language": {
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sSearch":         "Buscar:",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":     "Último",
+            "sNext":     "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+
+    }
+  }).DataTable();
+  mostrarOcultarCantidadLimpieza();
+});
+
+
+$(document).on('click', '#detalle_ped tbody .btnEditar', function() {
+  $('#mdltitulo').html('Editar Servicio');   
+    // Obtener la fila actual
+  var row = $(this).closest('tr');
+   // Remover la clase "editando" de cualquier otra fila que la tenga
+  $('.editando').removeClass('editando');
   // Agregar la clase "editando" a la fila actual
   row.addClass('editando');
-      // Obtener los valores actuales del detalle de producto
-      var id_producto = row.find('td:nth-child(1)').text();
-      var descripcion = row.find('td:nth-child(2)').text();
-      var id_medida = row.find('td:nth-child(3)').text();
-      var cantidad = row.find('td:nth-child(4)').text();
-      var precio = row.find('td:nth-child(5)').text();
-      var cant_limpieza = $('#cant_limpieza').val();
-      var descrip_producto = row.data('descrip_producto');
-
-      var id_acopio = row.data('id_acopio');
-      var cant = row.data('cant');
-      var id_unidad_vehicular = row.data('id_unidad_vehicular');
-      var id_disposicion = row.data('id_disposicion');
-      var personal_solicitado = row.data('personal_solicitado');
-
-      // Obtén el índice de la fila editada
-      var rowIndex = $('.editando').index();
-      // Actualiza la cantidad de limpieza en el arreglo correspondiente
-      var cant_limpieza = cantidadesLimpieza[rowIndex];
-      var descrip_producto = descripcion_producto[rowIndex];
-
-      var id_acopio = id_acopios[rowIndex];
-      var cant = cants[rowIndex];
-      var id_unidad_vehicular = id_unidad_vehiculars[rowIndex];
-      var id_disposicion = id_disposicions[rowIndex];
-      var personal_solicitado = personal_solicitados[rowIndex];
-
-      // Asignar los valores a los campos del formulario de edición
-      $('#id_producto').val(id_producto);
-      $('#descripcion').val(descripcion);   
-      $('#cantidad').val(cantidad);
-      $('#precio').val(precio); // Asignar el valor de cant_limpieza al campo de texto
-      //$('#cant_limpieza').get(0).value = cant_limpieza;
-      $('#cant_limpieza').val(cant_limpieza);
-      //$('#descrip_producto').get(0).value = descrip_producto;
-      $('#descrip_producto').summernote('code', descrip_producto);
-
-      $('#id_medida option').each(function() {
-        if ($(this).text() === id_medida) {
-          $('#id_medida').val($(this).val()).trigger('change');
-          return false; // Salir del bucle each
-        }
-      });
-
-      $('#id_acopio').val(id_acopio);
-      $('#cant').val(cant);   
-      $('#id_unidad_vehicular').val(id_unidad_vehicular);
-      $('#id_disposicion').val(id_disposicion);
-      $('#personal_solicitado').val(personal_solicitado);
-      calcularTotal();
-      // Cambiar el modo del modal a "editar"
-      modoModal = 'editar';
-      $('#btn-AgregarDetalle').show();
-
-      // Cambiar el texto del botón en el modal a "Guardar Edición"
-      $('#btn-AgregarDetalle').text('Guardar Edición');
-
-      // Mostrar el modal de agregar/editar detalle
-      $('#modalagregaryeditar').modal('show');   
-
-      // Agregar la clase "editando" a la fila actual
-      row.addClass('editando');
-
-      /// Llamada adicional para mostrar u ocultar el campo de cantidad de limpieza en el modal de edición
-      mostrarOcultarCantidadLimpieza();
-    });
-
-    $('#modalagregaryeditar').on('hide.bs.modal', function() {
-      if (modoModal === 'editar') {
-        // Cambiar el modo del modal a "agregar"
-        modoModal = 'agregar';    
-        // Cambiar el texto del botón en el modal a "Agregar Detalle"
-        $('#btn-AgregarDetalle').text('Agregar');
-      }
+    // Obtener los valores actuales del detalle de producto
+  var id_producto = row.find('td:nth-child(1)').text();
+  var descripcion = row.find('td:nth-child(2)').text();
+  var id_medida = row.find('td:nth-child(3)').text();
+  var cantidad = row.find('td:nth-child(4)').text();
+  var precio = row.find('td:nth-child(5)').text();
+  var cant_limpieza = $('#cant_limpieza').val();
+  var descrip_producto = row.data('descrip_producto');
+  var id_acopio = row.data('id_acopio');
+  var cant = row.data('cant');
+  var id_unidad_vehicular = row.data('id_unidad_vehicular');
+  var id_disposicion = row.data('id_disposicion');
+  var personal_solicitado = row.data('personal_solicitado');
+  // Obtén el índice de la fila editada
+  var rowIndex = $('.editando').index();
+  // Actualiza la cantidad de limpieza en el arreglo correspondiente
+  var cant_limpieza = cantidadesLimpieza[rowIndex];
+  var descrip_producto = descripcion_producto[rowIndex];
+  var id_acopio = id_acopios[rowIndex];
+  var cant = cants[rowIndex];
+  var id_unidad_vehicular = id_unidad_vehiculars[rowIndex];
+  var id_disposicion = id_disposicions[rowIndex];
+  var personal_solicitado = personal_solicitados[rowIndex];
+  // Asignar los valores a los campos del formulario de edición
+  $('#id_producto').val(id_producto);
+  $('#descripcion').val(descripcion);   
+  $('#cantidad').val(cantidad);
+  $('#precio').val(precio); // Asignar el valor de cant_limpieza al campo de texto
+  //$('#cant_limpieza').get(0).value = cant_limpieza;
+  $('#cant_limpieza').val(cant_limpieza);
+  //$('#descrip_producto').get(0).value = descrip_producto;
+  $('#descrip_producto').summernote('code', descrip_producto);
+  $('#id_medida option').each(function() {
+    if ($(this).text() === id_medida) {
+      $('#id_medida').val($(this).val()).trigger('change');
+      return false; // Salir del bucle each
+    }
+  });
+  $('#id_acopio').val(id_acopio);
+  $('#cant').val(cant);   
+  $('#id_unidad_vehicular').val(id_unidad_vehicular);
+  $('#id_disposicion').val(id_disposicion);
+  $('#personal_solicitado').val(personal_solicitado);
+  calcularTotal();
+  // Cambiar el modo del modal a "editar"
+  modoModal = 'editar';
+  $('#btn-AgregarDetalle').show();
+  // Cambiar el texto del botón en el modal a "Guardar Edición"
+  $('#btn-AgregarDetalle').text('Guardar Edición');
+  // Mostrar el modal de agregar/editar detalle
+  $('#modalagregaryeditar').modal('show');   
+  // Agregar la clase "editando" a la fila actual
+  row.addClass('editando');
+  /// Llamada adicional para mostrar u ocultar el campo de cantidad de limpieza en el modal de edición
+  mostrarOcultarCantidadLimpieza();
+  mostrarOcultarManifiesto();
  
-    });
-
-    //Mostrar documentos adjutos en data table
-    tabla=$('#documentos_pedido').dataTable({
-      "aProcessing": true,
-      "aServerSide": true,
-      dom: 'Bfrtip',
-      "searching": true,
-      lengthChange: false,
-      colReorder: true,
-      buttons: [
-              'copyHtml5',
-              'excelHtml5',
-              'csvHtml5',
-              'pdfHtml5'
-              ],
-      "ajax":{
-          url: '../../controller/documentopedido.php?op=listar',
-          type : "post",
-          data : {id_pedido:id_pedido},
-          dataType : "json",
-          error: function(e){
-              console.log(e.responseText);
-          }
-      },
-      "bDestroy": true,
-      "responsive": true,
-      "bInfo":true,
-      "iDisplayLength": 10,
-      "autoWidth": false,
-      "language": {
-          "sProcessing":     "Procesando...",
-          "sLengthMenu":     "Mostrar _MENU_ registros",
-          "sZeroRecords":    "No se encontraron resultados",
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
-          "sInfo":           "Mostrando un total de _TOTAL_ registros",
-          "sInfoEmpty":      "Mostrando un total de 0 registros",
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-          "sInfoPostFix":    "",
-          "sSearch":         "Buscar:",
-          "sUrl":            "",
-          "sInfoThousands":  ",",
-          "sLoadingRecords": "Cargando...",
-          "oPaginate": {
-              "sFirst":    "Primero",
-              "sLast":     "Último",
-              "sNext":     "Siguiente",
-              "sPrevious": "Anterior"
-          },
-          "oAria": {
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-          }
-      }
-  }).DataTable();
-  mostrarOcultarCantidadLimpieza()
-
-
-}); 
+});
 
 $(document).on("click","#btnagregar", function(){  
   $('#mdltitulo').html('Agregar productos/Servicios');
@@ -267,6 +269,16 @@ function mostrarOcultarCantidadLimpieza() {
       $("#contenedorServicio").show();
   }
 }
+
+function mostrarOcultarManifiesto() {
+  var valorModalidad = $("#id_modalidad").val();
+  if (valorModalidad === "3" || valorModalidad === "4" || valorModalidad === "2") {
+    $("#manifiesto").show();
+  } else {
+    $("#manifiesto").hide();
+  }
+}
+  
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -295,7 +307,7 @@ function buscarCliente() {
       $("#contacto_cli").val(data.contacto_cli);
       $("#contacto_telf").val(data.contacto_telf);
       $("#correo_cli").val(data.correo_cli);
-      // Asignar el valor del id_client a un campo oculto
+      // Asignar el valor del id_cliente a un campo oculto
       $("#id_cliente").val(data.id_cliente);
      },
     error: function() {
@@ -308,70 +320,87 @@ function listardetalle(id_pedido){
   $.post("../../controller/pedido.php?op=mostrar", { id_pedido : id_pedido }, function (data) {
     data = JSON.parse(data);
     console.log(data);        
-     $('#lblid_pedido').html("Editar Pedido "+data.serie_pedido);
-     $('#lblestado').html(data.estado);
-     $('#id_pedido').val(data.id_pedido); 
-     $('#serie_pedido').val(data.serie_pedido);
-     $('#moneda').val(data.moneda);
-     $('#id_cliente').val(data.id_cliente);  
-     $('#nro_doc').val(data.nro_doc);
-     $('#nom_cli').val(data.nom_cli);
-     $('#direc_cli').val(data.direc_cli);
-     $('#id_modalidad').val(data.id_modalidad);
-     $('#contacto').val(data.contacto);
-     $('#telf_contacto').val(data.telf_contacto);
-     $('#dire_entrega').val(data.dire_entrega);        
-     $('#id_demision').val(data.id_demision);
-     $('#id_fpago').val(data.id_fpago);
-     $('#fecha_entrega').val(data.fecha_entrega);
-     $('#tickd_requi').summernote ('code',data.tickd_requi);
-     $('#conta_factu').val(data.conta_factu);
-     $('#correo_cfactu').val(data.correo_cfactu);
-     $('#telf_cfactu').val(data.telf_cfactu);
-     $('#conta_cobra').val(data.conta_cobra);
-     $('#correo_ccobra').val(data.correo_ccobra);
-     $('#telf_ccobra').val(data.telf_ccobra);
-     $('#cotizacion').val(data.cotizacion);
-     $('#link').val(data.link);
-     $('#cierre_facturacion').val(data.cierre_facturacion);
-     $('#fecha_pago').val(data.fecha_pago);
-     $('#acceso_portal').prop('checked', data.acceso_portal);
-     $('#entrega_factura').prop('checked', data.entrega_factura);
-     $('#orden_compra').val(data.orden_compra);
+    $('#lblid_pedido').html("Editar Pedido "+data.serie_pedido);
+    $('#lblestado').html(data.estado);
+    $('#id_pedido').val(data.id_pedido); 
+    $('#serie_pedido').val(data.serie_pedido);
+    $('#moneda').val(data.moneda);
+    $('#id_cliente').val(data.id_cliente);  
+    $('#nro_doc').val(data.nro_doc);
+    $('#nom_cli').val(data.nom_cli);
+    $('#direc_cli').val(data.direc_cli);
+    $('#id_modalidad').val(data.id_modalidad);
+    $('#contacto').val(data.contacto);
+    $('#telf_contacto').val(data.telf_contacto);
+    $('#dire_entrega').val(data.dire_entrega);        
+    $('#id_demision').val(data.id_demision);
+    $('#id_fpago').val(data.id_fpago);
+    $('#fecha_entrega').val(data.fecha_entrega);
+    $('#tickd_requi').summernote ('code',data.tickd_requi);
+    $('#conta_factu').val(data.conta_factu);
+    $('#correo_cfactu').val(data.correo_cfactu);
+    $('#telf_cfactu').val(data.telf_cfactu);
+    $('#conta_cobra').val(data.conta_cobra);
+    $('#correo_ccobra').val(data.correo_ccobra);
+    $('#telf_ccobra').val(data.telf_ccobra);
+    $('#cotizacion').val(data.cotizacion);
+    $('#link').val(data.link);
+    $('#cierre_facturacion').val(data.cierre_facturacion);
+    $('#fecha_pago').val(data.fecha_pago);
+    $('#acceso_portal').prop('checked', data.acceso_portal);
+    $('#entrega_factura').prop('checked', data.entrega_factura);
+    $('#orden_compra').val(data.orden_compra);
 
+    //* Obtener detalles de los productos
+    $.post("../../controller/pedido.php?op=mostrar", { id_pedido: id_pedido }, function(detalles) {
+      detalles = JSON.parse(detalles);  
+      //* Obtener los detalles de los servicios
+      var detalles = data.detalles; 
+      //* Referencia a la tabla
+      var tabla = $('#detalle_ped');
+      //* Limpiar filas anteriores de la tabla (excepto la cabecera)
+      tabla.find('tr:not(:first)').remove();        
+      //* Recorrer los detalles y agregar filas a la tabla
+      detalles.forEach(function(detalle) {
+        var fila = '<tr>' +
+            '<td>' + detalle.id_servicio + '</td>' +
+            '<td>' + detalle.descripcion + '</td>' +
+            '<td>' + detalle.U_medida + '</td>' +
+            '<td>' + detalle.cantidad + '</td>' +
+            '<td>' + detalle.precio_uni + '</td>' +
+            '<td>' + detalle.total + '</td>' +
+            '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btnEditar btn-warning"><i class="fa fa-pencil"></i></a></td>' +
+            '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger btnEliminar"><i class="fa fa-trash"></i></a></td>' +      
+            '</tr>';      
+            $('#detalle_ped').append(fila);
 
-     // Obtener detalles de los productos
-     $.post("../../controller/pedido.php?op=mostrar", { id_pedido: id_pedido }, function(detalles) {
-    detalles = JSON.parse(detalles);  
-    // Obtener los detalles de los servicios
-     var detalles = data.detalles; 
-    // Referencia a la tabla
-    var tabla = $('#detalle_ped');
-    // Limpiar filas anteriores de la tabla (excepto la cabecera)
-    tabla.find('tr:not(:first)').remove();        
-    // Recorrer los detalles y agregar filas a la tabla
-    detalles.forEach(function(detalle) {
-      var fila = '<tr>' +
-          '<td>' + detalle.id_servicio + '</td>' +
-          '<td>' + detalle.descripcion + '</td>' +
-          '<td>' + detalle.U_medida + '</td>' +
-          '<td>' + detalle.cantidad + '</td>' +
-          '<td>' + detalle.precio_uni + '</td>' +
-          '<td>' + detalle.total + '</td>' +
-          '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btnEditar btn-warning"><i class="fa fa-pencil"></i></a></td>' +
-          '<td class="text-center"><a href="#" class="btn btn-sm btn-icon btn-danger btnEliminar"><i class="fa fa-trash"></i></a></td>' +      
-          '</tr>';      
-          $('#detalle_ped').append(fila);
-
-    // Almacenar el valor de cant_limpieza en el array
-    cantidadesLimpieza.push(detalle.cant_limpieza);
-    descripcion_producto.push(detalle.descrip_producto);
-    id_acopios.push(detalle.id_acopio);
-    cants.push(detalle.cant);
-    id_unidad_vehiculars.push(detalle.id_unidad_vehicular);
-    id_disposicions.push(detalle.id_disposicion);
-    personal_solicitados.push(detalle.personal_solicitado);
+      // Almacenar el valor de cant_limpieza en el array
+      cantidadesLimpieza.push(detalle.cant_limpieza);
+      descripcion_producto.push(detalle.descrip_producto);
+      id_acopios.push(detalle.id_acopio);
+      cants.push(detalle.cant);
+      id_unidad_vehiculars.push(detalle.id_unidad_vehicular);
+      id_disposicions.push(detalle.id_disposicion);
+      personal_solicitados.push(detalle.personal_solicitado);
     });
+    
+
+    var manifiesto = data.manifiestos[0]; //! Intenta obtener el primer elemento del array
+    if (manifiesto) {
+      //! Si se encuentra un manifiesto, mostrar los detalles
+      $('#representante_legal').val(manifiesto.representante_legal);
+      $('#dni_repre').val(manifiesto.dni_repre);
+      $('#ing_responsable').val(manifiesto.ing_responsable);
+      $('#cip_ing').val(manifiesto.cip_ing);
+      $('#nom_residuos').val(manifiesto.nom_residuos);
+    } else {
+      //! Si no se encuentra un manifiesto, limpiar los campos o mostrar algún mensaje de aviso
+      $('#representante_legal').val('');
+      $('#dni_repre').val('');
+      $('#ing_responsable').val('');
+      $('#cip_ing').val('');
+      $('#nom_residuos').val('');
+    }
 
     sumaTotal = 0;
     $('#detalle_ped tbody tr').each(function() {
@@ -382,9 +411,12 @@ function listardetalle(id_pedido){
     // Asignar el valor de la suma al elemento <label>
     $('#total_pagar').text(sumaTotal.toFixed(2));
     actualizarIGVYTotal();
-    });
+    mostrarOcultarManifiesto();
+    });  
 
   });
+  //*Mostrar los campos de manifiesto en caso de que id_madilidad sea "3 o 4"
+  mostrarOcultarCantidadLimpieza();
 }
 
 $(document).on('click', '#detalle_ped tbody .btn-danger', function() {
@@ -430,6 +462,14 @@ $(function() {
   });
 });
 
+function mostrarOcultarFormulario() {
+  var valorServicio = $("#id_modalidad").val();
+  if (valorServicio === "3" || valorServicio === "4") {
+    $("#manifiesto").show();
+  } else {
+    $("#manifiesto").hide();
+  }
+}
 
 function guardaryeditarPed(e){
   e.preventDefault(); 
@@ -484,6 +524,24 @@ function guardaryeditarPed(e){
       };    
       productos.push(producto);
     });
+
+    var id_cliente = $('#id_cliente').val();
+    var representante_legal = $('#representante_legal').val();
+    var dni_repre = $('#dni_repre').val();
+    var ing_responsable = $('#ing_responsable').val();
+    var cip_ing = $('#cip_ing').val();
+    var nom_residuos = $('#nom_residuos').val();
+
+    var manifiestos = [{
+      id_cliente: id_cliente,
+      representante_legal: representante_legal,
+      dni_repre: dni_repre,
+      ing_responsable: ing_responsable,
+      cip_ing: cip_ing,
+      nom_residuos: nom_residuos
+    }];
+
+
     // Obtén el estado de los campos "acceso_portal" y "entrega_factura"
     var accesoPortal = $('#acceso_portal').is(':checked') ? 1 : 0;
     var entregaFactura = $('#entrega_factura').is(':checked') ? 1 : 0;
@@ -494,7 +552,8 @@ function guardaryeditarPed(e){
     formData.append('acceso_portal', accesoPortal);
     formData.append('entrega_factura', entregaFactura);
     formData.append('id_pedido', $('#id_pedido').val());
-    formData.append('productos', JSON.stringify(productos)); 
+    formData.append('productos', JSON.stringify(productos));
+    formData.append('manifiestos', JSON.stringify(manifiestos)); 
       $.ajax({
       url: "../../controller/pedido.php?op=generaryeditar",
       type: "POST",
@@ -749,7 +808,6 @@ function agegardetalle() {
   $('#id_unidad_vehicular').val('');
   $('#id_disposicion').val('');
   $('#personal_solicitado').val('');
-
   $('#id_producto').val('');
   $('#descrip_producto').summernote('reset');
   $('#total').val('');

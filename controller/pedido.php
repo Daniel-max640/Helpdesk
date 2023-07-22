@@ -17,54 +17,64 @@
     $cliente = new Cliente();
     switch($_GET["op"]){
         case "generaryeditar":
-        //! Obtener los datos del formulario o de la solicitud
-        $detalle_ped = json_decode($_POST["productos"], true);
-        $manifiesto_ped = json_decode($_POST["manifiestos"], true);
+            //! Obtener los datos del formulario o de la solicitud
+            if(isset($_POST["productos"])) {
+                $detalle_ped = json_decode($_POST["productos"], true);
+            } else {
+                $detalle_ped = array();
+            }
 
-        //! Verificar si la forma de pago es crédito o alguna otra forma de pago que requiere estado pendiente
-        if ($_POST["id_fpago"] == 2 || $_POST["id_fpago"] == 5 || $_POST["id_fpago"] == 10 || $_POST["id_fpago"] == 13) {
-            $estado_pago = "Pendiente";
-        } else {
-            $estado_pago = "Pagado";
-        }
-        if(empty($_POST["id_pedido"])){       
-        $datos=$pedido->insert_pedido(
-        $_POST["usu_id"],
-        $_POST["id_cliente"],
-        $_POST["nro_doc"],
-        $_POST["direc_cli"],
-        $_POST["nom_cli"],
-        $_POST["serie_pedido"],
-        $_POST["moneda"],
-        $_POST["id_modalidad"],
-        $_POST["contacto"],
-        $_POST["telf_contacto"],
-        $_POST["dire_entrega"],
-        $_POST["id_demision"],
-        $_POST["asesor"],
-        $_POST["id_fpago"],        
-        $_POST["fecha_entrega"],
-        $_POST["total_pagar"],
-        $_POST["igv"],
-        $_POST["total_final"],
-        $_POST["tickd_requi"],
-        $_POST["conta_factu"],
-        $_POST["correo_cfactu"],
-        $_POST["telf_cfactu"],
-        $_POST["conta_cobra"],
-        $_POST["correo_ccobra"],
-        $_POST["telf_ccobra"],
-        $_POST["cotizacion"],
-        $_POST["link"],
-        $_POST["cierre_facturacion"],
-        $_POST["fecha_pago"],
-        $_POST["acceso_portal"],
-        $_POST["entrega_factura"],
-        $estado_pago,
-        $_POST["orden_compra"],
-        $detalle_ped,
-        $manifiesto_ped
-       ); 
+            if(isset($_POST["manifiestos"])) {
+                $manifiesto_ped = json_decode($_POST["manifiestos"], true);
+            } else {
+                $manifiesto_ped = array();
+            }
+
+            //! Verificar si la forma de pago es crédito o alguna otra forma de pago que requiere estado pendiente
+            if ($_POST["id_fpago"] == 2 || $_POST["id_fpago"] == 5 || $_POST["id_fpago"] == 10 || $_POST["id_fpago"] == 13) {
+                $estado_pago = "Pendiente";
+            } else {
+                $estado_pago = "Pagado";
+            }
+            
+            if(empty($_POST["id_pedido"])){       
+            $datos=$pedido->insert_pedido(
+            $_POST["usu_id"],
+            $_POST["id_cliente"],
+            $_POST["nro_doc"],
+            $_POST["direc_cli"],
+            $_POST["nom_cli"],
+            $_POST["serie_pedido"],
+            $_POST["moneda"],
+            $_POST["id_modalidad"],
+            $_POST["contacto"],
+            $_POST["telf_contacto"],
+            $_POST["dire_entrega"],
+            $_POST["id_demision"],
+            $_POST["asesor"],
+            $_POST["id_fpago"],        
+            $_POST["fecha_entrega"],
+            $_POST["total_pagar"],
+            $_POST["igv"],
+            $_POST["total_final"],
+            $_POST["tickd_requi"],
+            $_POST["conta_factu"],
+            $_POST["correo_cfactu"],
+            $_POST["telf_cfactu"],
+            $_POST["conta_cobra"],
+            $_POST["correo_ccobra"],
+            $_POST["telf_ccobra"],
+            $_POST["cotizacion"],
+            $_POST["link"],
+            $_POST["cierre_facturacion"],
+            $_POST["fecha_pago"],
+            $_POST["acceso_portal"],
+            $_POST["entrega_factura"],
+            $estado_pago,
+            $_POST["orden_compra"],
+            $detalle_ped,
+            $manifiesto_ped
+        ); 
        //recupero el ultimo id_generado
         $last_inserted_id = $datos;
         if (!empty($_FILES['files']['name'])) {
@@ -83,7 +93,17 @@
             }
         }
         } else {
-        $detalle_ped = json_decode($_POST["productos"], true);
+            if(isset($_POST["productos"])) {
+                $detalle_ped = json_decode($_POST["productos"], true);
+            } else {
+                $detalle_ped = array();
+            }
+
+            if(isset($_POST["manifiestos"])) {
+                $manifiesto_ped = json_decode($_POST["manifiestos"], true);
+            } else {
+                $manifiesto_ped = array();
+            }
         $datos = $pedido->editar_pedido(
             $_POST["id_pedido"],
             $_POST["usu_id"],
@@ -119,7 +139,8 @@
             $_POST["entrega_factura"],
             $estado_pago,
             $_POST["orden_compra"],
-            $detalle_ped
+            $detalle_ped,
+            $manifiesto_ped
             );
         }
         echo json_encode($datos);
@@ -313,6 +334,7 @@
                     $output["documento"] = $row["documento"];
                     $output["modalidad"] = $row["modalidad"];
                     $output["detalles"] = [];
+                    $output["manifiestos"] = [];
 
                     $detalles = $pedido->listar_detalle_pedido($_POST["id_pedido"]);
                     if (is_array($detalles) && count($detalles) > 0) {
@@ -333,6 +355,22 @@
                                 "personal_solicitado" => $detalle["personal_solicitado"]
                             ];
                             $output["detalles"][] = $detalles_pedido;
+                        }
+                    }
+
+                    $manifiestos = $pedido->listar_manifiestos($_POST["id_pedido"]);
+                    if (is_array($manifiestos) && count($manifiestos) > 0) {
+                        foreach ($manifiestos as $manifiesto) {
+                            $detalles_manifiestos = [
+                                "id_cliente" => $manifiesto["id_cliente"],                       
+                                "representante_legal" => $manifiesto["representante_legal"],
+                                "dni_repre" => $manifiesto["dni_repre"],
+                                "ing_responsable" => $manifiesto["ing_responsable"],
+                                "cip_ing" => $manifiesto["cip_ing"],
+                                "nom_residuos" => $manifiesto["nom_residuos"]
+                              
+                            ];
+                            $output["manifiestos"][] = $detalles_manifiestos;
                         }
                     }
                 }                

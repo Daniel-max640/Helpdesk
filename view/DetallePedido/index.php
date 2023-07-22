@@ -295,39 +295,90 @@
 								</fieldset>
 							</div>									
 							<div class="col-lg-12">
-								<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
-							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="conta_factu" name="conta_factu" placeholder="Ingrese Nombre">										
-							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" placeholder="Ingrese Correo">									
-							</div>
-							<div class="col-md-4">
-							<fieldset class="form-group">
-								<label  class="form-label semibold">Telefono</label>
-								<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" placeholder="Ingrese Telefono">	
-							</fieldset>									
-							</div>						
+									<h6><strong id="info-adicional"><i class="fa fa-plus"></i>Agregar y/o Editar Informacion Adicional de Contactos</strong>
+							</div>													
 							<div class="col-lg-12">
-								<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
+								<div class="box-typical box-typical-padding"id="campos_adicionales">
+									<div class="row">																
+										<div class="col-lg-12">
+											<h5 class="text"><b>Contacto de Facturacion</b></h5>
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Nombres</label>
+											<input type="text" class="form-control" id="conta_factu" name="conta_factu" placeholder="Ingrese Nombre">										
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Correo</label>
+											<input type="text" class="form-control" id="correo_cfactu" name="correo_cfactu" placeholder="Ingrese Correo">									
+										</div>
+										<div class="col-md-4">
+										<fieldset class="form-group">
+											<label  class="form-label semibold">Telefono</label>
+											<input type="text" class="form-control" id="telf_cfactu" name="telf_cfactu" placeholder="Ingrese Telefono">	
+										</fieldset>									
+										</div>						
+										<div class="col-lg-12">
+											<h5 class="text"><b>Contacto de Cobranza</b></h5>
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Nombres</label>
+											<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" placeholder="Ingrese Contacto">										
+										</div>
+										<div class="col-md-4">
+											<label class="form-label semibold">Correo</label>
+											<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" placeholder="Ingrese Correo">									
+										</div>
+										<div class="col-md-4">
+											<fieldset class="form-group">
+												<label  class="form-label semibold">Telefono</label>
+												<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
+											</fieldset>									
+										</div>																				
+									</div>	
+								</div>		
 							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Nombres</label>
-								<input type="text" class="form-control" id="conta_cobra" name="conta_cobra" placeholder="Ingrese Contacto">										
-							</div>
-							<div class="col-md-4">
-								<label class="form-label semibold">Correo</label>
-								<input type="text" class="form-control" id="correo_ccobra" name="correo_ccobra" placeholder="Ingrese Correo">									
-							</div>
-							<div class="col-md-4">
-								<fieldset class="form-group">
-									<label  class="form-label semibold">Telefono</label>
-									<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
-								</fieldset>									
-							</div>							
+							<br>
+							<div class="col-lg-12">
+								<div class="box-typical box-typical-padding" id="manifiesto">
+								<h5 class="text"><b>Manifiesto Respecto a la Disposicion Final</b></h2>
+									<div class="row" >
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">Nombres y Apellido  del Representante Legal</label>
+												<input type="text" class="form-control" id="representante_legal" name="representante_legal" placeholder="Ingresar Nombres">
+											</fieldset>
+										</div>	
+
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">DNI</label>
+												<input type="text" class="form-control" id="dni_repre" name="dni_repre" placeholder="Ingresar DNI">
+											</fieldset>
+										</div>	
+
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">Nombre y Apellido del Ing. Responsable</label>
+												<input type="text" class="form-control" id="ing_responsable" name="ing_responsable" placeholder="Ingresar Nombres">
+											</fieldset>
+										</div>	
+
+										<div class="col-lg-6">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">CIP</label>
+												<input type="text" class="form-control" id="cip_ing" name="cip_ing" placeholder="Ingresar CIP">
+											</fieldset>
+										</div>
+
+										<div class="col-lg-12">
+											<fieldset class="form-group">
+												<label class="form-label semibold" for="exampleInput">Nombre del Residuo</label>
+												<input type="text" class="form-control" id="nom_residuos" name="nom_residuos" placeholder="Ingresar Nombre del Residuo">
+											</fieldset>
+										</div>
+									</div>		
+								</div>
+							</div>						
 							<div class="col-lg-12">
 								<fieldset class="form-group">
 								<button id="btnGuardarCambios" type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar Modificacion</button>

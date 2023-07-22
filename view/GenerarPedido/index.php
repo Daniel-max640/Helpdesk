@@ -19,7 +19,7 @@
 				<div class="tbl">
 					<div class="tbl-row">
 						<div class="tbl-cell">
-							<h3>Generar Pedidos</h3>
+							<h3>Generar Nota de Pedido</h3>
 							<ol class="breadcrumb breadcrumb-simple">
 								<li><a href="#">Home</a></li>
 								<li class="active">Pedidos</li>
@@ -238,7 +238,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="col-lg-4">								
-									<button type="button" id="btnagregar" class="btn">+ Agregar Productos/Servicios</i></button>
+									<button type="button" id="btnagregar" class="btn"><i class="fa fa-plus"></i>Agregar Productos/Servicios</i></button>
 								</div>
 								<div class="box-typical box-typical-padding">				
 									<table id="detalle_ped" class="table table-bordered table-striped table-vcenter js-dataTable-full">
@@ -264,11 +264,7 @@
 								<p class="text-right"><b>Sub-Total: </b>S/ <span id="total_pagar" name="total_pagar">0.00</span</p> <!----> 
 								<p class="text-right"><b>IGV: </b>S/ <span id="igv" name="igv">0.00</span</p> <!----> 
 								<h3 class="text-right"><b>TOTAL A PAGAR: </b>S/ <span id="total_final" name="total_final">0.00</span></h3>
-							</div>
-
-						
-							
-						
+							</div>					
 
 							<div class="col-lg-12">
 								<fieldset class="form-group">
@@ -278,16 +274,15 @@
 									</div>
 								</fieldset>
 							</div>
-							<div class="row">								
-								<div class="col-lg-12" style="margin-left: 15px; margin-right: 10px;">
-									<h6><strong id="info-adicional">Agregar Informacion Adicional de Contactos +</strong>
-								</div>
 
-								<div id="campos_adicionales" style="display: none;">
-
-									<div class="container-fluid">										
+							<div class="col-lg-12">
+									<h6><strong id="info-adicional"><i class="fa fa-plus"></i>Agregar Informacion Adicional de Contactos</strong>
+							</div>													
+							<div class="col-lg-12">
+								<div class="box-typical box-typical-padding"id="campos_adicionales">
+									<div class="row">																
 										<div class="col-lg-12">
-											<h5 class="with-border"><b>Contacto de Facturacion</b></h5>
+											<h5 class="text"><b>Contacto de Facturacion</b></h5>
 										</div>
 										<div class="col-md-4">
 											<label class="form-label semibold">Nombres</label>
@@ -304,7 +299,7 @@
 										</fieldset>									
 										</div>						
 										<div class="col-lg-12">
-											<h5 class="with-border"><b>Contacto de Cobranza</b></h5>
+											<h5 class="text"><b>Contacto de Cobranza</b></h5>
 										</div>
 										<div class="col-md-4">
 											<label class="form-label semibold">Nombres</label>
@@ -319,47 +314,47 @@
 												<label  class="form-label semibold">Telefono</label>
 												<input type="text" class="form-control" id="telf_ccobra" name="telf_ccobra" placeholder="Ingrese Telefono">	
 											</fieldset>									
-										</div>
-									</div>											
+										</div>																				
+									</div>	
 								</div>		
 							</div>
 							<br>
 							<div class="col-lg-12">
 								<div class="box-typical box-typical-padding" id="manifiesto">
-								<h6 class="text"><b>MANIFIESTO RESPECTO A LAS DISPÒSICION FINAL</b></h2>
+								<h5 class="text"><b>Manifiesto Respecto a la Disposicion Final</b></h2>
 									<div class="row" >
 										<div class="col-lg-6">
 											<fieldset class="form-group">
 												<label class="form-label semibold" for="exampleInput">Nombres y Apellido  del Representante Legal</label>
-												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+												<input type="text" class="form-control" id="representante_legal" name="representante_legal" placeholder="Ingresar Nombres">
 											</fieldset>
 										</div>	
 
 										<div class="col-lg-6">
 											<fieldset class="form-group">
 												<label class="form-label semibold" for="exampleInput">DNI</label>
-												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+												<input type="text" class="form-control" id="dni_repre" name="dni_repre" placeholder="Ingresar DNI">
 											</fieldset>
 										</div>	
 
 										<div class="col-lg-6">
 											<fieldset class="form-group">
 												<label class="form-label semibold" for="exampleInput">Nombre y Apellido del Ing. Responsable</label>
-												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+												<input type="text" class="form-control" id="ing_responsable" name="ing_responsable" placeholder="Ingresar Nombres">
 											</fieldset>
 										</div>	
 
 										<div class="col-lg-6">
 											<fieldset class="form-group">
 												<label class="form-label semibold" for="exampleInput">CIP</label>
-												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+												<input type="text" class="form-control" id="cip_ing" name="cip_ing" placeholder="Ingresar CIP">
 											</fieldset>
 										</div>
 
 										<div class="col-lg-12">
 											<fieldset class="form-group">
 												<label class="form-label semibold" for="exampleInput">Nombre del Residuo</label>
-												<input type="text" class="form-control" id="cierre_facturacion" name="cierre_facturacion" placeholder="Ingrese Cierre">
+												<input type="text" class="form-control" id="nom_residuos" name="nom_residuos" placeholder="Ingresar Nombre del Residuo">
 											</fieldset>
 										</div>
 									</div>		

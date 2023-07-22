@@ -89,7 +89,6 @@
 
                         <div class="row">
                             <div id="contenedorServicio" class="col-lg-12">
-
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label class="form-label" for="exampleInput">Tipo de Acopio</label>
@@ -122,16 +121,15 @@
                                         <option label="Seleccionar"></option>
                                         </select>
                                     </fieldset>
-                                </div>
-
-                                <div class="col-lg-6">
+                                </div>                               
+                            </div>                             
+                        </div>
+                        <div class="col-lg-12">
                                     <fieldset class="form-group">
                                         <label class="form-label" for="exampleInput">Personal Solicitado</label>
                                         <input type="text" class="form-control" id="personal_solicitado" name="personal_solicitado" required>
                                     </fieldset>
-                                </div>
-                            </div> 
-                        </div>    
+                                </div>    
                     </div>
                 </div>
                 
