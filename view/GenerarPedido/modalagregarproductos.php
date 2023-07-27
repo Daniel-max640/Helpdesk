@@ -120,19 +120,28 @@
                                         <option label="Seleccionar"></option>
                                         </select>
                                     </fieldset>
-                                </div>                                
+                                </div>
+                                
+                                   
                             </div> 
                         </div> 
                         
                         <div class="col-lg-12">
-                        <fieldset class="form-group">
-                             <label class="form-label" for="exampleInput">Personal Solicitado</label>
-                            <input type="text" class="form-control" id="personal_solicitado" name="personal_solicitado" required>
-                        </fieldset>
-                    </div>
-                    </div> 
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">Personal Solicitado</label>
+                                <input type="text" class="form-control" id="personal_solicitado" name="personal_solicitado" placeholder="Ingresar Personal" required>
+                            </fieldset>
+                        </div>
 
-                    
+                        <div class="col-lg-6">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">Documentos a Entregar al cliente</label>
+                                <select id="id_docs_cli" name="id_docs_cli" class="form-control" data-placeholder="Seleccionar" required>
+                                <option label="Seleccionar"></option>
+                                </select>
+                            </fieldset>
+                        </div>        
+                    </div>                     
                 </div>
                 
                 <div class="modal-footer">

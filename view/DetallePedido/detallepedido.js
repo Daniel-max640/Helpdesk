@@ -6,6 +6,7 @@ var cants = [];
 var id_unidad_vehiculars = [];
 var id_disposicions = [];
 var personal_solicitados = [];
+var id_docs_clis = [];
 var modoModal;
 
 function init(){ 
@@ -63,6 +64,10 @@ $(document).ready(function(){
 
   $.post("../../controller/disposicion.php?op=combo",function(data, status){
     $('#id_disposicion').html(data);
+  });
+  
+  $.post("../../controller/entrega_documento.php?op=combo",function(data, status){
+    $('#id_docs_cli').html(data);
   });  
   //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
@@ -206,6 +211,7 @@ $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
   var id_unidad_vehicular = row.data('id_unidad_vehicular');
   var id_disposicion = row.data('id_disposicion');
   var personal_solicitado = row.data('personal_solicitado');
+  var id_docs_cli = row.data('id_docs_cli');
   // Obtén el índice de la fila editada
   var rowIndex = $('.editando').index();
   // Actualiza la cantidad de limpieza en el arreglo correspondiente
@@ -216,6 +222,7 @@ $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
   var id_unidad_vehicular = id_unidad_vehiculars[rowIndex];
   var id_disposicion = id_disposicions[rowIndex];
   var personal_solicitado = personal_solicitados[rowIndex];
+  var id_docs_cli = id_docs_clis[rowIndex];
   // Asignar los valores a los campos del formulario de edición
   $('#id_producto').val(id_producto);
   $('#descripcion').val(descripcion);   
@@ -236,6 +243,7 @@ $(document).on('click', '#detalle_ped tbody .btnEditar', function() {
   $('#id_unidad_vehicular').val(id_unidad_vehicular);
   $('#id_disposicion').val(id_disposicion);
   $('#personal_solicitado').val(personal_solicitado);
+  $('#id_docs_cli').val(id_docs_cli);
   calcularTotal();
   // Cambiar el modo del modal a "editar"
   modoModal = 'editar';
@@ -261,12 +269,17 @@ $(document).on("click","#btnagregar", function(){
 
 function mostrarOcultarCantidadLimpieza() {
   var valorServicio = $("#id_modalidad").val();
-  if (valorServicio === "5") { // Compara con el valor correspondiente a "Portatiles"
-      $("#campo_cantidad").show(); // Mostrar el campo de cantidad de limpieza
-      $("#contenedorServicio").hide();
+  if (valorServicio === "5" ) { // Compara con el valor correspondiente a "Portatiles"
+    $("#campo_cantidad").show(); // Mostrar el campo de cantidad de limpieza
+    $("#contenedorServicio").hide();
+  
+  } else if (valorServicio === "2") {
+    $("#campo_cantidad").hide(); // Ocultar el campo de cantidad de limpieza
+    $("#contenedorServicio").hide();
+    
   } else {
-      $("#campo_cantidad").hide(); // Ocultar el campo de cantidad de limpieza
-      $("#contenedorServicio").show();
+    $("#campo_cantidad_limpieza").hide(); // Ocultar el campo de cantidad de limpieza
+    $("#contenedorServicio").show();
   }
 }
 
@@ -382,6 +395,7 @@ function listardetalle(id_pedido){
       id_unidad_vehiculars.push(detalle.id_unidad_vehicular);
       id_disposicions.push(detalle.id_disposicion);
       personal_solicitados.push(detalle.personal_solicitado);
+      id_docs_clis.push(detalle.id_docs_cli);
     });
     
 
@@ -507,6 +521,7 @@ function guardaryeditarPed(e){
       var id_unidad_vehicular = id_unidad_vehiculars[$(this).index()];
       var id_disposicion = id_disposicions[$(this).index()];
       var personal_solicitado = personal_solicitados[$(this).index()];
+      var id_docs_cli = id_docs_clis[$(this).index()];
       var producto = {
         id_servicio: id_servicio,
         descripcion: descripcion,
@@ -520,7 +535,8 @@ function guardaryeditarPed(e){
         cant: cant,
         id_unidad_vehicular: id_unidad_vehicular,
         id_disposicion: id_disposicion,
-        personal_solicitado: personal_solicitado
+        personal_solicitado: personal_solicitado,
+        id_docs_cli: id_docs_cli
       };    
       productos.push(producto);
     });
@@ -686,6 +702,7 @@ function agegardetalle() {
   var id_unidad_vehicular = $('#id_unidad_vehicular').val();
   var id_disposicion = $('#id_disposicion').val();
   var personal_solicitado = $('#personal_solicitado').val();
+  var id_docs_cli = $('#id_docs_cli').val();
  
  
   // Verificar si todos los campos requeridos tienen valores
@@ -727,6 +744,7 @@ function agegardetalle() {
     filaEditando.data('id_unidad_vehicular', id_unidad_vehicular);
     filaEditando.data('id_disposicion', id_disposicion);
     filaEditando.data('personal_solicitado', personal_solicitado);
+    filaEditando.data('id_docs_cli', id_docs_cli);
     
     cantidadesLimpieza[rowIndex] = cant_limpieza;
     descripcion_producto[rowIndex] = descrip_producto;
@@ -736,6 +754,7 @@ function agegardetalle() {
     id_unidad_vehiculars[rowIndex] = id_unidad_vehicular;
     id_disposicions[rowIndex] = id_disposicion;
     personal_solicitados[rowIndex] = personal_solicitado;
+    id_docs_clis[rowIndex] = id_docs_cli;
 
     filaEditando.removeClass('editando');  
 
@@ -768,6 +787,7 @@ function agegardetalle() {
       nuevaFila.data('id_unidad_vehicular', id_unidad_vehicular);
       nuevaFila.data('id_disposicion', id_disposicion);
       nuevaFila.data('personal_solicitado', personal_solicitado);
+      nuevaFila.data('id_docs_cli', id_docs_cli);
 
       // Agregar la nueva fila al final de la tabla
       $('#detalle_ped tbody').append(nuevaFila);
@@ -779,6 +799,7 @@ function agegardetalle() {
       id_unidad_vehiculars.push(id_unidad_vehicular);
       id_disposicions.push(id_disposicion);
       personal_solicitados.push(personal_solicitado);
+      id_docs_clis.push(id_docs_cli);
       // Mostrar alerta de éxito al agregar
       swal("Éxito!", "El servicio se agrego corectamente.", "success");
 

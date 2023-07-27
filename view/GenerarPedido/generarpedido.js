@@ -141,7 +141,8 @@ function guardaryeditarPedido(e){
       var cant = $(this).data('cant');
       var id_unidad_vehicular = $(this).data('id_unidad_vehicular');
       var id_disposicion = $(this).data('id_disposicion');
-      var personal_solicitado = $(this).data('personal_solicitado');        
+      var personal_solicitado = $(this).data('personal_solicitado');
+      var id_docs_cli = $(this).data('id_docs_cli');         
       
       var producto = {
         id_servicio: id_servicio,
@@ -156,7 +157,8 @@ function guardaryeditarPedido(e){
         cant: cant,
         id_unidad_vehicular: id_unidad_vehicular,
         id_disposicion: id_disposicion,
-        personal_solicitado: personal_solicitado
+        personal_solicitado: personal_solicitado,
+        id_docs_cli: id_docs_cli
       };    
       productos.push(producto);
     });

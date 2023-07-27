@@ -26,12 +26,6 @@
           
           // Resto de las acciones del controlador
           
-
-        case "mostrarcliente";
-       
-            
-         break;
-
         case "eliminar":
         
         break;

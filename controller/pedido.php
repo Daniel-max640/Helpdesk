@@ -352,7 +352,8 @@
                                 "cant" => $detalle["cant"],
                                 "id_unidad_vehicular" => $detalle["id_unidad_vehicular"],
                                 "id_disposicion" => $detalle["id_disposicion"],
-                                "personal_solicitado" => $detalle["personal_solicitado"]
+                                "personal_solicitado" => $detalle["personal_solicitado"],
+                                "id_docs_cli" => $detalle["id_docs_cli"]
                             ];
                             $output["detalles"][] = $detalles_pedido;
                         }

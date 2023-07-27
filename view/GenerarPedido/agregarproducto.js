@@ -22,6 +22,10 @@ $(document).ready(function(){
     $('#id_disposicion').html(data);
   });  
 
+  $.post("../../controller/entrega_documento.php?op=combo",function(data, status){
+    $('#id_docs_cli').html(data);
+  });  
+
   //Ocultar el boton de agregar Detalle al llamar al modal
   $('#btn-AgregarDetalle').hide();
   $("#campo_cantidad_limpieza").hide(); // Ocultar el div completo al inicializar la página
@@ -105,6 +109,7 @@ $(document).ready(function(){
     var id_unidad_vehicular = row.data('id_unidad_vehicular');
     var id_disposicion = row.data('id_disposicion');
     var personal_solicitado = row.data('personal_solicitado');
+    var id_docs_cli = row.data('id_docs_cli');
    
     //console.log("id_medida:", id_medida);
 
@@ -129,6 +134,7 @@ $(document).ready(function(){
     $('#id_unidad_vehicular').val(id_unidad_vehicular);
     $('#id_disposicion').val(id_disposicion);
     $('#personal_solicitado').val(personal_solicitado);
+    $('#id_docs_cli').val(id_docs_cli);
   
 
     calcularTotal();  
@@ -168,6 +174,7 @@ $(document).ready(function(){
     $('#id_unidad_vehicular').val('');
     $('#id_disposicion').val('');
     $('#personal_solicitado').val('');
+    $('#id_docs_cli').val('');
     // Ocultar el botón de agregar detalle
     $('#btn-AgregarDetalle').hide();  
 
@@ -190,6 +197,7 @@ function agegardetalle() {
   var id_unidad_vehicular = $('#id_unidad_vehicular').val();
   var id_disposicion = $('#id_disposicion').val();
   var personal_solicitado = $('#personal_solicitado').val();
+  var id_docs_cli = $('#id_docs_cli').val();
  
   // Verificar si todos los campos requeridos tienen valores
   if (id_producto === '' || descripcion === '' || id_medida === '' || cantidad === '' || precio === '' || total === '') {
@@ -231,6 +239,7 @@ function agegardetalle() {
     filaEditando.data('id_unidad_vehicular', id_unidad_vehicular);
     filaEditando.data('id_disposicion', id_disposicion);
     filaEditando.data('personal_solicitado', personal_solicitado);
+    filaEditando.data('id_docs_cli', id_docs_cli);
 
     filaEditando.removeClass('editando');
 
@@ -266,6 +275,7 @@ function agegardetalle() {
     nuevaFila.data('id_unidad_vehicular', id_unidad_vehicular);
     nuevaFila.data('id_disposicion', id_disposicion);
     nuevaFila.data('personal_solicitado', personal_solicitado);
+    nuevaFila.data('id_docs_cli', id_docs_cli);
   }
 
   // Recalcular el total
@@ -297,6 +307,7 @@ function agegardetalle() {
   $('#id_unidad_vehicular').val('');
   $('#id_disposicion').val('');
   $('#personal_solicitado').val('');
+  $('#id_docs_cli').val('');
   $('#btn-AgregarDetalle').hide();
 }
 
