@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2023 a las 19:41:38
+-- Tiempo de generación: 26-04-2023 a las 01:00:24
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -96,36 +96,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_i_ticketdetalle_01` (IN `xtick_i
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_l_cliente_01` ()   BEGIN
-SELECT 
-                tm_cliente.id_cliente,
-                tm_cliente.tipodoc_id,
-                tm_cliente.nro_doc,
-                tm_cliente.nom_cli,
-                tm_cliente.direc_cli,
-                tm_cliente.id_ccredito,
-                tm_cliente.id_departamento,
-                tm_cliente.id_provincia,
-                tm_cliente.id_distrito,
-                tm_cliente.correo_cli,
-                tm_cliente.tele_cli, 
-                tm_cliente.contacto_telf, 
-                tm_cliente.contacto_cli,
-                tm_cliente.fech_crea,
-                tm_cliente.fech_elim,
-                tm_cliente.fech_modi, 
-                tm_cliente.est,
-                tm_tipodocumento.nom_tipdoc,
-                tm_departamento.departamento,
-                tm_provincia.nom_provincia,
-                tm_distrito.nom_distrito, 
-                tm_concredito.descripcion
-                FROM tm_cliente 
-                LEFT JOIN tm_tipodocumento on tm_cliente.tipodoc_id = tm_tipodocumento.tipodoc_id 
-                LEFT JOIN tm_departamento on tm_cliente.id_departamento = tm_departamento.id_departamento 
-                LEFT JOIN tm_provincia on tm_cliente.id_provincia = tm_provincia.id_provincia 
-                LEFT JOIN tm_distrito on tm_cliente.id_distrito = tm_distrito.id_distrito 
-                LEFT JOIN tm_concredito on tm_cliente.id_ccredito = tm_concredito.id_ccredito 
-                where tm_cliente.est= '1';
+SELECT tm_cliente.id_cliente, tm_cliente.tipodoc_id, tm_cliente.nro_doc, tm_cliente.nom_cli, tm_cliente.direc_cli, tm_cliente.id_departamento, tm_cliente.id_provincia, tm_cliente.id_distrito,  tm_cliente.correo_cli, tm_cliente.tele_cli, 
+tm_cliente.contacto_telf, 
+tm_cliente.contacto_cli, tm_cliente.fech_crea, tm_cliente.fech_elim, tm_cliente.fech_modi, tm_cliente.est, tm_tipodocumento.nom_tipdoc, tm_departamento.departamento, tm_provincia.nom_provincia, tm_distrito.nom_distrito FROM tm_cliente INNER JOIN tm_tipodocumento on tm_cliente.tipodoc_id = tm_tipodocumento.tipodoc_id INNER JOIN tm_departamento on tm_cliente.id_departamento = tm_departamento.id_departamento INNER JOIN tm_provincia on tm_cliente.id_provincia = tm_provincia.id_provincia INNER JOIN tm_distrito on tm_cliente.id_distrito = tm_distrito.id_distrito where tm_cliente.est='1';
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_l_cliente_02` (IN `xid_cliente` INT)   BEGIN
@@ -152,165 +125,25 @@ CREATE TABLE `det_pedido` (
   `id_detpedido` int(11) NOT NULL,
   `id_pedido` int(11) NOT NULL,
   `id_servicio` int(11) DEFAULT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `u_medida` varchar(11) DEFAULT NULL,
-  `cant_limpieza` int(12) DEFAULT NULL,
+  `id_modelo` int(11) DEFAULT NULL,
   `cantidad` int(11) NOT NULL,
   `precio_uni` decimal(8,2) NOT NULL,
   `total` decimal(8,2) NOT NULL,
-  `descrip_producto` varchar(300) DEFAULT NULL,
-  `id_acopio` int(11) DEFAULT NULL,
-  `cant` int(11) DEFAULT NULL,
-  `id_unidad_vehicular` int(11) DEFAULT NULL,
-  `id_disposicion` int(11) DEFAULT NULL,
-  `personal_solicitado` varchar(400) DEFAULT NULL
+  `fech_entrega` datetime NOT NULL,
+  `fech_devolucion` datetime DEFAULT NULL,
+  `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `det_pedido`
 --
 
-INSERT INTO `det_pedido` (`id_detpedido`, `id_pedido`, `id_servicio`, `descripcion`, `u_medida`, `cant_limpieza`, `cantidad`, `precio_uni`, `total`, `descrip_producto`, `id_acopio`, `cant`, `id_unidad_vehicular`, `id_disposicion`, `personal_solicitado`) VALUES
-(861, 351, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M3', 1, 4, '250.00', '1000.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(862, 351, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 2, 4, '250.00', '1000.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(863, 351, 4, 'DESATORO DE RED DE DESAGÜE', 'M3', 5, 4, '250.00', '1000.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(864, 352, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(865, 352, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(866, 353, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(867, 353, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(868, 354, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(869, 354, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(870, 355, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(871, 356, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(872, 356, 4, 'DESATORO DE RED DE DESAGÜE', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(873, 357, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(874, 358, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(875, 359, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M2', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(876, 360, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(877, 361, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(878, 362, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(879, 362, 4, 'DESATORO DE RED DE DESAGÜE', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(880, 363, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(881, 364, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(882, 365, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(884, 370, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(885, 371, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M2', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(886, 372, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(887, 373, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(888, 374, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(889, 375, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(890, 376, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(891, 377, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M2', 1, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(900, 163, 13, 'BAÑO STANDAR / LVM', 'UN', 5, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(908, 157, 13, 'BAÑO STANDAR / LVM', 'UN', 1, 2, '350.00', '700.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(909, 157, 14, 'BAÑO STANDAR', 'UN', 2, 2, '350.00', '700.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(913, 392, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(914, 392, 18, 'BAÑO EJECUTIVO', 'UN', 1, 2, '350.00', '700.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(919, 395, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(920, 395, 18, 'BAÑO EJECUTIVO', 'UN', 2, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(924, 394, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(925, 394, 18, 'BAÑO EJECUTIVO', 'M3', 4, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(933, 379, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(934, 379, 4, 'DESATORO DE RED DE DESAGÜE\n', 'M3', 1, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(935, 382, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(936, 382, 18, 'BAÑO EJECUTIVO', 'M3', 4, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(941, 380, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(951, 393, 18, 'BAÑO EJECUTIVO', 'M3', 1, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(952, 393, 15, 'DUCHA', 'UN', 1, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(969, 378, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M2', 4, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(970, 378, 4, 'DESATORO DE RED DE DESAGÜE\n', 'M3', 4, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(971, 378, 18, 'BAÑO EJECUTIVO', 'UN', 5, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(972, 378, 14, 'BAÑO STANDAR', 'UN', 2, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(978, 381, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(979, 381, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(980, 381, 4, 'DESATORO DE RED DE DESAGÜE\n', 'M3', 1, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(981, 396, 18, 'BAÑO EJECUTIVO', 'M3', 10, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(982, 396, 7, 'DESINFECCIÓN', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(983, 397, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(984, 397, 18, 'BAÑO EJECUTIVO', 'M3', 2, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(989, 398, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 2, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(990, 398, 18, 'BAÑO EJECUTIVO', 'ML', 5, 1, '350.00', '350.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1003, 403, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', '<p>ssssss</p>', NULL, NULL, NULL, NULL, NULL),
-(1004, 403, 7, 'DESINFECCIÓN', 'M2', 2, 3, '250.00', '750.00', '<p>ssss</p>', NULL, NULL, NULL, NULL, NULL),
-(1005, 403, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'ML', 5, 1, '250.00', '250.00', '<p>sdfsdfs</p>', NULL, NULL, NULL, NULL, NULL),
-(1006, 403, 3, 'LIMPIEZA DE POZO SÉPTICO', 'M2', 2, 1, '250.00', '250.00', '<p>sdfdfsdf</p>', NULL, NULL, NULL, NULL, NULL),
-(1045, 407, 13, 'BAÑO STANDAR / LVM', 'M2', 10, 2, '350.00', '700.00', '', NULL, NULL, NULL, NULL, NULL),
-(1046, 407, 13, 'BAÑO STANDAR / LVM', 'M3', 10, 3, '350.00', '1050.00', '', NULL, NULL, NULL, NULL, NULL),
-(1049, 408, 7, 'DESINFECCIÓN', 'M3', 5, 1, '250.00', '250.00', '<p>Desinfeccion&nbsp;</p>', NULL, NULL, NULL, NULL, NULL),
-(1050, 408, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 4, 1, '250.00', '250.00', '<p>Limpieza de trampa de grasa</p>', NULL, NULL, NULL, NULL, NULL),
-(1061, 405, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 4, '250.00', '1000.00', '<p>ghjghj</p>', NULL, NULL, NULL, NULL, NULL),
-(1062, 405, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 2, 3, '250.00', '750.00', '<p>ghghjghj</p>', NULL, NULL, NULL, NULL, NULL),
-(1063, 405, 18, 'BAÑO EJECUTIVO', 'ML', 2, 4, '350.00', '1400.00', '<p>ghjghj</p>', NULL, NULL, NULL, NULL, NULL),
-(1064, 405, 27, 'RECOJO DE RESIDUOS SOLIDOS NO PELIGROSOS', 'KG', 5, 4, '350.00', '1400.00', '<p>hjhjkhjk</p>', NULL, NULL, NULL, NULL, NULL),
-(1070, 406, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M2', 5, 1, '250.00', '250.00', '<p>limpieza m</p>', NULL, NULL, NULL, NULL, NULL),
-(1071, 406, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 5, 1, '250.00', '250.00', 'trampa', NULL, NULL, NULL, NULL, NULL),
-(1072, 406, 18, 'BAÑO EJECUTIVO', 'M3', 5, 1, '350.00', '350.00', 'BAÑO', NULL, NULL, NULL, NULL, NULL),
-(1073, 406, 7, 'DESINFECCIÓN', 'UN', 5, 2, '250.00', '500.00', '<p>DESINFECCION</p>', NULL, NULL, NULL, NULL, NULL),
-(1080, 401, 18, 'BAÑO EJECUTIVO', 'KG', 8, 5, '350.00', '1750.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1081, 401, 15, 'DUCHA', 'UN', 8, 3, '350.00', '1050.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1082, 404, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 5, 1, '250.00', '250.00', '<p>sssss</p>', NULL, NULL, NULL, NULL, NULL),
-(1083, 404, 4, 'DESATORO DE RED DE DESAGÜE\n', 'M3', 5, 4, '250.00', '1000.00', '<p>sdfsdfdsf</p>', NULL, NULL, NULL, NULL, NULL),
-(1084, 404, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'ML', 1, 3, '250.00', '750.00', '<p>daniel</p><p><br></p><p><br></p>', NULL, NULL, NULL, NULL, NULL),
-(1085, 404, 16, 'LAVAMANOS GRANDE', 'M2', 2, 4, '350.00', '1400.00', '<p>lñklñkl</p>', NULL, NULL, NULL, NULL, NULL),
-(1086, 399, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1087, 402, 28, 'RECOJO DE RESIDUOS SOLIDOS PELIGROSOS', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1088, 402, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M3', 5, 1, '250.00', '250.00', '', NULL, NULL, NULL, NULL, NULL),
-(1090, 410, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M2', 0, 1, '250.00', '250.00', '', NULL, NULL, NULL, NULL, NULL),
-(1092, 411, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'UN', 0, 1, '250.00', '250.00', '<p>hjkhjkhjk</p>', NULL, NULL, NULL, NULL, NULL),
-(1095, 413, 18, 'BAÑO EJECUTIVO', 'UN', 8, 1, '350.00', '350.00', '', NULL, NULL, NULL, NULL, NULL),
-(1096, 413, 14, 'BAÑO STANDAR', 'UN', 5, 1, '350.00', '350.00', '', NULL, NULL, NULL, NULL, NULL),
-(1097, 414, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 0, 1, '250.00', '250.00', '', 1, 10, 1, 2, NULL),
-(1123, 415, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'ML', 0, 1, '250.00', '250.00', '', 1, 10, 2, 1, NULL),
-(1124, 415, 3, 'LIMPIEZA DE POZO SÉPTICO\n', 'KG', 0, 1, '250.00', '250.00', '', 3, 10, 3, 2, NULL),
-(1125, 415, 4, 'DESATORO DE RED DE DESAGÜE\n', 'M2', 0, 1, '250.00', '250.00', '', 5, 10, 4, 2, NULL),
-(1126, 417, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'M2', 0, 1, '250.00', '250.00', '', 2, 10, 1, 2, 'conductor, ayudantes, preventor'),
-(1133, 416, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 0, 1, '250.00', '250.00', '', 4, 10, 1, 2, 'ayudantes, operarios'),
-(1134, 416, 3, 'LIMPIEZA DE POZO SÉPTICO', 'M3', 0, 1, '250.00', '250.00', '<p><br></p>', 4, 10, 1, 1, 'ayudantes'),
-(1135, 418, 7, 'DESINFECCIÓN', 'M2', 0, 1, '250.00', '250.00', '', 2, 10, 2, 1, ''),
-(1136, 419, 7, 'DESINFECCIÓN', 'UN', 0, 1, '250.00', '250.00', '', 2, 10, 1, 1, ''),
-(1137, 420, 25, 'SERVICIO DE SUCCION DE RESIDUOS NO PELIGROSOS', 'M3', 0, 1, '350.00', '350.00', '', 2, 10, 3, 1, ''),
-(1138, 421, 7, 'DESINFECCIÓN', 'M2', 0, 1, '250.00', '250.00', '', 2, 10, 3, 1, ''),
-(1139, 422, 25, 'SERVICIO DE SUCCION DE RESIDUOS NO PELIGROSOS', 'M2', 0, 1, '350.00', '350.00', '', 2, 10, 3, 2, ''),
-(1140, 423, 2, 'LIMPIEZA DE TRAMPA DE GRASA', 'L', 0, 1, '250.00', '250.00', '', 1, 10, 2, 3, ''),
-(1158, 412, 13, 'BAÑO STANDAR / LVM', 'UN', 5, 1, '350.00', '350.00', '', NULL, NULL, NULL, NULL, NULL),
-(1159, 424, 25, 'SERVICIO DE SUCCION DE RESIDUOS NO PELIGROSOS', 'M3', 0, 1, '350.00', '350.00', '', 3, 10, 2, 1, ''),
-(1162, 426, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 0, 1, '250.00', '250.00', '', 0, 0, 0, 0, ''),
-(1163, 427, 7, 'DESINFECCIÓN', 'M3', 0, 2, '250.00', '500.00', '', NULL, 0, NULL, NULL, ''),
-(1164, 427, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'KG', 0, 1, '250.00', '250.00', '', 0, 0, 0, 0, ''),
-(1165, 427, 4, 'DESATORO DE RED DE DESAGÜE', 'KG', 0, 1, '250.00', '250.00', '<p><br></p>', 0, 0, 0, 0, ''),
-(1166, 409, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'ML', 5, 2, '250.00', '500.00', '', 0, 0, 0, 0, ''),
-(1167, 425, 2, 'LIMPIEZA DE TRAMPA DE GRASA\n', 'M3', 0, 1, '250.00', '250.00', '', 3, 10, 2, 2, ''),
-(1168, 425, 18, 'BAÑO EJECUTIVO', 'M2', 0, 1, '350.00', '350.00', '<p><br></p>', 4, 10, 4, 2, ''),
-(1172, 428, 18, 'BAÑO EJECUTIVO', 'UN', 10, 6, '350.00', '2100.00', '', 0, 0, 0, 0, 'Conductor - Ayudante'),
-(1173, 428, 14, 'BAÑO STANDAR', 'M3', 10, 1, '350.00', '350.00', '', 0, 0, 0, 0, ''),
-(1180, 429, 18, 'BAÑO EJECUTIVO', 'M3', 10, 4, '350.00', '1400.00', '', NULL, 0, NULL, NULL, 'Conductor, ayudante'),
-(1181, 429, 13, 'BAÑO STANDAR / LVM', 'M2', 10, 1, '350.00', '350.00', '', NULL, 0, NULL, NULL, ''),
-(1182, 400, 1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', 'M3', 5, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1183, 400, 4, 'DESATORO DE RED DE DESAGÜE\n', 'KG', 1, 1, '250.00', '250.00', NULL, NULL, NULL, NULL, NULL, NULL),
-(1184, 430, 28, 'RECOJO DE RESIDUOS SOLIDOS PELIGROSOS', 'M3', 0, 1, '250.00', '250.00', '', 6, 10, 1, 2, 'Ayudantes,  Operarios, SSoma');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `doc_emision`
---
-
-CREATE TABLE `doc_emision` (
-  `id_demision` int(11) NOT NULL,
-  `documento` varchar(50) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `doc_emision`
---
-
-INSERT INTO `doc_emision` (`id_demision`, `documento`, `estado`) VALUES
-(1, 'Factura', 1),
-(2, 'Boleta', 1),
-(3, 'Nota de Venta', 1),
-(4, 'Nota de Credito', 1),
-(5, 'Nota de Debito', 1);
+INSERT INTO `det_pedido` (`id_detpedido`, `id_pedido`, `id_servicio`, `id_modelo`, `cantidad`, `precio_uni`, `total`, `fech_entrega`, `fech_devolucion`, `estado`) VALUES
+(1, 1, NULL, 1, 10, '250.00', '2500.00', '2023-04-21 17:29:37', NULL, 1),
+(2, 1, NULL, 4, 5, '200.00', '1000.00', '2023-04-21 17:29:37', NULL, 1),
+(3, 2, 3, NULL, 1, '100.00', '100.00', '2023-04-21 21:17:50', NULL, 1),
+(4, 2, 4, NULL, 1, '100.00', '100.00', '2023-04-21 21:17:50', NULL, 1),
+(5, 2, 3, NULL, 1, '100.00', '100.00', '2023-04-21 21:17:50', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -329,31 +162,8 @@ CREATE TABLE `forma_pago` (
 --
 
 INSERT INTO `forma_pago` (`id_fpago`, `descripcion`, `estado`) VALUES
-(1, 'Contado', 1),
-(2, 'Crédito', 1),
-(3, 'Anticipado', 1),
-(4, 'Pago Parcial', 1),
-(5, 'Crédito en Cuotas', 1),
-(6, 'Efectivo', 1),
-(7, 'Tarjeta de Crédito', 1),
-(8, 'Tarjeta de Debito', 1),
-(9, 'Transferencia', 1),
-(10, 'Factura a 30 días ', 1),
-(11, 'Tarjeta Crédito Visa', 1),
-(12, 'Contado Contraentrega', 1),
-(13, 'A 30 dias', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tdoc_emision`
---
-
-CREATE TABLE `tdoc_emision` (
-  `id_tdocemi` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+(1, 'CONTADO', 1),
+(2, 'CREDITO', 1);
 
 -- --------------------------------------------------------
 
@@ -397,371 +207,7 @@ INSERT INTO `td_documento` (`doc_id`, `tick_id`, `doc_nom`, `fech_crea`, `est`) 
 (21, 312, 'FIRMAS PERSONAL DANIEL SANIP_Mesa de trabajo 1 copia 31.png', '2023-02-28 08:30:45', 1),
 (22, 313, 'FIRMAS PERSONAL DANIEL SANIP_Mesa de trabajo 1 copia 31.png', '2023-03-01 09:48:59', 1),
 (23, 317, 'Imagen de WhatsApp 2023-02-14 a las 08.00.16.jpg', '2023-03-03 08:39:00', 1),
-(24, 325, 'Captura de pantalla (1).png', '2023-04-17 12:42:51', 1),
-(25, 326, 'bases-dia-del-trabajo-1-320 (1).JPG', '2023-05-05 16:55:03', 1),
-(26, 327, 'NV01-8-20230505.pdf', '2023-05-06 10:37:36', 1),
-(27, 328, 'recibo-5998838178-2023-04-12.pdf', '2023-05-08 12:47:35', 1),
-(28, 329, 'bases-dia-del-trabajo-1-320.webp', '2023-05-08 12:48:09', 1),
-(29, 330, 'recibo-5998838178-2023-04-12.pdf', '2023-05-09 17:30:27', 1),
-(30, 338, 'andercode_helpdesk1 (14).sql', '2023-05-12 10:35:44', 1),
-(31, 345, 'recibo-5998838178-2023-04-12.pdf', '2023-05-12 10:45:31', 1),
-(32, 346, 'recibo-5998838178-2023-04-12.pdf', '2023-05-12 10:45:48', 1),
-(33, 350, 'andercode_helpdesk1 (14).sql', '2023-05-12 10:54:24', 1),
-(34, 351, 'andercode_helpdesk1 (14).sql', '2023-05-12 10:54:50', 1),
-(35, 352, 'NV01-8-20230505.pdf', '2023-05-12 10:55:53', 1),
-(36, 359, 'andercode_helpdesk1 (15).sql', '2023-05-13 08:43:39', 1),
-(37, 367, 'Captura de pantalla 2023-05-19 101206.png', '2023-05-26 12:54:26', 1),
-(38, 368, 'Captura de pantalla (1).png', '2023-06-07 15:07:03', 1),
-(39, 368, 'Captura de pantalla 2023-04-15 092610.png', '2023-06-07 15:07:03', 1),
-(40, 368, 'Captura de pantalla 2023-04-15 092730.png', '2023-06-07 15:07:03', 1),
-(41, 368, 'Captura de pantalla 2023-04-15 095044.png', '2023-06-07 15:07:03', 1),
-(42, 368, 'Captura de pantalla 2023-05-19 095227.png', '2023-06-07 15:07:03', 1),
-(43, 368, 'Captura de pantalla 2023-05-19 101206.png', '2023-06-07 15:07:03', 1),
-(44, 368, 'Captura de pantalla 2023-05-19 142459.png', '2023-06-07 15:07:03', 1),
-(45, 369, 'Imagen de WhatsApp 7.jpg', '2023-06-07 17:47:25', 1),
-(46, 370, 'Imagen de WhatsApp 2023-05-19 a las 15.24.51.jpg', '2023-06-08 08:11:38', 1),
-(47, 371, '20230610092522.pdf', '2023-06-15 12:25:04', 1),
-(48, 371, '20230610092600.pdf', '2023-06-15 12:25:04', 1),
-(49, 371, '20230610092949.pdf', '2023-06-15 12:25:04', 1),
-(50, 371, '20230610093030.pdf', '2023-06-15 12:25:04', 1),
-(51, 374, '20230610092522.pdf', '2023-06-21 11:51:00', 1),
-(52, 375, '20230610120203.pdf', '2023-06-23 11:18:46', 1),
-(53, 376, 'Recibo de Servicio.pdf', '2023-06-26 17:41:46', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `td_documentopedido`
---
-
-CREATE TABLE `td_documentopedido` (
-  `id_documento` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `doc_nombre` varchar(400) NOT NULL,
-  `fecha_crea` datetime NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `td_documentopedido`
---
-
-INSERT INTO `td_documentopedido` (`id_documento`, `id_pedido`, `doc_nombre`, `fecha_crea`, `estado`) VALUES
-(1, 247, 'Imagen de WhatsApp 6.jpg', '2023-06-08 10:01:11', 1),
-(2, 248, 'Imagen de WhatsApp 6.jpg', '2023-06-08 10:02:14', 1),
-(3, 248, 'Imagen de WhatsApp 7.jpg', '2023-06-08 10:02:14', 1),
-(4, 248, 'Imagen de WhatsApp 2023-05-19 a las 15.24.51.jpg', '2023-06-08 10:02:14', 1),
-(5, 249, 'Imagen de WhatsApp 2.jpg', '2023-06-08 10:04:06', 1),
-(6, 249, 'Imagen de WhatsApp 3.jpg', '2023-06-08 10:04:06', 1),
-(7, 249, 'Imagen de WhatsApp 4.jpg', '2023-06-08 10:04:06', 1),
-(8, 249, 'Imagen de WhatsApp 5.jpg', '2023-06-08 10:04:06', 1),
-(9, 251, 'Imagen de WhatsApp 4.jpg', '2023-06-08 10:20:08', 1),
-(10, 763, 'Imagen de WhatsApp 7.jpg', '2023-06-08 10:52:41', 1),
-(11, 763, 'Imagen de WhatsApp 2023-05-19 a las 15.24.51.jpg', '2023-06-08 10:52:41', 1),
-(12, 765, 'Imagen de WhatsApp 5.jpg', '2023-06-08 11:12:56', 1),
-(13, 766, 'Imagen de WhatsApp 5.jpg', '2023-06-08 14:34:12', 1),
-(14, 265, 'Imagen de WhatsApp 2023-05-19 a las 15.24.51.jpg', '2023-06-08 14:46:20', 1),
-(15, 267, 'Imagen de WhatsApp 5.jpg', '2023-06-08 14:48:36', 1),
-(16, 776, 'Imagen de WhatsApp 7.jpg', '2023-06-08 15:51:47', 1),
-(17, 777, 'Imagen de WhatsApp 4.jpg', '2023-06-08 15:53:35', 1),
-(18, 779, 'Imagen de WhatsApp 7.jpg', '2023-06-08 19:39:00', 1),
-(19, 300, 'Imagen de WhatsApp 7.jpg', '2023-06-09 09:22:24', 1),
-(20, 301, 'Imagen de WhatsApp 7.jpg', '2023-06-09 09:34:09', 1),
-(21, 304, '20230610092600.pdf', '2023-06-10 10:53:23', 1),
-(22, 307, '20230610093144.pdf', '2023-06-10 11:10:23', 1),
-(23, 311, '20230610093225.pdf', '2023-06-10 11:31:17', 1),
-(24, 809, '20230610093030.pdf', '2023-06-10 12:03:42', 1),
-(25, 812, '20230610093030.pdf', '2023-06-10 12:12:39', 1),
-(26, 813, '20230610093030.pdf', '2023-06-12 09:17:08', 1),
-(27, 816, '20230610093413.pdf', '2023-06-12 16:38:07', 1),
-(28, 829, '20230610092949.pdf', '2023-06-12 18:12:22', 1),
-(29, 830, '20230610092600.pdf', '2023-06-15 08:42:11', 1),
-(30, 831, '20230610093225.pdf', '2023-06-15 09:01:45', 1),
-(31, 342, '20230610092949.pdf', '2023-06-15 11:05:11', 1),
-(32, 342, '20230610092949.pdf', '2023-06-15 11:05:11', 1),
-(33, 342, '20230610093030.pdf', '2023-06-15 11:05:11', 1),
-(34, 342, '20230610093030.pdf', '2023-06-15 11:05:11', 1),
-(35, 342, '20230610093144.pdf', '2023-06-15 11:05:11', 1),
-(36, 342, '20230610093144.pdf', '2023-06-15 11:05:11', 1),
-(37, 344, '20230610092600.pdf', '2023-06-15 11:11:21', 1),
-(38, 344, '20230610092600.pdf', '2023-06-15 11:11:21', 1),
-(39, 344, '20230610092949.pdf', '2023-06-15 11:11:21', 1),
-(40, 344, '20230610092949.pdf', '2023-06-15 11:11:21', 1),
-(41, 345, '20230610093030.pdf', '2023-06-15 11:20:30', 1),
-(42, 345, '20230610093144.pdf', '2023-06-15 11:20:30', 1),
-(43, 345, '20230610093225.pdf', '2023-06-15 11:20:30', 1),
-(44, 345, '20230610093302.pdf', '2023-06-15 11:20:30', 1),
-(45, 345, '20230610093413.pdf', '2023-06-15 11:20:30', 1),
-(46, 347, '20230610093302.pdf', '2023-06-15 15:25:11', 1),
-(47, 347, '20230610093413.pdf', '2023-06-15 15:25:11', 1),
-(48, 347, '20230610093450.pdf', '2023-06-15 15:25:11', 1),
-(49, 348, '20230610093225.pdf', '2023-06-15 15:26:08', 1),
-(50, 349, '20230607130524.pdf', '2023-06-15 15:27:18', 1),
-(51, 349, '20230610083759.pdf', '2023-06-15 15:27:18', 1),
-(52, 349, '20230610092522.pdf', '2023-06-15 15:27:18', 1),
-(53, 349, '20230610092600.pdf', '2023-06-15 15:27:18', 1),
-(54, 349, '20230610092949.pdf', '2023-06-15 15:27:18', 1),
-(55, 350, '20230610093030.pdf', '2023-06-15 15:28:06', 1),
-(56, 351, '20230607130524.pdf', '2023-06-15 16:57:32', 1),
-(57, 351, '20230610083759.pdf', '2023-06-15 16:57:32', 1),
-(58, 351, '20230610092522.pdf', '2023-06-15 16:57:32', 1),
-(59, 351, '20230610092600.pdf', '2023-06-15 16:57:32', 1),
-(60, 352, '20230607130524.pdf', '2023-06-15 17:03:00', 1),
-(61, 352, '20230610083759.pdf', '2023-06-15 17:03:00', 1),
-(62, 352, '20230610092522.pdf', '2023-06-15 17:03:00', 1),
-(63, 352, '20230610092600.pdf', '2023-06-15 17:03:00', 1),
-(64, 352, '20230610092949.pdf', '2023-06-15 17:03:00', 1),
-(65, 352, '20230610093030.pdf', '2023-06-15 17:03:00', 1),
-(66, 352, '20230610093144.pdf', '2023-06-15 17:03:00', 1),
-(67, 352, '20230610093225.pdf', '2023-06-15 17:03:00', 1),
-(68, 352, '20230610093302.pdf', '2023-06-15 17:03:00', 1),
-(69, 353, '20230607130524.pdf', '2023-06-15 17:03:01', 1),
-(70, 353, '20230610083759.pdf', '2023-06-15 17:03:01', 1),
-(71, 353, '20230610092522.pdf', '2023-06-15 17:03:01', 1),
-(72, 353, '20230610092600.pdf', '2023-06-15 17:03:01', 1),
-(73, 353, '20230610092949.pdf', '2023-06-15 17:03:01', 1),
-(74, 353, '20230610093030.pdf', '2023-06-15 17:03:01', 1),
-(75, 353, '20230610093144.pdf', '2023-06-15 17:03:01', 1),
-(76, 353, '20230610093225.pdf', '2023-06-15 17:03:01', 1),
-(77, 353, '20230610093302.pdf', '2023-06-15 17:03:01', 1),
-(78, 354, '20230607130524.pdf', '2023-06-15 17:03:17', 1),
-(79, 354, '20230610083759.pdf', '2023-06-15 17:03:17', 1),
-(80, 354, '20230610092522.pdf', '2023-06-15 17:03:17', 1),
-(81, 354, '20230610092600.pdf', '2023-06-15 17:03:17', 1),
-(82, 354, '20230610092949.pdf', '2023-06-15 17:03:17', 1),
-(83, 354, '20230610093030.pdf', '2023-06-15 17:03:17', 1),
-(84, 354, '20230610093144.pdf', '2023-06-15 17:03:17', 1),
-(85, 354, '20230610093225.pdf', '2023-06-15 17:03:17', 1),
-(86, 354, '20230610093302.pdf', '2023-06-15 17:03:17', 1),
-(87, 355, '20230607130524.pdf', '2023-06-15 17:05:16', 1),
-(88, 355, '20230610083759.pdf', '2023-06-15 17:05:16', 1),
-(89, 355, '20230610092522.pdf', '2023-06-15 17:05:16', 1),
-(90, 355, '20230610092600.pdf', '2023-06-15 17:05:16', 1),
-(91, 355, '20230610092949.pdf', '2023-06-15 17:05:16', 1),
-(92, 355, '20230610093030.pdf', '2023-06-15 17:05:16', 1),
-(93, 355, '20230610093144.pdf', '2023-06-15 17:05:16', 1),
-(94, 356, '20230607130524.pdf', '2023-06-16 09:12:28', 1),
-(95, 356, '20230610083759.pdf', '2023-06-16 09:12:28', 1),
-(96, 356, '20230610092522.pdf', '2023-06-16 09:12:28', 1),
-(97, 356, '20230610092600.pdf', '2023-06-16 09:12:28', 1),
-(98, 358, '20230607130524.pdf', '2023-06-16 09:31:39', 1),
-(99, 358, '20230610083759.pdf', '2023-06-16 09:31:39', 1),
-(100, 358, '20230610092522.pdf', '2023-06-16 09:31:39', 1),
-(101, 358, '20230610092600.pdf', '2023-06-16 09:31:39', 1),
-(102, 358, '20230610092949.pdf', '2023-06-16 09:31:39', 1),
-(103, 359, '20230607130524.pdf', '2023-06-16 09:34:41', 1),
-(104, 359, '20230610083759.pdf', '2023-06-16 09:34:41', 1),
-(105, 359, '20230610092522.pdf', '2023-06-16 09:34:41', 1),
-(106, 359, '20230610092600.pdf', '2023-06-16 09:34:41', 1),
-(107, 359, '20230610092949.pdf', '2023-06-16 09:34:41', 1),
-(108, 360, '20230610083759.pdf', '2023-06-16 09:35:48', 1),
-(109, 360, '20230610092522.pdf', '2023-06-16 09:35:48', 1),
-(110, 360, '20230610092600.pdf', '2023-06-16 09:35:48', 1),
-(111, 360, '20230610092949.pdf', '2023-06-16 09:35:48', 1),
-(112, 361, '20230610093144.pdf', '2023-06-16 09:38:24', 1),
-(113, 361, '20230610093225.pdf', '2023-06-16 09:38:24', 1),
-(114, 361, '20230610093302.pdf', '2023-06-16 09:38:24', 1),
-(115, 362, 'reporte-cierre-caja-17-06-2023-085007.xls', '2023-06-17 10:02:40', 1),
-(116, 362, 'reporte-ventas-locales20230617083708.xls', '2023-06-17 10:02:40', 1),
-(117, 362, '10444444444-01-F001-15.xml', '2023-06-17 10:02:40', 1),
-(118, 362, 'andercode_helpdesk1 (22).sql', '2023-06-17 10:02:40', 1),
-(119, 367, 'reporte-cierre-caja-17-06-2023-085007.xls', '2023-06-19 09:22:49', 1),
-(120, 367, 'reporte-cierre-caja-17-06-2023-084958.xls', '2023-06-19 09:22:49', 1),
-(121, 368, 'reporte-cierre-caja-17-06-2023-085007.xls', '2023-06-19 09:34:11', 1),
-(122, 369, 'reporte-cierre-caja-17-06-2023-085007.xls', '2023-06-19 09:39:04', 1),
-(123, 369, 'reporte-cierre-caja-17-06-2023-084958.xls', '2023-06-19 09:39:04', 1),
-(124, 369, 'reporte-ventas-locales20230617083708.xls', '2023-06-19 09:39:04', 1),
-(125, 369, 'Reporte_C_Cobrar_F_Pago2023-06-14 12_33_51.xlsx', '2023-06-19 09:39:04', 1),
-(126, 369, 'R-10444444444-01-F001-15.zip', '2023-06-19 09:39:04', 1),
-(127, 369, '10444444444-01-F001-15.xml', '2023-06-19 09:39:04', 1),
-(128, 370, 'reporte-cierre-caja-17-06-2023-085007.xls', '2023-06-19 09:47:06', 1),
-(129, 370, 'reporte-cierre-caja-17-06-2023-084958.xls', '2023-06-19 09:47:06', 1),
-(130, 370, 'reporte-ventas-locales20230617083708.xls', '2023-06-19 09:47:06', 1),
-(131, 370, 'Reporte_C_Cobrar_F_Pago2023-06-14 12_33_51.xlsx', '2023-06-19 09:47:06', 1),
-(132, 373, 'reporte-cierre-caja-17-06-2023-084958.xls', '2023-06-19 12:37:34', 1),
-(133, 374, 'reporte-cierre-caja-17-06-2023-085007.xls', '2023-06-19 12:42:14', 1),
-(134, 374, 'reporte-cierre-caja-17-06-2023-084958.xls', '2023-06-19 12:42:14', 1),
-(135, 374, 'reporte-ventas-locales20230617083708.xls', '2023-06-19 12:42:14', 1),
-(136, 376, 'reporte-cierre-caja-17-06-2023-084958.xls', '2023-06-19 12:44:09', 1),
-(137, 376, 'reporte-ventas-locales20230617083708.xls', '2023-06-19 12:44:09', 1),
-(138, 376, 'Reporte_C_Cobrar_F_Pago2023-06-14 12_33_51.xlsx', '2023-06-19 12:44:09', 1),
-(139, 376, 'R-10444444444-01-F001-15.zip', '2023-06-19 12:44:09', 1),
-(140, 376, '10444444444-01-F001-15.xml', '2023-06-19 12:44:09', 1),
-(141, 378, 'Captura de pantalla 2023-04-15 092610.png', '2023-06-19 16:11:51', 1),
-(142, 378, 'Captura de pantalla 2023-04-15 092730.png', '2023-06-19 16:11:51', 1),
-(143, 378, 'Captura de pantalla 2023-04-15 095044.png', '2023-06-19 16:11:51', 1),
-(144, 378, 'Captura de pantalla 2023-05-19 095227.png', '2023-06-19 16:11:51', 1),
-(145, 379, 'Captura de pantalla (1).png', '2023-06-20 08:56:21', 1),
-(146, 379, 'Captura de pantalla 2023-04-15 092610.png', '2023-06-20 08:56:21', 1),
-(147, 379, 'Captura de pantalla 2023-04-15 092730.png', '2023-06-20 08:56:21', 1),
-(148, 379, 'Captura de pantalla 2023-04-15 095044.png', '2023-06-20 08:56:21', 1),
-(149, 379, 'Captura de pantalla 2023-05-19 095227.png', '2023-06-20 08:56:21', 1),
-(150, 379, 'Captura de pantalla 2023-05-19 101206.png', '2023-06-20 08:56:21', 1),
-(151, 379, 'Captura de pantalla 2023-05-19 142459.png', '2023-06-20 08:56:21', 1),
-(152, 380, 'Imagen de WhatsApp 2023-06-20 a las 16.03.44.jpg', '2023-06-20 17:38:22', 1),
-(153, 381, '20230607130524.pdf', '2023-06-20 18:03:29', 1),
-(154, 381, '20230610083759.pdf', '2023-06-20 18:03:29', 1),
-(155, 381, '20230610092522.pdf', '2023-06-20 18:03:29', 1),
-(156, 381, '20230610092600.pdf', '2023-06-20 18:03:29', 1),
-(157, 381, '20230610092949.pdf', '2023-06-20 18:03:29', 1),
-(158, 382, '20230607130524.pdf', '2023-06-20 18:04:31', 1),
-(159, 382, '20230610083759.pdf', '2023-06-20 18:04:31', 1),
-(160, 382, '20230610092522.pdf', '2023-06-20 18:04:31', 1),
-(161, 382, '20230610092600.pdf', '2023-06-20 18:04:31', 1),
-(162, 392, '20230607130524.pdf', '2023-06-22 08:32:11', 1),
-(163, 392, '20230610083759.pdf', '2023-06-22 08:32:11', 1),
-(164, 392, '20230610092522.pdf', '2023-06-22 08:32:11', 1),
-(165, 393, '20230610083759.pdf', '2023-06-22 09:13:40', 1),
-(166, 393, '20230610092522.pdf', '2023-06-22 09:13:40', 1),
-(167, 393, '20230610092600.pdf', '2023-06-22 09:13:40', 1),
-(168, 393, '20230610092949.pdf', '2023-06-22 09:13:40', 1),
-(169, 393, '20230610093030.pdf', '2023-06-22 09:13:40', 1),
-(170, 394, '20230607130524.pdf', '2023-06-22 10:11:11', 1),
-(171, 394, '20230610083759.pdf', '2023-06-22 10:11:11', 1),
-(172, 394, '20230610092522.pdf', '2023-06-22 10:11:11', 1),
-(173, 395, '20230607130524.pdf', '2023-06-22 10:22:04', 1),
-(174, 395, '20230610083759.pdf', '2023-06-22 10:22:04', 1),
-(175, 395, '20230610092522.pdf', '2023-06-22 10:22:04', 1),
-(176, 396, '20230607130524.pdf', '2023-06-22 15:36:05', 1),
-(177, 397, 'Documento de Identiddad(DNI).pdf', '2023-06-24 13:24:17', 1),
-(178, 397, 'Recibo de Servicio.pdf', '2023-06-24 13:24:17', 1),
-(179, 398, 'Documento de Identiddad(DNI).pdf', '2023-06-26 16:12:14', 1),
-(180, 398, 'Recibo de Servicio.pdf', '2023-06-26 16:12:14', 1),
-(181, 399, 'Documento de Identiddad(DNI).pdf', '2023-06-28 08:55:52', 1),
-(182, 399, 'Recibo de Servicio.pdf', '2023-06-28 08:55:52', 1),
-(183, 400, 'Documento de Identiddad(DNI).pdf', '2023-06-30 08:45:00', 1),
-(184, 400, 'Recibo de Servicio.pdf', '2023-06-30 08:45:00', 1),
-(185, 401, 'Recibo de Servicio.pdf', '2023-06-30 13:01:35', 1),
-(186, 405, 'Documento de Identiddad(DNI).pdf', '2023-06-30 18:13:01', 1),
-(187, 405, 'Recibo de Servicio.pdf', '2023-06-30 18:13:01', 1),
-(188, 406, 'Documento de Identiddad(DNI).pdf', '2023-06-30 18:40:27', 1),
-(189, 406, 'Recibo de Servicio.pdf', '2023-06-30 18:40:27', 1),
-(190, 407, '20230703192716.pdf', '2023-07-04 08:05:16', 1),
-(191, 408, '20230703200000.pdf', '2023-07-10 08:21:49', 1),
-(192, 408, '20230703192840.pdf', '2023-07-10 08:21:49', 1),
-(193, 411, '20230712163318.pdf', '2023-07-17 08:37:05', 1),
-(194, 411, '20230711121716.pdf', '2023-07-17 08:37:05', 1),
-(195, 412, '20230710123356.pdf', '2023-07-17 08:41:15', 1),
-(196, 413, '20230711121716.pdf', '2023-07-17 10:53:34', 1),
-(197, 414, '20230710123356.pdf', '2023-07-17 13:13:58', 1),
-(198, 415, '20230703192840.pdf', '2023-07-17 15:11:31', 1),
-(199, 416, '20230710113713.pdf', '2023-07-17 16:42:55', 1),
-(200, 417, '20230712163318.pdf', '2023-07-18 10:41:21', 1),
-(201, 417, '20230711121716.pdf', '2023-07-18 10:41:21', 1),
-(202, 418, '20230718172952.pdf', '2023-07-19 09:21:58', 1),
-(203, 419, '20230718172952.pdf', '2023-07-19 09:31:42', 1),
-(204, 421, '20230712163318.pdf', '2023-07-19 09:54:16', 1),
-(205, 421, '20230711121716.pdf', '2023-07-19 09:54:16', 1),
-(206, 422, '20230718174822.pdf', '2023-07-19 10:04:03', 1),
-(207, 422, '20230718174736.pdf', '2023-07-19 10:04:03', 1),
-(208, 422, '20230718173324.pdf', '2023-07-19 10:04:03', 1),
-(209, 424, '20230711121633.pdf', '2023-07-19 10:25:04', 1),
-(210, 426, '20230718174822.pdf', '2023-07-20 09:51:10', 1),
-(211, 426, '20230718174736.pdf', '2023-07-20 09:51:10', 1),
-(212, 427, '20230718173150.pdf', '2023-07-21 10:26:22', 1),
-(213, 428, '20230721172528.pdf', '2023-07-22 09:24:52', 1),
-(214, 429, '20230720103825.pdf', '2023-07-22 09:57:02', 1),
-(215, 430, '20230721172251.pdf', '2023-07-22 10:08:43', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `td_documentoseguimiento`
---
-
-CREATE TABLE `td_documentoseguimiento` (
-  `id_docseguimiento` int(11) NOT NULL,
-  `id_seguimiento` int(11) NOT NULL,
-  `docsegui_nom` varchar(300) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `td_documentoseguimiento`
---
-
-INSERT INTO `td_documentoseguimiento` (`id_docseguimiento`, `id_seguimiento`, `docsegui_nom`, `estado`) VALUES
-(1, 17, 'Documento de Identiddad(DNI).pdf', 1),
-(2, 17, 'Recibo de Servicio.pdf', 1),
-(3, 19, 'Documento de Identiddad(DNI).pdf', 1),
-(4, 20, 'Recibo de Servicio.pdf', 1),
-(5, 23, 'Documento de Identiddad(DNI).pdf', 1),
-(6, 23, 'Recibo de Servicio.pdf', 1),
-(7, 26, 'Recibo de Servicio.pdf', 1),
-(8, 27, 'Documento de Identiddad(DNI).pdf', 1),
-(9, 27, 'Recibo de Servicio.pdf', 1),
-(10, 29, '20230630182640.pdf', 1),
-(11, 29, '20230630180858.pdf', 1),
-(12, 29, '20230630180835.pdf', 1),
-(13, 31, 'firma.png', 1),
-(14, 33, '20230703200000.pdf', 1),
-(15, 33, '20230703192840.pdf', 1),
-(16, 34, '20230703191416.pdf', 1),
-(17, 37, '20230710113713.pdf', 1),
-(18, 39, '20230712163318.pdf', 1),
-(19, 41, '20230720181910.pdf', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `td_pedidoseguimiento`
---
-
-CREATE TABLE `td_pedidoseguimiento` (
-  `id_seguimiento` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `usu_id` int(11) NOT NULL,
-  `segui_descripcion` varchar(400) DEFAULT NULL,
-  `fecha_crea` datetime NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `td_pedidoseguimiento`
---
-
-INSERT INTO `td_pedidoseguimiento` (`id_seguimiento`, `id_pedido`, `usu_id`, `segui_descripcion`, `fecha_crea`, `estado`) VALUES
-(1, 399, 6, '<p>dfgdgdfg</p>', '2023-06-28 11:48:24', 1),
-(2, 399, 15, '<p>se adjunto OC</p>', '2023-06-28 11:49:22', 1),
-(3, 399, 15, '<p>fddfdsfsdf</p>', '2023-06-28 12:15:12', 1),
-(4, 399, 15, '<p>sdfsdfsd</p>', '2023-06-28 12:15:16', 1),
-(5, 396, 15, '<p>fsfsdfsdf</p>', '2023-06-28 12:43:10', 1),
-(6, 396, 6, '<p>fdfgdfgfg</p>', '2023-06-28 12:45:18', 1),
-(7, 396, 15, '<p>dfgdfgdfg</p>', '2023-06-28 12:45:30', 1),
-(8, 396, 6, '<p>afafaf</p><p><br></p>', '2023-06-28 12:45:51', 1),
-(9, 396, 15, '<p>asdfasdfas</p>', '2023-06-28 12:45:58', 1),
-(10, 396, 15, '<p>asdadsad</p>', '2023-06-28 13:05:35', 1),
-(11, 396, 15, '<p>fghfg</p>', '2023-06-28 14:28:10', 1),
-(12, 396, 6, '<p>aaaaaaaaaaaaaaa</p>', '2023-06-28 14:55:45', 1),
-(13, 393, 15, '<p>dfdfsd</p>', '2023-06-28 16:58:40', 1),
-(14, 393, 15, '<p>ggggggggggggg</p>', '2023-06-28 17:01:59', 1),
-(15, 393, 15, '<p>sdfsdf</p>', '2023-06-28 17:09:51', 1),
-(16, 393, 15, '<p>ya etsa</p>', '2023-06-28 17:13:14', 1),
-(17, 393, 15, '<p>valida</p>', '2023-06-28 17:13:41', 1),
-(18, 400, 15, '<p>dfgfgdg</p>', '2023-06-30 08:45:58', 1),
-(19, 400, 15, '<p>dfgdfg</p>', '2023-06-30 08:46:10', 1),
-(20, 400, 15, '<p>fdgfdg</p>', '2023-06-30 11:33:29', 1),
-(21, 400, 15, '<p>dfsfs</p>', '2023-06-30 11:33:39', 1),
-(22, 400, 15, '<p>fgdfgdfg</p>', '2023-06-30 11:36:35', 1),
-(23, 400, 15, '<p>dfgdfg</p>', '2023-06-30 11:36:45', 1),
-(24, 401, 15, 'por favor llamar aal client para coordinar la entrega y solicitar informacion de la direccion de despacho', '2023-06-30 13:05:11', 1),
-(25, 401, 6, '<p>ya se corrdino con cliente</p><p><br></p>', '2023-06-30 13:06:12', 1),
-(26, 401, 15, '<p>sea adjunta oc para facturacion al cliente</p>', '2023-06-30 13:08:17', 1),
-(27, 401, 15, 'se adjunta facturas del pedido', '2023-06-30 13:09:07', 1),
-(28, 406, 15, '<p>adjnuntar oc carta de aceptacion</p>', '2023-07-01 10:01:40', 1),
-(29, 406, 15, '<p>docuemntos adjuntos</p>', '2023-07-01 10:01:54', 1),
-(30, 406, 15, '<p>sdsdcds</p>', '2023-07-03 08:26:38', 1),
-(31, 406, 15, '<p>sdcsdc</p>', '2023-07-03 08:26:47', 1),
-(32, 407, 15, '<p>dsdfsd</p>', '2023-07-04 08:25:40', 1),
-(33, 407, 15, '<p>asdasd</p>', '2023-07-04 08:25:50', 1),
-(34, 408, 15, '<p>Adjunto oc</p>', '2023-07-10 08:24:46', 1),
-(35, 408, 15, '<p>fijate bien esa oc no perteneces al cliente</p>', '2023-07-10 08:25:12', 1),
-(36, 408, 15, 'adjuntar comprobante&nbsp;', '2023-07-15 09:42:45', 1),
-(37, 408, 15, '<p>documento adjunto</p>', '2023-07-15 09:43:08', 1),
-(38, 413, 15, 'adjuntar oc del cliente', '2023-07-17 10:56:50', 1),
-(39, 413, 15, '<p>oc adjuntada</p>', '2023-07-17 10:57:08', 1),
-(40, 429, 15, '<p>ytjjghjghj</p>', '2023-07-22 10:03:36', 1),
-(41, 429, 15, '<p>ghjghj</p>', '2023-07-22 10:03:42', 1);
+(24, 325, 'Captura de pantalla (1).png', '2023-04-17 12:42:51', 1);
 
 -- --------------------------------------------------------
 
@@ -928,121 +374,7 @@ INSERT INTO `td_ticketdetalle` (`tickd_id`, `tick_id`, `usu_id`, `tickd_descrip`
 (141, 322, 15, '<p>oipopñioñ</p>', '2023-04-19 09:59:01', 1),
 (142, 324, 15, 'Ticket Cerrado...', '2023-04-20 15:04:35', 1),
 (143, 322, 15, '<p>sadsadasdds</p>', '2023-04-24 14:59:16', 1),
-(144, 322, 15, '<p>aasaaaaaaaaaaaaaaaaaa</p>', '2023-04-24 14:59:22', 1),
-(145, 329, 6, '<p>dsfsdfsdf</p>', '2023-05-08 12:48:51', 1),
-(146, 326, 6, 'Ticket Cerrado...', '2023-05-23 08:20:54', 1),
-(147, 337, 6, '<p>gfgdfg</p>', '2023-05-26 12:56:00', 1),
-(148, 368, 6, '<p>dsfsdfsd</p>', '2023-06-07 15:07:30', 1),
-(149, 368, 6, '<p>sdfsdfsdf</p>', '2023-06-07 15:07:35', 1),
-(150, 368, 6, '<p><img src=\"data:image/png;base64,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\" alt=\"\"><br></p>', '2023-06-07 15:08:22', 1),
-(151, 326, 1, 'Ticket Re-Abierto...', '2023-06-21 09:20:25', 1),
-(152, 326, 1, 'Ticket Cerrado...', '2023-06-21 09:20:38', 1),
-(153, 374, 68, '<p>dcscsd</p>', '2023-06-22 12:25:56', 1),
-(154, 375, 68, '<p>dfsdf</p>', '2023-06-23 11:48:16', 1),
-(155, 375, 68, 'Ticket Cerrado...', '2023-06-23 12:26:01', 1),
-(156, 375, 68, 'Ticket Re-Abierto...', '2023-06-23 12:26:44', 1),
-(157, 376, 6, 'enviame tus credenciales del teamwiever', '2023-06-26 17:42:33', 1),
-(158, 376, 6, '<p>ok&nbsp;</p>', '2023-06-26 17:42:43', 1),
-(159, 376, 6, 'Ticket Cerrado...', '2023-06-26 17:43:18', 1),
-(160, 376, 6, 'Ticket Re-Abierto...', '2023-06-26 17:43:45', 1),
-(161, 376, 6, 'Ticket Cerrado...', '2023-06-26 17:44:27', 1),
-(162, 321, 15, 'Ticket Cerrado...', '2023-07-15 09:32:55', 1),
-(163, 321, 15, 'Ticket Re-Abierto...', '2023-07-22 11:43:26', 1),
-(164, 324, 15, 'Ticket Re-Abierto...', '2023-07-22 11:43:43', 1),
-(165, 325, 15, 'Ticket Re-Abierto...', '2023-07-22 11:43:46', 1),
-(166, 377, 15, '<p>fdfgfdg</p>', '2023-07-22 11:57:47', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipo_servicio`
---
-
-CREATE TABLE `tipo_servicio` (
-  `id_modalidad` int(11) NOT NULL,
-  `modalidad` varchar(100) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tipo_servicio`
---
-
-INSERT INTO `tipo_servicio` (`id_modalidad`, `modalidad`, `estado`) VALUES
-(1, 'Otros', 1),
-(2, 'Saneamiento', 1),
-(3, 'Succion', 1),
-(4, 'Gestión de Residuos', 1),
-(5, 'Portatiles', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_acopio`
---
-
-CREATE TABLE `tm_acopio` (
-  `id_acopio` int(11) NOT NULL,
-  `descripcion` varchar(200) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_acopio`
---
-
-INSERT INTO `tm_acopio` (`id_acopio`, `descripcion`, `estado`) VALUES
-(1, 'Cilindros', 1),
-(2, 'Cajas de Madera / Cartón', 1),
-(3, 'Sacos', 1),
-(4, 'Palets / Paletas', 1),
-(5, 'A Granel', 1),
-(6, 'Otros / Bolsas', 1),
-(7, 'Pozo Septico(PS)', 1),
-(8, 'Trampa de Grasa(TG)', 1),
-(9, 'Efluentes Industriales', 1),
-(10, 'PTAR', 1),
-(11, 'Trampa de Grasa de Carroa', 1),
-(12, 'Otros', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_cargo`
---
-
-CREATE TABLE `tm_cargo` (
-  `id_cargo` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_cargo`
---
-
-INSERT INTO `tm_cargo` (`id_cargo`, `descripcion`, `estado`) VALUES
-(1, 'Gerente general', 1),
-(2, 'Gerente Comercial', 1),
-(3, 'Director de Proyectos', 1),
-(4, 'Gerente de Operaciones', 1),
-(5, 'Jefatura de RRHH - Contabilidad', 1),
-(6, 'Administrador', 1),
-(7, 'Asistente RRHH', 1),
-(8, 'Supervisor de Seguridad', 1),
-(9, 'Supervisor de Saneamiento', 1),
-(10, 'Supervisor de Campo', 1),
-(11, 'Programacion -  Documentacion', 1),
-(12, 'Asistente programacion', 1),
-(13, 'Conductor', 1),
-(14, 'Operadores', 1),
-(15, 'Auxiliares', 1),
-(16, 'Facturación y Cobranza', 1),
-(17, 'Contabilidad', 1),
-(18, 'Supervisor de Operaciones', 1),
-(19, 'Asistente de Licitaciones', 1),
-(20, 'Técnico Servicio Generales', 1),
-(21, 'Desarrollo y Soporte de Sistemas', 1);
+(144, 322, 15, '<p>aasaaaaaaaaaaaaaaaaaa</p>', '2023-04-24 14:59:22', 1);
 
 -- --------------------------------------------------------
 
@@ -1081,156 +413,35 @@ CREATE TABLE `tm_cliente` (
   `nro_doc` varchar(15) NOT NULL,
   `nom_cli` varchar(200) NOT NULL,
   `direc_cli` varchar(300) NOT NULL,
-  `id_ccredito` int(11) DEFAULT NULL,
   `id_departamento` int(11) DEFAULT NULL,
   `id_provincia` int(11) DEFAULT NULL,
   `id_distrito` int(11) DEFAULT NULL,
-  `tele_cli` varchar(30) DEFAULT NULL,
-  `correo_cli` varchar(100) DEFAULT NULL,
+  `tele_cli` varchar(30) NOT NULL,
+  `correo_cli` varchar(100) NOT NULL,
   `contacto_telf` varchar(15) DEFAULT NULL,
   `contacto_cli` varchar(150) DEFAULT NULL,
   `fech_crea` datetime NOT NULL,
   `fech_modi` datetime DEFAULT NULL,
   `fech_elim` datetime DEFAULT NULL,
-  `est` int(11) NOT NULL,
-  `contacto_factu` varchar(100) DEFAULT NULL,
-  `correo_fac` varchar(100) DEFAULT NULL,
-  `contacto_cobra` varchar(100) DEFAULT NULL,
-  `correo_cobra` varchar(100) DEFAULT NULL,
-  `tele_cobra` varchar(30) DEFAULT NULL,
-  `contacto_adi` varchar(100) DEFAULT NULL,
-  `correo_adi` varchar(100) DEFAULT NULL,
-  `tele_adi` varchar(30) DEFAULT NULL,
-  `web` varchar(150) DEFAULT NULL
+  `est` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `tm_cliente`
 --
 
-INSERT INTO `tm_cliente` (`id_cliente`, `tipodoc_id`, `nro_doc`, `nom_cli`, `direc_cli`, `id_ccredito`, `id_departamento`, `id_provincia`, `id_distrito`, `tele_cli`, `correo_cli`, `contacto_telf`, `contacto_cli`, `fech_crea`, `fech_modi`, `fech_elim`, `est`, `contacto_factu`, `correo_fac`, `contacto_cobra`, `correo_cobra`, `tele_cobra`, `contacto_adi`, `correo_adi`, `tele_adi`, `web`) VALUES
-(187, 2, '45687899', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 1, 1, 1, 1, '436989', 'ventas@sanipperu.com', '997307803', 'Tania Peñafiel', '2023-05-17 09:29:33', NULL, NULL, 1, 'dfghdh', 'dfghdfgh@fdgsdfg', 'dfhdfh', 'dfghdfghdfghdfgh@dfgdsgsd', 'fdghdfgh', 'sdfgsdfgsdfg', 'dfgsdf@ergfwergfe', '565', 'dfgdsfgwdgsdfg'),
-(188, 1, '20505688902', 'NOMA INMOBILIARIA S.A.C. ', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 1, 15, 127, 1281, '', 'dan.msaj@gmail.com', '', 'SDFSDF', '2023-05-17 09:30:18', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(189, 1, '20100366747', 'LLAMA GAS S A ', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 2, 15, 127, 1290, '', 'sistemas@sanipperu.com', '9978307803', 'Manuel Garcia', '2023-05-17 09:31:01', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(190, 1, '20511317038', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 1, 15, 127, 1281, 'NULL', 'chinacivil@construcction.com', '9978307803', 'Manuel Garcia', '2023-05-17 09:33:33', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(202, 1, '20550372640', 'RUTAS DE LIMA S.A.C.', 'CAR.PANAMERICANA SUR KM. 19.65 NRO. S/N LIMA - LIMA - VILLA EL SALVADOR', 4, 15, 127, 1292, '', 'fghfghfgh@dsfdsfsf', '997307803', 'alkdfhaoisd', '2023-05-17 16:59:16', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(203, 1, '20516390060', 'CLASEM SAC ', 'AV. REPUBLICA DE COLOMBIA NRO. 185 INT. 501 LIMA - LIMA - SAN ISIDRO', 2, 15, 127, 1266, '', 'fghfghfgh@dsfdsfsf', '997307803', 'alkdfhaoisd', '2023-05-17 18:32:54', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(204, 1, '20604748802', 'NOMA INMOBILIARIA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201\"CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL ', 2, 15, 127, 1280, '', 'fghfghfgh@dsfdsfsf', '', 'alkdfhaoisd', '2023-05-18 09:13:18', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(205, 2, '10210310', 'ASDASDASDASDASD', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 2, 2, 9, 96, '997307803', 'asdasdd@adad', '997307803', 'ASDASD', '2023-05-18 09:13:57', NULL, '2023-05-18 12:13:45', 0, 'Luis Martinez', 'dan.msaj@gmail.com', 'Angela Paredes', 'cobranza@rrhh.com', '987456213', 'Margarita Suxe', 'Contabilidad.com', '967438288', 'www.google.com'),
-(206, 2, '47856925', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 3, 1, 2, 22, '997307803', 'dan.msaj@gmail.com', '997307803', 'Luis Aguila', '2023-05-18 11:56:44', NULL, '2023-05-18 12:13:48', 0, 'aaaaaaaaaaaaaaaaa', 'fghfhfgh@asdas', '', '', '', '', '', '', ''),
-(207, 1, '20587458965', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 5, 2, 10, 103, '997307803', 'dan-ms@hotmail.com', '446686', 'Daniel Moscoso', '2023-05-19 08:23:30', NULL, '2023-05-23 15:15:38', 0, 'rrrrrrrrrrrrrrrrrrrrrr', 'fghfhfgh@asdas', 'rrrrrrrrrrrrrrrrrrr', 'rrrrrrrrr@sadasdasd', '56+6946', 'wwwwwwwwww', 'wwwwwwwwwwwwww@sss', 'wwwwwwwwwwww', 'www.google.com'),
-(208, 2, '46391315', 'Daniel Moscoso silva', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) ', 3, 15, 127, 1281, '', 'chinacivil@construcction.com', '9978307803', '', '2023-06-07 09:07:31', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(209, 1, '11111111111', 'DFSDFSDFSDFSDF', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 2, 15, 127, 1281, '', 'dan.msaj@gmail.com', '9978307803', 'Manuel Garcia', '2023-07-14 15:38:11', NULL, NULL, 1, '', '', '', '', '', '', '', '', ''),
-(210, 1, '22222222222', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 3, 1, 1, 3, '', 'chinacivil@construcction.com', '9978307803', 'Manuel Garcia', '2023-07-22 11:32:23', NULL, NULL, 1, '', '', '', '', '', '', '', '', '');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_concredito`
---
-
-CREATE TABLE `tm_concredito` (
-  `id_ccredito` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_concredito`
---
-
-INSERT INTO `tm_concredito` (`id_ccredito`, `descripcion`, `estado`) VALUES
-(1, '7 Días', 1),
-(2, '15 Dias', 1),
-(3, '30 Dias', 1),
-(4, ' Al Contado', 1),
-(5, 'Pago Adelantado', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_correo`
---
-
-CREATE TABLE `tm_correo` (
-  `id_correo` int(11) NOT NULL,
-  `correo` varchar(100) NOT NULL,
-  `contraseña` varchar(40) DEFAULT NULL,
-  `usu_id` int(11) DEFAULT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_correo`
---
-
-INSERT INTO `tm_correo` (`id_correo`, `correo`, `contraseña`, `usu_id`, `estado`) VALUES
-(1, 'administracion@sanipperu.com\r\n', 'Alfredo_sanip2023', 11, 1),
-(2, 'almacen@sanipperu.com	\r\n', '', 11, 1),
-(3, 'amelgar@sanipperu.com\r\n', 'Melgar2023_', 11, 1),
-(4, 'asesor1@sanipperu.com', 'Ventas_sanip2023', 11, 1),
-(5, 'asesor2@sanipperu.com', 'Asesor2023_', 11, 1),
-(6, 'asesor3@sanipperu.com', 'Asesor2023_', 11, 1),
-(7, 'asesor4@sanipperu.com', 'Asesor2023_', 11, 1),
-(8, 'asesor5@sanipperu.com', 'Asesor2023_', 11, 1),
-(9, 'asesor6@sanipperu.com', 'Asesor2023_', 11, 1),
-(10, 'asesor7@sanipperu.com', 'Asesor2023_', 11, 1),
-(11, 'asesor_informatico@sanipperu.com', '', 11, 1),
-(12, 'asistente_cobranzas@sanipperu.com', 'Asistentec2023_', 11, 1),
-(13, 'asistente_fracturacion@sanipperu.com', 'Asistentef2023_', 11, 1),
-(14, 'asistente_operaciones@sanipperu.com', '', 11, 1),
-(15, 'asistente_operaciones2@sanipperu.com', 'Asistente2023_', 11, 1),
-(16, 'cobranzas@sanipperu.com', 'Cobranzas2023_', 11, 1),
-(17, 'comercial@sanipperu.com', '', 11, 1),
-(18, 'comercial.sanip@sanipperu.com', 'Comercials2023_', 11, 1),
-(19, 'comercialresiduoss@sanipperu.com', '', 11, 1),
-(20, 'consultoria@sanipperu.com', '', 11, 1),
-(21, 'contabilidad@sanipperu.com', 'Katty2023_', 11, 1),
-(22, 'contabilidad2@sanipperu.com', '', 11, 1),
-(23, 'coordinador@sanipperu.com', '', 11, 1),
-(24, 'coordinadoradministrativo@sanipperu.com', 'Angela2023_', 11, 1),
-(25, 'creditos@sanipperu.com', '', 11, 1),
-(26, 'dcollantes@sanipperu.com', '', 11, 1),
-(27, 'esanchez@sanipperu.com', 'Edgardo_sanchez_sanip2023', 11, 1),
-(28, 'espaciosconfinados@sanipperu.com', '', 11, 1),
-(29, 'eyalta@sanipperu.com', '', 11, 1),
-(30, 'facturacion@sanipperu.com', 'Facturacion2023_', 11, 1),
-(31, 'gcontabilidad@sanipperu.com', '', 11, 1),
-(32, 'gerente@sanipperu.com', '', 11, 1),
-(33, 'gestioncomercialrs@sanipperu.com', '', 11, 1),
-(34, 'heidyyalta@sanipperu.com', '', 11, 1),
-(35, 'hyalta@sanipperu.com', '', 11, 1),
-(36, 'informatica@sanipperu.com', '', 11, 1),
-(37, 'jefesoma@sanipperu.com', '', 11, 1),
-(38, 'jefessoma@sanipperu.com', '', 11, 1),
-(39, 'legal@sanipperu.com', '', 11, 1),
-(40, 'leuribe@sanipperu.com', '', 11, 1),
-(41, 'licitaciones@sanipperu.com', 'Licitaciones2023_', 11, 1),
-(42, 'logistica@sanipperu.com', '', 11, 1),
-(43, 'lpacheco@sanipperu.com', '', 11, 1),
-(44, 'mdigital@sanipperu.com', '', 11, 1),
-(45, 'mhuarcaya@sanipperu.com', '', 11, 1),
-(46, 'nestor.yalta@sanipperu.com', '', 11, 1),
-(47, 'nyalta@sanipperu.com', 'Yalta2023_', 11, 1),
-(48, 'pchachapoyas@sanipperu.com', '', 11, 1),
-(49, 'postventa@sanipperu.com', '', 11, 1),
-(50, 'programacion@sanipperu.com', '', 11, 1),
-(51, 'programacionepp@sanipperu.com', '', 11, 1),
-(52, 'proyectos@sanipperu.com', '', 11, 1),
-(53, 'redessociales@sanipperu.com', 'Redessociales2023_', 11, 1),
-(54, 'redessociales2@sanipperu.com', 'Redessociales2023_', 11, 1),
-(55, 'rrhh@sanipperu.com', 'Recursos2023_', 11, 1),
-(56, 'saneamiento@sanipperu.com', 'Saneamiento2023_', 11, 1),
-(57, 'serviciosgenerales@sanipperu.com', 'Servicios2023_', 11, 1),
-(58, 'sistemas@sanipperu.com', 'Daniel_2023@', 11, 1),
-(59, 'soporte_admin@sanipperu.com', '', 11, 1),
-(60, 'ssoma@sanipperu.com', '', 11, 1),
-(61, 'ssomaplanta@sanipperu.com', '', 11, 1),
-(62, 'subgerente@sanipperu.com', '', 11, 1),
-(63, 'supervisor_operaciones@sanipperu.com', 'Supervisor2023_', 11, 1),
-(64, 'tesoreria@sanipperu.com', '', 11, 1),
-(65, 'ventas@sanipperu.com', '', 11, 1),
-(66, 'wvasquez@sanipperu.com', '', 11, 1);
+INSERT INTO `tm_cliente` (`id_cliente`, `tipodoc_id`, `nro_doc`, `nom_cli`, `direc_cli`, `id_departamento`, `id_provincia`, `id_distrito`, `tele_cli`, `correo_cli`, `contacto_telf`, `contacto_cli`, `fech_crea`, `fech_modi`, `fech_elim`, `est`) VALUES
+(1, 2, '46208172', 'Tania Peñafiel Berrocal', 'Calle 8 Sector Villa Hermosa', 15, 128, 1294, '997307803', 'Dan.msaj@gmail.com', '967438288', 'Manuel Gutierrez', '2023-03-24 20:34:06', NULL, NULL, 1),
+(2, 1, '20516390060', 'CLASEM SAC', 'AV. REPUBLICA DE COLOMBIA NRO. 185 INT. 501', 15, 128, 1275, '', 'dan.msaj@gmail.com', '997307803', 'alkdfhaoisd', '2023-03-24 14:43:44', NULL, NULL, 1),
+(85, 1, '20505688903', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 15, 127, 1281, '5664566', 'fghfghfgh@dsfdsfsf', '2355555666', 'sadasdasdasd', '2023-04-11 16:39:43', NULL, NULL, 1),
+(92, 1, '20505688903', 'fghgfhfh', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 15, 128, 1294, '', 'fghfghfgh@dsfdsfsf', '', '', '2023-04-14 16:58:54', NULL, '2023-04-17 14:11:21', 0),
+(93, 1, '20505688903', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 15, 127, 1251, '997307803', 'fghfghfgh@dsfdsfsf', '5566523', '<<<<<<<<<', '2023-04-14 17:41:04', NULL, NULL, 1),
+(94, 1, '20505688903', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 1, 1, 1, '997307803', 'fghfghfgh@dsfdsfsf', '5566523', '<<<<<<<<<', '2023-04-15 08:51:04', NULL, '2023-04-21 08:41:50', 0),
+(95, 1, '20505688903', 'AGRICOLA ANDREA S.A.C. ', 'Calle 8 Sector Villa Hermosa', 2, 8, 84, '997307803', 'dan.msaj@gmail.com', '5566523', 'sadasdasdasd', '2023-04-17 08:05:56', NULL, '2023-04-17 14:11:25', 0),
+(96, 1, '20505688903', 'AGRICOLA ANDREA S.A.C. ', 'AV. REPUBLICA DE COLOMBIA NRO. 185 INT. 501', 15, 127, 1251, '', 'dan.msaj@gmail.com', '', '', '2023-04-17 08:34:01', NULL, '2023-04-18 09:34:11', 0),
+(97, 1, '78999999999', 'sadsadasdasd', 'asdasdasdasd', 15, 127, 1251, '889898', 'asdasdd@adad', '44', '997307803', '2023-04-17 09:24:47', NULL, '2023-04-17 14:11:01', 0),
+(98, 1, '78999999999', 'Tania Peñafiel Berrocal', 'asdasdasdasd', 1, 1, 3, '997307803', 'fghfghfgh@dsfdsfsf', '2355555666', 'Manuel Gutierrez', '2023-04-17 14:11:50', NULL, '2023-04-17 14:59:35', 0),
+(99, 1, '78999999999', 'AGRICOLA ANDREA S.A.C. ', 'AV. LOS CONQUISTADORES NRO. 638 INT. 201', 2, 8, 84, '', 'asdasdd@adad', '', '997307803', '2023-04-18 09:36:59', NULL, '2023-04-20 08:11:26', 0);
 
 -- --------------------------------------------------------
 
@@ -1274,29 +485,6 @@ INSERT INTO `tm_departamento` (`id_departamento`, `departamento`, `estado`) VALU
 (23, 'TACNA', 1),
 (24, 'TUMBES', 1),
 (25, 'UCAYALI', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_disposicion_final`
---
-
-CREATE TABLE `tm_disposicion_final` (
-  `id_disposicion` int(30) NOT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_disposicion_final`
---
-
-INSERT INTO `tm_disposicion_final` (`id_disposicion`, `descripcion`, `estado`) VALUES
-(1, 'Libre por SANIP', 1),
-(2, 'Petramas', 1),
-(3, 'Tower & Tower', 1),
-(4, 'Kanay', 1),
-(5, 'Innova Ambiental', 1);
 
 -- --------------------------------------------------------
 
@@ -3151,112 +2339,50 @@ INSERT INTO `tm_distrito` (`id_distrito`, `nom_distrito`, `id_provincia`, `estad
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tm_herramientas`
+-- Estructura de tabla para la tabla `tm_modalidad`
 --
 
-CREATE TABLE `tm_herramientas` (
-  `id_herramienta` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL,
+CREATE TABLE `tm_modalidad` (
+  `id_modalidad` int(11) NOT NULL,
+  `modalidad` varchar(100) NOT NULL,
   `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `tm_herramientas`
+-- Volcado de datos para la tabla `tm_modalidad`
 --
 
-INSERT INTO `tm_herramientas` (`id_herramienta`, `descripcion`, `estado`) VALUES
-(1, 'Estoca', 1),
-(2, 'Balanza Electronica', 1),
-(3, 'Pala', 1),
-(4, 'Guantes', 1),
-(5, 'Barreta', 1),
-(6, 'Prescinto de Seguridad', 1),
-(7, 'Otros', 1),
-(8, 'Pico', 1),
-(9, 'Martillo/Punzon', 1),
-(10, 'Deodorizante', 1),
-(11, 'Cal', 1),
-(12, 'Mochilas Manuales', 1),
-(13, 'ULV', 1),
-(14, 'Termo Nebulizadora', 1),
-(15, 'Atomizadora', 1),
-(16, 'Cajas Protecta', 1),
-(17, 'Jaulas Tomahawk', 1),
-(18, 'Trampas Pegantes', 1),
-(19, 'Tubulares de PVC', 1),
-(20, 'Detector Gas Fosfina', 1),
-(21, 'Escobillon', 1),
-(22, 'Kit lavado de Pozo', 1),
-(23, 'Manguera de Bombero', 1),
-(24, 'Bomba de Agua Limpia', 1),
-(25, 'Bomba Pozo', 1),
-(26, 'Coche de Traslado', 1),
-(27, 'Escalera', 1),
-(28, 'Tripode', 1),
-(29, 'Batidora para Impermeabilizacion', 1),
-(30, 'Lampara de Pozo', 1);
+INSERT INTO `tm_modalidad` (`id_modalidad`, `modalidad`, `estado`) VALUES
+(1, 'SERVICIOS', 1),
+(2, 'ALQUILER', 1),
+(3, 'VENTA', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tm_insumos`
+-- Estructura de tabla para la tabla `tm_modeloportatil`
 --
 
-CREATE TABLE `tm_insumos` (
-  `id_insumo` int(11) NOT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `estado` int(11) DEFAULT NULL
+CREATE TABLE `tm_modeloportatil` (
+  `id_modelo` int(11) NOT NULL,
+  `nom_modelo` varchar(50) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `id_medida` int(11) NOT NULL,
+  `precio` decimal(8,2) NOT NULL,
+  `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `tm_insumos`
+-- Volcado de datos para la tabla `tm_modeloportatil`
 --
 
-INSERT INTO `tm_insumos` (`id_insumo`, `descripcion`, `estado`) VALUES
-(1, 'Fosfuro KillPhos', 1),
-(2, 'Bolsas de Pellon', 1),
-(3, 'Guantes de Nitrilo', 1),
-(4, 'Cinta Metálica', 1),
-(5, 'Etiquetas de Fumigación', 1),
-(6, 'Trapos Industriales', 1),
-(7, 'Traje Tyvek', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_manifiestos`
---
-
-CREATE TABLE `tm_manifiestos` (
-  `id_manifiesto` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `fecha` datetime DEFAULT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
-  `representante_legal` varchar(100) DEFAULT NULL,
-  `dni_repre` varchar(20) DEFAULT NULL,
-  `ing_responsable` varchar(100) DEFAULT NULL,
-  `cip_ing` varchar(20) DEFAULT NULL,
-  `nom_residuos` varchar(400) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_manifiestos`
---
-
-INSERT INTO `tm_manifiestos` (`id_manifiesto`, `id_pedido`, `fecha`, `id_cliente`, `representante_legal`, `dni_repre`, `ing_responsable`, `cip_ing`, `nom_residuos`) VALUES
-(1, 421, '2023-07-19 09:54:16', NULL, 'David Medina Salceo', '46391315', 'Anibal Arguedas CAmpoo', '78965455', 'Array'),
-(2, 422, '2023-07-19 10:04:03', 0, 'David Medina Salceo', '46391315', 'Anibal Arguedas CAmpoo', '78965455', 'Array'),
-(3, 423, '2023-07-19 10:08:16', 0, 'David Medina Salceo', '46391315', 'Anibal Arguedas CAmpoo', '78965455', 'Array'),
-(16, 412, '2023-07-21 10:24:18', 188, '', '', '', '78965455', ''),
-(17, 424, '2023-07-21 10:25:06', 190, '', '', '', '', ''),
-(22, 426, '2023-07-21 10:43:24', 190, 'David Medina Salceo', '46391315', 'Anibal Arguedas CAmpoo', '0000001', 'tarapos medicos'),
-(23, 427, '2023-07-21 11:00:33', 190, '', '', '', '', ''),
-(24, 409, '2023-07-21 16:39:55', 190, '', '', '', '', ''),
-(25, 425, '2023-07-22 08:39:26', 190, 'David Medina Salceo', '46391315', 'Anibal Arguedas CAmpoo', '78965455', 'trapos medicos'),
-(28, 428, '2023-07-22 09:35:48', 190, '', '', '', '', ''),
-(33, 429, '2023-07-22 10:01:48', 190, '', '', '', '', ''),
-(34, 400, '2023-07-22 10:03:10', 188, '', '', '', '', ''),
-(35, 430, '2023-07-22 10:08:43', 208, 'David Medina Salceo', '46391315', 'Anibal Arguedas CAmpoo', '78965455', 'tarapos medico');
+INSERT INTO `tm_modeloportatil` (`id_modelo`, `nom_modelo`, `descripcion`, `id_medida`, `precio`, `estado`) VALUES
+(1, 'STDL', 'BAÑO STANDAR / LVM', 1, '250.00', 1),
+(2, 'STD', 'BAÑO ESTANDAR', 1, '250.00', 1),
+(3, 'DUCHA', 'DUCHA', 1, '250.00', 1),
+(4, 'LVM-I', 'LAVAMANOS GRANDE', 1, '250.00', 1),
+(5, 'LVC', 'LVM - CLASICO', 1, '250.00', 1),
+(6, 'EJE', 'BAÑO EJECUTIVO', 1, '250.00', 1);
 
 -- --------------------------------------------------------
 
@@ -3266,116 +2392,34 @@ INSERT INTO `tm_manifiestos` (`id_manifiesto`, `id_pedido`, `fecha`, `id_cliente
 
 CREATE TABLE `tm_pedido` (
   `id_pedido` int(11) NOT NULL,
-  `usu_id` int(11) DEFAULT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
-  `nro_doc` varchar(15) NOT NULL,
-  `direc_cli` varchar(300) NOT NULL,
-  `nom_cli` varchar(200) NOT NULL,
-  `fecha_emision` datetime DEFAULT NULL,
-  `serie_pedido` varchar(30) DEFAULT NULL,
-  `moneda` varchar(20) DEFAULT NULL,
+  `id_coti` int(11) DEFAULT NULL,
+  `usu_id` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
   `id_modalidad` int(11) NOT NULL,
+  `id_fpago` int(11) NOT NULL,
+  `dire_entrega` varchar(100) DEFAULT NULL,
+  `observacion` varchar(300) DEFAULT NULL,
+  `orden_compra` varchar(20) DEFAULT NULL,
+  `fecha_emision` datetime NOT NULL,
+  `fecha_entrega` datetime NOT NULL,
+  `fecha_devolucion` datetime DEFAULT NULL,
   `contacto` varchar(100) DEFAULT NULL,
   `telf_contacto` varchar(50) DEFAULT NULL,
-  `dire_entrega` varchar(100) DEFAULT NULL,
-  `id_demision` int(11) NOT NULL,
-  `asesor` varchar(50) NOT NULL,
-  `id_fpago` int(11) NOT NULL,
-  `fecha_entrega` date NOT NULL,
+  `correo` varchar(100) DEFAULT NULL,
+  `est_ped` int(11) NOT NULL,
+  `moneda` varchar(20) DEFAULT NULL,
   `sub_total` decimal(8,2) NOT NULL,
   `igv` decimal(8,2) NOT NULL,
-  `total` decimal(8,2) NOT NULL,
-  `estado` varchar(30) DEFAULT NULL,
-  `observacion` varchar(300) DEFAULT NULL,
-  `conta_factu` varchar(80) DEFAULT NULL,
-  `correo_cfactu` varchar(60) DEFAULT NULL,
-  `telf_cfactu` varchar(20) DEFAULT NULL,
-  `conta_cobra` varchar(80) DEFAULT NULL,
-  `correo_ccobra` varchar(80) DEFAULT NULL,
-  `telf_ccobra` varchar(20) DEFAULT NULL,
-  `est_ped` int(11) NOT NULL,
-  `cotizacion` varchar(30) DEFAULT NULL,
-  `link` varchar(400) DEFAULT NULL,
-  `cierre_facturacion` varchar(11) DEFAULT NULL,
-  `fecha_pago` varchar(20) DEFAULT NULL,
-  `acceso_portal` tinyint(1) DEFAULT NULL,
-  `entrega_factura` tinyint(1) DEFAULT NULL,
-  `estado_pago` varchar(35) DEFAULT NULL,
-  `orden_compra` varchar(30) DEFAULT NULL
+  `total` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `tm_pedido`
 --
 
-INSERT INTO `tm_pedido` (`id_pedido`, `usu_id`, `id_cliente`, `nro_doc`, `direc_cli`, `nom_cli`, `fecha_emision`, `serie_pedido`, `moneda`, `id_modalidad`, `contacto`, `telf_contacto`, `dire_entrega`, `id_demision`, `asesor`, `id_fpago`, `fecha_entrega`, `sub_total`, `igv`, `total`, `estado`, `observacion`, `conta_factu`, `correo_cfactu`, `telf_cfactu`, `conta_cobra`, `correo_ccobra`, `telf_ccobra`, `est_ped`, `cotizacion`, `link`, `cierre_facturacion`, `fecha_pago`, `acceso_portal`, `entrega_factura`, `estado_pago`, `orden_compra`) VALUES
-(351, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-15 16:59:16', 'NP01-351', 'SOLES', 1, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Mayra Pinglo', 10, '2023-06-01', '3000.00', '540.00', '3540.00', 'Anulado', '<p>Llamar antes de acercarse</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '6', '15-22', 1, 1, 'Anulado', NULL),
-(352, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-15 17:03:00', 'NP01-352', 'SOLES', 1, '', '', '', 1, 'Mayra Pinglo', 1, '2023-06-02', '500.00', '90.00', '590.00', 'Anulado', 'llamar antes de acercarse', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(353, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-15 17:03:01', 'NP01-353', 'SOLES', 1, '', '', '', 1, 'Mayra Pinglo', 1, '2023-06-02', '500.00', '90.00', '590.00', 'Anulado', 'llamar antes de acercarse', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(354, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-15 17:03:17', 'NP01-354', 'SOLES', 1, '', '', '', 1, 'Mayra Pinglo', 1, '2023-06-02', '500.00', '90.00', '590.00', 'Anulado', 'llamar antes de acercarse', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(355, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-15 17:05:16', 'NP01-355', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Mayra Pinglo', 11, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '15-22', 1, 1, 'Anulado', NULL),
-(356, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-16 09:12:28', 'NP01-356', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 10, '2023-06-23', '500.00', '90.00', '590.00', 'Anulado', 'llamar antes de acercarse', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(357, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-16 09:26:28', 'NP01-357', 'SOLES', 1, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 11, '2023-05-31', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(358, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-16 09:31:39', 'NP01-358', 'SOLES', 2, '', '', '', 1, 'Mayra Pinglo', 1, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(359, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-16 09:34:41', 'NP01-359', 'SOLES', 2, '', '', '', 2, 'Mayra Pinglo', 12, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(360, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-16 09:35:48', 'NP01-360', 'SOLES', 2, '', '', '', 2, 'Mayra Pinglo', 10, '2023-06-10', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(361, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-16 09:38:24', 'NP01-361', 'SOLES', 2, '', 'sdafadfasdf', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 10, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(362, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-17 10:02:40', 'NP01-362', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 3, '2023-06-03', '500.00', '90.00', '590.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '15-22', 1, 1, 'Anulado', NULL),
-(363, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-19 08:44:47', 'NP01-363', 'SOLES', 3, 'Miguel Hernandez', '997307803', 'Av. Nicolas Ayllon', 3, 'Mayra Pinglo', 10, '2023-06-01', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 1, 1, 'Anulado', NULL),
-(364, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-19 09:01:13', 'NP01-364', 'SOLES', 2, '', '', '', 1, 'Mayra Pinglo', 12, '2023-06-01', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(365, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 09:12:14', 'NP01-365', 'SOLES', 2, '', '', '', 1, 'Mayra Pinglo', 12, '2023-06-01', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(370, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 11:51:35', 'NP01-370', 'SOLES', 1, '', '', '', 1, 'Mayra Pinglo', 11, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '<p>llamar antes de acercarse</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(371, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 11:53:13', 'NP01-371', 'SOLES', 1, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 12, '2023-06-01', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '1-7', 0, 0, 'Anulado', NULL),
-(372, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 12:31:04', 'NP01-372', 'SOLES', 2, '', '', '', 1, 'Mayra Pinglo', 12, '2023-05-31', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(373, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 12:37:34', 'NP01-373', 'SOLES', 1, '', '', '', 1, 'Mayra Pinglo', 11, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(374, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 12:42:14', 'NP01-374', 'SOLES', 2, '', '', '', 1, 'Mayra Pinglo', 10, '2023-06-01', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Anulado', NULL),
-(375, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-19 12:42:51', 'NP01-375', 'SOLES', 1, '', '', '', 1, 'Mayra Pinglo', 10, '2023-06-02', '250.00', '45.00', '295.00', 'Registrado', '<p><br></p>', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Pendiente', NULL),
-(376, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-19 12:44:09', 'NP01-376', 'SOLES', 2, '', '', '', 2, 'Mayra Pinglo', 12, '2023-06-01', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Pagado', NULL),
-(377, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-19 12:48:25', 'NP01-377', 'SOLES', 2, '', '', '', 1, 'Mayra Pinglo', 11, '2023-06-03', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 1, 1, 'Anulado', NULL),
-(378, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-24 08:35:53', 'NP01-378', 'DOLARES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 5, '2023-06-01', '1200.00', '216.00', '1416.00', 'Registrado', '<p>llamar antes de acercarse // 97889656</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-112563'),
-(379, 68, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-22 16:02:57', 'NP01-379', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Miguel Verastegui Vilva', 1, '2023-06-01', '500.00', '90.00', '590.00', 'Anulado', '<p>llamar antes de acercarse</p>', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', ''),
-(380, 68, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-22 16:06:46', 'NP01-380', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Miguel Verastegui Vilva', 2, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', 'OC-569863'),
-(381, 6, 208, '46391315', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'Daniel Moscoso silva', '2023-06-24 12:37:34', 'NP01-381', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Mayra Pinglo', 2, '2023-06-03', '750.00', '135.00', '885.00', 'Registrado', '<p>sdffsdfsdf</p>', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', ''),
-(382, 68, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-22 16:04:00', 'NP01-382', 'SOLES', 4, '', '', '', 2, 'Miguel Verastegui Vilva', 7, '2023-06-02', '600.00', '108.00', '708.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', '', '2', '1-7', 1, 1, 'Pagado', 'OC-452632'),
-(392, 68, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-22 08:32:11', 'NP01-392', 'SOLES', 1, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Miguel Verastegui Vilva', 2, '2023-06-01', '950.00', '171.00', '1121.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(393, 6, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-23 17:10:21', 'NP01-393', 'DOLARES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Mayra Pinglo', 3, '2023-06-02', '700.00', '126.00', '826.00', 'Registrado', '<p>llamar antes de acercarse</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '1-7', 1, 1, 'Pagado', ''),
-(394, 68, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-22 15:48:32', 'NP01-394', 'SOLES', 3, 'Daniel Moscoso SIlva', '997307803', 'Av. Nicolas Ayllon', 2, 'Miguel Verastegui Vilva', 2, '2023-06-01', '600.00', '108.00', '708.00', 'Registrado', 'Llamar antes de Acercarse', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-325687'),
-(395, 68, 189, '20100366747', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 'LLAMA GAS S A ', '2023-06-22 10:22:04', 'NP01-395', 'SOLES', 1, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Miguel Verastegui Vilva', 2, '2023-06-02', '600.00', '108.00', '708.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', NULL),
-(396, 6, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-06-24 13:20:33', 'NP01-396', 'DOLARES', 3, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 1, '2023-06-01', '600.00', '108.00', '708.00', 'Registrado', 'llamar antes de acercarse', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '16-22', 0, 1, 'Pagado', 'OC-452632'),
-(397, 6, 189, '20100366747', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 'LLAMA GAS S A ', '2023-06-24 13:24:17', 'NP01-397', 'DOLARES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Mayra Pinglo', 2, '2023-06-02', '600.00', '108.00', '708.00', 'Registrado', '<p>llamar antes de acercarsee</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', '', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '23-30', 1, 1, 'Pendiente', 'OC-452632'),
-(398, 6, 189, '20100366747', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 'LLAMA GAS S A ', '2023-06-26 16:13:31', 'NP01-398', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Mayra Pinglo', 1, '2023-06-02', '600.00', '108.00', '708.00', 'Registrado', 'llamar antes de acercarse', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 0, 1, 'Pagado', 'OC-112563'),
-(399, 15, 189, '20100366747', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 'LLAMA GAS S A ', '2023-07-15 11:35:47', 'NP01-399', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Katty Suxe', 2, '2023-06-02', '250.00', '45.00', '295.00', 'Anulado', '<p>indicar motivo del cierre</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', 'OC-452632'),
-(400, 15, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-07-22 10:03:10', 'NP01-400', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-06-01', '500.00', '90.00', '590.00', 'Registrado', '<p>dfdgsdfgsdf</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '6', '8-15', 1, 1, 'Pagado', 'OC-452632'),
-(401, 15, 189, '20100366747', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 'LLAMA GAS S A ', '2023-07-15 09:50:11', 'NP01-401', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 2, '2023-07-02', '2800.00', '504.00', '3304.00', 'Anulado', '<p>indicar el motivodel cierre</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '', 1, '', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', 'OC-112563'),
-(402, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-15 12:14:02', 'NP01-402', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 2, '2023-06-02', '500.00', '90.00', '590.00', 'Registrado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 1, 'Pendiente', 'OC-452632'),
-(403, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-06-30 17:42:17', 'NP01-403', 'SOLES', 2, 'Manuel Dario', '997307803', 'sdfasdfasdfasdf', 1, 'Katty Suxe', 1, '2023-06-01', '1500.00', '270.00', '1770.00', 'Registrado', '<p><br></p>sdsdfsdfsdf', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-112563'),
-(404, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-15 10:42:05', 'NP01-404', 'SOLES', 1, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-06-01', '3400.00', '612.00', '4012.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '16-22', 1, 1, 'Anulado', 'OC-452632'),
-(405, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-14 16:22:50', 'NP01-405', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Katty Suxe', 2, '2023-06-02', '4550.00', '819.00', '5369.00', 'Registrado', '<p>llmaar antes de acercarse</p>', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-452632'),
-(406, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-15 09:44:53', 'NP01-406', 'SOLES', 3, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 1, '2023-06-01', '1350.00', '243.00', '1593.00', 'Registrado', 'llamar antes de acercarse', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-452632'),
-(407, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-04 08:05:16', 'NP01-407', 'SOLES', 3, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-07-07', '1750.00', '315.00', '2065.00', 'Registrado', '<p>llamar antes de acercarse</p>', '', '', '', '', '', '', 1, '', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '6', '', 0, 0, 'Pagado', ''),
-(408, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-10 08:22:53', 'NP01-408', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-01', '500.00', '90.00', '590.00', 'Anulado', '<p>Llamar antes de acercarse</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '16-22', 1, 1, 'Anulado', 'OC-452632'),
-(409, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-21 16:39:55', 'NP01-409', 'SOLES', 5, 'dfsdfasdfasdf', 'sdafadfasdf', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-04', '500.00', '90.00', '590.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 0, 0, 'Pendiente', 'OC-112563'),
-(410, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-15 13:43:41', 'NP01-410', 'SOLES', 2, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-07-05', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-452632'),
-(411, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-17 08:38:11', 'NP01-411', 'SOLES', 4, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 3, 'Katty Suxe', 3, '2023-07-12', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-452632'),
-(412, 15, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-07-21 10:24:18', 'NP01-412', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 3, '2023-07-06', '350.00', '63.00', '413.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '6', '8-15', 1, 1, 'Pagado', 'OC-112563'),
-(413, 15, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-07-17 10:55:33', 'NP01-413', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 13, '2023-07-06', '700.00', '126.00', '826.00', 'Registrado', '<p>Llamar antes de acercarse</p>', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '6', '16-22', 1, 1, 'Pendiente', 'OC-452632'),
-(414, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-17 13:13:58', 'NP01-414', 'SOLES', 3, 'Manuel Dario', '997307803', 'sdfasdfasdfasdf', 1, 'Katty Suxe', 1, '2023-07-05', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-112563'),
-(415, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-17 17:10:57', 'NP01-415', 'SOLES', 2, 'dfsdfasdfasdf', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-08', '750.00', '135.00', '885.00', 'Registrado', '', 'Luisa Advincula', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-452632'),
-(416, 15, 189, '20100366747', 'AV. EL POLO NRO. 397 (PISO 3 Y 4 ESQ. JR.EMANCIPACION 103 -107) LIMA - LIMA - SANTIAGO DE SURCO', 'LLAMA GAS S A ', '2023-07-18 11:10:46', 'NP01-416', 'SOLES', 2, 'dfsdfasdfasdf', '997307803', 'Av. Nicolas Ayllon', 3, 'Katty Suxe', 2, '2023-07-07', '500.00', '90.00', '590.00', 'Registrado', 'comunicarse con el clientes antes de acercarse a obra', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '16-22', 1, 1, 'Pendiente', 'OC-452632'),
-(417, 15, 188, '20505688902', 'CAL.MIGUEL DASSO NRO. 230 INT. 502 URB. SANTA ISABEL', 'NOMA INMOBILIARIA S.A.C. ', '2023-07-18 10:41:21', 'NP01-417', 'SOLES', 3, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-07-06', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-112563'),
-(418, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-19 09:21:58', 'NP01-418', 'SOLES', 3, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-14', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-452632'),
-(419, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-19 09:31:42', 'NP01-419', 'SOLES', 4, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-07-06', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-452632'),
-(420, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-19 09:41:56', 'NP01-420', 'SOLES', 3, 'Manuel Dario', 'sdafadfasdf', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-06', '350.00', '63.00', '413.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-452632'),
-(421, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-19 09:54:16', 'NP01-421', 'SOLES', 3, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-06', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '16-22', 1, 1, 'Pendiente', 'OC-112563'),
-(422, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-19 10:04:03', 'NP01-422', 'SOLES', 3, 'dfsdfasdfasdf', '997307803', 'sdfasdfasdfasdf', 2, 'Katty Suxe', 3, '2023-07-06', '350.00', '63.00', '413.00', 'Anulado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '6', '8-15', 1, 1, 'Anulado', 'OC-112563'),
-(423, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-19 10:08:16', 'NP01-423', 'SOLES', 4, 'Manuel Dario', '997307803', '', 3, 'Katty Suxe', 3, '2023-07-05', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, '', '', '', '', 0, 0, 'Pagado', ''),
-(424, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-21 10:25:06', 'NP01-424', 'SOLES', 3, 'dfsdfasdfasdf', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 3, '2023-07-07', '350.00', '63.00', '413.00', 'Registrado', '', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '1-7', 1, 1, 'Pagado', 'OC-452632'),
-(425, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-22 08:39:26', 'NP01-425', 'SOLES', 3, 'Manuel Dario', '', '', 2, 'Katty Suxe', 2, '2023-07-06', '600.00', '108.00', '708.00', 'Registrado', '', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, '', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '', '1-7', 1, 1, 'Pendiente', 'OC-452632'),
-(426, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-21 10:43:24', 'NP01-426', 'SOLES', 4, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 2, '2023-07-06', '250.00', '45.00', '295.00', 'Registrado', '<p>llamar antes de acercarse al punto</p>', 'Luisa Advincula', '', '997307803', '', '', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pendiente', 'OC-452632'),
-(427, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-21 11:00:33', 'NP01-427', 'SOLES', 2, '', '', '', 1, 'Katty Suxe', 1, '2023-07-01', '1000.00', '180.00', '1180.00', 'Anulado', '', '', '', '', '', '', '', 1, '', '', '', '', 1, 1, 'Anulado', 'OC-452632'),
-(428, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-22 09:35:48', 'NP01-428', 'SOLES', 5, 'dfsdfasdfasdf', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 2, '2023-07-05', '2450.00', '441.00', '2891.00', 'Anulado', '<p>Llamar antes de acercarse</p>', 'Luisa Advincula', 'dan.msaj@gmail.com', '997307803', 'Maria Peña', 'elvis.data@sanipperu.com', '963258753', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Anulado', 'OC-452632'),
-(429, 15, 190, '20511317038', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) LIMA - LIMA - SAN ISIDRO \"', 'CHINA CIVIL ENGINEERING CONSTRUCTION CORPORATION SUCURSAL DEL PERU', '2023-07-22 10:01:48', 'NP01-429', 'SOLES', 5, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 1, 'Katty Suxe', 1, '2023-07-06', '1750.00', '315.00', '2065.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '8-15', 1, 1, 'Pagado', 'OC-452632'),
-(430, 15, 208, '46391315', '\"AV. LAS CAMELIAS NRO. 280 (280-290 LAS CAMELIAS) ', 'Daniel Moscoso silva', '2023-07-22 10:08:43', 'NP01-430', 'SOLES', 4, 'Manuel Dario', '997307803', 'Av. Nicolas Ayllon', 2, 'Katty Suxe', 2, '2023-07-01', '250.00', '45.00', '295.00', 'Registrado', '', '', '', '', '', '', '', 1, 'coti-0025', 'http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/', '2', '16-22', 1, 1, 'Pendiente', 'OC-112563');
+INSERT INTO `tm_pedido` (`id_pedido`, `id_coti`, `usu_id`, `id_cliente`, `id_modalidad`, `id_fpago`, `dire_entrega`, `observacion`, `orden_compra`, `fecha_emision`, `fecha_entrega`, `fecha_devolucion`, `contacto`, `telf_contacto`, `correo`, `est_ped`, `moneda`, `sub_total`, `igv`, `total`) VALUES
+(1, NULL, 7, 2, 2, 1, 'AV. REPUBLICA DE COLOMBIA NRO. 185 INT. 501', 'sdfdsfsdfsdf', '1252154', '2023-04-21 17:12:16', '2023-04-27 10:12:16', NULL, 'Elias Manta', '989663241', 'sdffsd@adasdasd.com', 1, 'SOLES', '100.00', '18.00', '118.00'),
+(2, NULL, 15, 2, 2, 2, 'AV LOS NARANJOS 134', NULL, NULL, '2023-04-21 21:15:55', '2023-04-21 21:15:55', NULL, 'ELIAS ESTEBAN', '989663241', 'dan.msaj@gmail.com', 1, 'SOLES', '300.00', '54.00', '354.00');
 
 -- --------------------------------------------------------
 
@@ -4130,7 +3174,6 @@ INSERT INTO `tm_provincia` (`id_provincia`, `nom_provincia`, `id_departamento`, 
 
 CREATE TABLE `tm_servicio` (
   `id_servicio` int(11) NOT NULL,
-  `id_modalidad` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `precio` decimal(8,2) DEFAULT NULL,
   `id_medida` int(11) NOT NULL,
@@ -4141,35 +3184,19 @@ CREATE TABLE `tm_servicio` (
 -- Volcado de datos para la tabla `tm_servicio`
 --
 
-INSERT INTO `tm_servicio` (`id_servicio`, `id_modalidad`, `descripcion`, `precio`, `id_medida`, `estado`) VALUES
-(1, 2, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', '250.00', 2, 1),
-(2, 2, 'LIMPIEZA DE TRAMPA DE GRASA\r\n', '250.00', 2, 1),
-(3, 2, 'LIMPIEZA DE POZO SÉPTICO\r\n', '250.00', 2, 1),
-(4, 2, 'DESATORO DE RED DE DESAGÜE\r\n', '250.00', 4, 1),
-(5, 2, 'LIMPIEZA DE CAMPANA EXTRACTORA\r\n', '250.00', 1, 1),
-(6, 2, 'LIMPIEZA DE ESPACIOS CONFINADOS', '250.00', 2, 1),
-(7, 2, 'DESINFECCIÓN', '250.00', 3, 1),
-(8, 2, 'DESINSECTACIÓN', '250.00', 3, 1),
-(9, 2, 'DESRATIZACIÓN\r\n', '250.00', 1, 1),
-(10, 2, 'CONTROL AVIAR', '250.00', 1, 1),
-(11, 5, 'MANTENIMIENTO/LIMPIEZA DE EQUIPOS PORTATILES', '250.00', 1, 1),
-(12, 5, 'REPARACION DE EQUIPOS PORTATILES', '250.00', 1, 1),
-(13, 5, 'BAÑO STANDAR / LVM', '350.00', 1, 1),
-(14, 5, 'BAÑO STANDAR', '350.00', 1, 1),
-(15, 5, 'DUCHA', '350.00', 1, 1),
-(16, 5, 'LAVAMANOS GRANDE', '350.00', 1, 1),
-(17, 5, 'LVM - CLASICO', '350.00', 1, 1),
-(18, 5, 'BAÑO EJECUTIVO', '350.00', 1, 1),
-(19, 2, 'LIMPIEZA DE TANQUES/RESERVORIOS', '350.00', 2, 1),
-(20, 2, 'LIMPIEZA DE REDES DE ALCANTARILLADO', '250.00', 2, 1),
-(21, 2, 'LIMPIEZA DE TANQUES DE AGUA DE CONSUMO', '350.00', 2, 1),
-(22, 2, 'LIMPIEZA DE TANQUES INDUSTRIALES', '350.00', 3, 1),
-(23, 2, 'SERVICIO DE LIMPIEZA E HIPERMEABILIZACION', '350.00', 2, 1),
-(24, 2, 'DESINFECCION COVID-19', '250.00', 3, 1),
-(25, 3, 'SERVICIO DE SUCCION DE RESIDUOS NO PELIGROSOS', '350.00', 3, 1),
-(26, 3, 'SERVICIO DE SUCCION DE RESIDUOS NO PELIGROSOS', '250.00', 3, 1),
-(27, 4, 'RECOJO DE RESIDUOS SOLIDOS NO PELIGROSOS', '350.00', 3, 1),
-(28, 4, 'RECOJO DE RESIDUOS SOLIDOS PELIGROSOS', '250.00', 3, 1);
+INSERT INTO `tm_servicio` (`id_servicio`, `descripcion`, `precio`, `id_medida`, `estado`) VALUES
+(1, 'LIMPIEZA Y DESINFECCIÓN DE CISTERNA DE AGUA', '250.00', 2, 1),
+(2, 'LIMPIEZA DE TRAMPA DE GRASA\r\n', '250.00', 2, 1),
+(3, 'LIMPIEZA DE POZO SÉPTICO\r\n', '250.00', 2, 1),
+(4, 'DESATORO DE RED DE DESAGÜE\r\n', '250.00', 4, 1),
+(5, 'LIMPIEZA DE CAMPANA EXTRACTORA\r\n', '250.00', 1, 1),
+(6, 'LEVANTAMIENTO DE VMA', '250.00', 2, 1),
+(7, 'DESINFECCIÓN', '250.00', 3, 1),
+(8, 'DESINSECTACIÓN', '250.00', 3, 1),
+(9, 'DESRATIZACIÓN\r\n', '250.00', 1, 1),
+(10, 'CONTROL AVIAR', '250.00', 1, 1),
+(11, 'MANTENIMIENTO/LIMPIEZA DE EQUIPOS PORTATILES', '250.00', 1, 1),
+(12, 'REPARACION DE EQUIPOS PORTATILES', '250.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4217,7 +3244,7 @@ INSERT INTO `tm_subcategoria` (`cats_id`, `cat_id`, `cats_nom`, `est`) VALUES
 (26, 4, 'INTERRUPCIONES EXTERNAS', 1),
 (27, 5, 'CONTRATACION LEGAL', 1),
 (28, 5, 'HOMOLOGACION', 1),
-(29, 5, 'EPPs/HIGIENE LABORAL', 1);
+(29, 5, 'EPP\'s/HIGIENE LABORAL', 1);
 
 -- --------------------------------------------------------
 
@@ -4249,6 +3276,7 @@ INSERT INTO `tm_ticket` (`tick_id`, `usu_id`, `cat_id`, `cats_id`, `tick_titulo`
 (297, 51, 1, 2, 'Laptop Averiada', 'Solicitud de nuevo equipo.', 'Abierto', '2023-02-27 11:21:14', 3, '2023-02-27 11:21:36', '2023-03-08 12:26:48', 1, 1),
 (298, 1, 5, 2, 'Hosting y dominio', '<p>Adquisición de hosting y dominio.</p>', 'Abierto', '2023-02-27 11:23:26', 50, '2023-02-27 11:23:36', NULL, 1, 1),
 (303, 1, 2, 3, 'Test', '<p>dasdasdasd</p>', 'Cerrado', '2023-02-27 15:07:06', 3, '2023-02-27 15:53:31', '2023-02-27 16:20:43', 1, 1),
+(304, 1, 1, 1, 'sdfsdf', '<p>sdfsf</p>', 'Abierto', '2023-02-27 15:19:04', 5, '2023-03-07 15:37:39', NULL, 1, 1),
 (305, 1, 3, 11, 'ASDASD', '<p>sdfsdf</p>', 'Abierto', '2023-02-27 15:20:48', 3, '2023-03-08 12:24:39', NULL, 1, 1),
 (306, 1, 3, 11, 'ASDASD', '<p>asdasd</p>', 'Abierto', '2023-02-27 15:21:13', 1, '2023-03-14 09:30:18', NULL, 1, 1),
 (307, 1, 1, 1, 'adasd', '<p>asdasd</p>', 'Abierto', '2023-02-27 15:21:57', NULL, NULL, NULL, 1, 1),
@@ -4257,69 +3285,18 @@ INSERT INTO `tm_ticket` (`tick_id`, `usu_id`, `cat_id`, `cats_id`, `tick_titulo`
 (311, 1, 2, 3, 'Test', '<p>asdqdaw</p>', 'Abierto', '2023-02-27 17:25:18', NULL, NULL, NULL, 1, 1),
 (312, 1, 2, 3, 'Test', '<p><img src=\"data:image/png;base64,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kXrdkBCU5ct24vRZLJh7i7I2OVu2bMFjjz2mrF0dpJfR6n9dOjLg0RV55plnUF9fr6x9uWKHnSj5XQna64qHp+QG44jFBpCr1cpPLGYjHothYDAX2lmTjFHxGGL9uKJjX/axsnW5bVX6FRottNLTo2PpF3XGp7jOVJkZokx618TjiOdosr7GRERXm2toqnQylL9QMOKvKQTRJE0TZr5GhFQkjuD/dSOQPrB5LgD3rnaYvls08j4q8ctcen3EVPxCl55avawgJQWQKzz2ZR8rW5fbVqVfxw1YEilcTXWdqTKZXaNhaCOia9N1FtwM+Ik0ffn0PcPTkspfLVDVH5WnDBrc9j9z0bLWmJyOk/7KQPleYI0XziWjbn8nIiJSLU6V0pT60qdKpek4aUpx1BAMERGR+l1nI250zZOm4xjaiIjoGvWFB7d58+bhD3/4g7JG1xLpukrXl4iIiKbHFz5V+tFHH+HVV1/FBx9M8V8LoC+dFNruv/9+fO1rX1O2EBER0VT6woMbEREREV0Z3uNGREREpBIMbkREREQqweBGREREpBIMbkREREQqkVVwu+GGGzD45z8ra0REREQ0nbIKbjffqMGFi3FljYiIiIimU1bBLX/mTTj3yaf45MJn+HyQI29ERERE0ymr97hJLsb/hN6+C/j0YhxZVkVEREREE8g6uBERERHRF4NPlRIRERGpBIMbERERkUowuBERERGpBIMbERERkUowuBERERGpBIMbERERkUowuBERERGpBIMbERERkUowuBERERGpAvD/Ab5l5iV75zeNAAAAAElFTkSuQmCC\" alt=\"\">FF<br></p>', 'Abierto', '2023-02-28 08:30:45', 3, '2023-02-28 08:31:18', NULL, 1, 1),
 (313, 1, 1, 2, 'Cambio de Monitor', '<p>Se requiere cambio de equipo monitor para el área de marketing</p>', 'Abierto', '2023-03-01 09:48:59', 3, '2023-03-01 09:50:47', '2023-03-01 09:51:42', 2, 1),
+(314, 1, 1, 1, 'Cambio d eteclado', 'se requiere cambio', 'Abierto', '2023-03-01 14:59:41', 3, '2023-03-08 12:24:23', NULL, 1, 1),
 (315, 9, 1, 2, 'Mouse', '<p>Se requiere mouse&nbsp; sede surco</p>', 'Abierto', '2023-03-01 15:46:32', NULL, NULL, NULL, 2, 1),
+(316, 1, 1, 18, 'CAMBIO DE MOUSE', '<p>Se requiere el cambio de mouse para el área de soma</p>', 'Abierto', '2023-03-03 08:23:16', NULL, NULL, NULL, 1, 1),
+(317, 1, 6, 10, 'PAGO DE SOAT', 'SE REQUIERE PAGO DE SOAT', 'Abierto', '2023-03-03 08:39:00', NULL, NULL, NULL, 2, 1),
 (318, 1, 1, 1, 'Cambio de Movil', '<p>marketing</p>', 'Cerrado', '2023-03-06 16:47:36', 3, '2023-03-08 12:25:49', '2023-03-08 12:25:23', 2, 1),
 (319, 1, 1, 18, 'CAMBIO DE MOUSE', '<p>SE REQUIERE CAMBIO DE MOUSE PARA LICITACIONES. MOUSE AVERIADO</p>', 'Cerrado', '2023-03-08 08:42:21', 3, '2023-03-08 08:42:40', '2023-03-08 12:25:00', 2, 1),
 (320, 9, 5, 8, 'TOMACORRIENTE', '<p>SE SOLICITA TOMACORRIENTE PARA CONTABILIDAD</p>', 'Abierto', '2023-03-09 09:10:51', 11, '2023-03-09 09:12:57', NULL, 2, 1),
-(321, 15, 1, 1, 'mouse', '<p>mouse para contabilidad</p>', 'Abierto', '2023-03-20 14:44:55', NULL, NULL, '2023-07-15 09:32:55', 1, 1),
+(321, 15, 1, 1, 'mouse', '<p>mouse para contabilidad</p>', 'Abierto', '2023-03-20 14:44:55', NULL, NULL, '2023-03-22 11:02:51', 1, 1),
 (322, 15, 1, 2, 'Cambio de cable de monitor', '<p>urgente</p>', 'Abierto', '2023-03-24 18:26:09', NULL, NULL, NULL, 3, 1),
 (323, 15, 1, 2, 'monitor en mal estado', '<p>urgente</p>', 'Abierto', '2023-03-30 10:22:14', NULL, NULL, NULL, 1, 1),
-(324, 15, 3, 11, 'mm.jk.', '<p>gklgkl</p>', 'Abierto', '2023-04-10 11:40:06', NULL, NULL, '2023-04-20 15:04:35', 2, 1),
-(325, 15, 2, 3, 'pedio 202', '<p>se genero pedio 202</p>', 'Abierto', '2023-04-17 12:42:51', NULL, NULL, '2023-04-17 12:45:56', 1, 1),
-(326, 6, 2, 4, 'defsdf', '<p>sdfsdfsd</p>', 'Cerrado', '2023-05-05 16:55:03', NULL, NULL, '2023-06-21 09:20:38', 2, 1),
-(327, 6, 2, 4, 'dfdsf', '<p>dsfsdfsd</p>', 'Abierto', '2023-05-06 10:37:36', NULL, NULL, NULL, 1, 1),
-(328, 6, 1, 1, 'pedio 202', '<p>sdfsfsd</p>', 'Abierto', '2023-05-08 12:47:35', NULL, NULL, NULL, 2, 1),
-(329, 6, 1, 1, 'werwerwer', '<p>werewr</p>', 'Abierto', '2023-05-08 12:48:09', NULL, NULL, NULL, 2, 1),
-(330, 6, 1, 15, 'pedio 202', '<p>sadasdasd</p>', 'Abierto', '2023-05-09 17:30:27', NULL, NULL, NULL, 1, 1),
-(331, 6, 2, 4, 'sdfdsf', '<p>sdfsdfsdf</p>', 'Abierto', '2023-05-11 08:57:02', NULL, NULL, NULL, 1, 1),
-(332, 1, 2, 3, 'asdasdasd', '<p>asdasdasdsd</p>', 'Abierto', '2023-05-11 09:02:55', NULL, NULL, NULL, 1, 1),
-(333, 6, 2, 12, 'dfsdfsdfdsf', '<p><sub>sdfsdfsd</sub></p>', 'Abierto', '2023-05-12 10:33:50', NULL, NULL, NULL, 2, 1),
-(334, 6, 2, 12, 'dfdfsdf', '<p><sub>sdfsdfsd</sub></p>', 'Abierto', '2023-05-12 10:34:25', NULL, NULL, NULL, 2, 1),
-(335, 6, 2, 12, 'sdfsdfsd', '<p><sub>sdfsdfsd</sub></p>', 'Abierto', '2023-05-12 10:34:30', NULL, NULL, NULL, 2, 1),
-(336, 6, 2, 12, 'sdfdsf', '<p><sub>sdfsdfsdssdfsdf</sub></p>', 'Abierto', '2023-05-12 10:34:42', NULL, NULL, NULL, 2, 1),
-(337, 6, 1, 1, '77777777', '<p>fsdfsdf</p>', 'Abierto', '2023-05-12 10:35:14', NULL, NULL, NULL, 1, 1),
-(338, 6, 1, 1, ',,m.,m.b.', '<p>fsdfsdf</p>', 'Abierto', '2023-05-12 10:35:44', NULL, NULL, NULL, 1, 1),
-(339, 6, 3, 11, '77777777', '<p>gfhfgh</p>', 'Abierto', '2023-05-12 10:37:53', NULL, NULL, NULL, 2, 1),
-(340, 6, 1, 1, '77777777', '<p>bnmvnmvm</p>', 'Abierto', '2023-05-12 10:40:53', NULL, NULL, NULL, 1, 1),
-(341, 6, 1, 2, '77777777', '<p>cvbnvbncvbncn</p>', 'Abierto', '2023-05-12 10:42:44', NULL, NULL, NULL, 2, 1),
-(342, 6, 2, 4, '77777777', '<p>dfgfdg</p>', 'Abierto', '2023-05-12 10:44:20', NULL, NULL, NULL, 2, 1),
-(343, 6, 3, 11, 'dfgdfg', '<p>dfgdfgfdg</p>', 'Abierto', '2023-05-12 10:44:41', NULL, NULL, NULL, 2, 1),
-(344, 6, 1, 1, 'sdffdfsdf', '<p>sdfsdfdsf</p>', 'Abierto', '2023-05-12 10:45:22', NULL, NULL, NULL, 2, 1),
-(345, 6, 1, 1, 'sdfsdf', '<p>sdfsdfdsfsdfsdf</p>', 'Abierto', '2023-05-12 10:45:31', NULL, NULL, NULL, 2, 1),
-(346, 6, 1, 1, 'dfdsf', '<p>sdfsdfdsfsdfsdf</p>', 'Abierto', '2023-05-12 10:45:48', NULL, NULL, NULL, 2, 1),
-(347, 6, 2, 4, 'dfsdf', '<p>sdfsdf</p>', 'Abierto', '2023-05-12 10:45:58', NULL, NULL, NULL, 1, 1),
-(348, 6, 2, 13, 'ssadfsdsad', '<p>asdasdasd</p>', 'Abierto', '2023-05-12 10:46:39', NULL, NULL, NULL, 1, 1),
-(349, 6, 1, 2, '744444444444', '<p>gfhgfhgfh</p>', 'Abierto', '2023-05-12 10:53:48', NULL, NULL, NULL, 1, 1),
-(350, 6, 1, 2, 'pedio 202', '<p>dghdhdfgh</p>', 'Abierto', '2023-05-12 10:54:24', NULL, NULL, NULL, 2, 1),
-(351, 6, 2, 4, 'dfgdfgdfg', '<p>dfgdfgdfg</p>', 'Abierto', '2023-05-12 10:54:50', NULL, NULL, NULL, 2, 1),
-(352, 6, 4, 6, 'fghfghdfgh', '<p>gfhhdfghdgh</p>', 'Abierto', '2023-05-12 10:55:53', NULL, NULL, NULL, 2, 1),
-(353, 6, 1, 1, '77777777', '<p>dsadasdasd</p>', 'Abierto', '2023-05-12 10:57:25', NULL, NULL, NULL, 1, 1),
-(354, 6, 2, 3, 'pedio 202', '<p>dsfdsfds</p>', 'Abierto', '2023-05-12 10:58:08', NULL, NULL, NULL, 1, 1),
-(355, 6, 1, 2, 'pedio 202', '<p>sadasdasd</p>', 'Abierto', '2023-05-12 11:00:19', NULL, NULL, NULL, 1, 1),
-(356, 6, 1, 2, 'pedio 202', '<p>ASDASDASD</p>', 'Abierto', '2023-05-12 11:05:02', NULL, NULL, NULL, 2, 1),
-(357, 6, 1, 1, 'dsfsdfds', '<p>dsfsdfsdf</p>', 'Abierto', '2023-05-12 11:09:06', NULL, NULL, NULL, 2, 1),
-(358, 6, 2, 4, 'pedio 202', '<p>sdfsfsdf</p>', 'Abierto', '2023-05-12 11:40:47', NULL, NULL, NULL, 2, 1),
-(359, 6, 1, 1, 'fdgdfgdfg', '<p>vbncvbbvcb</p>', 'Abierto', '2023-05-13 08:43:39', NULL, NULL, NULL, 1, 1),
-(360, 6, 3, 11, 'dffd', '<p>sdfsdfsdf</p>', 'Abierto', '2023-05-13 08:46:16', NULL, NULL, NULL, 1, 1),
-(361, 6, 1, 1, 'pedio 202', '<p>dsfsdfsdf</p>', 'Abierto', '2023-05-13 08:47:14', NULL, NULL, NULL, 2, 1),
-(362, 6, 3, 11, 'pedio 202', '<p>sdfsdfsdfsd</p>', 'Abierto', '2023-05-13 08:48:10', NULL, NULL, NULL, 3, 1),
-(363, 15, 1, 1, 'asdsad', '<p>asdasdasd</p>', 'Abierto', '2023-05-13 12:32:12', NULL, NULL, NULL, 1, 1),
-(364, 15, 5, 28, 'defsdf', '<p>sadasd</p>', 'Abierto', '2023-05-13 12:32:33', NULL, NULL, NULL, 1, 1),
-(365, 1, 1, 2, 'pedio 202', '<p>asdasdasdasdasd</p>', 'Abierto', '2023-05-19 14:22:33', NULL, NULL, NULL, 1, 1),
-(366, 1, 2, 4, '77777777', '<p>dasdasdasd</p>', 'Abierto', '2023-05-19 14:29:24', NULL, NULL, NULL, 2, 1),
-(367, 6, 1, 2, 'Pc averiada', '<p>dfsdfsdf</p>', 'Abierto', '2023-05-26 12:54:26', NULL, NULL, NULL, 1, 1),
-(368, 6, 1, 1, 'sdfsdfsdf', '<p>rfsdfsdfsdfsdf</p>', 'Abierto', '2023-06-07 15:07:03', NULL, NULL, NULL, 1, 1),
-(369, 6, 2, 4, 'sdfsdfsdf', '<p>KHKHJ</p>', 'Abierto', '2023-06-07 17:47:25', NULL, NULL, NULL, 1, 1),
-(370, 6, 1, 1, 'sdfsdfsdf', '<p>ghdfgdfgdfg</p>', 'Abierto', '2023-06-08 08:11:38', NULL, NULL, NULL, 1, 1),
-(371, 6, 1, 1, 'sdfsdfsdf', '<p><br></p>dfdsfsdfsdfsd', 'Abierto', '2023-06-15 12:25:04', NULL, NULL, NULL, 1, 1),
-(372, 6, 2, 12, 'sdfsdfsdf', '<p>sdfsdfsdf</p>', 'Abierto', '2023-06-19 08:45:34', NULL, NULL, NULL, 2, 1),
-(373, 6, 3, 11, 'wwwwwwwww', '<p>wwwwwwwwwwwwww</p>', 'Abierto', '2023-06-20 16:35:02', NULL, NULL, NULL, 1, 1),
-(374, 68, 1, 14, 'wwwwwwwww', '<p>sdsadasd</p>', 'Abierto', '2023-06-21 11:51:00', NULL, NULL, NULL, 2, 1);
-INSERT INTO `tm_ticket` (`tick_id`, `usu_id`, `cat_id`, `cats_id`, `tick_titulo`, `tick_descrip`, `tick_estado`, `fech_crea`, `usu_asig`, `fech_asig`, `fech_cierre`, `prio_id`, `est`) VALUES
-(375, 68, 4, 5, 'Inconvenientes con el acceso al correo', '<p><img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApAAAAENCAYAAAC4pVVQAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAL4ESURBVHhe7J0HXBZH/v/f0pFepElRsIACKigWsIAaG4pEUyyxnJqcaaZffpec53m5++eSGDXNJGpM08RogkaNJkYsscUSI2rAAhZQighIEQHB/2yhqA/Y0IjOm9fy7Hx3dna2PM9+9juz823k5uZ2EYlhJs5msUccD03foBuun15TFxN76iGmzNMNdxiOjo4UFRXpqXuHDuOm0/PMVGat0A21Es0z/3Rh478+YY9ukdQfynkY0QaSvp7KJ7/pRskdSgf+8s+eZP1rFit1i2HEd+aNHnio8+fluZVIajL4Gd7o7sGpX16qvv8I23SnjUz99E6+y+jf61ObeGmW9gsgBeQ9zr0qICUSiUQikdw4RvqnRCKRSCQSiURyTUgBKZFIJBKJRCK5Lhr97fPPL/L3Vzj2wn/o9usrvPmLvoRwXvzwcVod+YBJb20h/IW5DMyYxA9uc3m8xSE++OubNPvvQtr8MeoS25buLzJ3wCkm/X2hXo7kTsbW1obzJSVa4gY6MxjZdaJrB9i7cSeFJgF07OXA0V8SKLRpS1e/IrbtTqSkrFzNaxt4P60KVrPreLGari9cXFzIysrSU/XDrShTQdZV7n/919UYj86D6Gy2hzW/pFL57bIZ/gmNt/yFzHSRCH4d/yYrSVq3WV1m3vsTXE//hRMJahK8/0FA2FESdzQnIPwkB7/6hAp90aU8Qu9PY8gaN5x9uqWaf/Dgp03ZMO6vqHvY6hl6Pz4Qbysxb2qD8aEPmPffL6Dzf7j/0Sg8OMnvP8xn87ertbxPDiXAtpSjW+fz48eLueDoQxsPZWWd0jyOHzqFwQ43Vk481zeENjZlHP99J+/sK+Ksiz9zOhcwecVJceD1+V9tmN7qJFNz2jDH8Q8mi8/p/EqiX2dY8Qfuo9uQ/qX4HNyUlJNNiG1nxtlzyu+XMaZmWaz+Yh9Wg/vi/uta3q55Gtt01srbXFA1/zldGJCzlql/KBlseE4t+1e+oinTR9uw+ssktqkrw5A+gxniXsC5UpEwMsW06Ajvfn+UNn0G0d9LyZHPru9/4cMzynzNsnQMbH/Gufb844r659BxMEwVx6Hm8dhl0es6tq8g9mGyJ4lzatShDow9ujGkYzm/rv6VU2W6UdLgMRrSwgOvHuKnwtgY40YVVFysnITJNJWNQlEq6V+yzmBspOQzIXXr//hF2I6dLb3CVrEpnTMmjWqUI6c7eVK4ePGiNl3nH0I8dguBhE07KFDWtzaiLNccz8BO+Ld0x9TeG38vJy23sT+tfE6Tcvycvnb9/Sn7UTNdH3+3okzlT9ZV7n/NdP38XeDkryvYUhDIfff5Y9tIs5YWWWLhainmLDF184BGyjOi9lfRyISLej7178ROzjTphHuHZuT//hXl1Usu+ztDSXkzPIZ61LBV/hnTyFSUq/85Dn8Qz6PT+WRSXz77NQ8jYyNtya9/59sJXXh31hGajvor/ort0Ex+fron776whAs9pxARIWwdBjLyoZHVU0xPvLUSrvwrymbGsp+Y8NUeykO6MN5J2MRPlImRtryFiz2NlXnlvqbudyNM9E9j5b9RIzEn9sBY/zSCrHMllJ7cw98Wr+epxT/z1y8SWK7nNb7i97KyvOr5vLIynO3MNFujxuK8nOO0nsPYxAh9ifp3qvgcBX9sFtsR2/rqJ/76fQoHhH3JzyuZsECZNjHnTHV+pZ7mNc+fge0frqX+xvpxUI+Nfjyud/vKX+WxutqfbZveRLcrZMsP2zlZVnOJ/Gvof0bD7h/Na/HlNBIi0ET8bFSUV07iAjP1pFlPLT2+fWtMjZR84ulEfCq2ynnl08uzu7be+Pb4iy9HdTlyupMnVUBWiJvadU/NaN/bHxsrX7r0e5j7BjxMoFkCe3b8rE0JJynNTWLPkXQ1v21AIJYHfyf7inJufhL3RYP2m5luRZnKJOsq99+Q/eanC2T8tpI1B+zoObAddsJW/NsezLt/gO/4D3A1zqakkbjdOz+L35Ql+Le3pUnvJQSPexYTdf1VnPnDAnfvk2QfKLys7JrTCjZ9nYD3mDj+MmcVf1n4Fa2Evc1be3nuu6E0dwxn9Hd7GTK2guyj6dhG/D9GfryDsaHWXBTC62LFSHrO28GY2at48KlIbA/9Qoq6/g61vAf/PQbvop38sUlsa+17/P2V/6ue/vclBy6pS/X0cL/+vBfTmf8NCqFZYQo7Twv76WwynEOY+0AULzVTfGji2Is/TUBWCknxSYXal8uoQtwQxQlSP8WSRkkHSHAI4/0RXflfdARz+zZRt2UkzqK4w11ah8ryaswf+HUnR5rfJ7bflffGBWG8/Q9+UvOfIjHbl7EjuzJzRDAPC9uO3/ZT2La/yCv2ISaKmZ0aX1r+JdNZth6yps/YCP4n8j/tKGwGtn/RYP2V/dWPQ+WnyHs923+432AWTupICyN3Bk4azGstDedTJrvggfS0+4M1q/aQUWo4j5wa7tRoV/yHF98aOY0NE2ezcqgfycviYGgwCdFxeC2aTABWWNmKKy0ljuin518yLE3lfJzHYib7I/IpzQ3JxEVPYb6Yk9z5KG9hnzt3Tk81TFxdXcnMzNRT9cOtKFNB1lXu/62oq0Qikdxu6hjGpxfTFsWSOvLqYvBOH+tQUjt3wzA+UpTc23WV50oikUhuP/ItbIlEIpFIJBLJdVGHgNzAtGvwPipsmC69jxKJRPJnoHg1JRKJ5HYjPZASiUQikUgkkutCCkiJRCKRSCQSyXUhBaTkxjF2wtk7AE8Pd8yV8UlqYO4k7E42ekpcaI09ca0lr0QiaUgEYOnf7yZuHje7/s3j+dpe/u+j1zHR0zXp8NFeBvTVE4YIiiBumBc9IgfxZaQyRMmNYsurEyMYp6fqxLUtX4pt3lJMvZjx9CBeddfTtaHUZWJbeujH4U5h3LARzAhSjqnYh5vp1XE9x1ocg5u7Bq5OH3GdKcf5art0c/v/L2JXJvHiT0d5ZLJuugakgJTcIJb4hIXhWFrAOdtQekcEVl9MtmF07dKewNb6L1HjUMK7+1Gek0aBlcjbtZVml0gkDQNrG2yqvuDhuPYNx1RPXT83u/7Nk7b0c5Ys/oILevp6KSspJVdMdxVlp1i+YivLr2WQgFJt/++soDKiPqJORXfZadm2eyufbjrF1U/Lzez/P4mL9ueLHcpoqddOHcP4SO4F6mcYn1aEDXAicfU2CrCneWRPSMqiefMzxG89BPYR9O1QwKYNeylx6knfgDOs+2V/LaHSrh85NMy9XVe5/7dm/yux8YuiX1AJ23/cQprf27Tv54ephRll55U7VTJHZjxHocszNHsgDPNSM0zLdnD40zeo6LWAtq5bSFg8j0ahHxPgv4PEvW0IMrB+cdePadvFFSMhUi+c2aKuX+I+nbaDzMihBU0cTCnZPYuD8esxbvU6vn1F3gpHjE59xcHlX9PI0Ppq7a8kcHYSA/zMsTi5mH8/9rJmjJjDI1MicbYEE7MS9r/ZjtVrtUVXYO/MKMtcFhY7aJ/p5aon6l23XEx9fXE0K2P30jX8L92MmL4RDHUxFg/VxqSuW8vUQ+W09u3As309cTQyAfPT/DBrM5/qRV+Ktv4DvnaYiR0zzdpB7LepWDn7MX2IL1ZlZliXHuLjxYfZZGTLs8O6E+pshllFDhuXbOT9HGjt35GXI72wElK59OhuRq85pXpOR1qeAi9RB5Pzoq5r+V95Sz58IBBH81ISvlrFa8rl5NqWd0ONKXLzwdfKhNQNq3h+nzhn5raM8ihl4Skz7fPoea26VzCJAfMexLjchZZNzeHEMuY+/jImL65lfIQXJuKwXDi9nq/GT8b9ox10NLbF2ewIScYt8C9ew8yJz2Dy0LeMGK54A20xOfE5C57/L7VtLbS5Bw6nTpHroX3+XGLLqw+0gmJX/H0s4OQO/r0slTRDx6+WY20QI2ueiO1JV3GsMRGPQX+sYfT684bPtXL8e7pjJc51acpWRv+ofU/7dOvJuHaO4lxdIHPfep7a6sCMSV4UZTvg6yHKPf4rL688Rc+BscQ0N8U0Y1t1fQxea4b2X8t+JV54vrKQB7q6YCIu3ewd/2XBfz5Xl7i9tpe+J9vxxRw1ib2Bc5VhPYnIWU/S3s0co5UrV1I5zZ6orVQfKGND1md5kjsXU28/7LLThXgUvy0te+KRtpGjNTVp3jZ2ZPnR+/6xDO5szJ7t9SceJRLJrcIY99Ah9Guezo/fC/GoBNne/xy/z1jB6fydJM6IEfNCPIobkuPAdhQtHsnBuWM5ejYM92Ao2/AGKSb98Q5/CZ8uOSR/NY9yg+tD+bZHSZippEeSVh6GfWUzqoM1RV8PJ2HGj5S1jcScwbj0NSN9zngOznmZrCZDaOJSx/oG2D/FnzdnbyVPT0MMkZNDSXvbn5nR/vx8VDff/wrzP55fPb3xOCGKPS9bE42Vnzqu9oW8P3cFD36fSWiED1ZebRlqmcSTC8VN+PPDuET40wVXxvc15Rcl35x1JCg7Xxut2vOAWP+xj+J48LskPQa4MaN6+5K1bC1//WIVSwr8iWkjzE28CDU7xP+UvB9p4hFzH57sbcbP84RtzgpVPFbiaJnNzI9WMH5zMUFtbIWKOMxf58Txw2WaycEDNn4h6vpxAlZd/OmjGEvyNdFY+VkXji6Ux0WL4zqDJLdQWgpT3pt9mRkjzkF0X34p70YHtbuALelrZvC7tQt574nP8ibY8yS9hpuzbXwYcx+YzL4mD9G9ZwiPv1HjnIjplfuV9WH3UU00VX6q2LlitlcIvPeXsc1SHE/3Wo6fwWNtmKAuXemYuY7RIu/oTfoxNXiuoWtbLzLX/SCOv8iri0e8OjCuVTbvqedqhRCP+kVgZUvp9lWirutIcvdVj/XCH0SepQeuqM8V15qwGdx/QwyZxQNBqXzxsDgH4jxUikdDGDxXXXsRaLaVBWJ9o+Rl0URHK9Nb5EbVr4iU3P0Y2XclvHUe23cdE0oykA6t8jiYWo65hTHGxpaYm4pHl8YBBHiXcmDdSnZludIxxE/2nZBI7nCMPbsQ7lfIzi2JFNT5xBdO4yaOuA5bROvH5uLtKX4XrNoJeyL5q3ZgHhVO6bp/U1xHGcatpuM7WVvfU4iWKk79Tr5yf634gJR3p1JiG4C1vR8+k5S8/8DNygwT+zrWvya64ml5mMPb9GQlGxcx6/1Z1dOC7zmoLzJEaXYu+5R9PJ5Nqp010e4O2DcN5r0xfVkwrCXWxmZ4ujrjmZPJsmt4gu7RtAm5x09dJh4c8HW2JUjc0BeIcoeKfTVrbAGZh1lyyoO/PTaIDwf60EPpH2BvjUNGKgsNtDOnHkpV96Vo72ZGr6+j2TI3l9XK+iWnSbtoizi110kWGWsuVaXWDy3kka93MPnrb+neVDeSysmlyudZxd+gEdgWd7sWRM5T8v6PDtZCEzc9yPcLapwTMS3aqOc3yFlSxP1IPGKwL6MCB2fDx8/wsTZMqLsFycmXCufWhs61sC/Z+BumEUP4ZlwEf2thoQo97MX/46lsv/waKExlU7oyk89rc2vzSmtcfq2FauZro6ktF45sILuuhxcdg+dq7TxWn2jL+K/31ryPb2DavF24BU8Q80oUmkrP5GKmRWk5UMIdXm5jArMXTWPaO3r+d5T1dTymsVjNP1vk0r2SUyttNcuQNEQU8dijE+yJ30aB0hHCxpiybHN82nVV+z+a2jUj0McFI5dm2KTu4HjeGdJ3/U6Ou6d4upRIJHcy5WlbiPslj3bRgwh00I2VXPIEmErZuRzSF47k4EcjSXx3OCnb9gp7ALaDwijZmYhN5N8wr7nOJeuH49zXi7NfKOs/QVpdrfH5OWJbiRybq23rwOzhnDx0Hesb5DS5Zl64CYGC9STcmmhWOsYwdtTY6un+3vjqi+rCytcV19x8Vhaep+j4Lp78XPFKrWH03D0szTtPob2dkKxKRgdcLdVVDJJSUCgEj/aCRms3B8zUufPkFuey7VulTDHNW8FTuxQxU8ry9RsZPWcNy8sCGd9V7ExxKYXOzsTUx9O6VRMhiHJJ0ZM3zhi6Dm/J0X+FMefh8fySoZsNsf8shcVHWD1RyRvGu/e3Y+UiX7Ulq+Z5iemo568TM4KEWMzNMnz8DB9rw+QWmuDqos33cbFTPw8aOtfCXpR9nOc/jWP8d6l49gvhASVzSSlm4iJrrczfJJXX2m49fU0UlmDhHYJyuddNbedqPUde7cHM6JE0Wvyq28XqQcCFGHwHpiQEs9gjjoemb4AoIfiGpvLQ0wih6EWcEjdbz60h1lkZC8ui1cHEJ7yzGK9lD7EhYjEv+CeixNn2E+IyOCFajZldadtQVa6Mmv1ncuN9IP0IfbAnHqWllOmtOKd2fUmC+gQlsO1KVKDeB9K0FaH9Q2mcc4YyGyeMk9ex5XCWnvHmkf3q7u26yv2/NftfhaUn4QNCKF73Pb+dVQxe2D40k2b2ORRW5JA192WKA9/Gf4AbJSdyqLA142zcoxS2X0SAU7zaB9K0j5h3jWffwnmUX7H+vyH2M3xdcjhnZEqjCqETvx9PJtNpG3WCA2Kdaqww7/UerTuI++CpIvEQW0jGR7WsX/lbdAljiPz873R0NMfCrITzpVnserMHiT13MKKNEHfGJaSfNqc8rkftfSANobyRHGFJWnop1k2K2bhoB58W2/LsiJ6EGuWSWWCM4/kkxq/JZtzQIfSxEkLYKJ/UCitSFtbibTL3YMa4DljlKx3VssVvaiZ//TZV61fX25XCk7niod2IlFWbmenSkS87WYjtiCNkb8zB1RuZKS6JPj368mgAZIrVrYsSxPYz1T6QMdlKf0Z9OwqizG8ivcQ2LTAtO0/Z0V95cLcDX45oRu6xs5g2seToyrVqX7trZxIDvnuQjPv7sqdq/i8Uz17LANdU8oztMCmFtE/DyBguDvZj3+Cm5hGfH/Viz2MvY6L01QuzIPvkWUwc89n28DCS9NKvjvJGcn/8i9LINXHA9PgvPL8pH09Dx6/I8LE2iKs/C4Y2o/CckO1Z+ViV7uevGzFwrot4dlQEvkX5lFra4pi7h3+I458m5Om4of0YKPYntdgMs6PbeGq7AzMm2rJ83gE26ZsRZ0ys35eu9qaYmpZTViKE75J4ZrobuNau6xYeSYcPZtGnyVnSCi2wOPgeC7b1YtKL3bA3E9+LcvG9OL2VBWP+ibOBc7XaeyXPRpmTIX4LLhWQQtTNjthAHLH02jyFafGKsRfT3unFhmXiOyqWTVFE5SUoHshqYdlr6mx1XUVAVsbHroyVrQjI6pjZuliVAvJPRcbCNsy9LkoUGkpd5f7fmv2XXAfKcC7OCXU3Bzc0XNvyZUQ+o2sTUnc8ioAMJm1e3c3BDY476Fqr4dwWgu65AHI3KzLQjYCIXpo5qhcBpKri0M2/l5CTBrB1wE+dEcv93dS52nDz0EsQJ1ZbRyKRSCSSexTnlnw4OZZvLpte99eXS/4URg288px8M6ql+nKMRKPRrl279GF8itj19kPVXsdFL9BR7RKQTFy0FhNb8SS+EKZ0A1Xy/oTDc8EkRCcQvOg+3Gyt1A6iRTveUpu+K72Ol3sgJ4svhZXIW7NcyZ+H9EAa5l73aik0lLrK/b81+y+RSCR1UQ/jQF7ahF0XNUWl5M5ACkjD3OuiRKGh1FWeK4lEIrn91Mf7WRKJRCKRSCSSe4h6EJDzmXIN3keFDdOl91EikUgkEomkoSM9kJIbx9gJZ+8APD3cMW+k23TMnYTdyUZPiQutsSeuSl43J3nRSSS3GfvQWAa1vWx0OyVU4KjqyBFGIe/R8anpmOtpiUQiqQt5L5fcIJb4hIXhWFrAOdtQekcEVl9MtmF07dJeHUy8Mt0jvBnlOVmcd+tJ15ZyGHGJ5FZhY1v94KbhTttmZ0lMVGJP107F/m9JXPFtrTGkq7C2UYbPk0gk9zjyZ0BygxRzfNtqDmWkkZN0iGxxU1HDNGFP81B3jv92jMrblY2XD+cObia78AzZ+w9R7tuKxvoyiURSTxjZ4Bs5nD5BduLxrga+AbhnJJKihk4LwGrQAoKfXU77ke2qvoemvRbQ/qlnaDN4mO6B9MJx3HK8A7VvNc6vEjD5VZQIeZYOwfSJjcL36qEsJBLJXYwUkJKbxtTbD7vsdArEvHnLnnikbeRojRe7i4qKcfYKpLGFDY2dnWhsZIyxvkwikdQDpu6EDOqHX/qPxG1JE493lZgR6G9Hyn49hEibSfg13kDCzBh+X7SXc5qVsg3j+X3GCk7raSU8Yc6uZOwDhqsp0+A2VCSuQAmLXJy6hbgf0/HrN4QQd/lNlkjuVaSAlNwUSjzs8NZ5bN91TNxlAunQKo+DqeWYWwiRaGyJuakxFcdWsyHZnObt2uHRqJRzFeXo0Q8lEslNY4xn53BaFe1kc5LyGFcDu0BaclgJK6xi7u1NYYoSpfca2L+e0x6dsDUajHNQIae3K/GtdQoTif/1LK0iuuCpuCUlEsk9hyYglbjUi6YZiDKjxLmeLf7fCMr4kIbKlNwtKOKxRyfYE7+NAmU0URtjyrLN8WnXVe3/aGrXjEAfJep8OecydnPg181kOrpjnHKoyvMhkUhulnLSNsex8Ww7Bg0MxL6GW8A90JezSfurupOUnS2gsWuEOm/s4XZpU/cVrCDviBsuMZE4ntpCznndLLAP6k9shwI2LttCmuKWlEgk9xzaT038NB4yOBTPfKbIaDESg/jR4b4AbKz86DpwNP0HjybYfC+7f/1Jm/amcT4nkd1H0sE6lHCxvG/0A7RlBzsO5+llSCSS+qGc9N3fs2qfHZGDQ1BfUzPyJcAtncQUNYNKxZ4t5LeeRMu/LKKFWw66YxLr2OW0f34wTWw7EfD8cjwDNXvxr79j3MabvN2faQaBfYchRNrtZ9WK30iX4lEiuWdp9GH84oupI5VwhHo0mYmzWTlUiVKthCucAxNjSR2piEjFGxmrx6++LAyhWGexRy4ZYR3V5cnLopkyT4tQk5vdkY6+lSEO/S6xkRJH9NNSnv6ZyEg0hpHRTRpOXeW5MoxZ20EMsthC3G75wCaRSOofI4ekuBoeRiH6onJ5Kzqa6OjKuNgavabeB0IYRivLlsF9Uy9tnLYKcyBBXS9ObRJXl9p2xCFB2N7eBf69LrWJvHHcx7QoxSiRSCSS+qT0wCopHiUSyS3DKHdzjYbrKC9I2mAwqoyfcwYJlVFk5iWQ4az5Iisp2lEpRJPJzVZnIH8Xcco68alkaJZqmyA5u8oqkUgkEolEImkgGG2o4WVUcKv0FF6BH8GVQQsmBuOWnawnNKwqBWVULwKctVmD2DrozeBiO/5u6pxEIpFIJBKJpOFgdIm3MX4ac5ICeGHlSlauXHxJ8/L8p+NgqGIXU1Quc6ZvoNfUxSzWm7KLnO/Tlj0XQOK8OmJj57txn1r+CwQkzbmkmVwikUjuZm5X/0eJRCK51TRyc3NTBmC5OdSXaOJ4SIjKutFerFFf1tEtkj8X+RKNYeSLGQ2nrg1p/yUSieRuQQ4kLpFIJBKJRCK5LupHQM6bcg3eR4X5TJHex7sHYyecvQPw9HDHvJFmMrLzw1OxqZOnHldXYOGOq2Jzc5JPLRJJbRj5EjUsHHc9qcSuto5dRPvnl9N+yut6vPl+uD61Gt+Qq/Qhd3mJlmK9kFeW4lpdYDXu02k7qrJj+/UQgKV/P/k9lkjuceRvgOQGscQnLAzH0gLO2YbSOyJQvZisPENofvlLVCZ+hEaGYpGfxXm3KHq3N3Q3k0juMSxtsLksDKBZQAB2xw6QrqdxGYaPww4SZsTw++yX0TqbbCZ7xTxO7r/KKBZZb3BYrHfkmJ6uN8Jx7RvOJVU3FftSd1gbiURylyEFpOQGKeb4ttUcykgjJ+kQ2dY2uncESrISSTuhTGmUiLR583bYpGzmeN4Zzp7KAt8A6npRXyK52zF2D2HIwHB8rHWDij2BLeHwPmXsRiuMbNth7GhNowpoZC/mbb2EfSyezy8iaMRE3PVoMSouz9DsiUW0nrSUwHEvVXv+ryAAq0ELCH52Oe1HtqOxbqXpS/g+sVT1dAaPe0YTh0bhOI5YRMCkBQRO+Rgn5bkv8O1LIta0f/5t1F2w9iF84BBC3I2VlEQiuQeQAlJy05h6+2GXnU6BmC8vLcWu7f1ERd9PWAt39QIzMzPmXFEJjm1j6B5gzNkS80u9FxLJPYSNXxSxnc3Y+f0a9ufqRgX3tvjmJ7JfDVzdAuvuk/Dq5I2FQzu8+on57v0w5jPSZsSQuKfmi29eOA5sR9HikRycO5ajZ8NwD9YXXU6bSfg13kDCzBh+X7S3Kia9eVAYxgn/5ndRdsKns1AiFBp1GkuTzJkkzh3P/tU5NO0xEfY/J/Ks4HT+ThIVr+iM5yhUCsjdz5rvd2LWOZYoPxvFIpFI7nKkgJTcFEb2XQlvncf2XVo72bnDy1n743fEr4onr3kvAtSgvODaeSgtijezYeNe8io0m0Ryz2EXSI9O1qRs2n5FHGnfAHfSqwJX7yV/1ZMc+/kIxVlbOLZYzK+aR7m+9FLCadzEEddhi2j92Fy8PcX30qqdvuxSzL29KUxZqqeqKdn8Ffl+/6D9lAV4dopUbZYerlgFPSvKFOX2biGeBK2FgK2DsnS2xx/GslMPAu10m0QiuWuRAlJywyjisUcn2BO/jYLLB4O6WELJhQuUCbFYcLaQsmPb2JFyhgpTT5pcyCJHzyaR3FOc3c+qlfux7x1LuFeNToNmgQTYpnCgqvPj9ZBK2bkc0heO5OBHI0l8dzgp2/bqyy6l7GwBjV0j1HljDzeqalD4LZmfDuf3Od9R3mUSri5QWlBEwa5/q2UenDOchC9mVQtYA3cOS69wYvs6kbhyFfvP6kaJRHLXYmxtbT1Nn9fGc4w+z1LjcSz+Ty+yv91Adf/rXkxb9Cx+365hj265Nm50PcntwNLSkrKyy1wh14QfIUM64mxsh0eLYFq0DqZxQYIwx9C2mS++Hdpjc3Q9v6cXCQWZT3nLHoT4eOHZ1oWsbfFkKZ0j6wlxDdf7WJa3okwFWdd7e/9VSnM5mpSBXXh/AssOcjTvIvbtw/HO2sK+05f5GG0icWl+ltP7ftPSypvVf30JD09LbHwfxCXAmzO/fU1RcU+ajRiLnVck9t2GYnRiBcW+b9P+kcdxcrbEvq3I62pO+i8nsej/EC5thuLUKIPzFjnkiLKtY5fSPLQHNm3bYXNhP+lbtlCaZU3j/k/hFRSBVZsHcLQ/Re6JU6ISp6lo9ggtIvpgFRJO2W8/U94siiGBOcSv/JX0evxuSySSO5dLBxKvc0BwRQjGkjpyih7z+lq50fUktwM5kLhhGtLg1Pd6XRvS/hvGnfBhAaTHxZMiu3dIJJIGgpEaHUYNLbiS2VUdr5WIMdOE9BPyb+piLUShEIEO2kJVaKo2MVWGMtTQ1pv2jrZs5TsTdDt4VZaj2hRROZtpVWVr25JIJJJ7j3S2fCvFo0QiaVgY9Zp6HyyLJjo6mgT8dHMlE4j1T+QtsSx6Xi5utrp53hQ1f3R0HBn+vS4Vf7YdcUjQyovjPj2eth8BzFHzJ/sGi1Jr2qJ5KymA2BsZz1YikUgkEolEctsx8nPOIGGelpifkKzNVBLlBUkbtMgx8RtIzFetwj6NxaoHMvYKyUn+LuL08pKzKwe6TeYntVk8mdzKMqpssOHUVQbElUgkktvM7Wm+lkgkkoaJkeIJDNa9f708rgyN5VblYfTDQfVA9mLaRAd+0j2Ql0lOsHXQRaVYz7+uUFtueKneSZgQfIUMlUgkEolEIpHcoRjNX7YLt6Fan8XJ/rq1kvhp/JTdkRdUb+N9uKneww1sSHIjtqYHUvFIVvZjzHfjPnXZCwQkzWFavGI0TMBEbbuxxDFF91pKJBKJRCKRSO5sLn0L+6ZRXqLxIm7kNK3Zu1bkm9l3Cjf1FraxE85NXbC4kMfp9HRKxJVkZOeHh52ZnqGA03o4QwVzx1bYlx8j86waaqPeuNff7L3X63qr9v+q+EYx3D2RpVtqDt4YietTwyh+90nU522zifg+35+iz4eTeVLNIJFIJHcFciBxyQ1iiU9YGI6lBZyzDaV3RKB6MVl5htD88kDXFn607z+C8K5daespw5xJGiDWNthc8mtpRqC/HSn7rzLyd+m3nFzyGdlXGyDcVJRfY1xxiUQiudOpZwE5nylX9T4qbGCa9D42cIo5vm01hzLSyEk6RLa4wVrpS0qyEkk7oUy697Eki8QNX7HzWGXkXYmk4aDErh7eJxg7c92gYBdISw5XRVwxbvU6LZ9dSvvnn6Fp5WgVyqDfz39K24fG4uyqmSwHLSUgqpOWMBqL97NvY638Clv7ED5wCCHudQYLlEgkkjsG6YGU3DSm3n7YZadTIObLS0uxa3s/UdH3E9bCXbvALhZQcl6ZkUgaEsa4hw6hX/N0fvx+C2nFulngHujL2aT9aJ0xHqbpIDPSZw/n9xmzOFk50kTWGxyeEcOR6nBeFP/6O7Tuh6mSaNMO+xM7KFTGf8zdz5rvd2LWOZYoP+mll0gkdz5SQEpuCiUednjrPLbv0u6S5w4vZ+2P3xG/Kp685r0IsFfNEkmDw9izC+F+hezckkhBzUG+jXwJcEsnMUVPu7fBJvuIJgSvRvZnZBa3wdHdC8eO3pze/bW+QFCWzvb4w1h26kGgnW6TSCSSOxQpICU3jCIee3SCPfHbKLj8VayLJZRcuECZjK4haaCUp20h7pc82kUPIrAqDBeYBQRgd+wAVd0ac3MocXRDbeG2DsCqsWqthVTyEgtp0u1ZHM1/J7uGd9LSK5zYvk4krlxV1TQukUgkdyrG1tbW0/R5yT2IpaUlZWVleup68CNkSEecje3waBFMi9bBNC5IEOYY2jbzxbdDe2yOruf39CJxUw0lvF9vWrg2prGzL81dTDl1PJ0b2aohxDVc7/G8b0WZCrKuDWf/FS4WpnPwaDEt+/aiyamDpJfY0y7cm9Nb9pFVrme6cJILzR7Bt2sfnILMKD5nRslvP1AS+DbtH3kcJ2dL7Ns+iIurORlJe7mY7ojFoEiMd75GdprW3m3cLIohgTnEr/xVbEM1SSQSyR1NPQ/jI2lo3NQwPncIcmice7uut2r/DeIezvCAdJbGV7ZfSyQSyb2JbMKWSCSSayV9ixSPEolEIrhCQPaaupjFU7XghdeLsu5sPSyiRCKRSCQSieTu5AoBuWH6Qzw0/eojOUok9Yndv1qok0Ryvdy25muJRCKRVGE0QfxTPYfvzGalEs964uwqD6RiV2JVK9OlXkklFOFsplUur4yDreAxjcXqOrOpKntqpW0x06K0bBKJRCKRSCSSholRsN7k7EcC0ZdEkZlArH8ib0VHEx39Fon+saogrMaPAOaIZdG8lRRAbGU5/jBH2OJS/KgqW7dFv51IwNBLS5FIJBKJRCKRNCyqmrCTEy4LLBjlBUkbdEEpPpPA6xLvYTI/6U3dG05lqJ8KyfGaCE3Orn6zt9JGfCrVOSUNHmMnnL0D8PRwx7yRZjKy88NTsamTpzY2nmK3bqbaXB1llA3J7caekKGDCDTTk5W4T6ftqOpO2+b9l9JRpOWbhRKJRHJ16vytdPPvpTdNi09/SI1XEzpuVYJyQrCfNlMLbh56A/fEYOrOKWk4WOITFoZjaQHnbEPpHRGoXkxWniE0d9ZyVGEeSId2LpwvKsAmMIYuzS6/k0sk9YUlNraXxZN2b4tvfiL7tbiDtVKy/TMS133L1ca+t7GVD0ESiURSu4CMn8acpABeUPsuvoBD/BTmM4HZet9GhYCJWv/IWOKYMk83GsJ/stZXcijEPX2Zp1PSQCnm+LbVHMpIIyfpENnWNljpS0qyEkk7oUxpqGMil+xn95YdZJ9J40jKGRpbyRuw5BZg6k7I4EGE+1x6ffkGuJNeFXcwAKtBCwh+djntR7ajMmiMdaxIT3qcNr2H6RYvHMctxztQv6qdXyVg8quYCoFqF9SH4ZG+2EhXpUQiuYe5wYHElZdoYkkdqYjKulFeook99VDdAlPyp1EfA4mbeg+gl2sia3ceo3HLGMJ9jSk3hcKkbew6kl7Do2OJZ/hQnJO/4vfL+jJUvoF99p9H1M/rQQ7OLeuKtS9R/dpxbuv3bE+vDBEjMAtk0EAztiz7jTwl3eZtgtvuJWHJZ1oTdtQJDizUf5wuTweKvAFaXtOoRfhW/I+DG/aqi2z8+9Kv5Rm2rPmN9PoKqSSRSCQNCPkMLbkplHjY4a3z2L5LC+p77vBy1v74HfGr4slr3osAe9UsMMYucAAt8tZdIR4lkpvDnsAeYVinbLpUPArsg1rC4f2aeBSYe3tTmLJUT12F/es57dEJW6PBOAcVcnq7Jh4VCpLi2X62FeGdPcWVLZFIJPceNyggNzDtGryPCsq4ktL7eHeiiMcenWBP/DYKLvdjXyyh5MIFylT3oyIeY+jANjYdyFIXSyT1Rx7716xiv30ksRGeWOpWcKdts7MkJlZ3fiw7W0Bj1wh13tjDrUZeQ6wg74gbLjGROJ7aQs553WwkBGv/WEKKNhK3OY1LJatEIpHcGxhbW1tP0+cl9yCWlpaUld1IG5wfIUM64mxsh0eLYFq0DqZxQYIwx4ibti++Hdpjc3Q9v6cXgUdf+nd0ERebD74iX4vWDhQcOk7NhnOLSEf1s2RDjvp5PYhruN7jed+KMhVkXW9NXblYSu6xP8iw607/wFIOHj3LRd8wOjdKZMuJQj2TyJbdBIv+D+HSZihOjTI4b5FDzj5Lmkx8j1advbFwaoFLWD/Kk5dzTlTzQm4rmgxoTf5Pr1CQq5RgL677SKwTVvNzUi430P9HIpFI7gpusA+k5G6hPvpA1geyD+SNI+tqCDMCBw7CbEscv53VTRKJRCKpN2QfSIlEchdSyv4fpHiUSCSSW4UUkBKJRCKRSCSS60IKSMkdgdJ0fSPN1xKJ0iwukUgkktuLFJANGCV6oJuVJWHuTWjv4oSNmam2QCKRSCQSieQWIgVkA0URjy0d7eju6UYLB1vaONvTy9udJo3rHphEIpFIJBKJ5GaRArKBYmFijI+tNabG1afQ2tRU2KwwaqTIy9uAsRPO3gF4erhjrm/SyM4PT8WmTp6Yq1ZL7Dw0m6ujDGMokUgkEklDRwrIBowhoWhiZKR6J289lviEheFYWsA521B6RwSqF5OVZwjNnbUc1ZhgTAE5OQXYBMbQpZmZbpdIJBKJRNIQkQKygVJSXkHWuWIqaoziWVpRQXrhOcov3o6hPYs5vm01hzLSyEk6RLa1DVb6kpKsRNJOKFMaJapFiMdTaZwrTCM18xympppfUiKRSCQSScNECsgGSoUQiftP53IgO5fc86WcPnee3zKyOVFw+wcFN/X2wy47XchEKC8txa7t/URF309YC/eqC8zcI4LQ8PuJ9D3DgRQlp0QikUgkkoaKFJANmLKKCvadzmF1Siprj53k6NkCLt4W72M1Sjzs8NZ5bN91TE2fO7yctT9+R/yqePKa9yLAXjVTcmozu7euZFNSY0JDmmlGiUQikUgkDRIpICU3jCIee3SCPfHbKLhct14soeTCBSFy9bTCxVLO5eSBpbW88CQSiUQiacDI+7jkBvGjw30B2Fj50XXgaPoPHk2wO7i2iyGs8wC6Rw/FM20jh/JFVutA2offR2iP++nfzYkje/dTU1dKJBKJRCJpWDRyc3O7vW2ekjsKR0dHiopuf7/J+kSJRJKZmamn6odbUaaCrGvD2X+JRCKR1I70QEokEolEIpFIrgspICUSiUQikUgk14UUkJI7Art/tVAniUQikUgkdz5SQEokEolEIpFIrgspICUSiUQikUgk14UUkA2YRo0a4eXmQFiQDx0CvHC0a6wvuU0YO+HsHYCnhzvmegBuIzs/PBWbOnlySdBCExdcvf2wMdHTEklDxn06bUdN1BNg3n8pHUW63n5Ue37CpJVJ/N9PexnQV7fdKlzb8uXEtvQIiiBumJduvHnGDRvBjCBbXp04iFdddaNEIrkrkAKygaKIR//mrrT3b0pTF3uaeTjSKdAHDxc7PcetxhKfsDAcSws4ZxtK74hA9WKy8gyhubOW41LMcA2NIDg4BPfbrHMlkpvG2gabq/xalmz/jMR139bfGKcb/8LcaH/WHNXTt5rSUnJLSinTk/WDKE+UWVSqJxWu4VhKJJI7H/k1bqBYNzbHzdkWE2Nj3SIknbkpHk3shO12nNZijm9bzaGMNHKSDpEtbgpW+pKSrETSTihTGiW6DbcI2lb8RmKOnpZIGgg2flEM7xOMnepOD8Bq0AKCn11O+5HtqHwWso4V6UmP06b3MN3iheO45XgH6t8K51cJmPwqplrqSqwnEblgLy+uTOLZ5ZuI7Knbr+DvRC8ReUS+F1fuJfaRbpq5/yc8Iuzq+gvmoD7DKWXO26vlFWVGdFVzGiYvldW/pLLveBLLfzut2RSv5KiOTB81mC+fiGVBhK1qbu3fkQWPDeabycI20IPWrcL4sl+Np0YjH94d05IgMbvvt238fPw8m37Zw/Y8bbGlQzB9YqPwtdbSEomkYSIFZANFaTE2MtLbjSsRSWMhHhXv5O3E1NsPu+x0CsR8eWkpdm3vJyr6fsJauGsXWKNmtO8ACbuOUa6kJZIGgTHuoUPo1zydH7/fQlqxMLWZhF/jDSTMjOH3RXs5p2WkME6kv9xZlYZUcnYlYx8wXE2ZBrehInFFrd69ZlOfx//EDN6M9mdmTA/Wb9QXXMF/WfmAyCPyvfnefppFDFGtbhGhWOz+m7b++MlkK8auvQg028qCh0VeUebmbYpxGK98PJ/5VdNbPN5RmEvyWXj0fPVnJfYWpCxbweg5v1Ho70UPcx+e7F7OsrkreHDOKnbZhTLKOJdCa0tw9GJ6N2esmlhjnV/EPrH67qOn+Fk8RVZ+KhSnbiHux3T8+g0hxL36AVgikTQspIBsoJw7X0pu/jkqLlYHErpwoYLs3ELKLtw+mabEww5vncd2IQ4Vzh1eztofvyN+VTx5zXsRYC/uK+06YXF4LwXmNpgZm2BqYcnl2lciudMw9uxCuF8hO7ckUqC3S5t7e1OYslRLXI396znt0Qlbo8E4BxVyevtefcGVONiVcGzz53qqDqzH0PGDHTz19Q4mTwil0omXsXAxaa2n8+J3O4idMga1m/Haeaw+0ZbxX+9l0uxZuDVRjOtY9P4sZlVNc/k+UbHXQsZxPlUCVVUc56l5B9hkb41DTjbL1eNRyr6MCqxMiiiys2W4vy/+Qb4MVbrRnC1UMtROYSLxv56lVUQXPGt1y0okkjsZKSAbKBfKK/gjOYOjJ89QeK6EvIJiko5mqunbhSIee3SCPfHbKLg8IObFEkouXKCswgbTirOUOYUS2K4r3nZmNGkdSpNL3q6RSO48ytO2EPdLHu2iBxHooNnKzhbQ2DVCnTf2cMNSnauNFeQdccMlJhLHU1vIqeHYu5ziUnPcgiL1VB2MfITI4mW8+3AYc744QJVMS/wvq8e3483HPqes5/N6E/h6jrzag5nRI1lbEskDT44Rtq7EjBrL2KppOL2vZ/jV4lIKbawI1ZNeNuUU5RWSe8GZnu75/LDPki7+FuRkK0Hwa8c+qD+xHQrYuGwLafXb6VIikdwmZCzse5wbj4XtR+iDPfEoLaVMd3ie2vUlmS4x+FiUYt7EnoqD69hyOEtbqOPe7QFs9i/h0GX3l8pBxM/+84j6eT3I+NL3dl1v1f5XYelJ+IAQitd9z28lE/Ge3B/zs6UYZZ6gwv4Ihxcm0mTiSzR1MMPUTHwfzudw8ovxnFYufedXaf1Yewq/Gs7JFK04gwS8zojXh+Kck0qhpTmH5/Rgc4uVvBjbAhMz8bRVWsKF5MW8+bULk6Z248LJEiyMwaQ0nncfe5nA2XvpapUlBKUd9sa7iRs/mYwJK3k2ypyMs2AtntgSPxZlrtW3dy0ofSAj8hn9bapu0OjToy+Ptigls8wa6zN7eP2HU3QdNoKBhWt5cJsDH05sRdrCVbxWyymx7zCESKvfWLM5DaVXgEQiaZhIAXmPc+MCsn6RAvLGudfreqv2XyKRSCS1I5uwJRKJRCKRSCTXhRSQEolEIpFIJJLrQjZh3+PcKU3YJc7+5HaYhNva53XLtePh4UFubq6eqh8cHBzqvUyFW1HuvV7XhrT/EolEcrcgBeQ9zp0iIM95d6fIK5wmW17XLdeOIiBPnTqlp+qHe71foUJDqWtD2n+JRCK5W5BN2JI7AvPsREqcA/SURCKRSCSSOxkpICU3jlN3hk2YyMQxAwjSI7Z5Ro1komJTpyGEqNYQhlTZJjIyylO11qTIuztWJ37RUxLJvYvtqKW4uusJs4n4/p9IN9XT9UDgbCXk4VH+8dH1e/uvl3HDRjAjyJZXJw7iVVfdeM148PrkWL55WilDN9VCl25RfDN5GHET29JDt10/xvRo5UOMvZ4U2Ddx5dEOPozzsqgK1UpQBHHDvOgROYgvI7XwjncyjSxscbSuMVp7I3NsHaxqD6t5U1jg1tKHGofwlmNqZY+d5Z0Z0cjepyVudQ8We8MYW9phbaYnxLVraWd9i85p7UgBKblBWvP4/w3HNz+LrCZDeOX/TUSRhc0796ert5ajmiB6RAWhj8VsENukOPL9Y/WURHIPYGmDzdV+8Uu/5eSSz8hO19P1wP4p/rw5eyt6aOpbTCllJaUUlerJ6+IUL8+J4719dQ9KrrB9azwPztlBXUNt1oWrlz8fPtafRyO70cNLN9r48Y9ezuTkFeEaMYjXQ6tFirJPuWKqxhgb21ukFG6Si2VG2Hh4YK9X37yJJ67m5bWG1WwwmNrh1aIVzZq642J374UzMrVzwanqqcYUOxen6oec20TtfSAnzmaxRxwPTd+gG65GL6YteoGONR7Iina8xU/OLxCcEM2UebqxkusuX3IrqJ8+kGN5a4Eny8f/B/7vc2LSx/DCp/oilerltfkYc0MmYVx0GtuDy3TLtSP7QN7bdW1I+1+JsXsIg7q5kBK/hv3Kezouz+D7QATWFuKp3gzSPx1OZvlLtHwkHBuLMk5+ItJCRFoOWkqz4v+RGL9TZByL95R25Mx+jkI91OKleOH5ykIe6OqCSTlk7/gvC/6jh0vsu5Cnhqeqg5Ar2L+4lvERXpgIkXHh9Hq+UgYit55E5Kwnae9mLtbPYtvrWjxt63EreSS2BdZK3j8+Z+ZL/1XLMERocw8cxHczV3xHlU81HraVB68/0BlfobdKK1JZ/dEulrm35PUB/kLYmFCas59PlxzmZ32fFE9fTPYqnleCa9eJFzMm2rJcCbmops0YN7QvPS0LMXX1wKo8k01fxTNTDRR+GVYWhJaeJ2jICIIOfXXltoIi+NI5gdHrhZi1d2aUZS4Lix20z3RxcI3sCbyvD76nt7Bqd/odF/PfvIkfPqYZHMo0xcfPhtzDqeRfNMGuqQ+uVqYYNSqjIOM4J8+a4NbSlfOHj4sHDMWbWDl/rSjreGBebIy5tYkQAadITj2LkZMPzZ20ELYVJdmcOJaNEpjJxK4pPm42Qv5UUFGYyaGTZzGx8cDbVXwRxPlrVHyKYyfzDR/PRqaYmpRh7NRSnPlUDmfUEeqpkSUu3p7YWxhjdLGE7ONHyS4xwdrdG3dxHVaYNuJ8+jFO5pdj4uCNr5MxZWIdS9OLnD+dQsoFN1qaZ2rbcPDR5s/a4+NsxEVzaxqLXT2XmcKJ3AviYDvh4+WEufh+GBldJO/YYTLOX7r9nNSjZNU1ir6RCabGFymrjNJhAAu3lriWHOa4+p5f9bnCxxcr8WxjZWOOcUUOx5IzKRYqz7JJc7wczcX2KyjJPc7R0yXa8Xe1wrSREWWF6Rw/2YimLRzFD5RYt1Bc6za2lGce4qxtMxzFWTI3LiAfW2zFd+nQ8Zxr80BOeGc2E/T52tnAtJHRREfHkZwSJz6jVXE4/2kD4vE6uLZtS/5MWk8IwSUjid/EfNn5Ily6z+fzz+cz+4kBelNGGaXGrRk3/3M+nzONkYFXPic5/DZXFZESyd2OjV8UsZ3N2Pm9Lh5ph1NsGAWLh5MwYzgpJ9RskPUGh2fEcEQLM69S/Ovv4gvXT2uqatMO+xM7ahGPgiGzeCAolS8e9ufNGP9q8WiAvDf7MlPkeTO6L7+Ud6NDX2Hs2otAs60sUNfXxKNCy64tyFg8TOT118VjCI+/MZ/5H1dPr9yv5d19VBONlZ+Kp+7R6K6Y7vieB+fEMVqIx4U48LdoD5IWr1BtS/L8GR5S7e27YVxb0sd0P09+tZHH1qdSlpxgWDwqFJ1nd60uOTMe9XcgTQgZlbxsTTRWfipU5LF/TRw7TbsQG+mLzR3WtleSnUGhtRteHk0wOpMuxKM4E05euF4UovJQEknJeZi5utSTB8uYkjOHOZR0jHxLe2yEpezMcW07B5PIvuiAveKsNXbCy92Y7MOK/ZAqHoXswcXVmDPJQrQdOcJZc1ecawt7e7FMCCx9/mpY2GFnnMtRpQ6HFPEobFYuuJuc4XBKCsnJZzF3ccZcCDFn50ZkJx/l6JEMiiryyRJCqzbMLCo4nXyIpOP5WNgqkelNcfG0pzhV7I/Yp4xzWj4rNy+sCo8Km9j+yRLs3ZzEUaoFYzu8W7WiZcvWtFSF9PUiHvjOnxDHO5HMMlvslCLEQ5uX3TmOq/t/SBWP6vF3vUjGYVH/g0fIM3PFRbkAjM6TfSIXY0vx4KqoU3Pl18aY89nHyTW2oOzkUXLFd0KxGk2LEv8nzmb2RPGpUHNe0GvqYmJ9/YhduZhpUYqXcSUrVyqTLuwUT6IQeYsr05ehrF9Z3oR39HUXTaOXZhJMYLZatpgVZWlla+lLt63lltxZ2Pd7hZc6Z/HZa9+i+DG3z5zMmAkTGDN5LmntRvBMPyXXIv4+ZgwTJozh6c3WDHl0hNrcXZPTEX+nyebaPRkSyV2BXSA9OlmTsmk76VU3v07YWBwhvzZxU5Psz8gsboOjuxeOHb05vftrfYEBmtpy4cgGsqsCZteO9UMLeeTrHUz++lu6V/a3XDuP1SfaMv7rvUyaPQu3Jpp5zxdrsIj9lheXrCVyZIywHOT7BbOY9X71tGijlvdKhECwyWTfHzU9K9ZYXcxmn94QsvxULtY2dUgZ/458o/SNFNOH3ZSbdi0oMbodmzGuqQPj/JuQmakPyXSt66sYM6B3FF2zN/LvQ7qpVspJ3/Ezh63C6BFwO3sBXgMXiziVWYq1RQHpZy6oJlNTE0qK9YN+oYjii6bag8lNU8p51bsmVKrevmli44ZPCz/8/PxwrmzpNzPFpDifszUfgEwtsTAT14i47/v5+eBg0gjjqn5+N0FxNunnbGguhJlvU0cshMA3sbTAtLGLWic/HwdMjIzF/pdRWmqOnZMllk52WJ4/X3e4zVKxXN9H7cMKS+MiCi7TnKZmFyk+px13is5RYlLHsTaxwFx/ADFVwpheNxcoOa9tq+rQimN9sfAsJXpdVZTjX3KOItV2gSKxI6bKsVZsiqmslOrdKOGcmvGCElW1CqNp8fpcLWyY/hBxKcnERT/EtPhKL2M0b+1wI1gXhlbOucyJnsJ8LWkYIQ7vy35LXTd65DS0hms/IUiDSVDLFuI0OJe3lOXRP+EwdMJl21ZXkNxBKOJxxjBY+n//Yd3lreBFuRSJG2TZZa0KZYWF4gtaJp5gLkURj4qIlEjuas7uZ9XK/dj3jiXcq/JOmkuZiRuWyk3DqB9WjprVMKnkJRbSpNuzOJr/TnYN7+QVFJZg4R0i5NnVGEPX4S05+q8w5jw8nl8ydDPrOfJqD2ZGj2RtSSQPPDlGM29+hq8e8OfN/xzA85EnCcSX3vePZeyo6immo5b1SpT+kA74+uhJlVLKjK3w0m+aoXaW5OZf/oNSg6RdqqdSmf66tQ517OOKQ2oamS62ZG76npd366L1WtdXxWNfHuRXnl2fr91U60KJmT6kH06Jq1h14Pb0ML0uxO/uBSF4Kn+Sy8srMDHVBUojc0wVj56W0jBprDbDVmHphEcTq9o9Z7VijpNrY4qOJZOcnEJ2ZQUuVFBh3hirRnpaoUzU8YIQueK+n5yczOFDhzhVoC+7KS5QmKF4AA+TWeGEVxNzLpRd4EJhurqd5OTDHDp0ikIhAK3MisgvFQKyNIPDx89c0XxuaVGXohXHUBxLS2WfGiliWLNWlDfSxJmCuRkmYj9rdZ6WnCE9u4jz58+SkaV4ZQ2jnD8zc91D2UiIzkZ1lCnyGltaYaInVZTjLypVKVEVR6PQjNfFdTvaK72IL4RVPyEWJW3QBWHt9PKAxM2X5rIKi8UhvlJ4+uHg25EXVA9kLH7OXjW8lJI7j7G8+mgI9rZBjH3na75e+DX/HQUjp85h9huzmfP5KwQd+YxZiiei2zO89c5bYprP/CFmrPn4syt+jDPuexu3n57TUxLJXUxhCvHfruds0CCimim342/J3mON92Mf0/qxwRhl6XfMwLdp//xyWjQT4mr0ctrHjlXNFTu3kO8bAAmf1X7DUPhiBj8XdmPykk2MWLCD8S8rAnAMkZ8n8eKUbtg3H8qLKzcR2XM9qads6fTPtYxfsoAOZrqLYcJKnl24lhEfzKJv87Ps2aw0gSvr72X8B8I+JRLrP4TIZB+f/ecFXnipepr1o1bElZzn47UpeEUP5sNhEXz4l44MJ5MFW00YMKkv747oz7NNj7F8j7htO7fkw8mxPBlki2+vWL4Z1ZIueimXM2qg4lEMw9e6LU+KdV73F8aMXApbBTMoKIChQ/szo68HrbXsV6J7JQd6oW1roLhhtenMo+1ssWrVi49Vj2VHxE+cYUx9iBrYjrMblxKfXC+K55ZTli0Ek01zWjb3wbelMxWns8Tv8nnOnTPHxa85vs3Eo0cNQWFsYY1dE2e1Sfr6KKG42ARHHx+at2iOvbHuFyvL4tRZS7xa+uLj40vLpsoLFGc5nWuOh2Lz8qa5X1Nqfc/d3AXf1v40czDF1KEZ/r4uVWLoCuya0ko8tXiLMl2tLogHFHGN558mz9xDtzfHT91+McXldjRxccDJzQe/5h7YKarrXBHl9l40b+6Hu0lpzcNyGUXk5JrgrBw/vyYY6Z7A/IwsGrm2Eg9OYjs+VhRkXilMqxFiN+s4KSknybnMk1mTspzTnLP2FuUp58+Fi+r5q4X8dDIuONFCHH9vsQ/NhYBWj3+BjXpOfHxb4VyRRdZVn5JqYk6jxa+6XZxC9QstarPxqYeoaVP6IfK0EHpKc3Ud+TQmMPsdmPK0Jgsr88V5LGYyc6rzqWUlkOh/H8xTPIxivUVexFV5JzWqtq2nJfXLnTKQuMLxEavw+WqQnrp25Es093ZdG9L+S24fXXr0Z9z5eP66Q7ndOzD9sbakfLSZS97vk1wzjaw8aOF2gRPJWTWaNu8yzF2FkC3naEq2kHFg5S6E1flD+osqkssxSlBecJmXQEbYC6pncbLy5HYZydluWj/ElOp8NT2Q18KG6XOEWNTWre4Dmcy0kT/h8NxKZk+cz5R4B90DuZLFU/UclduWfSDvatKGfoHnskf0lEQikdwcaRmZmIdG8e7Qbrw7rhcuR5L4WV8muU6snPGyLSXt+F0sHhUuFHPOyBmf5t6qp87LMp/sq48idc8iQxne40gPpGHuda+eQkOpa0Paf4lEIrlbkALyHudOEZDHH16Bz+IYuFjbmCS1owjI3Nz6bWNwcHCo9zIVbkW593pdG9L+SyQSyd2CFJD3OHeKgLT7Vwv18+w/j6if18O97tW61+vakPa/S5cubN++XU9JJBJJw+W638KWSCQSiUQikdzbSAEpkUgkEolEIrkupICU3DjGTjh7B+Dp4Y65PhiskZ0fnopNnTwvGZfLyNRFze9qVx+hBSQSSZ2EvEfb/pF64jKs+2Hd6XFsm3rphpvFClP/YfUUyeTGMJm8lv/7buEVUa5UlNjfH72uJwxhy6sTB/GqqxcznotgnG7V7A8yI+hahs82Y9TA/lqUm0kdGK5b6wXXtnw5rPpcuQZFEDexLX30dO1cT/2vjS7dosQ+DlO330O31X78LsUlYhhj+9UcjTOEIeMGEKSnbhjv3oycMJGJldPgEH1BLbQayX/na+MXfz51mG68jbiN5a1vPucVJWRovdGaAWMmMqyz4RFyxr4lttdTT1zH9l3GvcW3C16ht56uiRSQkhvEEp+wMBxLCzhnG0rviED1YrLyDKG5s5ajJjYB99MrzE/cZiQSya3ExrauoZ6tMO+ziLax4ZcOumxqg01lYBxDWIvldd4txG9B30jxq/DncWHpFyz54hvS9PT1U0pRcell8ZXzWf5jPMuTah/2uQrnlvSxO8xzSpSbuXtYqptvBZlJv/Ppj8no4cnr4Drqf41s3xrPg3N2kKKnqzFw/C67brKsgug9tIZgHDyE4SFNr4hMdqN4du5D0DVEkewytDcOO1/g4VEPM2b6t7r1NpKxnOVffMX3W/V0fdBxCEP69CBmaMzV77PXsf2sFcv5bMn3GOq5LV+iucepn5doWhE2wInE1eLnrO0DBJxdwo6av+KNQ+keWsKWX/ZXx+a8DPkSzY1zr9e1Ie3/LX2JxsgG3579aFe6nTVb0igOeY/AtlDi7IaNWSmpn4/kdNmrtI7O4fCnH1z6XXQIpH+UL1lbV/Fb+qViw8Yvin5BJWz/cQtpxWAc+Dat+npjbmTKhUNfsf9Xb1o+Eo6dhRkV50tFuTmc/GI8p42n03aQmUi1oImDKSW7Z3Ewfv0l65ekfMehuM+wGrUA2zzxe9TKEZPzOznw0WuUVARg+9C/aWqVg7G7F5YXMji2QJSbpVesBs6vbGJ8VxcsSncz9/5RaNEYI2nxxr8Y3NoFE2OwOLmMfz/2srrkSozp08aB3D9ycVA/s9mNB69P7oyvqQWp67/i+X1KPltefSAQswsO+HpYwMkd/HtZKkU2Fji4BvC30Hz+t/okXCwjpcCYoQN7MsDLGjOjYlLWx/NyUi0xTGz9eHdEG1yNTIQSzmHb9xuZmWlGTN8IHvC1E+sbYZq1g9hvU1UP4HPtHDAtS2LmvANs0ovo060n49o5YlZxgcx963lqq62B+iuDY7fk9QH+uJqbUJqzn0+XHObnthF86CXuA16eOJqVsXvpGv6XDsP7DWJoMzOxfSg6upV/rMnUBboXMybasrxq+4aOH1h6hdM/zJy9QsSmqFEjBzDt8yHkzZjMrL0w5F+f0+PoZF741JMhU58hxlVksTcjddk/mbYkTfWaBRVl4dDcU4iiFFa/+nc+O6GUYxglv+eKMfxHjcXenVdmxmBaLs6Vu5BUJ1fzn3+tgxYOBMa8SI8zbzJvs5C92SkcPOnJyNdeor+3FWbGRaSseIO/f33Q4PZ5ej5djK1wMEshycgX//M/88KzuUycH4Ov+A6YUUSSXn/V0/m3IcIutlOexJox01jU7RnmPNEFB9NS9r1fWdfWBrbvcmX9X/qMg0p2A4Q8P59JRZvI7daa/ZP/ziJxOq06P86/Hu2Ci9i+mSna9soMbV/U4OH/8tJgX7GfpZQeWcOYfy6iy7NzeKajuNZK9zFr/H/4Rclo1ZtnXhtJiIuV9EBKbh5Tbz/sstNRAniVl5Zi1/Z+oqLvJ6yFu3aBObpgY9uKHoNG0H/wCMKaXX8wLIlEUgem7oQM6odf+o/EKeJRN1vwBykzh/Pbz4W4tIsEbyEm7SIImLKU9s8vxbdzJy1j7n7WfL8Ts86xRPlVfj+NcQ8dQr/m6fz4vSYeFaza+VGwehK/z4hh/4qvIesNDs+YRWp+MkeE7fcZNUSegzVFXw8nYcaPlLWNxNzicZr3LuXY7OEi38tkOgzGzVfJKIRPxhskzBwphEZ77BUh4T4CL7N4Ej95lP1rUik/9KNB8aiQ/Z8evBm9jEtCgz/yPIMt1zMzxp83Z+9Gi049jFc+ns/8quktHlfjdpfzsyp6Kj8VTvHynDje23fZSNJ2DpRuX8Xo99eS1MSHruIo9+kSwrgOrpjZ+zIuSsx3caVzaFcGlO/hsY/iePDzw9j3bEuMXsQViGP31Ecr1Pjc43eUE9rGVoiP9jxgmaSt/11SVZg6gx5Arw6Ma5XNe0peUc5TaoxvQ/V34G/RHiQt1ra1JM+f4SFa87ajEOozxbrjNxUS5K8FEFz6o9hPpcw560j2allHk7mh4wfFqVuI+zEdv35DCHFXtrOaX49Y0TpK8UEOIMQ7i31LxJ71G0GM5S88/cRkJvxrN679R+hhK4VQO7+ap8c8zNyDngRdb0ARexfKfniaMaPmcrBJEF1a9Gb4qLH08DETz0xa3PbhvX3xfPRx+pcvZ7LYzsNi+w4DRzBELcDQ9k3JjJ/LvsauFM1/n33lrjTnW6ZNGCO2I9afnyK+V0qDrycTnxyCWfxfNU+nIh6V1bfOYrJIr64hhGvd/uX1V3MbIoTerYUg/OEzdgsxHDhY8UEGMWlcKJlzlHqNqd6ege3jPZHHh5qx7mmxfZFXEY8K22dOFunVHFVTGgOeH0vrg2+o+3rNAlIJSVgZHUYiqcTIvivhrfPYvkv76T53eDlrf/yO+FXx5DXvRYDenFB2fDMbVn3FmpU7KA3shIFWbolEckMY49k5nFZFO9mcdGkc5uLTieKWLrhY7fk6f/gzDigCbuYKLnQbgbVupyyd7fGHsezUg0A7UapnF8L9Ctm5JZGCGu7K/LU/YhT5Ke0nf0wT/3a6tRZO/U6+omUqPiDl3amUOLhhnn2EYrW8RIpOidux+htRJuYTxWcRFZXbys2g2Lk9Tl79cApyJf/UFn3BteHW2ovsg0qotZqsY9H7s5hVNc3le2Wz18VZ0tL1WbX97jyfrt3K85tSKc1O4vllYn7tKS7YWpN5KlsTfkWnSSsXYkSZ12N8q30llZjbClbOvPpAfxaM6ct7YYp6hh5Nm5B7/FTt8Y1rYi8Ew/FUttfWxFOFNVYXs9mnF7r8VC7WNorYUDxxuap3q6hGGV3ahfHhX/qKenUjWMt2/RQmEv/rWVpFdMHTVEjIX1OwatEdz36d8T2zj6WiLq1bu2Lv3Zt3FFH/QihWRlY0VVcuImXrOvUYrPvPGF647jiUWaTFK2vr1//ez/jPSy+w9EgpWb9qcdv/8/k+mjs5kHX0e+1YH9onzpW1dq4Mbj+LoyuU8nLJ2qWkBVZdmPjGHO2hZFSQkJ0KzXG1SWPfQu3RpS5q3/5l9a+Njr3xN07jqEMQR4/n4ttOacYOwdMihd8q61gXzV1xSNvHojN6ug5cxLNFWqLmB71mAblh+kM14l1LJJp47NEJ9sRvo+DyjhAXSyi5cIEy5cfoQgk0ll5HieTWUE7a5jg2nm3HoIGB2Nf1q36+FCMrNz1xKUpzY2xfJxJXrmL/WVFq2hbifsmjXfQgArW7mUbWB5yYE8PvX/2OzeBJaL4qBTOMrnZHKS4UwspNf9nGClObUkpy1MSV+LbA8tgflLj5UbL2SY78mqovuDbycs7i3LS/Om8txKQmlLsSM0rzPGnTcHprvWfqndySUhztLLSEkTXWFUWoHSKyD/NXpZ+kMv2gRdDqEtoRz+PxjP98Lc/uylZtKQWFODhrR7e1m4M4unUgtmXm1oSar6cYppQyYyu89PMUamdJbr4qWwzgwQPdKlj9yVrGf/krSbVluwr2Qf2J7VDAxmVbSFP6R/74Kyk2QUzs5kXW/qWqaDqYV0TRkeU8/egEJohpzPhp3M6eiXnni3Bw0l+8sfLCqqJQSLfrYNhw+hSvVuv+9DeV3uI8is670Fz1BtbNzW4/pKc/pqUO9BbX9EhfIXubBhJjlUuhmdi+snmr3ng6aXkNohx/l+YMuYaHhEJxDq2UJnWB0cqVs5lAL6Yt0mJQa2mNCe/oNiV29cTZVR5IxRup5a2MWa2sP5tpul16Ku8F/OhwXwA2Vn50HTia/oNHE+wOruLJJ6zzALpHD8UzbSOHlNaTjG3sbxRGVI/76NInDH7fhvYTKZFI6ody0nd/z6p9dkQODqHW9wj+mMsxo8G0/ct7tHhsMGyci+IgNG4WxaCgs6yPq+yrplGe/hvfr9yLXeQQQuwUSzhNJi6ixUPv0ez+CMwPbVbXh/XkHbDG94mPaSbKbuKiGq8k732OHW5DW5HPd9JneF34kaxL2p1rcCqDC20i8QmJoNnDM2k9aCy1vUscODuJF1cOpZldNx5ZmUSsuImdj9tKRpsnmbRgLyO88/XfnNXMeknzPGnTf/hsr7rgSnRP4ZNBtvj2iuWbUS3raEK8kn3bhejyHcCCERF8OCEYth4QWzfMvoxsrDv05N0R/Xm9jZl6TNP2HSazRXc+FLZnXc5TqbNHDVS8l2H4WrflSVG/1/2F8dDv/FDchn//pSczRvTl3S5CLhusfyYLtpowYJLIo5Tb9BjL99T2gk0Oafk+PKDUf0wwLrqTwOD2a8G+wxAi7fazasVvpFe9XKM1Ywe1zuQ3pfla4dvV/OY8nDlzZvPWG7OZ/6/rfDNa6Ve48GsGeFsR8ujXfP3aSH3BtbHv46UktX6J+e/MZs57vWHtV7WeK4P8kUZu6+HMnjmHdwZpHmRRKnOX7MPr4TnMmSnKnT8Nda9G/Vd9+7tmXW9u+1rz9W8fVl7Tf2dTli+Bg9ex7jdreijbfmcApqf1Y21g++ydy9L9XoycM0fdh8rjP/I15U31ATS3DeEJsc5/R4lTtWAdZgO1fWr04atuF6fV8PIr4jD21ENMQQhGj7hqr6MiINW0H7MXeRE3chobVOEYS+rIOLwWvUBA0lva8pXBJERPYb62puQORkaiMUxDejHjXq9rQ9p/GYnm2jHts4hmxf/m8BaljXkw7s/2o2jmk1zWI1EikfxJGG3QxWOlt/GFMM012csDEjcbaLKO8oKkDUI8KojPJPBSO5Ym85MqNpPJld9wiUQikdwE5adOYNLlH6q3s8XkidgeXK97OyUSyZ2AkSoEJ87mvuy3iI6O5q0dld4oNwIiDDdFu/n3Qm/Mppc/pMarCYlEIpFI6oWKP14mccZIjix+kiNzYjj4w7e1DgMmkUhuP0YrVy5mWkoCGWEvXOKB3DB9Don+mk3tA6laBfHTmJMUwAuKfeULOMTLpmqJRCK5FmTztUQiuVuQA4nf48g+kIZpSP3q7vW6NqT9l0gkkruFax7GRyKRSCQSiUQiUZACUnLjGDvh7B2Ap4c75o00k5GdH56KTZ081Xi7l9rE5O4iLzyJxBBGvkQNC8ddT1YR8h5t+0fqiX64PrUa3xDD4zlKJBLJ7UDexyU3iCU+YWE4lhZwzjaU3hGB6sVk5RlC87rCzJh50Sq4GfrwuhLJvYulDTbaiNpVmAUEYHfsAJWBTgyzmewV8zi5X4v4XDvG2Nha6vMSiURSv0gBKblBijm+bTWHMtLISTpEtrWNHr4JSrISSTuhTGmUiHTF2WQ9nUiBlRPnDv7OOS2rRHJPYuwewpCB4fhUxRFUsCewJRzep4c+MwrHcdQigp9dTnBvP83GWDyfX0TQiIm4B+omi8dp8eLbWOu/5qZRiwiI6iTWt8Gn2yCGhLrXOgC3RCKR3ChSQEpuGlNvP+yy01Gi8JaXlmLX9n6iou8nrIX7pReYSSABnqkkHrtKXE+J5C7Gxi+K2M5m7Px+DftzdaOCe1t88xPZr389jHtMxDV9JgkzY0hYl6wZ+Yy0GTEk7qnx4tv5z8g45o1jG+URrhP2rUvI+m2neHLLY/+aOHaadiE20hcb+WsvkUjqEfmTIrkplHjY4a3z2L5Li0d27vBy1v74HfGr4slr3ouAGjHV7NoGwR+7OaunJZJ7DrtAenSyJmXT9hqh3TR8A9xJT0zRU2DV1Ia8g0IIXpUiCncewbbdCGg2DNfineTqTkw1xOGOnzlsFUaPml9GiUQiuUmkgJTcMIp47NEJ9sRvo+DywaAullBy4QJllSP/Kt7HZpkcOVasGySSe5Cz+1m1cj/2vWMJ96rRP9FMfD9sUzhQo/NjWb4plm6KV9EKc7ervDBzbAtnnMPwDPUmf9dn1QNuW3oSPqQfTomrWHWgSlVKJBLJTWM06sVH+WaMmBvzEOterCUCfvc+rPv6RXao00O8qptrx4UP5mr5Xn39Ra38mtS1Lck106hRI7zcHAgL8qFDgBeOdo31JbcDPzrcF4CNlR9dB46m/+DRBLuDa7sYwjoPoHv0UDzTNnJID2upeB8tkn4jW446KrnXKUwh/tv1nA0aRFQzrXeifZDS+XE/NSVe8a6dmPeYS4tJc3E1zlD7E+PyEi2fX05AByua9F1O+4kvob2Hs4Lsfaa4e5/g9H69edvUh6iB7Ti7cSnxyUoHE4lEIqk/Gj0/Y+rFmMyPeRAh6lzX0/vNLH1RDYSA/KZLAg8qyxTxV1u+KhQBGcmpSYt5TbdcwjWVIakLRTz6N3elhbczJsbaTejc+VL2HT7FqaxrbySWA4kbpiENTn2v17Uh7b9h3AkfFkB6XDwpMlafRCJpIBhswla8krV6Gz//gzNOrmImiG90r2SlN7FqPSEeK0dyqfJw1sj/TRt1kUr1tqrLkVwd68bmuDnbVolHBUtzUzya2Amb7JkgkTQc0tnyrRSPEomkYWFAaQQR47SNsIffJOz9MwRfLurGtMHpTKYQfm3Ifl/kEfnWO0UKoSnWa5XCbGW9z8/gZKPn1xn1Ylf4QcufgLdurbHOw59xsJVSjuRaUMbtNjLSR++uRCSNhXhUvJMSiUQikUgkt4orBWR3V5ya9de8gk90oJnqbQSn0LGarfsZPnkzi+ZO3nR8QvMcDmlmh8dEke9QAguVzL8kcPCyLjfNnc6S8Lk2/9ofJ7QZsa2qdchiyyHw6K4mJFdBaa7OzT9HxcXqToUXLlSQnVtI2YVy3SKRSCQSiURS/xhu6zy2RvNAKtPL+1TTmd2faelJP+uC7yy7dA9k2MMf8/hBITJbBTNKXeaK82UeSPAmWH+ZZpSrnTYjqF7HhfBWcOoXNSG5ChfKK/gjOYOjJ89QeK6EvIJiko5mqmmJRCKRSCSSW8mVAvKXn/nkTNeqfolXvEGt89rL23DWPZA75vZhlFhv/ZkOTFHX64rTZR7I11btwWmglv8vQiiqKNs65KuvMxbnX2p56UZikPMlZSQcPMnabUms33GIIydOU1EhX3OWSCQSiURya2nk5uYmFcc9zE29hW3shHNTFywu5HE6PZ0ScSUZ2fnhYWemZyjgtB7O0KixJ02cbTCtkbcm8i3sG+der2tD2n+JRCK5W5Cv60puEEt8wsJwLC3gnG0ovSMC1YvJyjOE5pWv4FfSOJTw7n6U56RRYCXydq10QUskEolEImmISAEpuUGKOb5tNYcy0shJOkS2tQ1KzAyFkqxE0k4ok+Z9xMwSi9I8CooKOJtbQJmxmbzwJBKJRCJpwMj7uOSmMfX2wy47HaXba3lpKXZt7ycq+n7CWrhrF1jeNnZk+dH7/rEM7mzMnu37q0OtSSQSiUQiaXBIASm5KZR42OGt89i+65iaPnd4OWt//I74VfHkNe9FgL0wNg4gwLuUA+tWsivLlY4hfvLCk0gkEomkASPv45IbRhGPPTrBnvhtFFz+KtbFEkouXKCsQuRzaYZN6g6O550hfdfv5Lh7ouhKiUQikUgkDRMpICU3iB8d7gvAxsqPrgNH03/waILdwbVdDGGdB9A9eiieaRs5lA8VJw+R07w33cPvo0u/9pgeSCRHL0UikUgkEknDQw7jc49zU8P41CNyGJ8b516va0Paf4lEIrlbMOCBnMDsRdPoJf6mLZotUvXHhHcWMy1K+VzJ7Im6sZKoaSx+52pbE3VbWb91kkgkEolEIpFcH39KE/b8p6OZMk9PXBfzmRI9RfyXSCQSiUQikfxZGDFxNitXrlSnxVN76ebLUTx/NfNo3slpUxdr66oeS0P5BFXlzyZYs9BLrKd5IJVy9PxDHdRlCspybZ3L61TDK1qjXOmRlEgkEolEIrl9GDFvCtHR0WKKI8Nfabi+kl5Tg8l9W8kTzU/Osbpg8yOAOartraQAYoUgvDKfEHxREKeWnwC+6orVTIwlIOktNf+cbDd9IOoJxPon8pa6zlsk+ldu71ImCDWqlSs9khKJRCKRSCS3EyO176HqyYsVktAwfs5+dHxO8wjG+rrhJUQhJPPT9A3q8g2nMtTPK/P54ZCdoAu8+SSkqDNV9PKAxM16GZsTUV/liPKCpA3oVjYkoW/vUuY/nUDwFR5KiUQikUgkEsmtxmjaRAd+Uj15cUIS1kYRu3TPYnT0Q0yLV2yVQlLxBlZKTwP5fIN1D2IvvC6PkSzKCIjQBaCvQ1UoPLcqT6j49IdUdXuXo/SHjGYOsaqXU/InYOyEs3cAnh7umDfSTEZ2fngqNnXyxFwzY9TYE1fF5ub053S8lUgaCLajluLqrifMJuL7fyLdVE9fL01f55Gf9jJgkJ6+hEkM+G4tHfTUldjy6sRBvOrqxYznIhinWxskrm35cpiXnoA+kYOIE2lXPV07yjF4kBlBxnr65hk1MJZvnnhQ3f4NoezLxLb0CIq4wTK8cB75/DWNxRs4O4kXVx7lHx+9rluuE72OPcTx/jLSVjdWM26Ycn3piZs61h68Plkc16dHiPV1093AVY7fn43RhiQ3Yq/igZz/9E846J7F6v6OEDBR9zYSp74Uc2W++cTtqCx/MgH6epVsmP4TGWEvaPmj3DQPZPw05iQF8IK6zgs4xCtN1Fe+fa28ya2s94J/LhsMCkzJrcUSn7AwHEsLOGcbSu+IQFUYWnmG0PzyBwXbMHqEN6M8J4vzbj3p2lIOIy6RYGmDjak+Xxul33JyyWdkp+vp6+XkF6z9+HO2bdTT100pRcWllJXpybuEbbu38ummU1x9kKZ8lv8Yz/Kkcj198yz8IY4Hlx7Q7nc3SmkpuSXivOjJ66M/nYb3p7meqov9U/x5c/ZW8vT0jVAm6qnU9erczLE+xctz4nhvX76evnu48vgZY2Nrqc//udzgOJDKyyyxpI683f0PlSGGvIgbOU1v4pbcLPUzDmQrwgY4kbh6G7R9gICzS9iRpi8S2Ci2AmE7IRImgXTp3ZiEH3dwTlusIseBvHHu9bo2pP2vxNg9hEHdXEiJX8P+XGFweQbfByKwthBP9WaQ/ulwMstfouUj4dhYlHHyE5EWItJy0FKaFf+PxPidIuNYvKe0I2f2cxQaCi7f8xMmvdgNZ7MSfn+zHavXambrh75lxMi22BuLr6NZKmvu68sebdFlGNOnjQO5f+TioH5ms1sxW3nw+gOd8RX3sNKKVFZ/tIuEjhH8LbQJZuIpsjRnPx8vPgyREYx0scPRPpekk074ux1nwbxjhD7QCopd8fcRO3tyB/9elkqae0teH+CPq7mJuv6nSw7zc4UZowb2ZICXtSj3AklrVzC1lp+HIAPb34QZMX0jeMDXTtiNMM3aQey3qaoHMKa5KaYZ29R0JX269WRcO0fMKi6QuW89T2215fXJYj9NLUhd/xXP79PytfbvyMs93bEyMqHo+K+8/sMpDgZF8KGX+B318sTRrIzdS9fwv3Rnpv+lK75in8woJmndWqYe0sWR4kWMyGd05faNrHkipicdrUsxtShl9/cbmZlZy/6b2zLKo5SFp8Ry5fPoea2MK4gkcPb/6NvMFhPjEhIXtWPlSf2asDQX56CEC2Sx682XKR73CV4b+7LkU1Gf0E+Y/CIsefgvZCvF9F3IU8NTefexl9VSiZjDiCmhWJeai2krX42fjNaJzQD2zoyyzGVhsYP2mV6OlbMf04e0EecazEwrSFi8itcyFQ9i3ce6NGUro3/MZNywnvjmGOPbygGzkiQ+/vyAuFa0/IqnLiZ7VdX6w/sNYmgzM/W6KDq6lX+st+BvE13ZPmcHC8U6Qd368pzRL4zfrBxDZ15/oi/2O+P4647ajqnA4Lmuea6KSVkfz8tJFrz6QCBmFxzw9ai+1g8aPNdKwQa2b+D4YWRP4H198D29hVW706m/R5vrp+G0JqpvXceqHkopHu8sTL39sMtOp0DMl4snY7u29xMVfT9hLdzVC6yoqBhnr0AaW9jQ2NmJxkbG4tYkkdyb2PhFEdvZjJ3f6+KRdjjFhlGweDgJM4aTojxoKWS9weEZMRzRwsyrFP/6u7ir9kN1XLZph/2JHYbFo8LGvzA32p81R/W0yt8ZMNKcbaP8eTN6Br8XKrYQHn9jPvM/rp5euV+xl/OzKhorPxWMeTS6K6Y7vufBOXGMFuJxobDu27VZzMeptk0VreihNktaQ/Jafsh2x+zICn7ItdWajO1cMdu7htHvL2ObZXsecHfgb9EeJC1eoa6/JM+f4SHKL4QrIT65LPtEKbd28ahgcPutRNmWSTym2L9LqvL4GfQAenVgXKts3lPyfrRCiEflwBjwapn78GT3cpbNVeq6il12oYzy0RY5WuUwU6w7flMhQf5Kc2M2Uz9ZwWhRxoPLTuEb5KFlNIBnh1CCTq9j/BdreWxdEaFdlby17H9JviYaKz9rpR8d/LJYPVE510I8LhIm9ZoQ5/3sEdaIa+PN6B6s37iV7RuP0KzrE+pazoMC4Y8fNfF4Bd3oMiGUjLfDmDsqmhU5kUQ+Kq6gv751yfUz/5VhWva8bE30VH5iwaMDW5K1TDku4po4qWWrzYPYta0Xmet+UM+rIh41nHHI2yrO67eizFbE1NFkvfTHVfp1sY5kr5b0KTnO9lQvQtoqSy0Y2MqYpD8qj2EuP2/ewS+H6jqmGpefa8/Qrgwo36Nda58fxr5nW2KUjHYOlG4XdXh/LUlNfOgqTIbPtYKB7V9x/AQVeexfE8dO0y7ERvpi8yequBvc9Aam3W7vo/62+I2NHym5VSjxsMNb57F9l3aXO3d4OWt//I74VfHkNe9FgL243o+tZkOyOc3btcOjUSnnKsr/1KcmieRPwy6QHp2sSdm0nfSq9sdO2FgcId/wHftSsj8js7gNju5eOHb05vTur/UF10jftridPsJ+VThWcpDvF8xi1vvV06Jam7ytcLHJZN8fl36DW/u25d1x/Vkwpi893HQjhaSlKk1v5ylUhXIlZ0lJVdYvZ19GBQ7O1lhdzGafruiWn8rF2kbpEZ/Kkq1GDJoYy4JhQlTW0QXM0PZ7NG1C7vFT19ZUbC+2dzyV7bWJ8UrsrXHIyWa5mq9Urb+VXq/S7FxxJMUDc2UZRtY8OrSvWqcFA/yq+vgboourM44B3dW87ynq19SSoOvYf8O8z+o15kQuSGLyvE/wb19Hf8lP15DYRIjD5g8R1Po8e75YrC+4nF64u9nSfsoOJn/9LX2bg4ldDAdXzL3k+pn19To9/+U0wdP8FLuvMZbtko2/YRoxhG/GRfC3Fhb6MTxP5qnz6nldfuo0Do61H5gu7cL48C/KOehGsH4CFu5JwbWND56OzWhenMjCqrqIB6W9ySy8hvb6y8+1r621qFO2dq0VnSat3AptYMKzpFV2P9Hbeg2fa4Vr376SN33Hzxy2CqOHcpP9k2g4HkjJHYciHnt0gj3x2yi4vCPExRJKLlygTP2ClXMuYzcHft1MpqM7ximHLmm+lkjuGc7uZ9XK/dj3jiXcq7IfUy5lJm5YKr/GRv2wctSshkklL7GQJt2exdH8d7JreCeviSP5FDqKm7gyH9AWZ7UKvvS+fyxjR1VPMR0VuyFKKSp1wFf3umlYM7SXK0lL1jD+83g2Zenmq2KG4pTLzSqlzNgKL/1uFGpnSW6+Jvu2793B+DlxvJ3izINRtXnwDG8/paBQiFNNXLR2cxBbq4OSUszcmtBaT9ZKcSmFQtyG6kkvm3KKarvh+wfTp3SPqNNanlybXKeQTSssImfvRjXv+E9XMXpJMkor7LXtf22kkv1eX+ZE9+WrfS0Y/KjmYdQwx9han1V5j+2/W9DhuUcILP2N3y/xWtckjcLCfHb+K4w5D4vpfn++eHM5vr2HX3L9jB2k+NoMUUyRiS2+6rVui2f18M8GKco+zvOfxjH+u1Q8+4XwgG6vJMbLgczs2vo9evBAtwpWfyKO6Ze/klR5AlIT2WfZiie7NaPsSJrYo2q6tPBgQF1KvxaUPoqOdhZaQjw4WFcU1dq/trZzrXwfRkV24NErXjY2gKUn4UP64ZS4ilUHbqaH6s0hY2Hf49x4H0g/Qh/siUep+PHXnRGndn1JpksMPhalmDexp+LgOrYcFr/m1qGERwbQWIjKgqPb2H0g7YrO37IP5I1zr9e1Ie1/FUo/pv59cPkjjvhj5ZhHLaJ160JKhEArzLHiwqbxZDq9Tft+fhhZmGEkvmcXjnzH73GfiXXH4v38w5htfpQj26r78F3BhJW8GNsCEzNzoftKuJC8mDen/EjgB58QaZ3FBePTZJTbcmxMbX0gDWPl3pb37velJCNXfHHP8/Mnu2BgLEOdT5NrZImpeGhM+3Etm9pE0OOPzaRFDMJz8yrxGQHfJuA5sT/+RWnkmjhgevwXnt+Uj2dQN/7RzUoIR2McKpK1PpCOLfkw2kMItDLM7G3J3VqjD+FlDDew/dfyPJgxrgNW+WKd7GywzeSv3+by7Ki+dLU3xdS0nLKSXLYtiWdmthnjhvZjoGM+qcVmmInfqaeOuPPhA4E4mlpgevE8ZTn7eXvhYax79OXRFqVklgmhcGZPVR/IL50TGL1eiJnK+b2ufDiqFWWnSrE2Kcf0wmFG17b9Yg9ef6gzrsWZ5JRaYXZS3/417r9BlD6wT7ag8HQJFk1cyPt+MnFfbFUXuU0VwrT9eY6dLSHj076sVzzOSt/HNyLJ/qKH1heSMUR+/nc6OppjYVbC+VKlv2QPdjZfyfjhXhSeENeQHRwVInXzNrXYa6JHRH9x/IopFGIyK8+S0m0bea1cnOsrjnU6XUdF4FuUT6mlLY65e/jHmkz6DBvBQKtUUsXxdy0+oPUrdDa0fqpYfxChFZkUmisdfsvZPm8zn4o6KH0fp4eeZen7Wl9IjWvvA3nFuRbH72+je+NfdpoSa2vyftH7QE4MJk3dpvKGuT6v9CG+/FxvV5oEbPnbXwYRdFSISqXs2jD1IWpIIFnxq/QuMH8eUkDe49TPSzQ3jxSQN869XteGtP+SGjdS3SK5Q+i/kKcehSX3j6r9pZg7AGXoH+WB5LWb+Gr26T2IcRW/1C3UbjdGxgzvP5CemT/w1O7reFD4E5FN2BKJRCJpEKhjKCrj/dWcRrWki75cciMonsYkXnzUhZ1vv3xHi8ebRvFUimtmnH0S7228g8QjFozr3Zng9PX8o4GIRwXpgbzHkR5IwzQkr9a9XteGtP8SiURytyA9kBKJRHKbUESpRCKR3A3cpIB04YO5D/GqnpJIJBKJRCKR3P1ID2QDJbZ3O54a1RP3JnZq2sneiscf7q7aJRKJRCKRSG4lRqNefJQdX78oJs2T+OrrL/LNGGVREN/M7cMoZVZhzEOse7EP36h5K/NoeFSW8boyHKbmlfyg0lazDEm94eZsSwvvJnQObqamA3zd8PNyVu23DWMnnL0D8PRwx7yRblNoZEZjp1Z4entirpuwcMdVyevmJJ9aJJLbTch7tO0fqSf64frUanxDqkb8vmmcX9nEiyuT+Md3C6m/UmshKIK4YV5q2LovI+vv987K2ZWYaxyTuY/YtlKH29EhQQmx+KXystBjPXnCEbp0i+KbycOIm9iWHnqe2lHeen+QGUGGY38pbzS/qu6Ekk+Z92LGcxGMU5dKJHVjFOO0jbCH3yTs/TMEv+jCay+vge59ePXFNmR//rMapqoSm1AnEpS8D2t5NGHoTWuWqbZjzdrozdmVtjeZfciXmBpiU1J/HDuZQ0ufJhgbNSKwpTtpmWf1JbcDS3zCwnAsLeCcbSi9IwI1YWjaitB+0bRwrvGDZeJHaGQoFvlZnHeLond7d32BRCKpb2xsbfS52thM9op5nNxff+/bZv+nB29GL+N6xzW/UcpKStXBm+uT0KCO9KgjWEtNtu3eyqebTtU6WHT94cGAoHyWKOEQP9rI+zmwfWs8D87ZQYqeo27yWf5jPMuTruXN3lKKikspqzFI79WvJcm9jJFTs/6ap/CJDjRzUh5F9vHgL05Esp7Hf9EyVVKwez2vqXOZZJ9RZwQnWP+mMvS/sCnBkFUqbbDwtoqae4uM7HxMjIzo3aU1ttaWZJ2pOgG3gWKOb1vNoYw0cpIOkW1to4aZcu3QjvPbvyPhYCJpJ9IoETbz5u2wSdnM8bwznD0lrgvfAK5lsH2JRHIdGNngGzmcPkF24vFOSYfjOGoRwc8uJ7i3n5oFxuL5/CKCRkzEPVA3WTxOixffxlpvGjCNWkRAVCctYYiAfxG7JEn1OD67/Fsqi7mC0Dk8slzL9+J3m4joq5mtx61ksm5/9o2/a8b+n/BIZZkL5tT9+5CaxPLd2ez7Yw+rK8OLGNny7EOD1GF9vnysJ8+qBZgxamBfkVaG++nP6/5KLBpbXn2gG9NjB/HlE8P4cqgXrbHm2VGxPBlki28vbWigD7spYVqcmf6XwZr3T6w/vZX2UKwMJbTgkb6M61EjMkxQBB8O7MCHjw3mm6f68zf1GdmMmL5RLBjVlwU11h83bDAz+nVjgVKvx8IYV9VMcyn2VhYE2VpiViHOia0yb0atDlJlQOtKb2zVvAevi7r/I7YvMf7aIgUrZz9mqPs1mIFNdSNFQpjuYVN+Nj+vS9Ijo1hiF9SH4X9yvGXJnYsRx9ZoHkhlelm5bIL4pvsZDjoN5YPuWqZKbFSBKegeTGsnbdYwdnjo677axlubkdQ7pWUXOJ6eQ1Tn1pzJK+R86eXxXW4Ppt5+2GWnU4ATdk4muIaOoO/g0fTv3RVHE/EzambMuaISHNvG0D3AmLMl5pjq60okknrA1J2QQf3wS/+RuC1p4vEOjHtMxDV9JgkzY0hYl6zl4zPSZsSQuKfG0F3nPyPjmDeObZRHwE7Yty4h67ed2rIr6EaXlx7CYs0w3oz2Z2bMMPbrS65g92S+EMpFyfdmPHToOUk1t+zagozF+vov/Ve1uUWEYrH7b5pt/GTUsOD3v8L8j+dXT288Tohiz8tmYXp59adgQO+eBKdvVMP+jf5oIzNFAZ6hXRlQvofHPorjwc8PY9+zLTFKZjsHSrevYvT7a0lq4kNXCpm5MI739uWTskHkFWX8dasSGSSbqZ+sYLTi/Vt2Cl8l7qJg4Q8ivfTAFaEJHa1ymPnRCsZvKiTIXwg4r7YMtUziyYVrGS+27xLhr49XaY1j6X6eFPX6+IgrQa1U4xV0DQphXJQvDhau9IxS5pW6Xg+neFnUXdmvaix4dGBLspYp+7WCH07qZiUO8x/Z7K76VCgmbUscP6b70W9QCO7yR1tyGUafnOmqeSD1fo2vvt5Vbbp+fFUKrcf0YVT3PqzT+zEWOOl5n/Dl4GXN25fTeoxW5hDWiC+vbpTUO0lHM6mouMiexJoRPW8fSjzs8NZ5bN9V2XiVx6H4r1i74kvWp7nTtrnWBOLaeSgtijezYeNe8qpCR0kkkpvHGM/O4bQq2snmpOpWCKumNuQdrE0I1qSIwp1HsG03ApoNw7V4J7m1htdti4NdKknzD+jpOgj4OwPm7WDy12KKctGNsOeLNVjEfsuLS9YSOVKVdGQsXExa6+m8+N0OYqeMQTx3wsZFzHp/VvW04HsOqrmvxNW2guSDhZeIOl9bazJPZWu2otOklVuhhV4+S1q6OgN1jYJsZM2jQ/uyYIyYBvipLSx1UZqdq9avSP99a+3ugH3TYN5T1h/WEmtjMy0GOfkk/5Gv1uvndSt4XnX3aV5QbXD0jur9dvX2rTy/LInM4lSWLFPmD7NayXpTNMHT/BS7c/TkNVCQFM/2s60I7+wprjSJpBqjhW9+XOWBVITeay9/rDVd//IzvScJkVj5qeQ+pPVrDHtYz0MWj09arDdr15w/y/pJNb2akvpmzuJf+Hbt7/z2Ryp/n/29+qmkFfvtQhGPPTqJG0L8NgrUH+JSykotsVDbz6opOFtI2bFt7Eg5Q4WpJ00uZHEdv18SiaROyknbHMfGs+0YNDAQe725sSzfFEs3RfZYYe52lVdbjm3hjHMYnqHe5O/6jNqf8bI4X+xF0+FX7yzo/PBDeB78G3MeDmPuRq1Lk8rmZ/jqAX/e/M8BPB95UmsCT/wvq8e3483HPqes5/NE9hS2jjGMHTW2erq/N75KXgMUlljg6aU0UVej9JF0tLPQEkIMWlcUXbXPolnNplr/YPqU7mH852t5cm3yFR7Hq3Gw8DxFx3fxpFh//OdrGD13D0v1ZVeieUEV7+eDc3bV6Zy5Gn1ctJE5DFNMkYktvsp+GtniqSnq2lFjtscSUrSRuM1p4kqTSKqRPRskN4gfHe4LwMbKj64DR9N/8GiC3Qs4uisN96j7CQuPIdwzjd+PFMDJ3Ry07kpUjwF07+fH6R271b6REomkvignfff3rNpnR+TgELWvXPGunZj3mEuLSXNxNc7QvnMuL9Hy+eUEdLCiSd/ltJ/4kt6dZAXZ+0xx9z7B6f11SaXlrP9iN17jVjJp3lomLfkWpXtd4Gyl/+JQmtl145GVScROgOwjqVhH/I9HFuxlfKgFF9T1lbB5Iv3BWkZMicT6j/UosacCZ+9Vyxvx/8bgdXYr+zYK44+zeOGlF6qn/3ym9827kqXrd1AUOogFI7rx7hitD+S+7b+S5DtA2CL4cEIwbD1Qpwdv0x/JWPcYxLtDezJD6QOZcZocv868O6wv73Wr7JWpewqHt8XKK4xvJkfp/S0NkLSf3Q5d+eiRCGaIMhf0r593trVwjmH4WrflycmxvK6cgJOZFAZ2590R/Rluc5ZcJaMetq+qb6ca8jGbn/dZ00Mcow/H+GOWrTTV14Y9IYMjsTuwiu93p0vxKLkCGcrwHkeGMjRMQwqPd6/XVZ4riUQiuf1ID6REIpFIJBKJ5LqQAlIikUgkEolEcl1IASmRSCQSiUQiuS6kgJRIJJIGjNKvUiKRSG43UkBKJBKJRCKRSK6L2yMgJ85m8dReekIikUgkEolE0pCRHkjJjWPshLN3AJ4e7pg30m0Kjcxo7NQKT29PaoZ5NXdshavdpYP9SiQSiUQiaXgYrVw5mwnKnOIlfEdManoCsxfNFtNKVq5czLQokV6pzOt56cU0dZmY3tEslfSaupjZU6eJcirX1ReIdbQydJvqlZym21Yye6KWS9JQsMQnLAzH0gLO2YbSOyJQexoxbUVov2haONcIemXhR/v+Iwjv2pW2nlpoQ4lEIpFIJA0Xo+hlcJ/evGzlnMuc6CnMVxK2buTOiyZ6WQYdnwsmITqat3a4EawIvYmxOMSLZYotO7iGSNTw80eUI5a/nUjAUE1gWoU56GVAQIS+Pd0WHR0HUdOExJQ0HIo5vm01hzLSyEk6RLa1jRor1rVDO85v/46Eg4mknUjTol+UZJG44St2HjunpCQSiUQikTRwjJiXQIazn5ooStrABnVOkJ/IhnjxmZJLUUqCKio3nMrAzaMXvTzc8BuqeQ5fCPPD4bIApcnx07Ry4lPJUC2i7B1xVWVUUmkTa5Cbrc5IGiCm3n7YZadTgBN2Tia4ho6g7+DR9O/dFUcTkeFiASXntbwSiUQikUgaPkZMDMYtO1lPXjvJyzQPpDJNmacbdRSRqSLK1qSpYax04UpULwJqiycquaMxsu9KeOs8tu86plvyOBT/FWtXfMn6NHfaNpdN1hKJRCKR3G0YrYzKZc70Kr/jNbFh+hxyozQPZGW/yAnv1OjH6D9ZWzYU4p7WfIyGKHK+T8v3XACJ83SvpaTBoIjHHp1gT/w2CtSI6qWUlVpiYakulkgkEolEcpfSyM3NTb311xfKSzSxpx66wit5BcpLNB5xPHSd4lVSvzg6OlJUVKSnrgc/Qh/siUepEI3lmuXUri9JOBdG9+6elOSWY22Rzs74HRRYhRIeGYCNmRnmQmSWZCeyaeNuavaItPtXC/Xz7D+PqJ/XgzKQcmZmpp6qH25FmQqyrnL/G8r+SyQSSV3IYXwkN0gyu7/5hBXLvmTNCm1KSBfmszv4ZeV37NiynPh1QjwqjyeFu9mi5Pn2E5Z/Kz4vE48SiUQikUgaFvUuIDdMvwbvo8K8KdL7KJFIJBKJRNIAkR5IiUQikUgkEsl1IQWkRCKRSCQSieS6kAJSIpFIJBKJRHJdSAEpkUgkEolEIrkupICU3DjGTjh7B+Dp4Y55I92m0MiMxk6t8PT2xFw3GVk3E+kAXB3lwOISyd1BJK5PvYetnjIKeY+OT02v+s7fPP8idmUSL/50lEcm66Zbhi2vThzEq65ezHgugnG69ZpxbsmHk2P55hmlDN1WC6MGinxPPEjcMC/dcgOYWjO8gzOhelIhyMuDRzv4MLyJsW6BccNGMCOoct90o0RST1wqIJWxGfW42JejjO9YNVB4g2QCs/VBzy9H2bfa9vv66MW0RYa3cfdhiU9YGI6lBZyzDaV3RKB2MZm2IrRfNC2cq3/EMA+kQzsXzhcVYBMYQ5dmZvoCiUTSILC2weYq7oaK/d+SuOJbLf59vfBP4qL9+WJHvp6+1ZRSVFxKWZmevB6yD/PXOXH8kKqn62DhD3E8uPQANzL6rnhqZ0BEFF8+0pOhkf4E6Vaad+DRdqZk5lXQMWYg06u0qdifErFfpXpSwVScSxnsQVIP3EMeyPlMiZ6ix96+FGXoITmk0PVSzPFtqzmUkUZO0iGyxQ3GSlhdO7Tj/PbvSDiYSNqJNO1mUrKf3Vt2kH0mjSMpZ2hsJb2QEklDwcYviuF9grHTXYvGrV6n5bNLaf/8MzTV3Y+mvRbQ/qlnaDN4mO6B9MJx3HK8A5VfBYHzqwRMfhVTLXUl1pOIXLCXF1cm8ezyTUT21O0GaPHGXpEnSc07ecbfsVCM/T/hkSWa7dkFc9Ai40YSOHuHnncv0SNVYy0UsX3rHjblZ/PzuiT26dbW/h1ZoHgWJw/my/4e1bbHBgtbLAsGetBatd4kRrb87ZFBfDiiL988M4K4JzoySl90KeWk7N/Kk58kcMnQ8Uf38NTK4yw/msoPyRVY2Wvmfb9t4+fj59n0yx6252k2rH0IHziEEPcaD/kSyQ3QyM3tlYuzV8aqMauTU5Jxy47joc29WPxcR1UQkBJH9NPzqyPMMJuVQ7UY1kU73tKE18RKW7Iow43cZQ+xIULkd87AzzmXt0amEqtvo651pom/S7ebzLRFsThk+4l6vcVPzi8Q61u5TEjBqjKK2PW2WD9+ArMXBYu0H9bniijcro9JqUa9SSLR35/UkYqIVDyFL9BR+fFTykoIroqKo+znC2Haj15lXZUwjZdsV0XZlhe52R3pWLVMqy9JbnRUytDzq8eORNzClH2rrKtWyp/NjUeiqcbUewC9XBNZu7OAVgPuw1M87Ro3Nsb4XDI7Nm4j54KeEUs8w4finPwVv2foJh0ZiebGudfrKvf/1uy/4u1yDx1EuMNhfoxPpKBCsT2M97Nh5Mx+jsIKpQl7GMXvPonmI5xIs6e8SX93qvbgGPg2wQF7SVjyGaZRi/Ct+B8HN+xVc15OszeSGFD8X+b883PdUo3ba3vpe7IdX8zRDVVMYsB3D5Jxf1/SRZ7BhVOZ+/pyfZnC6zyyMpCd46NJOq2bGMYrHw9E+cnWyGX3xy/wwS49WRNzH96d2JTtH29lYaVXUrGNceTn+XtYXmHGEyP64bp1BVOPa4vHDRuE5+ZVvHa10+Hali8j8hn9re6yDIrgS5cERq/Lp0/vwQwv+JG/7qjpNrwcpandh31vb+ZT3aIihOir4zpTtGwtM3N0myFM3ekyKJzG+34kPrlAN0ok14dRr6n3wbJooqOjSVAlniB+Gg+JdHT0W+xyDr60SXbeFDVvdHQcGf69hBQTYiwK4lRbAjW+maK0BPHUNw2mBpP7traNn5xjRXm1rGNwu6JOCdFCyPkRjBBkynJVxIkygoU4VfP/hMNQvZa2QozOi2bCIiHYgjXbBKEpf5qeqM4r9Jo6GYd4rT7VglBhArH+iXqZbwnBqdR1wmXbrYFtRxxE3ZRlcdyn7pNS3wDmCFscyb7Vx87PH+YoZbydSEBlXe8ClHjY4a3z2L7rmG7J41D8V6xd8SXr09xp27zS22iMXeAAWuStu0I8SiSSOw9jzy6E+xWyc0uleBS4t8Em+4gQj3q6Lvav57RHJ2yNBuMcVMjp7YbFo4KDXQnHNl8pHq/EC+cn1zJpyQ4mf/0kgdaaNWPhYtJaT+fF73YQO2UMJqr1fVavMSdyQRKT532Cf3ulXXcdi96fxayqaS7fV98aLsXeGoeM1GrxqKDYcrKFeFQSpezLqMCqshOoAdT+jqoHM4pnNbeoYbKFBPfxY3hTV3r4QFa6Jh6veX0FIwseje2Ow86NdYtHhbJ0tscfxrJTDwLtdJtEcp0Y+TlnkKBHjpmfkKzNCNkze+VKVq7UvXQ1iZrGYnWZ5lFUBJNDdoLeNDyfhBR1RiU5QbP6OfvR8TllHcWT54ZXVG3rGNpusl6/+UxJCBbLFlcJNQffjrxQWRdnLyEpBfmJbFC8e/EbSFRFqCIAK7elUXOfLyFK/MAkbUBrzBafSeLnKury7dYgfxdxejnJ2ZWqKFmIVaWEZHJrdN1JFuJYLTc+lbtFPynisUcn2BO/TQtZqPS3KbXE4or+NYp4jKED29h0IEu3SSSSO5nytC3E/ZJHu+hBBDroxtwcShzdtGZq6wCsGqvWWlhB3hE3XGIicTy1hZzzutkAxaXmuAVF6qm6eIK+/UtY/0AYcybOJbFQNyf+l9Xj2/HmY59T1vN5vQk8lez3+ooH9758ta8Fgx99Qti6EjNqLGOrpuH01ho/rqS4lEJnZ2JqdvRSbDZWVS+veNmUU1TZNGwAtb/jHGWKZ2a2bjRAUHNXCpNPYe1izO7vfmCq7pi81vU18dib1kfWMXVfXZ5LDUuvcGL7OpG4chX7z+pGieQ6EV8NP4L1l2N6ebipnxPeuU/3GL7Frkv6L/di2kQHflI9dHFCIulUedp64WXwKUlpttU8ddHRevOtgXVq366O6v2cA0On6WJxl+4tFNNIXaBVsUHdTvA7waAL2Wqq9/ly3FSvqoL49Bc/QUpdL99uJbYOuohW8mrHrjbcPPQ1Jwbr6zR0/OhwXwA2Vn50HTia/oNHE+xewNFdabhH3U9YeAzhnmn8fqQAPHrTq609jZv35j6Rr//gnsgXAiWSO5/y9N/4fuVe7CKHEKJ4qs5/S1ZGG1pO/JiAEd6UntHyWccup/3zg2li24mA55fjGajZi3/9HeM23uTt/kwz1ELSB8s433MOTy1Yy/ivNxGhCMCenzBpZRKPhNnSbEgSL37+Cc7sIfVsCwaIfJMWPIi7tjqBs/cyad5aRvy/MXid3cq+jcKorL9kEyM++ITYCDuObPteGFcz66UXeKFq+g+f1eYYzT/M0kRnRk3qy7vD+rKgv/jVUmwpXvztLz1595FB9LmQwEJF7Pl3VD2FA71sCR0eyzcDtf6SV2LNs6PE8uFtsfIKq/IspmTl4hgcRs92HXhghNheR1utK5cBNK9kGL54MFBs83Vxn+oS0YsBXlZ4dRug9dkc1ZIuev7LMW4WxaCgs6yPiyelUoBLJDdAI7eRH16s7HdYlF8kvslzeOhUbFU/R8WTFhc9hWS9D2ScR3UfQVXAqU3UlbYiUYZ4GJyn94FU+kyqHjrFs6h7LOtYZ5pvdf9KbbtxeC2K1fstVpdxZT/KSpuf2i8xrkpMKusEk6C+PKP0e7yyrLr6QCYvixb1v2y7Sv9QIT7nKP06F92Hm62VduzU7VNjG9XbU47dZPEltxJ5K4/n5ZL2z6I++kDWB7IP5I1zr9dV7v+t2X/J7WPc0MH4JqxgqtIaZ+rDu2OtWTLvAJu0xRLJHUkjNzc3tfGxfqgp2K6VG1nnTkDU+xKxWjtVLyAZajb/k5EC0jD3uihRaCh1lft/a/ZfcvvoEdaTR9uZkXu6GNMmdhT9to7nd9fR5i+R3AHUwzA+iqdN69+o9EVk2bUIwRtZRyKRSCSSu49NOzYyeu5anlq2mb/OXSXFo6RBUM8eSElD407xQJY4+5PbYRJua5/XLdeO9Grd23WV+99w9l8ikdw93EMDiUvuZMobN8H4XNVgbRKJRCKRSO5gpICU3BGYZydS4hygpyQSiUQikdzJSAEpuXGMnXD2DsDTwx3zRrpNoZEZjZ1a4entqY0XhyV2HiKfyOvqaDiMYZF3d6xO/KKnJBLJvYTtqKW4Vo7JU4lFP2w7PY69Plk56vZr5l/ErkzixZ+O8shk3XTLsOXViYN41VWJEBPBON1aG30iBxE3zOuS4cysnF2J0UMQqijRakSea0KJZBNZx4jm18MNlXV9+38FIe/Rtv+1jAOqYR8yhLETJjJxwjC6O+nGa8aKLvcPIURP3QhWnYcx5GYKqGTcW3z+f931xDXi3ZuR6r5r08goT33BtVNf9ZcCUnKDWOITFoZjaQHnbEPpHRGoXUymrQjtF00L55pxVk0wpoCcnAJsAmPo0sxMt1djmxRHvn+snpJIJHc/ltjY1hGP2SEcrxBvPXEj/JO4aH++2GFoUOFbQSlFxaWU1YxcUwvbdm/l002nLolnHRrUkR7XqBfvTAzsv7UNNnWoDBtbww6FKgys31qIrg+f6YE6tr2FP607qubrIITeg3sQpKduhJCoGHooUZP/DJp3oX/n6xeNNamv+suXaO5x6uclmlaEDXAicfU2Goc9gPOhJRyoJTqDeev7CatYyy+HL42/mhsyCeOi09geXKZbrp17/cWEe72ucv8bzv5XYepOSP9wXI79zJp9eaoH0vlCAdYejpic38mBOa9R4j6dtlEnOLDwGsY/s55E5LtP0rGJORfKs/j97R6sVwYTF1weS7vFG3sZ3NocE6FdCw9+zoLn/8v5/p/wyIRuuFnChdPr+WL8ZLKJJHD2/+jbzFbkLSFxUTtWLtLKuBJj+rRxIPePXBzUz0J6jOlM6eKNvK8GBoc+vfvTJ3UN+1rEEtPcFNOMbcSqsbCVwcX70tXJAtOL5ym7ADl71/LXZB++7ONAmrkDvlYmpK77nuf/KNcKuxzFa+hfQaGjE45mZexeuob/pZsxamBPBnhZY2ZUTMr6eF5OKqVH5CBGWp4CL08cTc6LvGv532lrnojtSVdn8XBvYgp/rGH0+vPE9I1gqIs4UELop65by9RD5YbXz7x8/7PZLaqlRLzpH2bO3h8vG7TcyAbfnv1oV7qdNVvSKA55j8C2ysuUbtiYlXLyy0lkniwysH53XlkwjtL3J/DmJfHLWzPytZfo722FmXERKSve4O9fu/DKzBhMy8Xxc7eCk6v5zzIHnnmiCy4WppSdV5RuLtvfn8ysrcOYNj8GXwszzCgiadk/mbYkTdzaRvLfvw0RdiGPy5NYM2YNLu8/Q5cm4vxVlFEmTkfurllMnplrYPsHtapdjlUXHv/XJLq4iDoZi2O9fxZj/l8WQ6Y+Q4zikrY3I7Vy+4bo+QqfD05jzAs1B+evpf5WvXnm/42li5OZqH8mv334FYwyUP/feleXWaP87v/3OSMtUoRo9cXBWFxXH4vjnvc4s5/vgquxGUajXnyUb8aI7Y95iHUvumh1uQQXPpj7Iju+rp6UfK++/qK23uXUWo6kvmnUqBFebg6EBfnQIcALR7s644rdMky9/bDLTqcAJ+ycTHANHUFfJeJM767iB0bLY+4RQWj4/UT6nuFAypXB+x1+m6uKSIlEcpdj7UvUkC6Y7YpTxaOGuJEeeYOEmSOFUGiPvdKcXV5IqXMUAU8tJUDc9CyvbLiootnU5/E/MYM3o/2ZGVMtHg1x5KV2Io+/yDuDY80jUXpeu0WEYrH7b9r6qnhU6EcHvyxWT1TyVorHYbzy8XzmV01v8bjqASvnZ1U0VX6eJzXHDAd7iOnWgXGO4Cnmc3P08IRLD4jbfCWFzFwYx3v78knZoIUu/OtWXW1Z5vPzpytE/mRcA2qLbqNhxknenyvyfp9JaIQPLUO7MqB8D499JMr8/DD2PdsSo+d1tMxm5kcrGL+5mKA2tgR16UrHzHWMFnlHbxLiUMGrLUMtk3hy4VrGi/VdIvyrottcvv6V+69RnLqFuB/T8es3hBB33dusPDwM6odf+o/EKeJRs2LBH6TMHs5vS07gHjVWtV25vhAypPDbJeJRHNtHH6d/+XImj3mYh/+1G4eBIxiiLLB3oeyHpxkzai4HmwTRZasQS6Pe57f8o6weJfKOUsSjkvFbpk0YI/IJ2/wUfDv3Vkpl4pNDMIv/q8j3MGPGTGMR25n1xMO8v6eIo2uU9R8W4nF77ds3QNCjYwlNf1+UJ8pce1Qz9htBjOUvPP3EZCaI9V37j6g1kpCKSxfeeuMtdXqmn2IwVH8Y8PxYgtI+YIJa/yliXw3Xvy4crI4ya8wYJsQXEtStO+z9gCkirax7DU3YWTw+6U3CHl7DsWNrxOeb9H4zi9deflNclHqWG+DV1x/iVX1ecv0o4tG/uSvt/ZvS1MWeZuLJvVOgDx4utzcyvhIPO7x1Htt3HdMteRyK/4q1K75kfZo7bZtrTRQlpzaze+tKNiU1JjSkmWqryemIv9Nk83/1lEQiuTuxJ7BHGNYpm9ieXtObVkbRqUTxWURFhWYh6w0Ozx5J4rtjOZIZRsu+g/UFV+JgV8KxzddyQ/LC+cm1TFqyg8lfP0mgtWbNWLiYtNbTefG7HcROGYP23Ps+q9eYE7kgicnzPsG/vdK+vI5F789iVtU0l++VahsgLd8YBxdXugb50qWNK652hWTWFc/aELm5/Kwcj4oax8q5JR8q4QqVqUbIxNLsXPYpeY9n8//bOxO4qqq1/38DAfEcZhRQQAUVVMAUI80Rh5xFruYQpvmqeU0bvGa3915fr/V27/WtzCyNcsgyzTmctRzI2UwzxQTnARJQBBRQOAT91zp7g0cm0fT+MdeXz/6cs5691tpr73M4+7efNTyJTkbCHY2kXkrThGrOFZIKDFq3ryDxZCLSP5ZzZDdDY68T6lWdM2duX3sywMsF5zohzBrWlQX9G2K0thWSSqNk+QrJjmf799do1LYV3jbWeD/ZhkY5P7A74XZHws0r8RTI9p89TaazHm9dclt5kbY3iG/R7dR3c+HyubXauZ6ME+dq1M/1MknbpfUO8cENrRj1TrT2UBAVrIeRrI+HQxJxiysIdq5T/vFL06KOgbOHf9RTGgEBHjj7duZDefzXQjFYGaij7yuTzDi+WPyFeVsjxXSZ7Rc6U2j7s9/vt3hYuXuSjn2hfdbzX2HYv3dBo778fYb2AFWmgJReSc3bWL7IK/ZcWnoop1mOKghm+dIX+FiODx02SK9PS8uyfev50rdov+KuMdaww9Nddq3cGkNkb2dD7ZpOwlaJ54L7gBSP7Z+Aw9v3kWUeCGEi32RPdXvz7tL8ZuJGuvhntDeW+uJJ8ShFpEKh+COTybHNGzjmHE5kW2/K+6m4HSEqb+ZRUFB+4OabJvF7GFyZSRjj6No9j9hnwogeNZf4oirj/8WmEc14d8xC8jtMJFzG4iaRtFldie7dlSVxDejzwjhha01E1HCGF28D6KwF0SrF/oxsDE0CsTl0gEyfhnjfzEBGKqwI28r8dKed4s/Rmqdy4EbdW2iBwU+I1csZHM4z4epUXTNaGTEW5tw25tKSjOxqeOgdh110J8SJ7FxyLhxk/ELpgdzM0LmHWWnec3c4B3cnsnkWO1bvISm/gKTdMey41oxePYNwLut8GzXAkHIGvee/RPkfScrwI3Tw7RIyMzcHFzd9VojBB0NhtpCOFWGDTZHKkvQfQJebmxj5wkheXp6gC65McnJrUb+PZcZb2Fjfst/N8TNybKlVX5Y10LmOdtFPZOaQc3oNL4vjyzYMGzGVVeY95WDKIe5InHk7J+PRl9l+ob3zhehvHKCnbsey/ZYENKhFBc5+WvWLwPv0O+ZjlfHxBRPhts/saQybfZWQO3RHR03qh/su6aEU2xtxutVDiMomHB08hxd3CYHZ5Coz5f7B+3DvFczid+ew9vxF1pr360UUd4Wc9GxlZTn1WSCS1kI8Su/kg8ef5k83xsHgT+ueQ+neZyghXlmcO5iEV6c/EdYmgjbeSfx0WjxlGoN4vM3ThLb/E92fcuP0kWMUORmKSHn6fTy//YueUigUf1gKszgbu5JYKSI61eXWI3AJgqYREDULv9Erado4ntPfxuo7SpPw8WpyO0Tz0gIhdpbupK0UgB0+Y/T6BJ4Lc6Re3wQmLfwMdw6TeK0BPUS+0QsGUjTxO2jmEUbP28KQfw/D59pe4mQXuCy/YidDPv5MiF0nTu9bK4yb+OD113itePsnXxwxV1EaIeKMdeBsXCIHszzwNl1np3m8YyTLBzQVOiOM5WM7McFdy77z+BmM7XvxUb8OTH9Kd41WlnwTto2eNJed1dmKrdsu8cP+70nw68GCIW35ZGQI7P1ZtL5s1vwUj7FVdz56rjs9qmVg1tUJxzjk0ppPn2vLdFHvgu6Wc8Yrh3PzvoQ7HWPDuh9JLp5cU0DyobVsiHMivE8LzZtoMmHXeDR+g+bQuIeRxE3a+L7S5eOY+/lObHt+wtLFS83bv6KEdc5KEgJeZ/6HM4me1Rm2LCn3XGEXO48Z6TJrJu99+B6vPiVMx5PICBjAzBnRfNir6DzFsVbE4TM4mugZot75U+mv79m1Nw5j12hmviPqmNDqro6/dvshjB0+ZGb0h/SwvayJvVWb+NF9ANHRoj5R5/w3i45UScpsv6h2wSZynnpTtOs9Zs6ZqZ2roGT7OZhAUq3OIl80rwfkk6FlK5O4c6kYnnydmR/O57GJ06f8FpE6h4EMYptHLJ33h7BtXHOK50bJbmuzMAxm+TQYqItE6UWU5Y42GQRvLONts1UgvY09fTm/saiLW3oiu1PcaZl1mJmjt1J/WolyirtCehlDAuqYx0Ba6YIx/9cC4s+mcCax8v0kVSUSjeTCkA3UXdJLT1WeR31iwqPeVnX+D8/5KxSKPw5lO8z1sY63exXLw5eQEpNpsg5tJq2dRfe0FI1F9QnxuFg3K+6dXwsKOX4mhXO/XCX7Rh6ZWTdJEE8GMv0wktTvS7xXP6enFAqFQqFQVGVKC8hdW/nsamt9zGI5M60tePuNzdCz5BjIVF4cvQ/3cbJ8HAN3ufGKXl/RDO1zV53UGMjfSW5ePkdP/MKWfQnEHjjJ6YtXKCx8OFdlkuJRikiFQqFQKBRVH7UO5CNOVenCznMPJKP5aDy3TNQtledR7xZ81Nuqzv/BnL9CoVBURGXmfCkUD5yCGjWxvnFFTykUCoVCoajKKAGpqBLYpcWT5y6X9FUoFAqFQlHVUQJSce9Yu+Hu2xjv2l7YWa4c9JgtNdwa4e3rfWsxWEm1Wnj4+uOgR6exJMe3HYaLak0nheKhwa8TA9oULYRzCxmW0KPIbDsKv/8W6QpXRVYoFA8jSkAq7hF76oaF4WrK4oZjKJ3bBmlfJptGhHbrTQP3kqu72eIR2paQkBZ4lRFx0TEhhuuBkXpKoVBUKYwOONx2t7AlKNCJs8eS9XQ5mFbxy4ovSLtDNmxE/ZVbVVyhUFQRlIBU3CM3ubBvEydTkkhPOEmauMHIde09mjcjd//XHD0RT9LFpOJoAni2pWnhj8Sn6+kSyDjYMh62QqGoWjj4d2JAlxCcLLsTnIJoyCmOXdPTtV7Fb9xKQiauxM+3yPY6DSd+TtNBw3EvWtu43jRCxk6Wka8FBozPrMQ3SPxyGOvSpqdFvGSFQlHlUQJS8bux8fXHKS2ZLNxwcquGR+gQuvYZSvfOrXGV3dWP1ePx5nD04Hkso99aIsWjFJEKhaKqYI1XaF+61U/mm7V7SLqpmwVeQX5cSzimRxhuhltkGFnLBnB0+gDOXjQbtVjW0yM4XRQmX3J+Fck0wVlGX7EagKv3RdKP5YgnyGNsXvsDtk9G0sm/OIyFQqGowigBqfhdyHjYbQIy2S/EoUYmJ7cvYcu6RcQmedG0vgOuzZ6g+qkjZNk5YGtdDZvq9pSMwijjYMt42AqFompg7d2KNv7Z/LAnnizL2KNWfjT2TCa+OLDzEzhUP831SgXA+oGrP2ZTq2U4Vk+0wfFkrBY2T5KfzP7tp7B/oj1BWjhmhUJRhVECUnHPSPHY/gk4vH0fWebVRE3km+wR+tACAzaF18h3CyWoWWt8nWypGRBKzdtm12AWj1JEKhSKqkFB0h5idmXSrHcvglx0o8C2cWOczv/MrWGNGeRX88Re3k2sumFw1azlUXjkJ/IC+lC7sQ2p36/TrWDv04bIrm7Er99wq2tcoVBUWcoQkCOZ+dVUOoq/qV/NFKk7IfKvLztfxynLmDlKT9wFstyyKR31lKJq4k/zpxvjYPCndc+hdO8zlBCvLM4dTMKr058IaxNBG+8kfjqdQurRbzn0vbadTr/BpSO7Sc3Vq9FJefp9PL/9i55SKBRVgYLkH1m7/ghO4X1pYfYKOhPUEE7FZZr3a6wi7bAR3zFzCBjTB6vLWZo56H0en7iGBvUM+Axdw+ORwzV77hekXPLHiyNc1b2W1vU60Sv4GrEx2zlb7JJUKBRVmTIi0UgB6UPMs9/R8atIEp99hfn6Hks6TplJx92vMHW7bigDKQQjLw3ilXm6oUzE8T6EV14u6yiKB01ViUQjuTBkA3WX9NJTlUdFN3m026rO/8Gcf5l4tWFA42RWbi/uv1YoFI8oVoyayfr1681b+V4/6WW0yCPKvBbmT8u/rGfmKEtPpXyv5Vv/oYVPstNUluleSikqtePJtMwfib9fJOvNXk8dUb/Wllv1KY/kHxsZB1vGw1YoFFWY5D1KPCoUCjNWzHuF3r17iy2GlEDZcV2ajlNCyHhf5unNt+6RjBRl3jtwhoPCZuld7DhlLC7btXy9iz2KQnyOguje0pM5kkj3b7X972cQMgWmPhvDmbMx9H52Kt/pJYrp1BGXhPfM+Qe9VWqv4g+EFI9SRCoUCoVCoaj6WGneQenli8RfN5bE313zNkpPYKSfJz6d9B0l8HdP4WiJ7mr/fk+TMU8Xh5188JTeRnm8v7Q011sh26cSw1jdW6n4I3OiRRNyT0zSUwqFQqFQKKoyVlNHufCt7oE8oxtLk2P2NmqeykEVjHv0J6TEpJkzq7/F5S8WAlB6G831iK0S4x6/e2uQyHuUEMsuccUfkv+rFqC/UygUCoVCUZWx+i7Bk8g7eCDnvyxFoOaBLBqr+N0l9DGQWh7J/JdjoJ+er1jwzeeV9zN4ev0ypoq/6LSntf1i08qeIcNdGwM5tuTsawvvKEfVJJs/Mh+m5fCWVz89pVAoFAqFoipTxizs//9Ubva24n7wu2ZhW7vhXqcW1X/N5EpyMnlF36THbKnhWg9Xww2umMMZOuDq601RCOz8a2dIvabFsChCxsEusHfD5fDdf+hqZu+j3VZ1/g/m/O9MOB4v9efmR+O5LlJWLWbRok06cR9NuRXC9HfxJpHrB9HA1o6UmPp8Ga2bHwiOTB7VDtYdxSWqLnHv7+ZzfU+lcG/IJ88E4Wpn4uiSDbz9ez6O4LYscj/K0Fh5VcsntH5dQkllzjm5JtrvbL9CcQ9UsYXEtVnXrwXGE6PEYxXHnrphYbiasrjhGErntkHal8mmEaHdetPA3TKmrRcNmtWjup4qC8eEGLOIVCgUVRCjAw53uFsUHltF/LpV90k8Sv5BTO9AvjxQsZC6f5jIuWkiP19P3g1pp/hzdAwbE/X0g8ajKeO7hNClRU3dICndfgdHFRZS8eCoYgLyO6Y+27vsGdmKKsZNLuzbxMmUJNITTpImbjAGYfVo3ozc/V9z9EQ8SWbvo86vmaRelLb4Ut5HiYyDLeNhKxSKqoWDfycGCLHipEePsm40jYYTVvL4xFep46jZbDou4PGXXqVJn/5o2XxwfX4NvkHyV0HgPpnGYydjo6VKYxxN+IIjTFqfwIQ1OwnvoNvLoME7R0SeBHPesdP/pj2Ydv+M51ZotgkLopGhtqWHNGjmAT3vEXFfMRvLIYf9ew+z83oaW7clEKdbAwJbsmBsJMvH9mFR99q3bGP6CFskC3rW5q5Gbgvh99GwDiwYF8n07mEseqkXk32E3crIuP69WDQmkkXtteOUT3UmdPHg6K6zeixySVntt8cpuAsDwv3uKP4VintBfa0UvxsbX3+c0pLJwg0nt2p4hA6ha5+hdO/cGtdqMkcBudbehHYbQqfObfEowxUpxaMUkQqFoqpgjVdoX7rVT+abtXtIuiltg6nTy5bkmQP4afoH/KI7B/O/GyHS67iiJQWJpB88g3PjAeaUTUgTCuPXUZ5zr96UiQRenM67vQOZEdGe2B36jjI4/XozkSdQ5J3O+frhNBY2z7ahVD/0V638iLFoAW660dz/MptGybzNWP+VtPXn73PmM794e48XW0p7AVuPp3Go+FVgV5fxnW3ZOi+GgdHrGLr5kmZrV8DqueuEbQMHnUKJqiszVx5jfhLTdl7BxzaJMd9dw8UZglu1pmXqNoZ+GsPQneI4FRD61FMEnNvLjAzdYKaM9ouH/KQ9MXyT7E+3Xi3wKle9KxT3hhKQit+FjIfdJiCT/QfP65ZMTm5fwpZ1i4hN8qJpfdmFcoaj61fw3TdL+C6+BqFP6N3dFsg42DIetkKhqBpYe7eijX82P+yJJ6tQN3o1wSHtNNlF6Yo4FsuV2k/gaNUH9+Bsruw/ou8ojYtTHud3L9RTFeGD+/gtjF5xgLFLxxNk1Kwpi5eRFPAWk74+QOQrwzA/tzKbTZvtCF+QwNh5nxH4uHT1beOr2R/wQfE2l7Xx5sylcTbikpLIYkvVK23paawxn7+JuJRCDLoXtiyiekrvpdw6MUFzi5KecoUT4tWUlU3R6PNQr+qcOVMivqugVHmDP6ObXmfrMSE6HWyhmi3BBsvhQqXJStjO/muNaPOkt3gkUCjuH0pAKu4ZKR7bPwGHt+8jyzyBxkS+yZ7q9ubdZVJoyiO/wETJ+48Uj1JEKhSKqkFB0h5idmXSrHcvglx0Y0Y6ea6eWje1sTGGoplxZbKOzNOe1IoIx/XSHtJL66Nibprs8AwO11MVMY6u3fOIfSaM6FFziS+Kmx3/LzaNaMa7YxaS32Gi3gWeSNqsrkT37sqSuAb0eWGcsLUmImo4w4u3AXRuIPOWwU0T2e7uRFjeJaXNwUConvRxKCDHMix4CRZvlN5LuW1nhh73uywysqvhUUt736WWOei4mVLlXa3IuWJL604teL65B7bOfjwfXIGCtXImqHskLXJ2ELM7iQLdrFDcD6rkLGzFf457n4XtT+jADtQ2CdGo/ypdOriIozfCaNfOm7yMAozVk/lh+wGyDKGEtnATOZyoWeMyh7ftILVEX1bK0+/jcuhT7K7KZ/O7Q83sfbTbqs7/wZx/MfbetOnRgpvb1vLjNR8cB83A1yGdgsfSxYOjkevzxlMYuYYGfmBT3Zb8XBNp30SQdEyUdZ9MwJjHyV4ygF8qioDYeBpDpvXDPT2RbHs7TkW3ZzefMXrSUzjb2lG9II/cK3tZMOwbAhe/SXNTIrlGIWOt8zj4p67kzzxCa8NlssVvjLP1IWJGjCWlgyg/vgHZV/KoXrMWmWvHEvPlXv2AlaNL+6680BhShXgz5hxlxOZUzdbAJH7DjBivHmbaxkucCGzJ8nAfsKuOTX4u+ee+Z6Cwl8KjKdObJDIxLUSbaS1ep4sznXg5kAX96pF9QzyGX76OwXSMP99hFrasa1Hb6wxdVd7MHWdaCPFu/+Nm9iSaxx8oFPcVJSAfcX7XMj73mQtDNlB3SS89VXmUKHm026rO/8Gcv0KhUFTE7+zCrsXHcwcxWU8pFPeKjIMt42ErFAqFQqGo+qgxkA8pkZ2b8VJUB7xqauNl3JwNvDi4ndn+MCLFoxSRCoVCoVAoqj5WUZNe4MDSSWLTPImTp01i+TC5K5jlc7sQJd9Khg1i26QuLDfnLcqjUbuojmnBIqV5JT8uslnWobhveLo70sC3Jk+G1DOnG/t54u/jbrY/jFwYvI66S/voKYVCoVAoFFUZqwi3fYQNfpew2VcJmVSLt9/YDO26MHlSE9IWbmWxnlHiEOrGUZl3sJZHE4a+BLDabDtfr4nenV1ke5eZJ/2IsBCbivvH+V/SaVi3JtZWjxHU0Iuk1Gv6nocPz62TSOnyrp5SKBT/v5FjKxUKhaI8rNzqddc8heOaU89N/mDEMXCXG+HE8uIuLVMRWYdiedv8LpW0q+Y3govEvntZvApblma5ZYPFD7GoqeqkpF2nmpUVnVsF4Gi05/LV4g/goaOghhDCN24tQ6xQKBQKhaLqYsX5zZoHUm5vyABIwSxvd5UTbv34uJ2WqQgHs8AUtAshQK7KUi5O1NbLTm7iq71R3HdM+b9yITmdTk8GcDUzm1zTvQRxrRrYpcWT5y5jSigUCoVCoajqWH12tbXmgdTHNU6e1trcdf3ihrMEDOtCVLsubNPHMWa56XnH+XGiRPd2SQKGaXX2ZTMDKxNgQHFPJJxLpbDwNw7HJ+mW/yDWbrj7Nsa7thd2j+k2yWO21HBrhLevtx4XV8PKppY5v4eTrW65RY5vOwwXS7i8FQrFI4E5lvbENTzx0lu3/WaUJhyPl2ZRuZHew/EWdT7+35uo10I33RVvErk+gUnfnuO5sbrpgeHI5FG9mOzhw/S/tOV53Srp8lQHFsloNGM6MM5VN95v3BvyiTzGq7INuq0cnu9/5zxFmCPpjBtITH8ZBegBYyOu3cuibV562nxNb7+W5VObafL8Xx7CdDmVoxQWdcn1N0c1pX1w24rPy7czz47sTys9HLx3p2fpe1ffw3b8fcF74lv8H8avEwPaaBfxTv+XVovfnVPsgZRC7+035mhd17u20nm0EIlFrzL3SW1cY9hgPQ+XeXH0Mr1b2/L9NWJHW3o1Ffeb6GW7WLXlJ348nsjfZq41v8q0tP9nsKduWBiupixuOIbSua0entCmEaHdetPA/fagWQ6N/0THMH/0/6VSOCbEcD0wUk8pFIo/PvY4OGq/E6Vjad8PviBpegTxh+91ndt/ENM7kC8P3GFB7/uGiZybJvJv60iqTY/g66yQ0Wg+3cHsdN18v0k7xZ/FMTaWtyb5PWKOpLPy5+KQjQ+U/EusWbeXNfe0JOol3hDnPyuukp+1yURGnvis9KTEwVGG7bWgfiu693yW4X/WVGP9J7vTPsT8tupgdMDhtrV4bAkKdOLssWRz6k7/l2oZH8U9cpML+zZxMiWJ9ISTpIkvohSHHs2bkbv/a46eiCfpYhJ5MmuNUB53P8l3e/Zx4WI8qddM0nobGS1G4/LjXD2lUCj+0Nh40aJPL9rULXHTtcT5VfwmrDR7QB5/ZQ5uxZ4lA679vyJk0hpCBo3S4jvXepV6474iYPRKgp5//Q5ezDIwjiZ8wREmrU9gwpqdeijEsmnwzhGRJ8Gcd+z0v1FdGmX5ecIuPZaifNvW0hhO0MwDet4j9H5W2sojh/17D7PzehpbtyUg3S7OhuoEO9pjWygul6N8b4uzsBu8GvLRf/Uxx8heNKghXeRdXHrFolryVlQfFo2LZEFbR9qHt+WTQb1YPuYp3uot8o8KoYc8VKVx5y1xHLP3c2x33mpU5BSwwqN1JxaN6c/y55tqx7cyMi6yFwue68qi0R2YcLfzr6wcmfBMr1Ke1gC/5nzyX5345HlxTt098MaH6c934qOx/fmkp9j3Un8+aibaZfag9mV8xFNE1NTKatgS3FvUO64/i/r5ECAsZV6/cjAff4zM25kQPe46mYls2pVI3IUE1vxYJK3scQruwoBwv9sF2cUTZDTpS19Lz4mhM6/OmM/CxUtZumAmr3Yy0O6/ZxL94XyWLnyPqf9eKOx/1z8rA8H/1vIufGe4uf10+DsLZ09l6uyFZvv8iXK8YAB9p0Qzf7bYFs9n6jPeMicBg//F/IWiPll+Sn+zrQgH/04M6BKCk+U/i1MQDTnFsYqmrlj8X1ZeQC5cRmd9YkzFWHoiFY8CNr7+OKUlk4UbTm7V8AgdQtc+Q+neuTWu1UQG11ri6awR7XsNoXufIYTVK33TkOJRikiFQvEHx+hHp76tsD0Yw+a4CgJJZ37A2RkD+Gl6BD/tBs9mRbGyHcg7NI6j744nydCdWnV8cO3ZjJxlz3Ji7nDOXQvD6y49PfWmTCTw4nTe7R3IjIj2xO7Qd5TB6debiTyBIu90ztcPxzxyu3VHgmz3smCwsIvyu/dJYzea+19m0yiZtxnrv5K2/vx9znzmF2/v8WJLaS9g6/E0DhW/iiqDW/B8Jz9cqnvQQca+7lSX1rjw1961SVi2zhwje0VmIANa6MLOuTpnV69jaPSPZAf6EIhQPGe2sDHNC9vT69iY4cjd6bo0pnwm64th4OpL+AXX1u22cGEvYz5dxeLkRkQEg3fzUIKvbGPEl1sYsy2H0NZFeStJTR9CbU/yf59aelpdiOpow67Pt/Pnzzdw0K05Ue7CbJfB1tUJGGvdZO7yBEyuQp2V60G1J+fIZobOXs0++8d5xquC61cKD0Z0FcefK/Nu42hR3PW86yw+l3vr1cxNkvbE8E2yP916tcDLRjcXnGDXBT86R2mCTtJjohCCJ95hWNRgRn6dQYv+w3GVn9Xxd9h02RvbI2PZdNUFLTS6gezvJoq8r7FfCM8BncxGcDNybuYwhr2wleyg9rTrNoQI+128PG4sI988hEf3IbQS2Vq19CN19csMFsca9tYqrax45PIK7Uu3+sl8s3YPSRZRLr2C/LiWcIzSLh4LLP4vKy8gFYoysHJuTZuATPYfPK9bMjm5fQlb1i0iNsmLpvU1sZh/YTffbVjC5vUHMAU9IZ5tb+dK279Rc/e/9JRCofhj4kxQ+zCMZ3eyP1kPol8exv54PPcVjcd8RUBbS+mTQs75DPGaSM4loSc82lCjpise/UW+MXPxFfdqK8PdBVRwccrj/O7KDNb3wX38FkavOMDYpeMJKvJKbZnHpotNGbH0CKNnfoCn2Qs2m02b7QhfkMDYeZ8R+LgcL7eNr2Z/wAfF21zWxsu8pdm0fy8ThVBKvZnIitXy/Sk2CaFh+C2NOL1PeM2lDIwOunsr5QKfS3vhBV6a9zMJZJOUKKVALtnychVRNN5Rbj0rEHpWRl7o15UFw8TWw3L4US6pl3LN3dJrLl3BxdWRVh7uuDZuZ847q734rGzsKXMoYXmknmLFpdr8dUwvPulZl/ZSgDm4U8uxDl2GyjZ0oGUNawxy8GtaGmsKxWtWjlloV8w1zibK71kBcSmFuLhXcP1KIs7JOz2V1fJYlSQrYTv7rzWizZPemmdcsOnzneJpYJTmPRTUEueQFH/C/D5n3Tku15BiMUO3mchJtuzwv8y5b+RDVhJxSeJ7WjQnOSmOL06K15x5vDLin1wO8MDZtzMfyoeS10IxWBmoI3avXLEV216fsHT+TCb9Kdj8GVp7t6KNfzY/7Ikny/LcrPxo7JlMfEUx6yUW/5dKQCruGSke2z8Bh7fvI8scUd1Evsme6vbm3bf4NQ9qVNBVJZDiUYpIhULxRyaTY5s3cMw5nMi23pT8qbDEplV/HM/+L/GfPsuJvWUNbGuM0VvccC8mkn8jneTFIp/IG//RAM7uO6LnqRw3TXZ4Bhd5OCtiHF275xH7TBjRo+YSX+SVIpbTk9szo/ezbMkL55nxcvHjRNJmdSW6d1eWxDWgzwvjhK01EVHDGV68DaBzA3MFlUT8xlob8NHv3KFO9mRctxQclUD31kkP3MCNQoGXR2AIXUyHGbFwC+O3nClzHGOEjxNJyddJys4h/cgOc94Rn29g6Ioz5m74ymNiTewOhkZvZk1+ECNaC2UuBGKOEM+rF4k6Zb1zNzDlTuKmXGwJrl3A5V/u4vplCuHt7CQ+MYHBBY+KvqwSK/Fw1D2SFjk7iNmdJCSrzsUlbLvoQ+v6WjI7X3aj66K1ZS0MWalCJt6JAIK980k9pidLcCJTXKvTa3j5hZGMFNuwEVOR/sac7+fx2sjBjJwRh/fA4QwQtoKkPcTsyqRZ714EuZiLm7Ft3Bin8z+jjX4sH8v/y8c8PT3Nt37Fo4mrqys5OXf5A2TGn9CBHahtEv+Q+n/KpYOLOHojjHbtvMnLKMBYPZkfth8Q4tIeryf70djuKjfs3MiNX81Pln5zQcrT7+Ny6FPsrmpPZneDXPA4NfWeRk6Xy4OoU6Laqs7/UT5/S5yDe9Gl5jFitl/APnINDfzEzam6Lfm5JtK+iSCp8H1CunmSfU3YrcRDaNJCTmw2UXPM63jkJ3LD2hObc3M5sfUbrIPeJ7CHJ3kX0yl0tOVazAtctXqdhs+1wWBri02h+J26uoef571z28SHYhpPY8i0frinJ5Jtb8ep6Pbs5jNGT3oKZ1s7qhfkkXtlLwuGfUPg4jdpbkok12gH1nkc/FNXDo9cz4ROdqSIthpr2hE/R5Q3ifLjG5B9JY/qNWuRuXYsMV/u1Q9YWXyYPsqRNfN+ZqduCQh+iv95yiCEjzUuhWf4fMUpttZsyqK21xm66lYfrhwD2f74bpLa9sJ79wbx2hZW7eZzff9tBLZkebgP2FXHJj+X/HPfM3C/gU+iGpF/yYSxWgE2v54y1x/Vuz89XFNJzTficfNn/nd1IicMtZk26EmRTiXdZMD2l328tB8mRHWltbMNNjYF5OdlsG/Fdmak6ce0RBx/0RPVSc0S4srZmhObdjBDfPW6PNWJ54OtyUgV9yhHEzsWptK6P0zc7aidr3id3iSRicmNSrd/43UmDOtGaH4yGdVcsLmwi4k7r+Nd1vVzbcgnzwThaiPK/ybKpx/j/cVnCezXly6GdPKtrpNYaODs4nKuH860iAjH/sfN7EnU721yrGKfJIa99oUQipOY/9+tyFjXn9f2Due9yZ0xXM3A1hnivvwbh558k/Z7XyOpz0K81w0Tr+/BaytxmfMqLXKTyLCphe25L3jtnW3kWNZbhBxX+c5wWlhlcFlcQ5ebOxn5j194dfZo6udkkF/dBZeMjfzjH6soXq/F3ps2PVpwc9tafrwm2t+vDaaN4uHOov/aeIf/SyUgH3HuXUDefy4M2UDdJb30VOV51G/Kj3pb1fk/POevUCiqIF5tGNA4mZXb787Fq7qwFVWCpH5f4r36OT2lUCgUCoXiP0LynrsWj5J7E5DDBhUvPn5AX2S8Ymrx8dxBTJZRbpbK1xKI+rZN0uYcKSrPY489ho+nC2HBdWne2AdXpxr6nocPKR6liFQoFAqFQlH1uWcP5PmN2kLhM0/6ESHHC1eKOAYOVkv83A+keAys78HjgXWoU8uZerVdeSKoLrVrOek5Hi7y3AOxS0vQUwqFQqFQKKoyVgd0j2DUpBdYPm2Q5lGU4QuLPIzT5GR8zYO4fNqkUp7CxfvPgoewFXslXyiOoS3r1LyU4fqyLUWeSIn0RmrHWN7EbBDI/fpxLepRlMZYww5Pd0eqWd9aw8rezobaNZ2E7eEbmVBQoybWN+5vHAqFQqFQKBQPBquw2VcJ0UVhPY4TVhS+0Byy8AsOujXRBZ8vHH+31GLiUa38IBU+bnKVmeYy+3DvJUVnMBGNzmq2hVdxK7GKS9Sk1qB7MY/KuiXDwgk4+YUWAnH2WQLM9SjKQoaetrKyDEAtEElrIR6ld/Jhwy4tnjx385K8CoVCoVAoqjhWB8Y1p56btkjr+eNFKzcVeQeH07JY+F3kqMU6q/V6ap7CV9z2MXChB+71mvOKuUx3c31R7USdJ49qMbR3HeVElrlYMfXdrhXX9/bxi+bXKFHkxH5doMoyiHq0lKIEN3JNZFy/QeFvtybR//prIWkZ2eT/eocFeu8X1m64+zbGu7YXdpaa9TFbarg1wtvX2xxSzMrJX7wX+Yo2r1qlxk7k+LbDcHGXnlIoFI8aVi1m0fKlt+4+DGFFGPtgqCMX8L4TPrg/O9EcKvCBE9yWmP4+tA/vxaJwuTK2hsHdg4jf0YCyyj/ffwjTgx2ZPKoXky3XYq8kQTNlGMZz/M+n03TLg6O8tppDD46WC5/34aOwopXbqyAGFwZ4lRfV5k7UZppc2P1leQ10k6Sc70rZjKfH1+d4bqwWe7skzT89Qo+ueqIs7upYGlZmb98bty/5OXlaa9JmS+/gFxwsIfyKKBoDWVw267DugRSb9GIKk1ujEF0ACoFZah1pX0L0sZNRHkXj9pwIaKV3kbcLIYBUTYAqSvFrQSHHz6Rw7perZN/IIzPrJgnnUs3p/wz21A0Lw9WUxQ3HUDq3DdJEoU0jQrv1poF7Of9Itj40CqmnxY+1wDEhhuuBkXpKoVD88bHHwfHW70ThsVXEr1ulxc+/XzTqRr3gyqzU3Z0nBnRHX+v5gZOfZyJDbJaEBrekfWW0bjmUXd5kPlZOhbHpyufYK4G8O3MvFQScvI+U3dZnngwk41u58Pk6XjpQvHJ71cOvKf0Cy4lqc0cu8UZ0DLPiruvpW5T1XSmbNez7chZbVv6op++eyh9L47GL303/TYrBNR4vEJE6h4HSKyjHM/YsiplzkbWDY6k9N5xLRTGuxf7lLNPyFmFRJuvQF+au7snTJtG3nrRcIyvrGrGjLeqR4yzHNUfqSrmPk6tFGfh4bpHXUx5XTbh50NyfdSAbEdbDjfhN+6gR9gzuJ1fwczm/OE7NhtD42ir2n7/9SyrjYFvnXMHxxGrdUnke9bX1HvW2qvN/eM6/GBsvWnRvQ63zW83xsG06LqBpqCs2piMc/WiKJiJbzKJhXSEY6jXAwdbEL4tGk/pLGB7P9cHqhic1/cTN+uI6fl42D0PUSuy3DyA1WTyM6u9zWq2hQSNbbKyEMJE/N2e/5qcYi8WXi+igLRjubm8HN/P4lcscfLc953ol0CP7H0S/tUxk+hvPrHmK+Kg1+HwQIfL5EFhf5L+4mrkvvkG2cRitpk+kuTGP6va5/CAXIt+iVV8KZ3ei7DNYfNNFe0221xbcdtMXsf4V0o9s4c97TUR0bUu/WkJkC6GduG0LU07aMGFYD7wPrmXicWteeKYbAQm7SQrpWEb5bELr18bl0iUyamuvW8tV5z54/30xz7SuRbUCSDvwLxb8U7/Bd13MSwMS+WjMG+ak86QtjGjrQzXRrF+vxLJkxFhSjKMJ/2A8j3vaifKX2TdNiwdufH49z0U2wCjzHl/IjNfLD1dbqq2FtgTbW9G+R1c8Dm1hxWXIuZlLqntDpvUIxMOuGqb0Y9pC4IU+TB/tQ06aC361Zazu73njBxf+2s0do4Mr6Wd+waNhTRJWb+DtUvGyNQICW/JGuA8G8Q0wnTvE0M2XNFsHLwxW1cgRdU7beIkTwW35xEfcM328cbXN59DKzSQ1jyTC3wabx/LJlyvVi7wyys/z/fsQnH0V13oeot5f2Pj5AT7Pd2RC/3aEutti+2s6+9bvYIYe/kV6/yLSNjCxyKdX6rtSXu/im0SuH0QDWztSYurzZbRubhvNc6+Ei+82VLPN49i7zdhU6e+lOJaVaOsz7WjtaoupMJ1Dq0Rb02+1Xy0k/ohzPwSkjW8POnrEs+WHLBr1eBpv8WNtXcMa6xtnOLBjH+niB81MtSBadXMmfsNu8UhRGrWQ+L3xqLdVnf/Dc/5mjH506taMG3vXloiHPYp6L/mSbCEgWzY9zuEvP6YgdA5Nay7h582iXS+Nw2rdaJLPG3H9rxnYfSPEYsfSAlK+l3U0rbVKlIuVNVbAaHp8PZAUGVVGt9D6M8ZOsiPmT1GkCCE0IfQQM15KEvnGY/35s6xf60SrhdG4fNWM2ICdjHCarYnNQSJvh2PM2JrF/O5+emWCzEPMfv1jyvMPlRIPPs1Z0DyV8WsvkWPw55NB1fn8s5/ZbxBiaUhdzh6Dlk4JjP8mzRxmsFT5u6HvKiY8m8uXo6JIK+nkKyEgb+FDy3nrqblMiBJEnueu8+WLY8m0KN/80wTq7ehPzFc/65YWvPjOOEItutrPbh7JP7/WE5b4NGR6aE0MHl7YpSeTLoRZ0qF4XLqHkPrVDmaLk47o1oceVzfy54O1mf5qUzKWbebtZEcmjw4haW0GHTrlMu2YF/9b/ywjzvnxFrvLvj52dfloVB32z9nL4qJQRdI2zJWt8w+zRojZcUO64bF3HVMc27I8MJH/WXGBpGZt+dT1KENjr5u7gBe56+91ZLd8h/QNjBe21p1FWy+vY6tnHyIyvhFtNmGo25xPn7rOG0vOmCPE/K7PUOD59hG6/tJMF5ARhC/+O8wKI1aIedmF7bmyGan+7zGuhUUMwwsbGflPGfiwND269mFgXizjd2YXh7KUtqL2P3zTdRVVChkPu01AJvsPntctmZzcvoQt6xYRm+RF0/q3xi44NQ2G44fKFI8yDraMh61QKP7IOBPUPgzj2Z0lxGPZ3LwSr8UU/s2yxyKFnPMZ4jWRnEviPn8PY/sqxb55HL4WRMu+PgSF+nBqyz/0HZf5Za0URHs5fxHc64O3Xy2cH5/I2KUHGBvpA7ZOOO/4ig9mf3BrW7CWuwnUGuDlgnOdEGYN68qC/g0xWtviLXfkJPL5MXu6hOayYYsmHn83dRz59fR3pcVjGRgHLeY5eZ5LV9Gujm7cMo9NF5syYukRRs/8AM+amvnwl5upHrmKSSu2EP5shLCcYO0Ci2siNqEFyybxFBNX72V/Wi5ndu41v5+RaMTwWxpx+kmvuZSB0UHvNs5OZKfZk3edt+dqIQfTU66Yr7kp65YAwr0hn8jxhnLrWVuzORtxSUm8JR4l0paeJsSjTJiISynEoA8NNKVlmOvNMe+riOucOX7dfOyt29aZhaGHYyFJidr3OedCGqmG6lg8ZtxHWuNtf4pTQjxacmLd3Nuu/wdLt+l7SiPbeuaExbUT3Go//D904xbIVBeL5wAAAABJRU5ErkJggg==\" alt=\"\"><br></p>', 'Abierto', '2023-06-23 11:18:46', NULL, NULL, '2023-06-23 12:26:01', 1, 1);
-INSERT INTO `tm_ticket` (`tick_id`, `usu_id`, `cat_id`, `cats_id`, `tick_titulo`, `tick_descrip`, `tick_estado`, `fech_crea`, `usu_asig`, `fech_asig`, `fech_cierre`, `prio_id`, `est`) VALUES
-(376, 6, 2, 3, 'Configuracion de Correo', 'Urgente configuracion de correo', 'Cerrado', '2023-06-26 17:41:46', NULL, NULL, '2023-06-26 17:44:27', 3, 1),
-(377, 15, 5, 7, 'compra de hojas para certificado', '<p>1 millar</p>', 'Abierto', '2023-07-22 11:57:14', NULL, NULL, NULL, 2, 1);
+(324, 15, 3, 11, 'mm.jk.', '<p>gklgkl</p>', 'Cerrado', '2023-04-10 11:40:06', NULL, NULL, '2023-04-20 15:04:35', 2, 1),
+(325, 15, 2, 3, 'pedio 202', '<p>se genero pedio 202</p>', 'Cerrado', '2023-04-17 12:42:51', NULL, NULL, '2023-04-17 12:45:56', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4342,38 +3319,6 @@ INSERT INTO `tm_tipodocumento` (`tipodoc_id`, `nom_tipdoc`, `est`) VALUES
 (2, 'DNI', 1),
 (3, 'CE', 1),
 (4, 'PASAPORTE', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tm_tipo_vehiculo`
---
-
-CREATE TABLE `tm_tipo_vehiculo` (
-  `id_unidad_vehicular` int(11) NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
-
---
--- Volcado de datos para la tabla `tm_tipo_vehiculo`
---
-
-INSERT INTO `tm_tipo_vehiculo` (`id_unidad_vehicular`, `descripcion`, `estado`) VALUES
-(1, 'Camión Furgón de 4 TN / 25 m3', 1),
-(2, 'Camión Furgón de 10 TN / 60 m3', 1),
-(3, 'Camión Furgón de 30 TN / 90 m3', 1),
-(4, 'Brazo Hidráulico con Contenedor 10 m3', 1),
-(5, 'Brazo Hidráulico con Contenedor 13 m3', 1),
-(6, 'Brazo Hidráulico con Contenedor 25 m3', 1),
-(7, 'Plataforma', 1),
-(8, 'Camión Furgón - Puertas tipo gaviota de 10 TN / 60 m3', 1),
-(9, 'Camión furgón de 4 TN / 25 m3 con rampa', 1),
-(10, 'Camión furgón de 10 TN / 60 m3 con rampa', 1),
-(11, 'Camión Cisterna 1 m3', 1),
-(12, 'Camión Cisterna de 3.5 m3', 1),
-(13, 'Camión Cisterna 10,13,15 m3', 1),
-(14, 'Camión Cisterna de 30 m3', 1);
 
 -- --------------------------------------------------------
 
@@ -4401,8 +3346,7 @@ INSERT INTO `tm_umedida` (`id_medida`, `descripcion`, `abreviatura`, `estado`) V
 (6, 'Galones', 'GL', 1),
 (7, 'Hora', 'HRS', 1),
 (8, 'Litros', 'L', 1),
-(9, 'Toneladas', 'TN', 1),
-(10, 'VIAJE', 'VJ', 1);
+(9, 'Toneladas', 'TN', 1);
 
 -- --------------------------------------------------------
 
@@ -4412,8 +3356,8 @@ INSERT INTO `tm_umedida` (`id_medida`, `descripcion`, `abreviatura`, `estado`) V
 
 CREATE TABLE `tm_usuario` (
   `usu_id` int(11) NOT NULL,
-  `usu_nom` varchar(150) NOT NULL,
-  `usu_ape` varchar(150) NOT NULL,
+  `usu_nom` varchar(150) DEFAULT NULL,
+  `usu_ape` varchar(150) DEFAULT NULL,
   `usu_correo` varchar(150) NOT NULL,
   `usu_pass` varchar(20) NOT NULL,
   `rol_id` int(11) DEFAULT NULL,
@@ -4428,22 +3372,43 @@ CREATE TABLE `tm_usuario` (
 --
 
 INSERT INTO `tm_usuario` (`usu_id`, `usu_nom`, `usu_ape`, `usu_correo`, `usu_pass`, `rol_id`, `fech_crea`, `fech_modi`, `fech_elim`, `est`) VALUES
-(1, 'Daniel', 'Moscoso Silva', 'sistemas@sanipperu.com', '1234', 2, '2023-05-18 11:20:13', NULL, NULL, 1),
+(1, 'Daniel', 'Moscoso Silva', 'sistemas@sanipperu.com', '1234', 2, '2023-01-03 14:20:20', '2023-01-31 14:20:20', '2023-04-17 12:55:36', 0),
 (3, 'Willinton', 'Moscoso Silva', 'soporte_admin@sanipperu.com', '1505', 2, '2023-02-07 14:44:46', NULL, NULL, 1),
+(5, 'Angela', 'asdasd', 'coordinadoradministrativo@sanipperu.com', 'sdfsdf', 1, '2023-02-08 12:02:41', NULL, NULL, 1),
 (6, 'Mayra', 'Pinglo', 'ssoma@sanipperu.com', 'aaaa', 1, '2023-02-08 12:21:19', NULL, NULL, 1),
 (7, 'Gandy', 'Olivera Moreno', 'saneamiento@sanipperu.com', '7777', 1, '2023-02-08 12:21:38', NULL, NULL, 1),
 (8, 'Maria Isabel', 'Huarcaya', 'mhuarcaya@sanipperu.com', '1111', 1, '2023-02-08 12:24:26', NULL, NULL, 1),
-(9, 'Miguel', 'Verastegui Vilva', 'mdigital@sanipperu.com', '1111', NULL, '2023-02-08 12:24:37', NULL, NULL, 1),
+(9, 'Miguel', 'Verastegui Vilva', 'mdigital@sanipperu.com', '1111', 1, '2023-02-08 12:24:37', NULL, NULL, 1),
 (11, 'Alfredo', 'Rodríguez Baltazar', 'administracion@sanipperu.com', '1111', 2, '2023-02-08 12:52:34', NULL, NULL, 1),
 (13, 'Edgardo', 'Sanchez', 'esanchez@sanipperu.com', '1111', 2, '2023-02-08 16:15:33', NULL, NULL, 1),
 (15, 'Katty', 'Suxe', 'contabilidad@sanipperu.com', '1111', 1, '2023-02-08 16:30:45', NULL, NULL, 1),
 (17, 'Daniel', 'Silva', 'dan.msaj@gmail.com', '1111', 1, '2023-02-09 14:19:19', NULL, NULL, 1),
+(26, 'sdfsdf', 'sdfsdf', 'sdfsdfsdf@dsfsdfsdfsd', 'b59c67bf196a4758191e', 1, '2023-02-09 17:14:09', NULL, '2023-02-11 13:03:40', 0),
+(27, 'dfdsfd', 'sdfsdf', 'dan.msaj@gmail.com', 'd6e9c56d7f078d298ed4', 2, '2023-02-09 17:16:04', NULL, '2023-02-11 12:23:36', 0),
+(28, 'rgtsfg', 'fgfdgdfg', 'ded@fsdsdf', '1111', 1, '2023-02-09 17:18:48', NULL, '2023-02-11 13:03:16', 0),
+(29, 'uykyuky', 'yukyuk', 'sistemas@sanipperu.com', '0000', 1, '2023-02-09 17:35:34', NULL, '2023-02-11 13:04:01', 0),
+(30, 'Miguel', 'ryrtyr', 'sistemas@sanipperu.com', '31dd4c392c98ad3d3030', 2, '2023-02-11 08:16:28', NULL, '2023-02-11 13:02:42', 0),
+(31, 'asdasd', 'asdasd', 'administracion@sanipperu.com', 'asda', 2, '2023-02-11 08:48:45', NULL, '2023-02-11 12:24:20', 0),
+(32, 'saaasa', 'Moscoso Silvaasdas', 'sistemas@sanipperu.com', '3f76818f507fe7eb6422', 2, '2023-02-11 08:49:58', NULL, '2023-02-11 13:03:21', 0),
+(33, 'dfgdf', 'dfgh', 'dan-ms@hotmail.com', 'dfghdfhg', 2, '2023-02-11 08:50:23', NULL, '2023-02-11 12:24:41', 0),
+(34, 'dsfsdfsd', 'fsdfsdfsd', 'sistemas@sanipperu.com', '111111', 1, '2023-02-11 08:50:51', NULL, '2023-02-11 12:23:41', 0),
+(35, 'sdfsdfsd', 'fsdfsdf', 'sistemas@sanipperu.com', '1111', 1, '2023-02-11 08:57:01', NULL, '2023-02-11 13:03:50', 0),
+(36, 'sdff', 'sdfsdf', 'dan-ms@hotmail.com', '0000', 2, '2023-02-11 08:58:21', NULL, '2023-02-11 13:03:34', 0),
+(37, 'Miguel', 'sdfsdf', 'dan-ms@hotmail.com', '4a7d1ed414474e4033ac', 2, '2023-02-11 11:48:25', NULL, '2023-02-11 13:02:47', 0),
+(38, 'dfgdg', 'dfgdfg', 'dan-ms@hotmail.com', '51d3ab6534b38f81ff65', 2, '2023-02-11 11:51:45', NULL, '2023-02-11 12:24:10', 0),
+(39, 'ghjgh', 'ghjg', 'dan.msaj@gmail.com', '4a7d1ed414474e4033ac', 2, '2023-02-11 11:53:33', NULL, '2023-02-11 13:01:59', 0),
+(40, 'sfsdf', 'sdfsdf', 'sdfdsf@defdff', 'd58e3582afa99040e27b', 2, '2023-02-11 12:23:04', NULL, '2023-02-11 13:03:57', 0),
+(41, 'sdfsdf', 'sdfsdf', 'coordinadoradministrativo@sanipperu.com', '4a7d1ed414474e4033ac', 2, '2023-02-11 12:24:04', NULL, '2023-02-11 13:03:44', 0),
+(42, 'fsdfsdf', 'sdfsdf', 'dan-ms@hotmail.com', 'bcbe3365e6ac95ea2c03', 2, '2023-02-11 12:24:33', NULL, '2023-02-11 12:24:47', 0),
+(43, 'sdsdf', 'sdfsdf', 'sistemas@sanipperu.com', 'd93591bdf7860e1e4ee2', 2, '2023-02-11 12:25:00', NULL, '2023-02-11 13:03:53', 0),
+(44, 'arte', 'sdfsf', 'dan.msaj@gmail.com', '4a7d1ed414474e4033ac', 2, '2023-02-11 13:00:36', NULL, '2023-02-11 13:01:42', 0),
+(45, 'sdfdsf', 'sdfsdf', 'dan-ms@hotmail.com', '4a7d1ed414474e4033ac', 2, '2023-02-11 13:00:59', NULL, '2023-02-11 13:03:31', 0),
+(46, 'ssdfsdf', 'sdfsdf', 'dan.msaj@gmail.com', 'b59c67bf196a4758191e', 2, '2023-02-13 08:18:05', NULL, '2023-02-13 08:18:10', 0),
+(47, 'dsfdsf', 'sdfsfsd', 'dan.msaj@gmail.com', '81dc9bdb52d04dc20036', 2, '2023-02-13 09:09:55', NULL, '2023-02-21 17:25:40', 0),
 (48, 'alex', 'Moncada Rios', 'dan.msaj@gmail.com', '1231', 1, '2023-02-13 09:10:23', NULL, NULL, 1),
 (49, 'Richard', 'Echevarria', 'ssoma@sanipperu.com', 'b59c67bf196a4758191e', 1, '2023-02-23 16:38:59', NULL, NULL, 1),
 (50, 'Nestor', 'Yalta Huaman', 'eyalta@sanipperu.com', 'b59c67bf196a4758191e', 1, '2023-02-24 10:57:03', NULL, NULL, 1),
-(51, 'Heidy', 'Yalta', 'hyalta@sanipperu.com', 'b59c67bf196a4758191e', 2, '2023-02-27 10:40:45', NULL, NULL, 1),
-(68, 'Miguel', 'Verastegui Vilva', 'sistemas@sanipperu.com', '1234', 1, '2023-05-19 16:29:00', NULL, NULL, 1),
-(72, 'Andres ', 'Carrillo', 'kjshskdh@fkvefv.com', '81dc9bdb52d04dc20036', 1, '2023-06-21 08:51:46', NULL, NULL, 1);
+(51, 'Heidy', 'Yalta', 'hyalta@sanipperu.com', 'b59c67bf196a4758191e', 2, '2023-02-27 10:40:45', NULL, NULL, 1);
 
 --
 -- Índices para tablas volcadas
@@ -4456,22 +3421,10 @@ ALTER TABLE `det_pedido`
   ADD PRIMARY KEY (`id_detpedido`);
 
 --
--- Indices de la tabla `doc_emision`
---
-ALTER TABLE `doc_emision`
-  ADD PRIMARY KEY (`id_demision`);
-
---
 -- Indices de la tabla `forma_pago`
 --
 ALTER TABLE `forma_pago`
   ADD PRIMARY KEY (`id_fpago`);
-
---
--- Indices de la tabla `tdoc_emision`
---
-ALTER TABLE `tdoc_emision`
-  ADD PRIMARY KEY (`id_tdocemi`);
 
 --
 -- Indices de la tabla `td_documento`
@@ -4480,46 +3433,10 @@ ALTER TABLE `td_documento`
   ADD PRIMARY KEY (`doc_id`);
 
 --
--- Indices de la tabla `td_documentopedido`
---
-ALTER TABLE `td_documentopedido`
-  ADD PRIMARY KEY (`id_documento`);
-
---
--- Indices de la tabla `td_documentoseguimiento`
---
-ALTER TABLE `td_documentoseguimiento`
-  ADD PRIMARY KEY (`id_docseguimiento`);
-
---
--- Indices de la tabla `td_pedidoseguimiento`
---
-ALTER TABLE `td_pedidoseguimiento`
-  ADD PRIMARY KEY (`id_seguimiento`);
-
---
 -- Indices de la tabla `td_ticketdetalle`
 --
 ALTER TABLE `td_ticketdetalle`
   ADD PRIMARY KEY (`tickd_id`);
-
---
--- Indices de la tabla `tipo_servicio`
---
-ALTER TABLE `tipo_servicio`
-  ADD PRIMARY KEY (`id_modalidad`);
-
---
--- Indices de la tabla `tm_acopio`
---
-ALTER TABLE `tm_acopio`
-  ADD PRIMARY KEY (`id_acopio`);
-
---
--- Indices de la tabla `tm_cargo`
---
-ALTER TABLE `tm_cargo`
-  ADD PRIMARY KEY (`id_cargo`);
 
 --
 -- Indices de la tabla `tm_categoria`
@@ -4534,28 +3451,10 @@ ALTER TABLE `tm_cliente`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `tm_concredito`
---
-ALTER TABLE `tm_concredito`
-  ADD PRIMARY KEY (`id_ccredito`);
-
---
--- Indices de la tabla `tm_correo`
---
-ALTER TABLE `tm_correo`
-  ADD PRIMARY KEY (`id_correo`);
-
---
 -- Indices de la tabla `tm_departamento`
 --
 ALTER TABLE `tm_departamento`
   ADD PRIMARY KEY (`id_departamento`);
-
---
--- Indices de la tabla `tm_disposicion_final`
---
-ALTER TABLE `tm_disposicion_final`
-  ADD PRIMARY KEY (`id_disposicion`);
 
 --
 -- Indices de la tabla `tm_distrito`
@@ -4564,22 +3463,16 @@ ALTER TABLE `tm_distrito`
   ADD PRIMARY KEY (`id_distrito`);
 
 --
--- Indices de la tabla `tm_herramientas`
+-- Indices de la tabla `tm_modalidad`
 --
-ALTER TABLE `tm_herramientas`
-  ADD PRIMARY KEY (`id_herramienta`);
+ALTER TABLE `tm_modalidad`
+  ADD PRIMARY KEY (`id_modalidad`);
 
 --
--- Indices de la tabla `tm_insumos`
+-- Indices de la tabla `tm_modeloportatil`
 --
-ALTER TABLE `tm_insumos`
-  ADD PRIMARY KEY (`id_insumo`);
-
---
--- Indices de la tabla `tm_manifiestos`
---
-ALTER TABLE `tm_manifiestos`
-  ADD PRIMARY KEY (`id_manifiesto`);
+ALTER TABLE `tm_modeloportatil`
+  ADD PRIMARY KEY (`id_modelo`);
 
 --
 -- Indices de la tabla `tm_pedido`
@@ -4630,12 +3523,6 @@ ALTER TABLE `tm_tipodocumento`
   ADD PRIMARY KEY (`tipodoc_id`);
 
 --
--- Indices de la tabla `tm_tipo_vehiculo`
---
-ALTER TABLE `tm_tipo_vehiculo`
-  ADD PRIMARY KEY (`id_unidad_vehicular`);
-
---
 -- Indices de la tabla `tm_umedida`
 --
 ALTER TABLE `tm_umedida`
@@ -4655,73 +3542,25 @@ ALTER TABLE `tm_usuario`
 -- AUTO_INCREMENT de la tabla `det_pedido`
 --
 ALTER TABLE `det_pedido`
-  MODIFY `id_detpedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1185;
-
---
--- AUTO_INCREMENT de la tabla `doc_emision`
---
-ALTER TABLE `doc_emision`
-  MODIFY `id_demision` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detpedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `forma_pago`
 --
 ALTER TABLE `forma_pago`
-  MODIFY `id_fpago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `tdoc_emision`
---
-ALTER TABLE `tdoc_emision`
-  MODIFY `id_tdocemi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fpago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `td_documento`
 --
 ALTER TABLE `td_documento`
-  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
-
---
--- AUTO_INCREMENT de la tabla `td_documentopedido`
---
-ALTER TABLE `td_documentopedido`
-  MODIFY `id_documento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
-
---
--- AUTO_INCREMENT de la tabla `td_documentoseguimiento`
---
-ALTER TABLE `td_documentoseguimiento`
-  MODIFY `id_docseguimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT de la tabla `td_pedidoseguimiento`
---
-ALTER TABLE `td_pedidoseguimiento`
-  MODIFY `id_seguimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `td_ticketdetalle`
 --
 ALTER TABLE `td_ticketdetalle`
-  MODIFY `tickd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
-
---
--- AUTO_INCREMENT de la tabla `tipo_servicio`
---
-ALTER TABLE `tipo_servicio`
-  MODIFY `id_modalidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `tm_acopio`
---
-ALTER TABLE `tm_acopio`
-  MODIFY `id_acopio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `tm_cargo`
---
-ALTER TABLE `tm_cargo`
-  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `tickd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_categoria`
@@ -4733,19 +3572,7 @@ ALTER TABLE `tm_categoria`
 -- AUTO_INCREMENT de la tabla `tm_cliente`
 --
 ALTER TABLE `tm_cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
-
---
--- AUTO_INCREMENT de la tabla `tm_concredito`
---
-ALTER TABLE `tm_concredito`
-  MODIFY `id_ccredito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `tm_correo`
---
-ALTER TABLE `tm_correo`
-  MODIFY `id_correo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_departamento`
@@ -4754,40 +3581,28 @@ ALTER TABLE `tm_departamento`
   MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de la tabla `tm_disposicion_final`
---
-ALTER TABLE `tm_disposicion_final`
-  MODIFY `id_disposicion` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT de la tabla `tm_distrito`
 --
 ALTER TABLE `tm_distrito`
   MODIFY `id_distrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1832;
 
 --
--- AUTO_INCREMENT de la tabla `tm_herramientas`
+-- AUTO_INCREMENT de la tabla `tm_modalidad`
 --
-ALTER TABLE `tm_herramientas`
-  MODIFY `id_herramienta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+ALTER TABLE `tm_modalidad`
+  MODIFY `id_modalidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `tm_insumos`
+-- AUTO_INCREMENT de la tabla `tm_modeloportatil`
 --
-ALTER TABLE `tm_insumos`
-  MODIFY `id_insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `tm_manifiestos`
---
-ALTER TABLE `tm_manifiestos`
-  MODIFY `id_manifiesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+ALTER TABLE `tm_modeloportatil`
+  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_pedido`
 --
 ALTER TABLE `tm_pedido`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=431;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_portatil`
@@ -4811,7 +3626,7 @@ ALTER TABLE `tm_provincia`
 -- AUTO_INCREMENT de la tabla `tm_servicio`
 --
 ALTER TABLE `tm_servicio`
-  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_subcategoria`
@@ -4823,7 +3638,7 @@ ALTER TABLE `tm_subcategoria`
 -- AUTO_INCREMENT de la tabla `tm_ticket`
 --
 ALTER TABLE `tm_ticket`
-  MODIFY `tick_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=378;
+  MODIFY `tick_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_tipodocumento`
@@ -4832,22 +3647,16 @@ ALTER TABLE `tm_tipodocumento`
   MODIFY `tipodoc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `tm_tipo_vehiculo`
---
-ALTER TABLE `tm_tipo_vehiculo`
-  MODIFY `id_unidad_vehicular` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
 -- AUTO_INCREMENT de la tabla `tm_umedida`
 --
 ALTER TABLE `tm_umedida`
-  MODIFY `id_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tm_usuario`
 --
 ALTER TABLE `tm_usuario`
-  MODIFY `usu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `usu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -125,7 +125,7 @@ $(document).ready(function(){
 });  
 
 function ver(tick_id){
-    window.open('http://localhost/Tutorial_Helpdesk-main/view/DetalleTicket/?ID='+ tick_id +'');
+    window.open('http://localhost/Helpdesk/view/DetalleTicket/?ID='+ tick_id +'');
     // window.open('http://localhost/Tutorial_Helpdesk-main/view/DetalleTicket/?ID='+ tick_id +'');
 }
 

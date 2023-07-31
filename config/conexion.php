@@ -7,7 +7,7 @@
         protected function Conexion(){
             try {
                 //Local
-				$conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=andercode_helpdesk1","root","");
+				$conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=sanip_peru","root","");
                 //Produccion
              
                //$conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=id20721968_andercode_helpdesk1","id20721968_root","Abigail3005@");
@@ -24,7 +24,7 @@
 
         public static function ruta(){
             //Local
-			return "http://localhost/TUTORIAL_HELPDESK-main/";
+			return "http://localhost/Helpdesk/";
             //Produccion
             //return https://sanipperuerp.000webhostapp.com/";
 		}

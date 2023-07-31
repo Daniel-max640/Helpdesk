@@ -9,7 +9,7 @@
         $estado_pago,$orden_compra,$detalles,$manifiestos){
             $conectar= parent::conexion();
             parent::set_names();            
-            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura,estado_pago,orden_compra) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'andercode_helpdesk1' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?,?,?);";
+            $sql="INSERT INTO tm_pedido (id_pedido,usu_id,id_cliente,nro_doc,direc_cli,nom_cli,fecha_emision,serie_pedido,moneda,id_modalidad,contacto,telf_contacto,dire_entrega,id_demision,asesor,id_fpago,fecha_entrega,sub_total,igv,total,estado,observacion,conta_factu,correo_cfactu,telf_cfactu,conta_cobra,correo_ccobra,telf_ccobra,est_ped,cotizacion,link,cierre_facturacion,fecha_pago,acceso_portal,entrega_factura,estado_pago,orden_compra) VALUES (NULL,?,?,?,?,?,now(),CONCAT(?, '-', (SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'sanip_peru' AND TABLE_NAME = 'tm_pedido')),?,?,?,?,?,?,?,?,?,?,?,?,'Registrado',?,?,?,?,?,?,?,'1',?,?,?,?,?,?,?,?);";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->bindValue(2, $id_cliente);

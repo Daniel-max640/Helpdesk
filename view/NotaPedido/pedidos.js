@@ -91,14 +91,14 @@ $(document).ready(function(){
 
 
 $(document).on("click","#btnnuevo", function(){ 
-    window.open('http://localhost/Tutorial_Helpdesk-main/view/GenerarPedido/');
+    window.open('http://localhost/Helpdesk/view/GenerarPedido/');
     //  window.open('https://sanipperuerp.000webhostapp.com//view/GenerarPedido/');
 });
 
 function opcionSeleccionada(opcion, id_pedido) {
     if (opcion === 'editar') {
         // Lógica para la opción "Editar"
-        window.open('http://localhost/Tutorial_Helpdesk-main/view/DetallePedido/?IDs='+ id_pedido +'');    
+        window.open('http://localhost/Helpdesk/view/DetallePedido/?IDs='+ id_pedido +'');    
     } else if (opcion === 'anular') {
         // Lógica para la opción "Anular"
         swal({
@@ -134,7 +134,7 @@ function opcionSeleccionada(opcion, id_pedido) {
     });
     } else if (opcion === 'seguimiento') {
          // Lógica para la opción "Editar"
-         window.open('http://localhost/Tutorial_Helpdesk-main/view/SeguimientoPedidos/?IDs='+ id_pedido +'');    
+         window.open('http://localhost/Helpdesk/view/SeguimientoPedidos/?IDs='+ id_pedido +'');    
     } else {
 
     }
