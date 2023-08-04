@@ -56,13 +56,18 @@
 	                    </span>
 	                    <ul>
                             <li>
-                                <a href="..\NuevoTicket\"><span class="lbl">Portatiles</span></a>
+                                <a href="..\NuevoTicket\"><span class="lbl">Modalidad</span></a>
                             </li>
                             <li>
-                                <a href="..\NuevoTicket\"><span class="lbl">Servicios</span></a>
+                                <a href="..\NuevoTicket\"><span class="lbl">Equipos Portatiles</span></a>
                             </li>
+                          
                             <li>
                                 <a href="..\NuevoTicket\"><span class="lbl">Modelos de Portatiles</span></a>
+                            </li>
+
+                            <li>
+                                <a href="..\NuevoTicket\"><span class="lbl">Servicios</span></a>
                             </li>
 	                    </ul>
 	                </li>                   
@@ -87,6 +92,18 @@
 	                    <ul>
 	                        <li>
                                 <a href="..\TCPDF\"><span class="lbl">IMPRESIONES</span></a>
+                            </li>	                                   
+	                    </ul>
+	                </li>
+
+                    <li class="blue-dirty with-sub">
+	                    <span>
+	                    <i class="font-icon font-icon-cogwheel"></i>
+	                    <span class="lbl">Configuracion</span>
+	                    </span>
+	                    <ul>
+	                        <li>
+                                <a href="..\TCPDF\"><span class="lbl">Configuracion</span></a>
                             </li>	                                   
 	                    </ul>
 	                </li>
