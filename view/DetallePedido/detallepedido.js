@@ -273,7 +273,7 @@ function mostrarOcultarCantidadLimpieza() {
     $("#campo_cantidad").show(); // Mostrar el campo de cantidad de limpieza
     $("#contenedorServicio").hide();
   
-  } else if (valorServicio === "2") {
+  } else if (valorServicio === "1" || valorServicio === "2") {
     $("#campo_cantidad").hide(); // Ocultar el campo de cantidad de limpieza
     $("#contenedorServicio").hide();
     

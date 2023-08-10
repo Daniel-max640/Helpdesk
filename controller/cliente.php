@@ -19,8 +19,7 @@
             else {
                 $cliente->update_cliente($_POST["id_cliente"],$_POST["tipodoc_id"],$_POST["nro_doc"],$_POST["nom_cli"],$_POST["direc_cli"],$_POST["id_ccredito"],$_POST["id_departamento"],$_POST["id_provincia"],$_POST["id_distrito"],$_POST["tele_cli"],$_POST["correo_cli"],$_POST["contacto_telf"],$_POST["contacto_cli"],$_POST["contacto_factu"],$_POST["correo_fac"],$_POST["contacto_cobra"],$_POST["correo_cobra"],$_POST["tele_cobra"],$_POST["contacto_adi"],$_POST["correo_adi"],$_POST["tele_adi"],$_POST["web"]);
             }
-        break;
-         
+        break;         
 
         case "listar":
             $datos=$cliente->get_cliente();
@@ -59,13 +58,13 @@
                    }                
                   echo json_encode($output);             
              }   
-            break;       
+        break;       
 
         case "mostrarcliente";
         $datos=$cliente->get_cliente_x_id($_POST["id_cliente"]);  
         if(is_array($datos)==true and count($datos)>0){
-             foreach($datos as $row)
-             {
+            foreach($datos as $row)
+                {
                   $output["id_cliente"] = $row["id_cliente"];
                   $output["tipodoc_id"] = $row["tipodoc_id"];
                   $output["nro_doc"] = $row["nro_doc"];
@@ -88,9 +87,9 @@
                   $output["correo_adi"] = $row["correo_adi"];
                   $output["tele_adi"] = $row["tele_adi"];
                   $output["web"] = $row["web"];
-               }
+                }
                 
-              echo json_encode($output);
+            echo json_encode($output);
              
          }   
          break;
