@@ -1,25 +1,25 @@
 var tabla;
 
 function init(){
-    $("#usuario_form").on("submit",function(e){
+    $("#correo_form").on("submit",function(e){
         guardaryeditar(e);	
     });
 }
 
-function guardaryeditar(e){
+function guardaryeditar(e){   
     e.preventDefault();
-	var formData = new FormData($("#usuario_form")[0]);
+	var formData = new FormData($("#correo_form")[0]);
     $.ajax({
-        url: "../../controller/usuario.php?op=guardaryeditar",
+        url: "../../controller/correo.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
         success: function(datos){    
             
-            $('#usuario_form')[0].reset();
-            $("#modalmantenimiento").modal('hide');
-            $('#usuario_data').DataTable().ajax.reload();
+            $('#correo_form')[0].reset();
+            $("#modalcorreo").modal('hide');
+            $('#correo_data').DataTable().ajax.reload();
 
             swal({
                 title: "HelpDesk!",
@@ -30,7 +30,13 @@ function guardaryeditar(e){
         }
     }); 
 }
+
 $(document).ready(function(){
+
+    $.post("../../controller/correo.php?op=combo", function (data) {
+        $('#usu_id').html(data);
+    });
+
     tabla=$('#correo_data').dataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -87,18 +93,18 @@ $(document).ready(function(){
 function editar(id_correo){
     $('#mdltitulo').html('Editar Registro');
 
-    $.post("../../controller/correo.php?op=mostrar", {id_Correo : id_correo}, function (data) {
+    $.post("../../controller/correo.php?op=mostrar", {id_correo : id_correo}, function (data) {
         data = JSON.parse(data);
         $('#id_correo').val(data.id_correo);
         $('#correo').val(data.correo);
-        $('#contraseña').val(data.contraseña);
+        $('#contrasena').val(data.contrasena);
         $('#usu_id').val(data.usu_id);       
     }); 
 
     $('#modalcorreo').modal('show');
 }
 
-function eliminar(usu_id){
+function eliminar(id_correo){
     swal({
         title: "HelpDesk",
         text: "Esta seguro de Eliminar el registro?",

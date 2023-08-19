@@ -40,8 +40,7 @@
                             <th style="width: 5%;">ID</th>
 							<th style="width: 25%;">Correo</th>
 							<th style="width: 20%;">Contraseña</th>                            
-							<th style="width: 5%;">usu_id</th>
-                            <th style="width: 20%;">Asignado</th>
+							<th style="width: 20%;">Asignado</th>
 							<th class="text-center" style="width: 5%;"></th>
 							<th class="text-center" style="width: 5%;"></th>
 						</tr>

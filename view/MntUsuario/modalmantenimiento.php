@@ -23,12 +23,12 @@
 
                     <div class="form-group">
                         <label class="form-label" for="usu_correo">Correo Electronico</label>
-                        <input type="email" class="form-control" id="usu_correo" name="usu_correo" placeholder="test@test.com" required>
+                        <input type="email" class="form-control" id="usu_correo" name="usu_correo" placeholder="test@test.com" >
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="usu_pass">Contraseña</label>
-                        <input type="text" class="form-control" id="usu_pass" name="usu_pass" placeholder="************" required>
+                        <input type="text" class="form-control" id="usu_pass" name="usu_pass" placeholder="************" >
                     </div>
 
                     <div class="form-group">

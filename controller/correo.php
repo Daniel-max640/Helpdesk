@@ -1,7 +1,9 @@
 <?php
     /* TODO:Cadena de Conexion */
     require_once("../config/conexion.php");
-    /* TODO:Modelo Prioridad */
+    require_once("../models/Usuario.php");
+    $usuario = new Usuario();
+
     require_once("../models/Correo.php");
     $correo = new Correo();
 
@@ -10,10 +12,10 @@
         /* TODO: Guardar y editar, guardar si el campo prio_id esta vacio */
         case "guardaryeditar":
             if(empty($_POST["id_correo"])){       
-                $correo->insert_correo($_POST["correo"],$_POST["contraseña"],$_POST["usu_id"]);     
+                $correo->insert_correo($_POST["correo"],$_POST["contrasena"],$_POST["usu_id"]);     
             }
             else {
-                $correo->update_prioridad($_POST["id_correo"],$_POST["contraseña"],$_POST["usu_id"]);
+                $correo->update_correo($_POST["id_correo"],$_POST["correo"],$_POST["contrasena"],$_POST["usu_id"]);
             }
             break;
 
@@ -25,9 +27,15 @@
                 $sub_array = array();
                 $sub_array[] = $row["id_correo"];
                 $sub_array[] = $row["correo"];
-                $sub_array[] = $row["contraseña"];
-                $sub_array[] = $row["usu_id"];
-                $sub_array[] = $row["asignado"];
+                $sub_array[] = $row["contrasena"];                
+                if($row["usu_id"]==null){
+                    $sub_array[] = '<a onClick="asignar('.$row["id_correo"].');"><span class="label label-pill label-warning">Sin Asignar</span></a>';
+                }else{
+                    $datos1=$usuario->get_usuario_x_id($row["usu_id"]);
+                    foreach($datos1 as $row1){
+                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
+                    }
+                }
                 $sub_array[] = '<button type="button" onClick="editar('.$row["id_correo"].');"  id="'.$row["id_correo"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["id_correo"].');"  id="'.$row["id_correo"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
                 $data[] = $sub_array;
@@ -53,25 +61,25 @@
                 {
                     $output["id_correo"] = $row["id_correo"];
                     $output["correo"] = $row["correo"];
-                    $output["contraseña"] = $row["contraseña"];
-                    $output["usu_id"] = $row["usu_id"];
-                    $output["asignado"] = $row["asignado"];
+                    $output["contrasena"] = $row["contrasena"];
+                    $output["usu_id"] = $row["usu_id"];                    
                 }
                 echo json_encode($output);
             }
             break;
-        /* TODO: Formato para llenar combo en formato HTML */
-        case "combo":
-            $datos = $id_correo->get_correo();
+
+            case "combo";
+            $datos = $usuario->get_usuario();
             $html="";
-            $html.="<option label='Seleccionar'></option>";
             if(is_array($datos)==true and count($datos)>0){
+                $html.= "<option label='Seleccionar'></option>";
                 foreach($datos as $row)
                 {
-                    $html.= "<option value='".$row['id_correo']."'>".$row['id_correo']."</option>";
+                    $html.= "<option value='".$row['usu_id']."'>".$row['usu_nom']."</option>";
                 }
                 echo $html;
             }
-        break;
+            break;
+
     }
 ?>
