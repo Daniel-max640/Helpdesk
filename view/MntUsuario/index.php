@@ -22,7 +22,7 @@
 				<div class="tbl">
 					<div class="tbl-row">
 						<div class="tbl-cell">
-							<h3>Mantenimiento Usuario</h3>
+							<h3>Mantenimiento Empleados</h3>
 							<ol class="breadcrumb breadcrumb-simple">
 								<li><a href="#">Home</a></li>
 								<li class="active">Mantenimiento Usuario</li>
@@ -37,13 +37,16 @@
 				<table id="usuario_data" class="table table-bordered table-striped table-vcenter js-dataTable-full">
 					<thead>
 						<tr>
+							<th style="width: 5%;">DNI</th>
 							<th style="width: 10%;">Nombre</th>
 							<th style="width: 10%;">Apellido</th>
-							<th class="d-none d-sm-table-cell" style="width: 30%;">Correo</th>
+							<th class="d-none d-sm-table-cell" style="width: 15%;">Correo</th>
 							<th class="d-none d-sm-table-cell" style="width: 5%;">Contraseña</th>
-							<th class="d-none d-sm-table-cell" style="width: 5%;">Rol</th>
-							<th class="text-center" style="width: 5%;"></th>
-							<th class="text-center" style="width: 5%;"></th>
+							<th class="d-none d-sm-table-cell" style="width: 4%;">Rol</th>
+							<th class="d-none d-sm-table-cell" style="width: 10%;">Empresa</th>
+							<th class="d-none d-sm-table-cell" style="width: 10%;">Cargo</th>
+							<th class="text-center" style="width: 4%;"></th>
+							<th class="text-center" style="width: 4%;"></th>
 						</tr>
 					</thead>
 					<tbody>

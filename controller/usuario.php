@@ -18,6 +18,13 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
+                // Verificar si el campo "dni" está vacío
+                if ($row["dni"] === null || $row["dni"] === "") {
+                    $sub_array[] = '<span class="label label-pill label-danger">Sin Registrar</span>';
+                } else {
+                    $sub_array[] = $row["dni"];
+                }
+        
                 $sub_array[] = $row["usu_nom"];
                 $sub_array[] = $row["usu_ape"];
                 $sub_array[] = $row["usu_correo"];
@@ -28,7 +35,8 @@
                 }else{
                     $sub_array[] = '<span class="label label-pill label-info">Soporte</span>';
                 }
-
+                $sub_array[] = $row["nombre"];
+                $sub_array[] = $row["descripcion"];
                 $sub_array[] = '<button type="button" onClick="editar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
                 $data[] = $sub_array;

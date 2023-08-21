@@ -11,7 +11,7 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label class="form-label" for="id_correo">Correo</label>
+                        <label class="form-label" for="id_correo">Codigo</label>
                         <input type="text" class="form-control" id="id_correo" name="id_correo" placeholder="Ingrese Nombre" required>
                     </div>
 
