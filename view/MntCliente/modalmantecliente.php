@@ -10,6 +10,7 @@
             <form method="post" id="cliente_form">
                 <div class="modal-body">                                     
                         <input type="hidden" id="id_cliente" name="id_cliente">
+
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Datos de Cliente</a>
@@ -25,12 +26,12 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
-                                    <div class="col-lg-6">
+
+                                    <div class="col-lg-6">                                        
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInput">Tipo Doc. Identidad</label>
                                             <select id="tipodoc_id" name="tipodoc_id" class="form-control" data-placeholder="Seleccionar" required>
-                                                <option label="Seleccionar"></option>
-                                                
+                                                <option label="Seleccionar"></option>                                                
                                             </select>                  
                                         </div>
                                     </div>
@@ -49,6 +50,7 @@
                                             <input type="text" class="form-control" id="nom_cli" name="nom_cli" placeholder="Ingrese Nombre" required>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             <label class="form-label" for="contacto_cli">Contacto</label>
@@ -121,8 +123,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                <div class="row">
-                                      
+                                <div class="row">                                     
                                     
                                     <div class="col-lg-5">
                                         <div class="form-group">
@@ -207,8 +208,7 @@
                                 </div>
                             </div>                           
                         </div>
-                    </div> 
-                       
+                    </div>                        
                         
                     <div class="modal-footer">
                         <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
