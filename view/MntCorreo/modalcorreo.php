@@ -9,11 +9,7 @@
             </div>
             <form method="post" id="correo_form">
                 <div class="modal-body">
-
-                    <div class="form-group">
-                        <label class="form-label" for="id_correo">Codigo</label>
-                        <input type="text" class="form-control" id="id_correo" name="id_correo" placeholder="Ingrese Nombre" required>
-                    </div>
+                <input type="hidden" id="id_correo" name="id_correo">
 
                     <div class="form-group">
                         <label class="form-label">Correo</label>
@@ -35,7 +31,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-primary">Guardar</button>
+                    <button type="submit" name="action" id="guardar" value="add" class="btn btn-rounded btn-primary">Guardar</button>
                 </div>
             </form>
         </div>

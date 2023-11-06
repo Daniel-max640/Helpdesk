@@ -54,17 +54,17 @@
                 $id_servicio = $detalle['id_servicio'];
                 $descripcion = $detalle['descripcion'];
                 $u_medida = $detalle['u_medida'];
-                $cant_limpieza = $detalle['cant_limpieza'];
+                $cant_limpieza = isset($detalle['cant_limpieza']) ? $detalle['cant_limpieza'] : null;
                 $cantidad = $detalle['cantidad'];
                 $precio_uni = $detalle['precio_uni'];
                 $total = $detalle['total'];
                 $descrip_producto = $detalle['descrip_producto'];
-                $id_acopio = $detalle['id_acopio'];
-                $cant = $detalle['cant'];
-                $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
-                $id_disposicion = $detalle['id_disposicion'];
+                $id_acopio = isset($detalle['id_acopio']) ? $detalle['id_acopio'] : null;
+                $cant = isset($detalle['cant']) ? intval($detalle['cant']) : 0; 
+                $id_unidad_vehicular = isset($detalle['id_unidad_vehicular']) ? $detalle['id_unidad_vehicular'] : null;
+                $id_disposicion = isset($detalle['id_disposicion']) ? $detalle['id_disposicion'] : null;
                 $personal_solicitado = $detalle['personal_solicitado'];
-                $id_docs_cli = $detalle['id_docs_cli'];
+                $id_docs_cli = isset($detalle['id_docs_cli']) ? $detalle['id_docs_cli'] : null;
                     
                 $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion, personal_solicitado, id_docs_cli) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
                 $sql_detalle = $conectar->prepare($sql_detalle);
@@ -72,17 +72,17 @@
                 $sql_detalle->bindValue(2, $id_servicio);
                 $sql_detalle->bindValue(3, $descripcion);
                 $sql_detalle->bindValue(4, $u_medida);
-                $sql_detalle->bindValue(5, $cant_limpieza);
+                $sql_detalle->bindValue(5, $cant_limpieza, PDO::PARAM_INT);
                 $sql_detalle->bindValue(6, $cantidad);
                 $sql_detalle->bindValue(7, $precio_uni);
                 $sql_detalle->bindValue(8, $total);
                 $sql_detalle->bindValue(9, $descrip_producto);
-                $sql_detalle->bindValue(10, $id_acopio);
+                $sql_detalle->bindValue(10, $id_acopio, PDO::PARAM_INT);
                 $sql_detalle->bindValue(11, $cant);
-                $sql_detalle->bindValue(12, $id_unidad_vehicular);
-                $sql_detalle->bindValue(13, $id_disposicion);
+                $sql_detalle->bindValue(12, $id_unidad_vehicular, PDO::PARAM_INT);
+                $sql_detalle->bindValue(13, $id_disposicion, PDO::PARAM_INT); 
                 $sql_detalle->bindValue(14, $personal_solicitado);
-                $sql_detalle->bindValue(15, $id_docs_cli);
+                $sql_detalle->bindValue(15, $id_docs_cli, PDO::PARAM_INT);
                 $sql_detalle->execute();
             } 
             
@@ -117,8 +117,7 @@
             $conectar = parent::conexion();
             parent::set_names();
         
-            try {
-                $conectar->beginTransaction();        
+                  
                 $sql = "UPDATE tm_pedido SET usu_id=?, id_cliente=?, nro_doc=?, direc_cli=?, nom_cli=?, fecha_emision=now(), serie_pedido=?, moneda=?, id_modalidad=?, contacto=?, telf_contacto=?, dire_entrega=?, id_demision=?, asesor=?, id_fpago=?, fecha_entrega=?, sub_total=?, igv=?, total=?, observacion=?, conta_factu=?, correo_cfactu=?, telf_cfactu=?, conta_cobra=?, correo_ccobra=?, telf_ccobra=?, cotizacion=?, link=?, cierre_facturacion=?, fecha_pago=?, acceso_portal=?, entrega_factura=?, estado_pago=?, orden_compra=? WHERE id_pedido=?";
                 $sql = $conectar->prepare($sql);
                 $sql->bindValue(1, $usu_id);
@@ -172,12 +171,12 @@
                     $precio_uni = $detalle['precio_uni'];
                     $total = $detalle['total'];
                     $descrip_producto = $detalle['descrip_producto'];
-                    $id_acopio = $detalle['id_acopio'];
-                    $cant = $detalle['cant'];
-                    $id_unidad_vehicular = $detalle['id_unidad_vehicular'];
-                    $id_disposicion = $detalle['id_disposicion'];
+                    $id_acopio = isset($detalle['id_acopio']) ? $detalle['id_acopio'] : null;
+                    $cant =  isset($detalle['cant']) ? $detalle['cant'] : null;;
+                    $id_unidad_vehicular = isset($detalle['id_unidad_vehicular']) ? $detalle['id_unidad_vehicular'] : null;
+                    $id_disposicion = isset($detalle['id_disposicion']) ? $detalle['id_disposicion'] : null;
                     $personal_solicitado = $detalle['personal_solicitado'];
-                    $id_docs_cli = $detalle['id_docs_cli'];
+                    $id_docs_cli = isset($detalle['id_docs_cli']) ? $detalle['id_docs_cli'] : null;
                 
                     // Insertar los nuevos detalles del pedido
                     $sql_detalle = "INSERT INTO det_pedido (id_detpedido, id_pedido, id_servicio, descripcion, u_medida, cant_limpieza, cantidad, precio_uni, total, descrip_producto, id_acopio, cant, id_unidad_vehicular, id_disposicion, personal_solicitado, id_docs_cli) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -187,16 +186,16 @@
                     $sql_detalle->bindValue(3, $descripcion);
                     $sql_detalle->bindValue(4, $u_medida);
                     $sql_detalle->bindValue(5, $cant_limpieza);
-                    $sql_detalle->bindValue(6, $cantidad);
+                    $sql_detalle->bindValue(6, $cantidad, PDO::PARAM_INT);
                     $sql_detalle->bindValue(7, $precio_uni);
                     $sql_detalle->bindValue(8, $total);
                     $sql_detalle->bindValue(9, $descrip_producto);
-                    $sql_detalle->bindValue(10, $id_acopio);
-                    $sql_detalle->bindValue(11, $cant);
-                    $sql_detalle->bindValue(12, $id_unidad_vehicular);
-                    $sql_detalle->bindValue(13, $id_disposicion);
+                    $sql_detalle->bindValue(10, $id_acopio, PDO::PARAM_INT);
+                    $sql_detalle->bindValue(11, $cant, PDO::PARAM_INT);
+                    $sql_detalle->bindValue(12, $id_unidad_vehicular, PDO::PARAM_INT);
+                    $sql_detalle->bindValue(13, $id_disposicion, PDO::PARAM_INT);
                     $sql_detalle->bindValue(14, $personal_solicitado);
-                    $sql_detalle->bindValue(15, $id_docs_cli);
+                    $sql_detalle->bindValue(15, $id_docs_cli, PDO::PARAM_INT);
                     $sql_detalle->execute();
                 }  
                 
@@ -227,14 +226,9 @@
                     $sql_manifiesto->bindValue(7, $nom_residuos);
                     $sql_manifiesto->execute();     
                 }
-                $conectar->commit();
-
-                return true;
-            } catch (PDOException $e) {
-                $conectar->rollback();
-                return false;
-            }
+              
         }
+
 
         public function listar_pedido(){
             $conectar= parent::conexion();
